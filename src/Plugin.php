@@ -33,6 +33,16 @@ class Plugin {
 	public ?Customizer $customizer = null;
 
 	/**
+	 * The theme browser component.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     ThemeGarden|null
+	 */
+	public ?ThemeGarden $theme_browser = null;
+
+	/**
 	 * Plugin constructor.
 	 *
 	 * @since   1.0.0
@@ -98,6 +108,11 @@ class Plugin {
 
 		$this->customizer = new Customizer();
 		$this->customizer->initialize();
+
+		if(is_admin()) {
+			$this->theme_garden = new ThemeGarden();
+			$this->theme_garden->initialize();
+		}
 	}
 
 	/**

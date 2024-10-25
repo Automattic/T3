@@ -513,11 +513,7 @@ add_shortcode( 'block_homepage', 'tumblr3_block_homepage' );
  * @return string
  */
 function tumblr3_block_title( $atts, $content = '' ): string {
-	tumblr3_set_parse_context( 'title', true );
-	$content = tumblr3_do_shortcode( $content );
-	tumblr3_set_parse_context( 'theme', true );
-
-	return $content;
+	return display_header_text() ? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_title', 'tumblr3_block_title' );
 
@@ -849,9 +845,100 @@ add_shortcode( 'block_source', 'tumblr3_block_source' );
  * @return string
  */
 function tumblr3_block_chat( $atts, $content = '' ): string {
-	return ( 'chat' === get_post_format() ) ? tumblr3_do_shortcode( $content ) : '';
+	global $post;
+
+	// Don't parse all blocks if the post format is not chat.
+	if ( 'chat' !== get_post_format() ) {
+		return '';
+	}
+
+	$blocks = parse_blocks( $post->post_content );
+	$lines  = array();
+
+	foreach ( $blocks as $block ) {
+		// capture each paragraph in the chat post as a chat block line.
+		if ( 'core/paragraph' === $block['blockName'] ) {
+			$lines[] = wp_strip_all_tags( $block['innerHTML'] );
+		}
+	}
+
+	tumblr3_set_parse_context(
+		'chat',
+		array(
+			'lines' => $lines,
+		)
+	);
+
+	// Parse the content of the chat block before resetting the context.
+	$content = tumblr3_do_shortcode( $content );
+
+	tumblr3_set_parse_context( 'theme', true );
+
+	return $content;
 }
 add_shortcode( 'block_chat', 'tumblr3_block_chat' );
+
+/**
+ * Legacy Chat Post rendered for each line of the post
+ *
+ * @param array  $atts    The attributes of the shortcode.
+ * @param string $content The content of the shortcode.
+ *
+ * @return string
+ */
+function tumblr3_block_lines( $atts, $content = '' ): string {
+	$context = tumblr3_get_parse_context();
+	$output  = '';
+
+	if ( ! isset( $context['chat']['lines'] ) || empty( $context['chat']['lines'] ) ) {
+		return '';
+	}
+
+	foreach ( $context['chat']['lines'] as $block ) {
+		// if : is not found, set whole block as line
+		if ( strpos( $block, ':' ) === false ) {
+			$line  = $block;
+			$label = '';
+		} else {
+			// split $block into two parts, the first part is the label, the second part is the line
+			$parts = explode( ':', $block, 2 );
+			$label = $parts[0] . ':';
+			$line  = $parts[1];
+		}
+
+		tumblr3_set_parse_context(
+			'chat',
+			array(
+				'label' => $label,
+				'line'  => $line,
+			)
+		);
+
+		$output .= tumblr3_do_shortcode( $content );
+	}
+
+	return $output;
+}
+add_shortcode( 'block_lines', 'tumblr3_block_lines' );
+
+/**
+ * Legacy Chat Post block:label
+ *
+ * @param array  $atts    The attributes of the shortcode.
+ * @param string $content The content of the shortcode.
+ *
+ * @return string
+ */
+function tumblr3_block_label( $atts, $content = '' ): string {
+	$context = tumblr3_get_parse_context();
+
+	if ( ! isset( $context['chat']['label'] ) || empty( $context['chat']['label'] ) ) {
+		return '';
+	}
+
+	return tumblr3_do_shortcode( $content );
+}
+add_shortcode( 'block_label', 'tumblr3_block_label' );
 
 /**
  * Rendered for link posts.
