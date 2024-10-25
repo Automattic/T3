@@ -63,7 +63,6 @@ add_filter( 'query_vars', 'tumblr3_add_tumblr_search_var' );
 /**
  * Redirect Tumblr search to core search.
  *
- * @param WP_Query $query The main query.
  * @return void
  */
 function tumblr3_redirect_tumblr_search(): void {

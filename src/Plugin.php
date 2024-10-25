@@ -109,7 +109,7 @@ class Plugin {
 		$this->customizer = new Customizer();
 		$this->customizer->initialize();
 
-		if(is_admin()) {
+		if ( is_admin() ) {
 			$this->theme_garden = new ThemeGarden();
 			$this->theme_garden->initialize();
 		}
