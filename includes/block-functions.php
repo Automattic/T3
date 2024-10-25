@@ -1600,31 +1600,53 @@ add_shortcode( 'block_pinnedpostlabel', 'tumblr3_block_pinnedpostlabel' );
 function tumblr3_block_language( $atts, $content, $shortcode_name ): string {
 	// Map shortcodes to their respective locales
 	$language_map = array(
-		'block_english'            => 'en_US',
-		'block_german'             => 'de_DE',
-		'block_french'             => 'fr_FR',
-		'block_italian'            => 'it_IT',
-		'block_turkish'            => 'tr_TR',
-		'block_spanish'            => 'es_ES',
-		'block_russian'            => 'ru_RU',
-		'block_japanese'           => 'ja_JP',
-		'block_polish'             => 'pl_PL',
-		'block_portuguesept'       => 'pt_PT',
-		'block_portuguesebr'       => 'pt_BR',
-		'block_dutch'              => 'nl_NL',
-		'block_korean'             => 'ko_KR',
-		'block_chinesesimplified'  => 'zh_CN',
-		'block_chinesetraditional' => 'zh_TW',
-		'block_chinesehk'          => 'zh_HK',
-		'block_indonesian'         => 'id_ID',
-		'block_hindi'              => 'hi_IN',
+		'block_english'               => 'en_US',
+		'block_german'                => 'de_DE',
+		'block_french'                => 'fr_FR',
+		'block_italian'               => 'it_IT',
+		'block_turkish'               => 'tr_TR',
+		'block_spanish'               => 'es_ES',
+		'block_russian'               => 'ru_RU',
+		'block_japanese'              => 'ja_JP',
+		'block_polish'                => 'pl_PL',
+		'block_portuguesept'          => 'pt_PT',
+		'block_portuguesebr'          => 'pt_BR',
+		'block_dutch'                 => 'nl_NL',
+		'block_korean'                => 'ko_KR',
+		'block_chinesesimplified'     => 'zh_CN',
+		'block_chinesetraditional'    => 'zh_TW',
+		'block_chinesehk'             => 'zh_HK',
+		'block_indonesian'            => 'id_ID',
+		'block_hindi'                 => 'hi_IN',
+		'block_notenglish'            => 'en_US',
+		'block_notgerman'             => 'de_DE',
+		'block_notfrench'             => 'fr_FR',
+		'block_notitalian'            => 'it_IT',
+		'block_notturkish'            => 'tr_TR',
+		'block_notspanish'            => 'es_ES',
+		'block_notrussian'            => 'ru_RU',
+		'block_notjapanese'           => 'ja_JP',
+		'block_notpolish'             => 'pl_PL',
+		'block_notportuguesept'       => 'pt_PT',
+		'block_notportuguesebr'       => 'pt_BR',
+		'block_notdutch'              => 'nl_NL',
+		'block_notkorean'             => 'ko_KR',
+		'block_notchinesesimplified'  => 'zh_CN',
+		'block_notchinesetraditional' => 'zh_TW',
+		'block_notchinesehk'          => 'zh_HK',
+		'block_notindonesian'         => 'id_ID',
+		'block_nothindi'              => 'hi_IN',
 	);
 
 	// Get the current locale
 	$current_locale = get_locale();
 
 	// Check if the shortcode name matches a defined language and compare it with the current locale
-	if ( isset( $language_map[ $shortcode_name ] ) && $language_map[ $shortcode_name ] === $current_locale ) {
+	if ( 0 === strpos( $shortcode_name, 'block_not' ) ) {
+		if ( isset( $language_map[ $shortcode_name ] ) && $language_map[ $shortcode_name ] !== $current_locale ) {
+			return tumblr3_do_shortcode( $content );
+		}
+	} elseif ( isset( $language_map[ $shortcode_name ] ) && $language_map[ $shortcode_name ] === $current_locale ) {
 		return tumblr3_do_shortcode( $content );
 	}
 
@@ -1648,6 +1670,24 @@ add_shortcode( 'block_chinesetraditional', 'tumblr3_block_language' );
 add_shortcode( 'block_chinesehk', 'tumblr3_block_language' );
 add_shortcode( 'block_indonesian', 'tumblr3_block_language' );
 add_shortcode( 'block_hindi', 'tumblr3_block_language' );
+add_shortcode( 'block_notenglish', 'tumblr3_block_language' );
+add_shortcode( 'block_notgerman', 'tumblr3_block_language' );
+add_shortcode( 'block_notfrench', 'tumblr3_block_language' );
+add_shortcode( 'block_notitalian', 'tumblr3_block_language' );
+add_shortcode( 'block_notturkish', 'tumblr3_block_language' );
+add_shortcode( 'block_notspanish', 'tumblr3_block_language' );
+add_shortcode( 'block_notrussian', 'tumblr3_block_language' );
+add_shortcode( 'block_notjapanese', 'tumblr3_block_language' );
+add_shortcode( 'block_notpolish', 'tumblr3_block_language' );
+add_shortcode( 'block_notportuguesept', 'tumblr3_block_language' );
+add_shortcode( 'block_notportuguesebr', 'tumblr3_block_language' );
+add_shortcode( 'block_notdutch', 'tumblr3_block_language' );
+add_shortcode( 'block_notkorean', 'tumblr3_block_language' );
+add_shortcode( 'block_notchinesesimplified', 'tumblr3_block_language' );
+add_shortcode( 'block_notchinesetraditional', 'tumblr3_block_language' );
+add_shortcode( 'block_notchinesehk', 'tumblr3_block_language' );
+add_shortcode( 'block_notindonesian', 'tumblr3_block_language' );
+add_shortcode( 'block_nothindi', 'tumblr3_block_language' );
 
 /**
  * Rendered if this is post number N (0 - 15) in the loop.

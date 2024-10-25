@@ -498,7 +498,7 @@ class Customizer {
 			 * Select options. These need to be processed after all other options.
 			 */
 			if ( str_starts_with( $name, 'select:' ) ) {
-				$name = ltrim( $name, 'select:' );
+				$name = substr( $name, strlen( 'select:' ) );
 
 				$select_options[ $name ][] = array(
 					'content' => $processor->get_attribute( 'content' ),
@@ -533,6 +533,11 @@ class Customizer {
 					'priority' => 10,
 				)
 			);
+
+			// If it doesn't exist, load the default value into the theme mod.
+			if ( ! get_theme_mod( $name ) ) {
+				set_theme_mod( $name, $default );
+			}
 		}
 	}
 }

@@ -74,20 +74,52 @@ final class Hooks {
 	 * @return string Parsed content.
 	 */
 	public function tumblr3_theme_parse( $content ): string {
-		$tags      = array_map( 'strtolower', array_keys( TUMBLR3_TAGS ) );
-		$blocks    = array_map( 'strtolower', array_keys( TUMBLR3_BLOCKS ) );
-		$lang      = array_map( 'strtolower', array_keys( TUMBLR3_LANG ) );
-		$options   = array_map( 'strtolower', array_keys( TUMBLR3_OPTIONS ) );
-		$modifiers = array_map( 'strtolower', TUMBLR3_MODIFIERS );
+		$tags          = array_map( 'strtolower', array_keys( TUMBLR3_TAGS ) );
+		$blocks        = array_map( 'strtolower', array_keys( TUMBLR3_BLOCKS ) );
+		$lang          = array_map( 'strtolower', array_keys( TUMBLR3_LANG ) );
+		$options       = array_map( 'strtolower', TUMBLR3_OPTIONS );
+		$modifiers     = array_map( 'strtolower', TUMBLR3_MODIFIERS );
+		$block_openers = array();
+		$position      = 0;
 
 		// Capture each Tumblr Tag in the page and verify it against our arrays.
 		$content = preg_replace_callback(
-			'/\{([^\s}][^(}]*)\}/',
-			function ( $matches ) use ( $tags, $blocks, $lang, $options, $modifiers ) {
+			'/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i',
+			function ( $matches ) use ( $tags, $blocks, $lang, $options, $modifiers, &$block_openers, &$position ) {
+				++$position;
 				$captured_tag = $matches[0];
 				$raw_tag      = strtolower( $matches[1] );
 				$trim_tag     = strtolower( explode( ' ', $raw_tag )[0] );
 				$attr         = '';
+
+				// Check if this is a block opener.
+				if ( 0 === stripos( $raw_tag, 'block:' ) ) {
+					// Uh oh, we've got two of the same openers in a row, attempt to fix.
+					if ( end( $block_openers ) === $raw_tag ) {
+
+						// Log the error.
+						error_log(
+							$raw_tag . ' is a duplicate block opener. Found at position ' . $position . PHP_EOL,
+							3,
+							TUMBLR3_PATH . 'parser.log'
+						);
+
+						$fixed   = true;
+						$raw_tag = '/' . $raw_tag;
+						array_pop( $block_openers );
+
+						// Phew, this is a normal block opener.
+					} else {
+						$block_openers[] = $raw_tag;
+					}
+				}
+
+				// Check if this is a block closer, and test for openers.
+				if ( 0 === stripos( $raw_tag, '/block:' ) ) {
+					if ( end( $block_openers ) === substr( $raw_tag, 1 ) ) {
+						array_pop( $block_openers );
+					}
+				}
 
 				/**
 				 * Convert "IfNot" theme option boolean blocks into a custom shortcode.
@@ -97,12 +129,16 @@ final class Hooks {
 						array(
 							' ',
 							'block:ifnot',
+							'/',
 						),
 						'',
 						$raw_tag
 					);
 
-					return ( str_starts_with( $raw_tag, '/' ) ) ? '[/block_ifnot_theme_option]' : '[block_ifnot_theme_option name="' . $normalized_attr . '"]';
+					// Fix for nesting if blocks.
+					add_shortcode( "block_ifnot_$normalized_attr", 'tumblr3_block_ifnot_theme_option' );
+
+					return ( str_starts_with( $raw_tag, '/' ) ) ? "[/block_ifnot_$normalized_attr]" : "[block_ifnot_$normalized_attr name=\"$normalized_attr\"]";
 				}
 
 				/**
@@ -113,12 +149,16 @@ final class Hooks {
 						array(
 							' ',
 							'block:if',
+							'/',
 						),
 						'',
 						$raw_tag
 					);
 
-					return ( str_starts_with( $raw_tag, '/' ) ) ? '[/block_if_theme_option]' : '[block_if_theme_option name="' . $normalized_attr . '"]';
+					// Fix for nesting if blocks.
+					add_shortcode( "block_if_$normalized_attr", 'tumblr3_block_if_theme_option' );
+
+					return ( str_starts_with( $raw_tag, '/' ) ) ? "[/block_if_$normalized_attr]" : "[block_if_$normalized_attr name=\"$normalized_attr\"]";
 				}
 
 				/**
