@@ -1,4 +1,11 @@
 /* https://github.tumblr.net/Tumblr/tumblr/tree/279a7aec5cb51960de9844af0546f142ff32012a/client/standalone/blog-network-npf/styles*/
+body > .iframe-container {
+  display: none;
+}
+body iframe[src*="https://www.tumblr.com/dashboard/iframe"] {
+  display: none;
+}
+
 p.npf_quote {
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 23px;
