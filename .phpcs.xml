@@ -27,7 +27,7 @@
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="tumblr3_"/>
-				<element value="Chrysalis\T3"/>
+				<element value="CupcakeLabs\T3"/>
 			</property>
 		</properties>
 	</rule>

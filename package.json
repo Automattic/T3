@@ -45,7 +45,8 @@
   "scripts": {
     "build": "npm-run-all --sequential build:**",
     "build:assets:scripts": "wp-scripts build assets/js/src/*.js --output-path=assets/js/build",
-	"build:assets:styles": "postcss assets/css/src/index.scss --output assets/css/build/index.css --config postcss.config.js",
+	  "build:assets:styles": "postcss assets/css/src/index.scss --output assets/css/build/index.css --config postcss.config.js",
+    "build:assets:admin:styles": "postcss assets/css/src/admin.scss --output assets/css/build/admin.css --config postcss.config.js",
     "format": "npm-run-all --sequential format:**",
     "format:scripts": "wp-scripts format assets/js --no-error-on-unmatched-pattern",
     "format:styles": "npm run lint:styles -- --fix",

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chrysalis\T3;
+namespace CupcakeLabs\T3;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,6 +31,16 @@ class Plugin {
 	 * @var     Customizer|null
 	 */
 	public ?Customizer $customizer = null;
+
+	/**
+	 * The theme browser component.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     ThemeGarden|null
+	 */
+	public ?ThemeGarden $theme_browser = null;
 
 	/**
 	 * Plugin constructor.
@@ -98,6 +108,11 @@ class Plugin {
 
 		$this->customizer = new Customizer();
 		$this->customizer->initialize();
+
+		if(is_admin()) {
+			$this->theme_garden = new ThemeGarden();
+			$this->theme_garden->initialize();
+		}
 	}
 
 	/**

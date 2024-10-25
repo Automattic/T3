@@ -1,6 +1,6 @@
 <?php
 
-namespace Chrysalis\T3;
+namespace CupcakeLabs\T3;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -512,7 +512,7 @@ class Customizer {
 			$default = ( isset( $options[0], $options[0]['content'] ) ) ? $options[0]['content'] : '';
 
 			// Option names need to be lowercase and without spaces.
-			$name = tumblr3_normalize_option_name( $name );
+			$name = tumblr3_normalize_option_name( $label );
 
 			$wp_customize->add_setting(
 				$name,

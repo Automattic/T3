@@ -1,6 +1,6 @@
 <?php
 
-namespace Chrysalis\T3;
+namespace CupcakeLabs\T3;
 
 defined( 'ABSPATH' ) || exit;
 

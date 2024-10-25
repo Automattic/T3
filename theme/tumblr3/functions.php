@@ -67,6 +67,7 @@ add_filter( 'query_vars', 'tumblr3_add_tumblr_search_var' );
  * @return void
  */
 function tumblr3_redirect_tumblr_search(): void {
+	// If random is set, redirect to a random post.
 	if ( get_query_var( 'random' ) ) {
 		$rand_post = get_posts(
 			array(

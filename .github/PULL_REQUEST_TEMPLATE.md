@@ -16,7 +16,7 @@ Optional testing steps, before and after screenshots can also be helpful.
 
 ### Reviewing tips
 
-🧁 Request a review to team chrysalis to assign a random team member.
+🧁 Request a review to team CupcakeLabs to assign a random team member.
 
 🔄 Feel free to ping the team name again to "re-roll" or add another team member.
 

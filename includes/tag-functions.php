@@ -505,17 +505,43 @@ add_shortcode( 'tag_embedurl', 'tumblr3_tag_url' );
 
 /**
  * Typically a page title, used in a page loop e.g navigation.
- *
- * @todo This tag is also used in legacy chat posts.
+ * Also used as the Chat label for legacy chat posts.
  *
  * @return string
  *
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
+ * @see https://www.tumblr.com/docs/en/custom_themes#chat-posts
  */
 function tumblr3_tag_label(): string {
-	return wp_kses_post( get_the_title() );
+	$context = tumblr3_get_parse_context();
+
+	if ( ! isset( $context['chat']['label'] ) ) {
+		// By default, return the page title.
+		return wp_kses_post( get_the_title() );
+	}
+
+	return $context['chat']['label'];
 }
 add_shortcode( 'tag_label', 'tumblr3_tag_label' );
+
+/**
+ * Current line of a legacy chat post.
+ *
+ * @return string
+ *
+ * @see https://www.tumblr.com/docs/en/custom_themes#chat-posts
+ */
+function tumblr3_tag_line(): string {
+	$context = tumblr3_get_parse_context();
+
+	// Check if we are in a chat context.
+	if ( ! isset( $context['chat']['line'] ) ) {
+		return '';
+	}
+
+	return $context['chat']['line'];
+}
+add_shortcode( 'tag_line', 'tumblr3_tag_line' );
 
 /**
  * Tagsasclasses outputs the tags of a post as HTML-safe classes.
@@ -1007,7 +1033,7 @@ function tumblr3_tag_externalaudiourl(): string {
 
 	// Test if the current context is an audio post and has a player.
 	if ( isset( $context['audio'], $context['audio']['player'] ) ) {
-		$processor = new Chrysalis\T3\Processor( $context['audio']['player'] );
+		$processor = new CupcakeLabs\T3\Processor( $context['audio']['player'] );
 
 		while ( $processor->next_tag( 'AUDIO' ) ) {
 			$src = $processor->get_attribute( 'SRC' );

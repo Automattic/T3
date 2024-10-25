@@ -31,4 +31,4 @@ ob_end_clean();
 $theme = str_replace( '</head>', $head . '</head>', $theme );
 $theme = str_replace( '</body>', $footer . '</body>', $theme );
 
-echo tumblr3_do_shortcode( tumblr3_theme_parse( $theme ) );
+echo apply_filters( 'tumblr3_theme_output', $theme );
