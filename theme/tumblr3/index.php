@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 // So we need a global to track the context.
 tumblr3_set_parse_context( 'theme', true );
 
-$theme = get_option( 'tumblr3_theme_html', '' );
+$tumblr3_theme = get_option( 'tumblr3_theme_html', '' );
 
 /**
  * Capture wp_head output.
@@ -15,7 +15,7 @@ $theme = get_option( 'tumblr3_theme_html', '' );
  */
 ob_start();
 wp_head();
-$head = ob_get_contents();
+$tumblr3_head = ob_get_contents();
 ob_end_clean();
 
 /**
@@ -25,10 +25,10 @@ ob_end_clean();
  */
 ob_start();
 wp_footer();
-$footer = ob_get_contents();
+$tumblr3_footer = ob_get_contents();
 ob_end_clean();
 
-$theme = str_replace( '</head>', $head . '</head>', $theme );
-$theme = str_replace( '</body>', $footer . '</body>', $theme );
+$tumblr3_theme = str_replace( '</head>', $tumblr3_head . '</head>', $tumblr3_theme );
+$tumblr3_theme = str_replace( '</body>', $tumblr3_footer . '</body>', $tumblr3_theme );
 
-echo apply_filters( 'tumblr3_theme_output', $theme );
+echo apply_filters( 'tumblr3_theme_output', $tumblr3_theme );

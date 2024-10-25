@@ -1,0 +1,9 @@
+body {
+	> .iframe-container {
+		display: none;
+	}
+
+	iframe[src*="https://www.tumblr.com/dashboard/iframe"] {
+		display: none;
+	}
+}

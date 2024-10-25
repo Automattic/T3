@@ -24,7 +24,7 @@ body.admin-color-modern {
 
 body.admin-color-blue {
   --t3-primary: #4796b3;
-  --t3-secondary: #74B6CE;
+  --t3-secondary: #74b6ce;
   --t3-text: #096484;
 }
 
@@ -144,7 +144,7 @@ body.admin-color-sunrise {
   line-height: 18px;
   font-family: monospace;
   font-size: 1em;
-  font-weight: bold;
+  font-weight: 700;
   box-shadow: -2px 4px 0 var(--t3-background), 0 -2px 0 var(--t3-background), -2px 0 0 var(--t3-background), 2px 0 0 var(--t3-background), 4px 2px 0 var(--t3-background), 6px 4px 0 var(--t3-background), 8px 6px 0 var(--t3-background), 10px 8px 0 var(--t3-background), 12px 10px 0 var(--t3-background), 14px 12px 0 var(--t3-background), 16px 14px 0 var(--t3-background), 18px 16px 0 var(--t3-background), 20px 18px 0 var(--t3-background), -4px 0 0 var(--t3-text), 0 -4px 0 var(--t3-text), -2px -2px 0 var(--t3-text), 2px -2px 0 var(--t3-text), 4px 0 0 var(--t3-text), 6px 2px 0 var(--t3-text), 8px 4px 0 var(--t3-text), 10px 6px 0 var(--t3-text), 12px 8px 0 var(--t3-text), 14px 10px 0 var(--t3-text), 16px 12px 0 var(--t3-text), 18px 14px 0 var(--t3-text), 20px 16px 0 var(--t3-text);
 }
 

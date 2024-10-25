@@ -91,8 +91,11 @@ function tumblr3_set_parse_context( $key, $value ): void {
 function tumblr3_normalize_option_name( $name ): string {
 	return strtolower(
 		str_replace(
-			array( ' ', ':' ),
-			array( '', '_' ),
+			array_merge(
+				array( ' ' ),
+				TUMBLR3_OPTIONS
+			),
+			array( '' ),
 			$name
 		)
 	);
