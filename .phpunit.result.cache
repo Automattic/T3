@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"TestShortcodeCoverage::test_tag_coverage":0.002,"TestShortcodeCoverage::test_block_coverage":0.001}}
+{"version":1,"defects":{"TestShortcodeCoverage::test_block_coverage":3},"times":{"TestShortcodeCoverage::test_tag_coverage":0.002,"TestShortcodeCoverage::test_block_coverage":0.001}}

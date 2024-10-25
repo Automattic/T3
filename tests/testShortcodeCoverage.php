@@ -22,7 +22,7 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 		$tags_without_shortcodes      = array();
 		$tags_with_missing_shortcodes = array();
 
-		foreach ( $tags as $tag => $args ) {
+		foreach ( $tags as $tag ) {
 			$tag_shortcode = 'tag_' . strtolower( $tag );
 
 			// Check if the shortcode exists and store the result.
@@ -64,7 +64,7 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 		$blocks_without_shortcodes      = array();
 		$blocks_with_missing_shortcodes = array();
 
-		foreach ( $blocks as $block => $args ) {
+		foreach ( $blocks as $block ) {
 			$block_shortcode = 'block_' . strtolower( str_replace( 'block:', '', $block ) );
 
 			// Check if the shortcode exists and store the result.

@@ -111,7 +111,14 @@ function tumblr3_tag_groupmemberportraiturl( $atts ): string {
 
 	return '';
 }
-add_shortcode( 'tag_groupmemberportraiturl', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-16', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-24', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-30', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-40', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-48', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-64', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-96', 'tumblr3_tag_groupmemberportraiturl' );
+add_shortcode( 'tag_groupmemberportraiturl-128', 'tumblr3_tag_groupmemberportraiturl' );
 
 /**
  * The blog title of the post author.
@@ -172,7 +179,14 @@ function tumblr3_tag_postauthorportraiturl( $atts ): string {
 
 	return esc_url( $author_avatar );
 }
-add_shortcode( 'tag_postauthorportraiturl', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-16', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-24', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-30', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-40', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-48', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-64', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-96', 'tumblr3_tag_postauthorportraiturl' );
+add_shortcode( 'tag_postauthorportraiturl-128', 'tumblr3_tag_postauthorportraiturl' );
 
 /**
  * Outputs the twitter username theme option.
@@ -440,7 +454,14 @@ function tumblr3_tag_portraiturl( $atts ): string {
 
 	return esc_url( $custom_logo_src[0] );
 }
-add_shortcode( 'tag_portraiturl', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-16', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-24', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-30', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-40', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-48', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-64', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-96', 'tumblr3_tag_portraiturl' );
+add_shortcode( 'tag_portraiturl-128', 'tumblr3_tag_portraiturl' );
 
 /**
  * Returns the custom CSS option of the theme.
@@ -827,6 +848,8 @@ function tumblr3_tag_postnotes( $atts ): string {
 	return $comments;
 }
 add_shortcode( 'tag_postnotes', 'tumblr3_tag_postnotes' );
+add_shortcode( 'tag_postnotes-16', 'tumblr3_tag_postnotes' );
+add_shortcode( 'tag_postnotes-64', 'tumblr3_tag_postnotes' );
 
 /**
  * The current search query.
@@ -950,6 +973,10 @@ function tumblr3_tag_audioplayer(): string {
 }
 add_shortcode( 'tag_audioplayer', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioembed', 'tumblr3_tag_audioplayer' );
+add_shortcode( 'tag_audioembed-640', 'tumblr3_tag_audioplayer' );
+add_shortcode( 'tag_audioembed-500', 'tumblr3_tag_audioplayer' );
+add_shortcode( 'tag_audioembed-400', 'tumblr3_tag_audioplayer' );
+add_shortcode( 'tag_audioembed-250', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioplayerblack', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioplayerwhite', 'tumblr3_tag_audioplayer' );
 
@@ -1066,6 +1093,11 @@ function tumblr3_tag_photoset(): string {
 	return apply_filters( 'the_content', $context['gallery']['gallery'] );
 }
 add_shortcode( 'tag_photoset', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-700', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-500', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-400', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-250', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-100', 'tumblr3_tag_photoset' );
 
 /**
  * Renders the post gallery layout if one was found.
@@ -1143,7 +1175,10 @@ function tumblr3_tag_photourl( $atts, $content, $shortcode_name ): string {
 
 	return ( false === $src ) ? '' : esc_url( $src[0] );
 }
-add_shortcode( 'tag_photourl', 'tumblr3_tag_photourl' );
+add_shortcode( 'tag_photourl-500', 'tumblr3_tag_photourl' );
+add_shortcode( 'tag_photourl-400', 'tumblr3_tag_photourl' );
+add_shortcode( 'tag_photourl-250', 'tumblr3_tag_photourl' );
+add_shortcode( 'tag_photourl-100', 'tumblr3_tag_photourl' );
 add_shortcode( 'tag_photourl-highres', 'tumblr3_tag_photourl' );
 add_shortcode( 'tag_photourl-75sq', 'tumblr3_tag_photourl' );
 
@@ -1303,7 +1338,10 @@ function tumblr3_tag_photowidth(): string {
 
 	return (string) $context['image']['data']['width'];
 }
-add_shortcode( 'tag_photowidth', 'tumblr3_tag_photowidth' );
+add_shortcode( 'tag_photowidth-500', 'tumblr3_tag_photowidth' );
+add_shortcode( 'tag_photowidth-400', 'tumblr3_tag_photowidth' );
+add_shortcode( 'tag_photowidth-250', 'tumblr3_tag_photowidth' );
+add_shortcode( 'tag_photowidth-100', 'tumblr3_tag_photowidth' );
 add_shortcode( 'tag_photowidth-highres', 'tumblr3_tag_photowidth' );
 
 /**
@@ -1320,7 +1358,10 @@ function tumblr3_tag_photoheight(): string {
 
 	return (string) $context['image']['data']['height'];
 }
-add_shortcode( 'tag_photoheight', 'tumblr3_tag_photoheight' );
+add_shortcode( 'tag_photoheight-500', 'tumblr3_tag_photoheight' );
+add_shortcode( 'tag_photoheight-400', 'tumblr3_tag_photoheight' );
+add_shortcode( 'tag_photoheight-250', 'tumblr3_tag_photoheight' );
+add_shortcode( 'tag_photoheight-100', 'tumblr3_tag_photoheight' );
 add_shortcode( 'tag_photoheight-highres', 'tumblr3_tag_photoheight' );
 
 /**
@@ -1338,8 +1379,14 @@ function tumblr3_tag_video(): string {
 
 	return '';
 }
-add_shortcode( 'tag_video', 'tumblr3_tag_video' );
-add_shortcode( 'tag_videoembed', 'tumblr3_tag_video' );
+add_shortcode( 'tag_video-700', 'tumblr3_tag_video' );
+add_shortcode( 'tag_video-500', 'tumblr3_tag_video' );
+add_shortcode( 'tag_video-400', 'tumblr3_tag_video' );
+add_shortcode( 'tag_video-250', 'tumblr3_tag_video' );
+add_shortcode( 'tag_videoembed-700', 'tumblr3_tag_video' );
+add_shortcode( 'tag_videoembed-500', 'tumblr3_tag_video' );
+add_shortcode( 'tag_videoembed-400', 'tumblr3_tag_video' );
+add_shortcode( 'tag_videoembed-250', 'tumblr3_tag_video' );
 
 /**
  * Renders the post video thumbnail URL.

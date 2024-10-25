@@ -40,7 +40,17 @@ class Plugin {
 	 *
 	 * @var     ThemeGarden|null
 	 */
-	public ?ThemeGarden $theme_browser = null;
+	public ?ThemeGarden $theme_garden = null;
+
+	/**
+	 * The parser component.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     Parser|null
+	 */
+	public ?Parser $parser = null;
 
 	/**
 	 * Plugin constructor.
@@ -112,6 +122,11 @@ class Plugin {
 		if ( is_admin() ) {
 			$this->theme_garden = new ThemeGarden();
 			$this->theme_garden->initialize();
+		}
+
+		if ( ! is_admin() ) {
+			$this->parser = new Parser();
+			$this->parser->initialize();
 		}
 	}
 
