@@ -1,0 +1,31 @@
+name: Build Release
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup proper PHP version
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+
+    - name: Install dependencies
+      run: composer install --no-dev --optimize-autoloader
+
+    - name: Zip the plugin
+      run: zip -r tumblr-theme-translator.zip . -x ".*" -x "tests/*" -x "bin/*"
+
+    - name: Upload plugin zip as release asset
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./tumblr-theme-translator.zip
+        asset_name: tumblr-theme-translator.zip
+        asset_content_type: application/zip
