@@ -117,10 +117,11 @@ body.admin-color-sunrise {
 .tumblr-theme-title-wrapper {
   flex: initial;
   display: block;
-  cursor: pointer;
   position: relative;
   margin-left: 4px;
   padding: 4px 4px 0 4px;
+  max-width: 80%;
+  text-overflow: ellipsis;
 }
 
 .tumblr-theme-content {
@@ -183,5 +184,9 @@ body.admin-color-sunrise {
 
 #t3-categories {
   margin: 10px;
+}
+
+#t3-category-select-form {
+  display: inline;
 }
 /*# sourceMappingURL=admin.css.map */

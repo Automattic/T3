@@ -10,7 +10,8 @@ defined( 'ABSPATH' ) || exit;
  * @package CupcakeLabs\T3
  */
 class ThemeGarden {
-	const THEME_GARDEN_ENDPOINT = 'https://roccotrip.dca.tumblr.net/v2/theme_garden';
+	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
+	public $selected_category = 'featured';
 	/**
 	 * Initializes the class.
 	 *
@@ -22,15 +23,34 @@ class ThemeGarden {
 	public function initialize(): void {
 		add_action( 'admin_menu', array( $this, 'register_submenu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+
+		if(isset($_GET['category'])) {
+			$this->selected_category = $_GET['category'];
+		}
 	}
 
 	/**
 	 * Enqueue theme styles and scripts.
 	 *
+	 * @param string $hook The current admin page.
+	 *
 	 * @return void
 	 */
-	public function enqueue_assets(): void {
-		wp_enqueue_style( 'tumblr-theme-browser', TUMBLR3_URL . 'assets/css/build/admin.css', array(), '1.0' );
+	public function enqueue_assets(string $hook): void {
+		if ('appearance_page_tumblr-themes' === $hook) {
+			$response   = wp_remote_get( self::THEME_GARDEN_ENDPOINT );
+			$body       = json_decode( wp_remote_retrieve_body( $response ), true );
+			$categories = $body['response']['categories'] ?? array();
+			$themes     = $body['response']['themes'] ?? array();
+
+			wp_enqueue_style( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/css/build/admin.css', array(), '1.0' );
+			wp_enqueue_script( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/js/build/theme-garden.js', array(), '1.0' );
+
+			wp_localize_script('tumblr-theme-garden', 'TumblrThemeGarden', array(
+				'categories' => $categories,
+				'themes'     => $themes
+			));
+		}
 	}
 
 	/**
@@ -49,13 +69,20 @@ class ThemeGarden {
 		);
 	}
 
+	public function get_api_query_string() {
+		if( !empty($this->selected_category) && 'featured' !== $this->selected_category ) {
+			return '?category=' . $this->selected_category;
+		}
+		return '';
+	}
+
 	/**
 	 * Renders the theme garden page.
 	 *
 	 * @return void
 	 */
 	public function render_page(): void {
-		$response   = wp_remote_get( self::THEME_GARDEN_ENDPOINT );
+		$response   = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
 		$body       = json_decode( wp_remote_retrieve_body( $response ), true );
 		$categories = $body['response']['categories'] ?? array();
 		$themes     = $body['response']['themes'] ?? array();
@@ -80,13 +107,17 @@ class ThemeGarden {
 		?>
 		<div class="wp-filter">
 			<div class="filter-count"><span class="count"><?php echo esc_html( $theme_count ); ?></span></div>
-			<label for="t3-categories">Categories</label>
-			<select id="t3-categories">
-				<option>Featured</option>
-				<?php foreach ( $categories as $category ) : ?>
-					<option><?php echo esc_html( $category['name'] ); ?></option>
-				<?php endforeach; ?>
-			</select>
+			<form method="get" id="t3-category-select-form">
+				<input type="hidden" name="page" value="tumblr-themes">
+				<label for="t3-categories">Categories</label>
+				<select id="t3-categories" name="category">
+					<option value="featured">Featured</option>
+					<?php foreach ( $categories as $category ) : ?>
+						<?php $selected = ( $this->selected_category === $category['text_key'] ) ? 'selected' : ''; ?>
+						<option value="<?php echo $category['text_key'] ?>" <?php echo $selected; ?>><?php echo esc_html( $category['name'] ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</form>
 			<form class="search-form">
 				<p class="search-box">
 					<label for="wp-filter-search-input">Search Themes</label>
@@ -108,6 +139,10 @@ class ThemeGarden {
 		if ( empty( $themes ) ) {
 			return;
 		}
+
+		if(!empty($this->selected_category) && 'featured' !== $this->selected_category) {
+			$themes = array_reverse( $themes );
+		}
 		?>
 		<div class="tumblr-themes">
 			<?php foreach ( $themes as $theme ) : ?>
@@ -124,7 +159,7 @@ class ThemeGarden {
 				</div>
 			</article>
 			<?php endforeach; ?>
-		</div> 
+		</div>
 		<?php
 	}
 }
