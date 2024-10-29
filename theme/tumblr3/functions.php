@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * @return void
  */
 function tumblr3_theme_support(): void {
-	add_theme_support( 'post-formats', array( 'aside', 'image', 'gallery', 'link', 'audio', 'video', 'quote', 'chat' ) );
+	add_theme_support( 'post-formats', array( 'image', 'gallery', 'link', 'audio', 'video', 'quote', 'chat' ) );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'custom-background' );
