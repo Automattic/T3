@@ -12,13 +12,13 @@
  * @wordpress-plugin
  * Plugin Name:             Tumblr Theme Translator
  * Plugin URI:              https://www.tumblr.com/
- * Description:             A scaffold for WP.com Special Projects plugins.
+ * Description:             Allows WordPress to run on Tumblr themes.
  * Version:                 1.0.0
  * Requires at least:       6.5
  * Tested up to:            6.5
  * Requires PHP:            8.2
- * Author:                  Automattic
- * Author URI:              https://www.tumblr.com/
+ * Author:                  Cupcake Labs
+ * Author URI:              https://www.automattic.com/
  * License:                 GPL v3 or later
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             tumblr3
@@ -61,7 +61,7 @@ if ( ! is_file( TUMBLR3_PATH . '/vendor/autoload.php' ) ) {
 	add_action(
 		'admin_notices',
 		static function () {
-			$message      = __( 'It seems like <strong>Tumblr Theme Translator</strong> is corrupted. Please reinstall!', 'tumblr3' );
+			$message      = __( 'It seems like <strong>Tumblr Theme Translator</strong> failed to autoload. Run composer i.', 'tumblr3' );
 			$html_message = wp_sprintf( '<div class="error notice tumblr3-error">%s</div>', wpautop( $message ) );
 			echo wp_kses_post( $html_message );
 		}
@@ -71,33 +71,21 @@ if ( ! is_file( TUMBLR3_PATH . '/vendor/autoload.php' ) ) {
 require_once TUMBLR3_PATH . '/vendor/autoload.php';
 
 /**
- * At this point the plugin is loading correctly.
- *
- * Register a theme directory inside this plugin to load our mock theme.
- */
-register_theme_directory( TUMBLR3_PATH . 'theme' );
-
-/**
- * On activation, save the current theme to an option. Then switch to the mock theme.
- */
-register_activation_hook(
-	__FILE__,
-	static function () {
-		$theme = get_option( 'template' );
-		update_option( 'tumblr3_original_theme', $theme );
-		switch_theme( 'tumblr3' );
-	}
-);
-
-/**
  * On deactivation, switch back to the orignial saved theme and delete the option.
  */
 register_deactivation_hook(
 	__FILE__,
 	static function () {
+		// Switch back to the original theme if one was saved.
 		$theme = get_option( 'tumblr3_original_theme' );
-		switch_theme( $theme );
+		if ( $theme ) {
+			switch_theme( $theme );
+		}
+
+		// Cleanup options.
 		delete_option( 'tumblr3_original_theme' );
+		delete_option( 'tumblr3_theme_html' );
+		delete_option( 'tumblr3_use_theme' );
 	}
 );
 

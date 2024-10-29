@@ -57,6 +57,10 @@ function tumblr3_tag_lang( $atts ): string {
 		return '';
 	}
 
+	// Buffer the stack with empty string callbacks.
+	$stack[] = '__return_empty_string';
+	$stack[] = '__return_empty_string';
+
 	// If keywords are found, return the language string with keyword replacements.
 	return vsprintf(
 		( is_array( TUMBLR3_LANG[ $atts['key'] ] ) ) ? TUMBLR3_LANG[ $atts['key'] ][1] : TUMBLR3_LANG[ $atts['key'] ],

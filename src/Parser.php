@@ -137,7 +137,11 @@ final class Parser {
 		$options   = array_map( 'strtolower', TUMBLR3_OPTIONS );
 		$modifiers = array_map( 'strtolower', TUMBLR3_MODIFIERS );
 
-		// Capture each Tumblr Tag in the page and verify it against our arrays.
+		/**
+		 * This is the main parser loop.
+		 * It uses a regular expression to find Tumblr tags and blocks and then replaces them with WordPress shortcodes.
+		 * The shortcode system allows for dynamic content inside a post loop, and other areas.
+		 */
 		$content = preg_replace_callback(
 			'/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i',
 			function ( $matches ) use ( $tags, $blocks, $options, $modifiers ) {
@@ -152,11 +156,10 @@ final class Parser {
 					return $this->language_helper( $matches[1] );
 				}
 
-				// Refactor the tag to lowercase.
+				// Refactor the matches to lowercase.
 				$captured_tag     = $matches[0];
 				$raw_tag          = strtolower( $matches[1] );
 				$trim_tag         = strtolower( explode( ' ', $raw_tag )[0] );
-				$attr             = '';
 				$applied_modifier = '';
 
 				// Fix unbalanced block tags.
@@ -200,7 +203,6 @@ final class Parser {
 				foreach ( $modifiers as $modifier ) {
 					if ( str_starts_with( $raw_tag, $modifier ) ) {
 						$applied_modifier = strtolower( $modifier );
-						$raw_tag          = substr( $raw_tag, strlen( $modifier ) );
 						$trim_tag         = substr( $trim_tag, strlen( $modifier ) );
 						break;
 					}
