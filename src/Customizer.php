@@ -33,9 +33,6 @@ class Customizer {
 	 * @return void
 	 */
 	public function remove_defaults( $wp_customize ): void {
-		// Remove the Menus section
-		$wp_customize->remove_panel( 'nav_menus' );
-
 		// Remove the Homepage Settings section
 		$wp_customize->remove_section( 'static_front_page' );
 	}
@@ -210,6 +207,52 @@ class Customizer {
 				'priority' => 10,
 			)
 		);
+
+		/**
+		 * Theme HTML setting.
+		 *
+		 * @todo lack of sanitization is a security risk.
+		 */
+		$wp_customize->add_setting(
+			'tumblr3_theme_html',
+			array(
+				'type'              => 'option',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => '',
+			)
+		);
+
+		$wp_customize->add_control(
+			'tumblr3_theme_html',
+			array(
+				'label'    => __( 'HTML', 'tumblr3' ),
+				'section'  => 'tumblr3_html',
+				'type'     => 'textarea',
+				'priority' => 10,
+			)
+		);
+
+		// Add a "use tumblr theme" checkbox.
+		$wp_customize->add_setting(
+			'tumblr3_use_theme',
+			array(
+				'type'              => 'option',
+				'capability'        => 'edit_theme_options',
+				'default'           => 0,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+
+		$wp_customize->add_control(
+			'tumblr3_use_theme',
+			array(
+				'label'    => __( 'Use Tumblr Theme?', 'tumblr3' ),
+				'section'  => 'tumblr3_html',
+				'type'     => 'checkbox',
+				'priority' => 5,
+			)
+		);
 	}
 
 	/**
@@ -276,31 +319,6 @@ class Customizer {
 			)
 		);
 
-		/**
-		 * Theme HTML setting.
-		 *
-		 * @todo lack of sanitization is a security risk.
-		 */
-		$wp_customize->add_setting(
-			'tumblr3_theme_html',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => '',
-				'sanitize_callback' => '',
-			)
-		);
-
-		$wp_customize->add_control(
-			'tumblr3_theme_html',
-			array(
-				'label'    => __( 'HTML', 'tumblr3' ),
-				'section'  => 'tumblr3_html',
-				'type'     => 'textarea',
-				'priority' => 10,
-			)
-		);
-
 		// Parse the theme HTML.
 		$processor      = new \WP_HTML_Tag_Processor( get_option( 'tumblr3_theme_html', '' ) );
 		$select_options = array();
@@ -308,6 +326,10 @@ class Customizer {
 		// Stop on META tags.
 		while ( $processor->next_tag( 'META' ) ) {
 			$name = $processor->get_attribute( 'name' );
+
+			if ( ! $name ) {
+				continue;
+			}
 
 			/**
 			 * Color options.

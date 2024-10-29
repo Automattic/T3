@@ -28,7 +28,12 @@ add_action( 'after_setup_theme', 'tumblr3_theme_support' );
  * @return void
  */
 function tumblr3_enqueue_scripts(): void {
-	wp_enqueue_style( 'tumblr3-style', TUMBLR3_URL . 'assets/css/build/index.css', array(), TUMBLR3_METADATA['Version'] );
+	wp_enqueue_style(
+		'tumblr3-style',
+		TUMBLR3_URL . 'assets/css/build/index.css',
+		array(),
+		TUMBLR3_METADATA['Version']
+	);
 }
 add_action( 'wp_enqueue_scripts', 'tumblr3_enqueue_scripts' );
 
