@@ -1433,19 +1433,6 @@ function tumblr3_block_focallength( $atts, $content = '' ): string {
 add_shortcode( 'block_focallength', 'tumblr3_block_focallength' );
 
 /**
- * Rendered for answer (aside) posts.
- *
- * @param array  $atts    The attributes of the shortcode.
- * @param string $content The content of the shortcode.
- *
- * @return string
- */
-function tumblr3_block_answer( $atts, $content = '' ): string {
-	return ( 'aside' === get_post_format() ) ? tumblr3_do_shortcode( $content ) : '';
-}
-add_shortcode( 'block_answer', 'tumblr3_block_answer' );
-
-/**
  * Rendered for photoset (gallery) posts.
  *
  * @param array  $atts    The attributes of the shortcode.

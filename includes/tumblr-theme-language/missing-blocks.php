@@ -140,4 +140,5 @@ return array(
 	'block_livephoto',
 	'block_blogs',
 	'block_nofollowing',
+	'block_answer',
 );
