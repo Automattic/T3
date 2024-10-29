@@ -27,11 +27,11 @@ class ThemeGarden {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		if ( isset( $_GET['category'] ) ) {
-			$this->selected_category = $_GET['category'];
+			$this->selected_category = sanitize_text_field( $_GET['category'] );
 		}
 
 		if ( isset( $_GET['search'] ) ) {
-			$this->search = $_GET['search'];
+			$this->search = sanitize_text_field( $_GET['search'] );
 		}
 	}
 
@@ -44,22 +44,9 @@ class ThemeGarden {
 	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_tumblr-themes' === $hook ) {
-			$response   = wp_remote_get( self::THEME_GARDEN_ENDPOINT );
-			$body       = json_decode( wp_remote_retrieve_body( $response ), true );
-			$categories = $body['response']['categories'] ?? array();
-			$themes     = $body['response']['themes'] ?? array();
-
-			wp_enqueue_style( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/css/build/admin.css', array(), '1.0' );
-			wp_enqueue_script( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/js/build/theme-garden.js', array(), '1.0', true );
-
-			wp_localize_script(
-				'tumblr-theme-garden',
-				'TumblrThemeGarden',
-				array(
-					'categories' => $categories,
-					'themes'     => $themes,
-				)
-			);
+			$deps = tumblr3_get_asset_meta( plugin_dir_path( __DIR__ ) . 'assets/js/build/theme-garden.asset.php' );
+			wp_enqueue_style( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/css/build/admin.css', array(), $deps['version'] );
+			wp_enqueue_script( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/js/build/theme-garden.js', $deps['dependencies'], $deps['version'], true );
 		}
 	}
 
@@ -101,10 +88,17 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function render_page(): void {
-		$response   = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
-		$body       = json_decode( wp_remote_retrieve_body( $response ), true );
-		$categories = $body['response']['categories'] ?? array();
-		$themes     = $body['response']['themes'] ?? array();
+		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
+		if ( false === $cached_response ) {
+			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
+			$cached_response = wp_remote_retrieve_body( $response );
+			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
+		}
+
+		$body       = json_decode( $cached_response, true );
+		$categories = isset( $body['response']['categories'] ) ? $body['response']['categories'] : array();
+		$themes     = isset( $body['response']['themes'] ) ? $body['response']['themes'] : array();
+
 		?>
 		<div class="wrap">
 			<h1 class="wp-heading-inline"><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></h1>
