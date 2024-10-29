@@ -1,0 +1,74 @@
+.tumblr3-post-format-selector {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
+
+	p {
+		width: 100%;
+		margin-bottom: -0.5rem;
+	}
+
+	button {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 70px;
+		height: 70px;
+		gap: 0.35rem;
+		background: #f7f7f7;
+		border-radius: 3px;
+		border: 1px solid #f1f1f1;
+
+		svg {
+			flex-shrink: 0;
+			transition: transform 0.15s ease-in-out;
+		}
+
+		&.post-format- {
+			&video svg {
+					fill: #ff62cd
+			}
+
+			&chat svg{
+				fill: #00b7ff
+			}
+
+			&audio svg {
+				fill: #7d5cff;
+			}
+
+			&link svg {
+				fill: #00cf34;
+			}
+
+			&quote svg {
+				fill: #ff8800;
+			}
+
+			&image svg {
+				fill: #ff4830;
+			}
+
+			&gallery svg {
+				fill: #e8d638;
+			}
+		}
+
+		&.active {
+			color: #fff;
+			background: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+			border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+
+			svg {
+				fill: #fff;
+			}
+		}
+
+		&:hover {
+			svg {
+				transform: translateY(-2px);
+			}
+		}
+	}
+}
