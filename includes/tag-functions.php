@@ -12,6 +12,65 @@ function tumblr3_tag_functionality_missing(): string {
 }
 
 /**
+ * Handles inline replacement of lang: tags.
+ *
+ * @see \CupcakeLabs\T3\Parser
+ *
+ * @param array $atts Array of shortcode attributes.
+ *
+ * @return string
+ */
+function tumblr3_tag_lang( $atts ): string {
+	// Parse shortcode attributes.
+	$atts = shortcode_atts(
+		array(
+			'key'   => '',
+			'value' => '',
+		),
+		$atts,
+		'tag_lang'
+	);
+
+	$plugin   = tumblr3_get_plugin_instance();
+	$keywords = $plugin->parser->supported_keywords;
+	$stack    = array();
+
+	// Return nothing if we don't have a key or value.
+	if ( empty( $atts['key'] ) && empty( $atts['value'] ) ) {
+		return '';
+	}
+
+	// If a value is provided, return it.
+	if ( ! empty( $atts['value'] ) ) {
+		return $atts['value'];
+	}
+
+	// Find keywords in the key and add them to the stack.
+	foreach ( $keywords as $keyword => $callback ) {
+		if ( false !== strpos( $atts['key'], $keyword ) ) {
+			$stack[] = $callback;
+		}
+	}
+
+	// If stack is empty at this point, the language string is not supported.
+	if ( empty( $stack ) ) {
+		return '';
+	}
+
+	// If keywords are found, return the language string with keyword replacements.
+	return vsprintf(
+		( is_array( TUMBLR3_LANG[ $atts['key'] ] ) ) ? TUMBLR3_LANG[ $atts['key'] ][1] : TUMBLR3_LANG[ $atts['key'] ],
+		array_map(
+			function ( $callback ) {
+				return call_user_func( $callback );
+			},
+			$stack
+		)
+	);
+}
+add_shortcode( 'tag_lang', 'tumblr3_tag_lang' );
+
+/**
  * Outputs target attribute for links.
  *
  * @return string
@@ -655,7 +714,8 @@ add_shortcode( 'tag_nextpage', 'tumblr3_tag_nextpage' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function tumblr3_tag_currentpage(): string {
-	return get_query_var( 'paged' );
+	$page = get_query_var( 'paged' );
+	return ( $page > 0 ) ? (string) $page : '1';
 }
 add_shortcode( 'tag_currentpage', 'tumblr3_tag_currentpage' );
 
