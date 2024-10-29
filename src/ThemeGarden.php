@@ -10,9 +10,9 @@ defined( 'ABSPATH' ) || exit;
  * @package CupcakeLabs\T3
  */
 class ThemeGarden {
-	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
-	public string $selected_category   = 'featured';
-	public string $search    = '';
+	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
+	public string $selected_category = 'featured';
+	public string $search            = '';
 
 	/**
 	 * Initializes the class.
@@ -85,10 +85,10 @@ class ThemeGarden {
 	 * @return string A query string to send to Tumblr API.
 	 */
 	public function get_api_query_string(): string {
-		if ( ! empty($this->search) ) {
+		if ( ! empty( $this->search ) ) {
 			return '?search=' . $this->search;
 		}
-		
+
 		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
 			return '?category=' . $this->selected_category;
 		}
