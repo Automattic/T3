@@ -7,6 +7,51 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Enqueues the block editor assets.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ *
+ * @return  void
+ */
+function tumblr3_enqueue_block_editor_assets(): void {
+	$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/editor.asset.php' );
+
+	wp_enqueue_script(
+		'cupcakelabs-t3',
+		TUMBLR3_URL . 'assets/js/build/editor.js',
+		$deps['dependencies'],
+		$deps['version'],
+		true
+	);
+
+	wp_enqueue_style(
+		'cupcakelabs-t3',
+		TUMBLR3_URL . 'assets/js/build/editor.css',
+		array(),
+		$deps['version']
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'tumblr3_enqueue_block_editor_assets' );
+
+/**
+ * Filters the block editor settings.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ * @see https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/
+ *
+ * @param   array $settings The block editor settings.
+ *
+ * @return  array
+ */
+function tumblr3_disable_post_format_ui( array $settings ): array {
+	$settings['disablePostFormats'] = true;
+	return $settings;
+}
+add_filter( 'block_editor_settings_all', 'tumblr3_disable_post_format_ui' );
+
+/**
  * Setup theme support.
  *
  * @return void

@@ -49,9 +49,22 @@ class ThemeGarden {
 	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_tumblr-themes' === $hook ) {
-			$deps = tumblr3_get_asset_meta( plugin_dir_path( __DIR__ ) . 'assets/js/build/theme-garden.asset.php' );
-			wp_enqueue_style( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/css/build/admin.css', array(), $deps['version'] );
-			wp_enqueue_script( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/js/build/theme-garden.js', $deps['dependencies'], $deps['version'], true );
+			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
+
+			wp_enqueue_style(
+				'tumblr-theme-garden',
+				TUMBLR3_URL . 'assets/css/build/admin.css',
+				array(),
+				$deps['version']
+			);
+
+			wp_enqueue_script(
+				'tumblr-theme-garden',
+				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
+				$deps['dependencies'],
+				$deps['version'],
+				true
+			);
 		}
 	}
 

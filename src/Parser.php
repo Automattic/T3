@@ -14,14 +14,38 @@ final class Parser {
 	 *
 	 * @var array
 	 */
-	public array $supported_keywords = array();
+	public array $supported_keywords = array(
+		'CurrentPage'          => 'tumblr3_tag_currentpage',
+		'TotalPages'           => 'tumblr3_tag_totalpages',
+		'SearchResultCount'    => 'tumblr3_tag_searchresultcount',
+		'SearchQuery'          => 'tumblr3_tag_searchquery',
+		'TimeAgo'              => 'tumblr3_tag_timeago',
+		'DayOfWeek'            => 'tumblr3_tag_dayofweek',
+		'DayOfMonth'           => 'tumblr3_tag_dayofmonth',
+		'DayOfMonthWithSuffix' => 'tumblr3_tag_dayofmonthsuffix',
+		'Month'                => 'tumblr3_tag_month',
+		'Year'                 => 'tumblr3_tag_year',
+		'FormattedTime'        => 'tumblr3_tag_timeago',
+		'NoteCount'            => 'tumblr3_tag_notecount',
+		'PostAuthorName'       => 'tumblr3_tag_postauthorname',
+		'PostTypeNoun'         => '__return_empty_string',
+		'Tag'                  => '__return_empty_string',
+		'TagResultCount'       => '__return_empty_string',
+	);
 
 	/**
 	 * Unsupported keywords, these can move to the supported list if as functionality is added.
 	 *
 	 * @var array
 	 */
-	public array $unsupported_keywords = array();
+	public array $unsupported_keywords = array(
+		'Asker'             => '__return_empty_string',
+		'ReblogParentName'  => '__return_empty_string',
+		'ReblogParentTitle' => '__return_empty_string',
+		'ReblogRootName'    => '__return_empty_string',
+		'ReblogRootTitle'   => '__return_empty_string',
+		'PlayCount'         => '__return_empty_string',
+	);
 
 	/**
 	 * Array to store block openers for unbalanced block tags.
@@ -46,36 +70,6 @@ final class Parser {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		// Supported keywords in lang: tags that trigger text replacements. $Keyword => $Callback.
-		$this->supported_keywords = array(
-			'CurrentPage'          => 'tumblr3_tag_currentpage',
-			'TotalPages'           => 'tumblr3_tag_totalpages',
-			'SearchResultCount'    => 'tumblr3_tag_searchresultcount',
-			'SearchQuery'          => 'tumblr3_tag_searchquery',
-			'TimeAgo'              => 'tumblr3_tag_timeago',
-			'DayOfWeek'            => 'tumblr3_tag_dayofweek',
-			'DayOfMonth'           => 'tumblr3_tag_dayofmonth',
-			'DayOfMonthWithSuffix' => 'tumblr3_tag_dayofmonthsuffix',
-			'Month'                => 'tumblr3_tag_month',
-			'Year'                 => 'tumblr3_tag_year',
-			'FormattedTime'        => 'tumblr3_tag_timeago',
-			'NoteCount'            => 'tumblr3_tag_notecount',
-			'PostAuthorName'       => 'tumblr3_tag_postauthorname',
-			'PostTypeNoun'         => '__return_empty_string',
-			'Tag'                  => '__return_empty_string',
-			'TagResultCount'       => '__return_empty_string',
-		);
-
-		// Unsupported keywords, these can move to the supported list if as functionality is added.
-		$this->unsupported_keywords = array(
-			'Asker'             => '__return_empty_string',
-			'ReblogParentName'  => '__return_empty_string',
-			'ReblogParentTitle' => '__return_empty_string',
-			'ReblogRootName'    => '__return_empty_string',
-			'ReblogRootTitle'   => '__return_empty_string',
-			'PlayCount'         => '__return_empty_string',
-		);
-
 		// Handle output modifiers.
 		add_filter( 'do_shortcode_tag', array( $this, 'modifiers' ), 10, 3 );
 
@@ -94,29 +88,43 @@ final class Parser {
 	 */
 	public function modifiers( $output, $tag, $attr ) {
 		if ( isset( $attr['modifier'] ) ) {
-			switch ( $attr['modifier'] ) {
-				case 'rgb':
-					// Convert hex to RGB
-					if ( preg_match( '/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i', $output, $parts ) ) {
-						$r      = hexdec( $parts[1] );
-						$g      = hexdec( $parts[2] );
-						$b      = hexdec( $parts[3] );
-						$output = "$r, $g, $b";
-					}
-					break;
-				case 'plaintext':
-					$output = wp_strip_all_tags( $output );
-					break;
-				case 'js':
-					$output = wp_json_encode( $output );
-					break;
-				case 'jsplaintext':
-					$output = wp_json_encode( wp_strip_all_tags( $output ) );
-					break;
-				case 'urlencoded':
-					$output = rawurlencode( $output );
-					break;
-			}
+			$output = $this->apply_modifier( $output, $attr['modifier'] );
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Applys the current modifier to the output string.
+	 *
+	 * @param string $output   HTML stub.
+	 * @param string $modifier The modifier to apply.
+	 *
+	 * @return string
+	 */
+	public function apply_modifier( $output, $modifier ): string {
+		switch ( $modifier ) {
+			case 'rgb':
+				// Convert hex to RGB
+				if ( preg_match( '/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i', $output, $parts ) ) {
+					$r      = hexdec( $parts[1] );
+					$g      = hexdec( $parts[2] );
+					$b      = hexdec( $parts[3] );
+					$output = "$r, $g, $b";
+				}
+				break;
+			case 'plaintext':
+				$output = wp_strip_all_tags( $output );
+				break;
+			case 'js':
+				$output = wp_json_encode( $output );
+				break;
+			case 'jsplaintext':
+				$output = wp_json_encode( wp_strip_all_tags( $output ) );
+				break;
+			case 'urlencoded':
+				$output = rawurlencode( $output );
+				break;
 		}
 
 		return $output;
@@ -185,18 +193,6 @@ final class Parser {
 					return $this->boolean_helper( $raw_tag );
 				}
 
-				/**
-				 * Handle theme options (dynamic tags).
-				 */
-				foreach ( $options as $option ) {
-					if ( str_starts_with( $raw_tag, $option ) ) {
-						// Normalize the option name.
-						$theme_mod = get_theme_mod( tumblr3_normalize_option_name( $raw_tag ) );
-
-						return $theme_mod ? $theme_mod : '';
-					}
-				}
-
 				// Verify the block against our array.
 				// @todo write attribute parser.
 				if ( str_starts_with( ltrim( $raw_tag, '/' ), 'block:' ) ) {
@@ -217,7 +213,24 @@ final class Parser {
 					if ( str_starts_with( $raw_tag, $modifier ) ) {
 						$applied_modifier = strtolower( $modifier );
 						$trim_tag         = substr( $trim_tag, strlen( $modifier ) );
+						$raw_tag          = substr( $raw_tag, strlen( $modifier ) );
 						break;
+					}
+				}
+
+				/**
+				 * Handle theme options (dynamic tags).
+				 */
+				foreach ( $options as $option ) {
+					if ( str_starts_with( $raw_tag, $option ) ) {
+						// Normalize the option name.
+						$theme_mod = get_theme_mod( tumblr3_normalize_option_name( $raw_tag ) );
+
+						if ( '' !== $applied_modifier && $theme_mod ) {
+							return $this->apply_modifier( $theme_mod, $applied_modifier );
+						}
+
+						return $theme_mod ? $theme_mod : '';
 					}
 				}
 

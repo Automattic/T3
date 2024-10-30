@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
  * @version 1.0.0
  */
 final class Hooks {
+	public bool $is_tumblr3_active = false;
 
 	/**
 	 * Initializes the Hooks.
@@ -21,12 +22,6 @@ final class Hooks {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		// Enqueue Block Editor Assets.
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
-
-		// Disable the default post format UI in favor of our custom one.
-		add_filter( 'block_editor_settings_all', array( $this, 'block_editor_settings_all' ) );
-
 		// Add actions to the checkbox option that turns on the Tumblr theme.
 		add_action( 'update_option_tumblr3_use_theme', array( $this, 'update_option_tumblr3_use_theme' ), 10, 2 );
 
@@ -38,7 +33,11 @@ final class Hooks {
 		// Flush permalink rules when switching to the Tumblr theme.
 		add_action( 'switch_theme', array( $this, 'switch_theme' ), 10, 3 );
 
-		add_filter( 'validate_current_theme', '__return_false' );
+		$this->is_tumblr3_active = 'tumblr3' === get_option( 'template' );
+
+		if ( $this->is_tumblr3_active ) {
+			add_filter( 'validate_current_theme', '__return_false' );
+		}
 	}
 
 	/**
@@ -52,7 +51,7 @@ final class Hooks {
 		static $registered = null;
 
 		// If Tumblr3 is the active theme, return the Tumblr theme directory.
-		if ( '1' === get_option( 'tumblr3_use_theme' ) ) {
+		if ( $this->is_tumblr3_active ) {
 			// Register the theme directory if it hasn't been registered yet.
 			if ( null === $registered ) {
 				$registered = register_theme_directory( TUMBLR3_PATH . 'theme' );
@@ -62,49 +61,6 @@ final class Hooks {
 		}
 
 		return $root;
-	}
-
-	/**
-	 * Enqueues the block editor assets.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  void
-	 */
-	public function enqueue_block_editor_assets(): void {
-		$deps = tumblr3_get_asset_meta( plugin_dir_path( __DIR__ ) . 'assets/js/build/editor.asset.php' );
-
-		wp_enqueue_script(
-			'cupcakelabs-t3',
-			TUMBLR3_URL . 'assets/js/build/editor.js',
-			$deps['dependencies'],
-			$deps['version'],
-			true
-		);
-
-		wp_enqueue_style(
-			'cupcakelabs-t3',
-			TUMBLR3_URL . 'assets/js/build/editor.css',
-			array(),
-			$deps['version']
-		);
-	}
-
-	/**
-	 * Filters the block editor settings.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 * @see https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/
-	 *
-	 * @param   array $settings The block editor settings.
-	 *
-	 * @return  array
-	 */
-	public function block_editor_settings_all( array $settings ): array {
-		$settings['disablePostFormats'] = true;
-		return $settings;
 	}
 
 	/**
@@ -128,7 +84,7 @@ final class Hooks {
 	 * @todo This isn't working currently, switching to another theme doesn't work smoothly.
 	 */
 	public function switch_theme( $new_name, $new_theme, $old_theme ): void {
-		if ( 'tumblr3' === $new_name ) {
+		if ( 'tumblr3' === $new_theme->stylesheet ) {
 			flush_rewrite_rules();
 		}
 
@@ -137,7 +93,7 @@ final class Hooks {
 			update_option( 'tumblr3_use_theme', '' );
 		}
 
-		if ( 'tumblr3' === $new_name ) {
+		if ( 'tumblr3' === $new_theme->stylesheet ) {
 			update_option( 'tumblr3_use_theme', '1' );
 		}
 	}
