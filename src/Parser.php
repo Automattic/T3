@@ -267,7 +267,7 @@ final class Parser {
 	/**
 	 * Helper function to return a language string with keyword replacements.
 	 *
-	 * @param string $key  The language key.
+	 * @param string $key The language key.
 	 *
 	 * @return string The modified language string.
 	 */
