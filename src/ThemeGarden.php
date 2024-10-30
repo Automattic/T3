@@ -98,14 +98,14 @@ class ThemeGarden {
 		$status   = wp_remote_retrieve_response_code( $response );
 
 		if ( 200 !== $status ) {
-			$this->activation_error = 'Error activating theme. Please try again later. ' . $status . ' ' . self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_url( $_GET['activate_tumblr_theme'] );
+			$this->activation_error = 'Error activating theme. Please try again later.';
 			return;
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
 		if ( ! isset( $body->response->theme ) ) {
-			$this->activation_error = 'Error activating theme. Please try again later. not theme';
+			$this->activation_error = 'Error activating theme. Please try again later.';
 			return;
 		}
 
