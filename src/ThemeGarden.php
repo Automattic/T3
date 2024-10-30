@@ -181,6 +181,7 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function render_page(): void {
+		$tumblr_logo = TUMBLR3_PATH . 'assets/images/tumblr_logo_icon.png';
 		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
 
 		if ( false === $cached_response ) {
@@ -195,7 +196,7 @@ class ThemeGarden {
 		?>
 
 		<div class="wrap">
-			<h1 class="wp-heading-inline"><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></h1>
+			<h1 class="wp-heading-inline"><img src="<?php esc_url($tumblr_logo) ?>" /> <?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></h1>
 			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
 			<?php $this->render_theme_list( $themes ); ?>
 		</div>
