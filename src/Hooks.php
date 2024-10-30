@@ -106,8 +106,8 @@ final class Hooks {
 	/**
 	 * Capture updates to the Tumblr theme HTML option. Set or unset themes based on the option value.
 	 *
-	 * @param mixed  $old_value The old option value.
-	 * @param mixed  $value     The new option value.
+	 * @param mixed $old_value The old option value.
+	 * @param mixed $value     The new option value.
 	 *
 	 * @return void
 	 */

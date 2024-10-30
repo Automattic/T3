@@ -2,10 +2,14 @@
 
 namespace CupcakeLabs\T3;
 
+use function cli\err;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class ThemeGarden
+ *
+ * // Todo: Make translatable.
  *
  * @package CupcakeLabs\T3
  */
@@ -13,6 +17,7 @@ class ThemeGarden {
 	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
 	public string $selected_category = 'featured';
 	public string $search            = '';
+	public string $activation_error  = '';
 
 	/**
 	 * Initializes the class.
@@ -25,6 +30,8 @@ class ThemeGarden {
 	public function initialize(): void {
 		add_action( 'admin_menu', array( $this, 'register_submenu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_action( 'init', array( $this, 'maybe_activate_theme' ) );
+		add_action( 'admin_notices', array( $this, 'maybe_show_notice' ) );
 
 		if ( isset( $_GET['category'] ) ) {
 			$this->selected_category = sanitize_text_field( $_GET['category'] );
@@ -48,6 +55,51 @@ class ThemeGarden {
 			wp_enqueue_style( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/css/build/admin.css', array(), $deps['version'] );
 			wp_enqueue_script( 'tumblr-theme-garden', TUMBLR3_URL . 'assets/js/build/theme-garden.js', $deps['dependencies'], $deps['version'], true );
 		}
+	}
+
+	/**
+	 * Displays an error message if something went wrong during theme activations.
+	 *
+	 * @return void
+	 */
+	public function maybe_show_notice(): void {
+		if ( empty( $this->activation_error ) ) {
+			return;
+		}
+		?>
+		<div class="notice notice-error is-dismissible">
+			<p><?php echo esc_html( $this->activation_error ); ?></p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Checks URL query for a tumblr theme id to activate.
+	 *
+	 * @return void
+	 */
+	public function maybe_activate_theme(): void {
+		if ( empty( $_GET['activate_tumblr_theme'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
+			return;
+		}
+		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $_GET['activate_tumblr_theme'] ) );
+		$status   = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $status ) {
+			$this->activation_error = 'Error activating theme. Please try again later. ' . $status . ' ' . self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_url( $_GET['activate_tumblr_theme'] );
+			return;
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
+
+		if ( ! isset( $body->response->theme ) ) {
+			$this->activation_error = 'Error activating theme. Please try again later. not theme';
+			return;
+		}
+		update_option( 'tumblr3_use_theme', '1' );
+		update_option( 'tumblr3_theme_html', $body->response->theme );
+		update_option( 'tumblr3_external_theme_id', $_GET['activate_tumblr_theme'] );
+		wp_safe_redirect( wp_customize_url() );
+		exit;
 	}
 
 	/**
@@ -155,11 +207,21 @@ class ThemeGarden {
 		}
 
 		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
+			// Todo: API is returning themes ordered from oldest to newest. Needs to be fixed on Tumblr side.
 			$themes = array_reverse( $themes );
 		}
 		?>
 		<div class="tumblr-themes">
 			<?php foreach ( $themes as $theme ) : ?>
+				<?php
+					$url          = add_query_arg(
+						array(
+							'activate_tumblr_theme' => $theme['id'],
+						),
+						admin_url( 'admin.php?page=tumblr-themes' )
+					);
+					$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
+				?>
 			<article class="tumblr-theme">
 				<header class='tumblr-theme-header'>
 					<div class='tumblr-theme-title-wrapper'><span class="tumblr-theme-title"><?php echo esc_html( $theme['title'] ); ?></span></div>
@@ -168,7 +230,7 @@ class ThemeGarden {
 					<img class="tumblr-theme-thumbnail" src="<?php echo esc_url( $theme['thumbnail'] ); ?>" />
 					<ul class="tumblr-theme-buttons">
 						<li><a href="#">Preview</a></li>
-						<li><a href="#">Activate</a></li>
+						<li><a href="<?php echo esc_url( $activate_url ); ?>">Activate</a></li>
 					</ul>
 				</div>
 			</article>
