@@ -196,7 +196,10 @@ class ThemeGarden {
 		?>
 
 		<div class="wrap">
-			<h1 class="wp-heading-inline"><img src="<?php esc_url($tumblr_logo) ?>" /> <?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></h1>
+			<h1 class="wp-heading-inline" id="theme-garden-heading">
+				<img class="tumblr-logo-icon" src="<?php echo esc_url($tumblr_logo) ?>" alt="" />
+				<span><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></span>
+			</h1>
 			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
 			<?php $this->render_theme_list( $themes ); ?>
 		</div>
