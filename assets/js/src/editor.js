@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginPostStatusInfo } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';

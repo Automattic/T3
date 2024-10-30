@@ -138,6 +138,19 @@ final class Parser {
 		$modifiers = array_map( 'strtolower', TUMBLR3_MODIFIERS );
 
 		/**
+		 * Before parsing, clean out comments that could contain tags and cause issues, e.g unbalanced blocks.
+		 */
+		$content = preg_replace(
+			array(
+				'/<!--.*?-->/s',               // HTML comments
+				'/\/\*[\s\S]*?\*\//',          // CSS and multi-line JS comments
+				'/(^|\s+|\;)\s*\/\/[^\r\n]*/', // Single-line JS comments only after line start, whitespace, or semicolon
+			),
+			'',
+			$content
+		);
+
+		/**
 		 * This is the main parser loop.
 		 * It uses a regular expression to find Tumblr tags and blocks and then replaces them with WordPress shortcodes.
 		 * The shortcode system allows for dynamic content inside a post loop, and other areas.
@@ -180,7 +193,7 @@ final class Parser {
 						// Normalize the option name.
 						$theme_mod = get_theme_mod( tumblr3_normalize_option_name( $raw_tag ) );
 
-						return $theme_mod ? $theme_mod : $captured_tag;
+						return $theme_mod ? $theme_mod : '';
 					}
 				}
 

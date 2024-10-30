@@ -1,1 +1,1 @@
-window.addEventListener("DOMContentLoaded",(function(){const e=document.getElementById("t3-categories"),t=document.getElementById("t3-category-select-form");e.addEventListener("change",(function(e){t.submit()}))}),!1);
+window.addEventListener("DOMContentLoaded",(function(){const e=document.getElementById("t3-categories"),t=document.getElementById("t3-category-select-form");e.addEventListener("change",(function(){t.submit()}))}),!1);

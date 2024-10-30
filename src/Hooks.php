@@ -35,20 +35,24 @@ final class Hooks {
 		add_filter( 'stylesheet_root', array( $this, 'theme_root' ), 10, 2 );
 		add_filter( 'template_root', array( $this, 'theme_root' ), 10, 2 );
 
+		// Flush permalink rules when switching to the Tumblr theme.
 		add_action( 'switch_theme', array( $this, 'switch_theme' ), 10, 3 );
+
+		add_filter( 'validate_current_theme', '__return_false' );
 	}
 
 	/**
 	 * Undocumented function
 	 *
 	 * @param [type] $root
+	 *
 	 * @return string
 	 */
 	public function theme_root( $root ): string {
 		static $registered = null;
 
-		// If the option is set to use a Tumblr theme, return the Tumblr theme directory.
-		if ( get_option( 'tumblr3_use_theme' ) ) {
+		// If Tumblr3 is the active theme, return the Tumblr theme directory.
+		if ( '1' === get_option( 'tumblr3_use_theme' ) ) {
 			// Register the theme directory if it hasn't been registered yet.
 			if ( null === $registered ) {
 				$registered = register_theme_directory( TUMBLR3_PATH . 'theme' );
@@ -124,6 +128,10 @@ final class Hooks {
 	 * @todo This isn't working currently, switching to another theme doesn't work smoothly.
 	 */
 	public function switch_theme( $new_name, $new_theme, $old_theme ): void {
+		if ( 'tumblr3' === $new_name ) {
+			flush_rewrite_rules();
+		}
+
 		if ( 'tumblr3' === $old_theme->stylesheet ) {
 			update_option( 'tumblr3_original_theme', '' );
 			update_option( 'tumblr3_use_theme', '' );

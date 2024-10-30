@@ -33,13 +33,11 @@ class ThemeGarden {
 		add_action( 'init', array( $this, 'maybe_activate_theme' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_show_notice' ) );
 
-		if ( isset( $_GET['category'] ) ) {
-			$this->selected_category = sanitize_text_field( $_GET['category'] );
-		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
+		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : '';
 
-		if ( isset( $_GET['search'] ) ) {
-			$this->search = sanitize_text_field( $_GET['search'] );
-		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
+		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( $_GET['search'] ) : '';
 	}
 
 	/**
@@ -82,8 +80,10 @@ class ThemeGarden {
 		if ( empty( $_GET['activate_tumblr_theme'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
 			return;
 		}
+
 		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $_GET['activate_tumblr_theme'] ) );
 		$status   = wp_remote_retrieve_response_code( $response );
+
 		if ( 200 !== $status ) {
 			$this->activation_error = 'Error activating theme. Please try again later. ' . $status . ' ' . self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_url( $_GET['activate_tumblr_theme'] );
 			return;
@@ -95,11 +95,39 @@ class ThemeGarden {
 			$this->activation_error = 'Error activating theme. Please try again later. not theme';
 			return;
 		}
+
+		// Save theme details to options.
 		update_option( 'tumblr3_use_theme', '1' );
 		update_option( 'tumblr3_theme_html', $body->response->theme );
 		update_option( 'tumblr3_external_theme_id', $_GET['activate_tumblr_theme'] );
+		update_option( 'tumblr3_external_theme_title', $body->response->title );
+		update_option( 'tumblr3_external_theme_thumbnail', $body->response->thumbnail );
+		update_option( 'tumblr3_external_theme_author', $body->response->author );
+
+		// Setup theme option defaults.
+		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );
+
+		// Finally, redirect to the customizer with the new theme active.
 		wp_safe_redirect( wp_customize_url() );
 		exit;
+	}
+
+	/**
+	 * On Tumblr theme activation, sets up the default options provided by the theme.
+	 *
+	 * @param array $default_params Default option values from the theme.
+	 *
+	 * @return void
+	 */
+	public function option_defaults_helper( $default_params ): void {
+		$tumblr3_mods = get_option( 'theme_mods_tumblr3', array() );
+
+		foreach ( $default_params as $key => $value ) {
+			$normal                  = tumblr3_normalize_option_name( $key );
+			$tumblr3_mods[ $normal ] = $value;
+		}
+
+		update_option( 'theme_mods_tumblr3', $tumblr3_mods );
 	}
 
 	/**
@@ -141,6 +169,7 @@ class ThemeGarden {
 	 */
 	public function render_page(): void {
 		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
+
 		if ( false === $cached_response ) {
 			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
 			$cached_response = wp_remote_retrieve_body( $response );
@@ -150,13 +179,14 @@ class ThemeGarden {
 		$body       = json_decode( $cached_response, true );
 		$categories = isset( $body['response']['categories'] ) ? $body['response']['categories'] : array();
 		$themes     = isset( $body['response']['themes'] ) ? $body['response']['themes'] : array();
-
 		?>
+
 		<div class="wrap">
 			<h1 class="wp-heading-inline"><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></h1>
 			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
 			<?php $this->render_theme_list( $themes ); ?>
 		</div>
+
 		<?php
 	}
 
@@ -170,8 +200,11 @@ class ThemeGarden {
 	 */
 	public function render_filter_bar( array $categories, int $theme_count ): void {
 		?>
+
 		<div class="wp-filter">
+
 			<div class="filter-count"><span class="count"><?php echo esc_html( $theme_count ); ?></span></div>
+
 			<form method="get" id="t3-category-select-form">
 				<input type="hidden" name="page" value="tumblr-themes">
 				<label for="t3-categories">Categories</label>
@@ -183,6 +216,7 @@ class ThemeGarden {
 					<?php endforeach; ?>
 				</select>
 			</form>
+
 			<form method="get" class="search-form">
 				<input type="hidden" name="page" value="tumblr-themes">
 				<p class="search-box">
@@ -190,7 +224,9 @@ class ThemeGarden {
 					<input type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search" name="search" value="<?php echo esc_attr( $this->search ); ?>">
 				</p>
 			</form>
+
 		</div>
+
 		<?php
 	}
 
@@ -222,10 +258,13 @@ class ThemeGarden {
 					);
 					$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
 				?>
+
 			<article class="tumblr-theme">
+
 				<header class='tumblr-theme-header'>
 					<div class='tumblr-theme-title-wrapper'><span class="tumblr-theme-title"><?php echo esc_html( $theme['title'] ); ?></span></div>
 				</header>
+
 				<div class='tumblr-theme-content'>
 					<img class="tumblr-theme-thumbnail" src="<?php echo esc_url( $theme['thumbnail'] ); ?>" />
 					<ul class="tumblr-theme-buttons">
@@ -233,7 +272,9 @@ class ThemeGarden {
 						<li><a href="<?php echo esc_url( $activate_url ); ?>">Activate</a></li>
 					</ul>
 				</div>
+
 			</article>
+
 			<?php endforeach; ?>
 		</div>
 		<?php

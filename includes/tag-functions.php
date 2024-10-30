@@ -743,7 +743,7 @@ add_shortcode( 'tag_pagenumber', 'tumblr3_tag_pagenumber' );
  */
 function tumblr3_tag_totalpages(): string {
 	global $wp_query;
-	return $wp_query->max_num_pages;
+	return ( $wp_query->max_num_pages > 0 ) ? (string) $wp_query->max_num_pages : '1';
 }
 add_shortcode( 'tag_totalpages', 'tumblr3_tag_totalpages' );
 
@@ -1485,6 +1485,12 @@ add_shortcode( 'tag_name', 'tumblr3_tag_title' );
  * @return string
  */
 function tumblr3_tag_host(): string {
+	$context = tumblr3_get_parse_context();
+
+	if ( isset( $context['theme'] ) ) {
+		return esc_url( home_url( '/' ) );
+	}
+
 	$url = wp_http_validate_url( get_the_title() );
 
 	// If this wasn't a valid URL, return an empty string.
@@ -1495,7 +1501,7 @@ function tumblr3_tag_host(): string {
 	$parsed_url = wp_parse_url( $url );
 
 	// Return the host of the URL.
-	return $parsed_url['host'];
+	return esc_url( $parsed_url['host'] );
 }
 add_shortcode( 'tag_host', 'tumblr3_tag_host' );
 
