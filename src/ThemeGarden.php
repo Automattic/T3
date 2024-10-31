@@ -50,7 +50,7 @@ class ThemeGarden {
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_tumblr-themes' === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
-			$this->enqueue_admin_styles($deps['version']);
+			$this->enqueue_admin_styles( $deps['version'] );
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
@@ -62,7 +62,7 @@ class ThemeGarden {
 
 		if ( 'theme-install.php' === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-install.asset.php' );
-			$this->enqueue_admin_styles($deps['version']);
+			$this->enqueue_admin_styles( $deps['version'] );
 			wp_enqueue_script(
 				'tumblr-theme-install',
 				TUMBLR3_URL . 'assets/js/build/theme-install.js',
@@ -70,13 +70,26 @@ class ThemeGarden {
 				$deps['version'],
 				true
 			);
-			wp_add_inline_script( 'tumblr-theme-install', 'const T3_Install = ' . json_encode( array(
-					'browseUrl' => admin_url( 'admin.php?page=tumblr-themes' ),
-					'buttonText' => __( 'Browse Tumblr themes', 'tumblr-theme-garden' ),
-				) ), 'before' );
+			wp_add_inline_script(
+				'tumblr-theme-install',
+				'const T3_Install = ' . wp_json_encode(
+					array(
+						'browseUrl'  => admin_url( 'admin.php?page=tumblr-themes' ),
+						'buttonText' => __( 'Browse Tumblr themes', 'tumblr3' ),
+					)
+				),
+				'before'
+			);
 		}
 	}
 
+	/**
+	 * Enqueues admin CSS.
+	 *
+	 * @param string $version Plugin version.
+	 *
+	 * @return void
+	 */
 	public function enqueue_admin_styles( $version ): void {
 		wp_enqueue_style(
 			'tumblr-theme-garden',
@@ -199,7 +212,7 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function render_page(): void {
-		$tumblr_logo = TUMBLR3_PATH . 'assets/images/tumblr_logo_icon.png';
+		$tumblr_logo     = TUMBLR3_PATH . 'assets/images/tumblr_logo_icon.png';
 		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
 
 		if ( false === $cached_response ) {
@@ -215,7 +228,7 @@ class ThemeGarden {
 
 		<div class="wrap">
 			<h1 class="wp-heading-inline" id="theme-garden-heading">
-				<img class="tumblr-logo-icon" src="<?php echo esc_url($tumblr_logo) ?>" alt="" />
+				<img class="tumblr-logo-icon" src="<?php echo esc_url( $tumblr_logo ); ?>" alt="" />
 				<span><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></span>
 			</h1>
 			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
@@ -265,21 +278,26 @@ class ThemeGarden {
 		<?php
 	}
 
+	/**
+	 * Renders a playful error message when no themes are found.
+	 *
+	 * @return void
+	 */
 	public function render_no_themes() {
-		$playful_no_themes_text = [
-			_x('Nothing turned up. Bummer.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('Sadly, nothing', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('We found nothing. Here it isn’t.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('Couldn’t find that. Please, don’t be upset. Please.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('Sincerely, we found nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('Nothing to see here.', 'The message displayed when no themes were found.', 'tumblr3' ),
-			_x('If you were looking for nothing, congrats, you found it.', 'The message displayed when no themes were found.', 'tumblr3' ),
+		$playful_no_themes_text = array(
+			_x( 'Nothing turned up. Bummer.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'Sadly, nothing', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'We found nothing. Here it isn’t.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'Couldn’t find that. Please, don’t be upset. Please.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'Sincerely, we found nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'Nothing to see here.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x( 'If you were looking for nothing, congrats, you found it.', 'The message displayed when no themes were found.', 'tumblr3' ),
 
-		];
-		$text_key = array_rand($playful_no_themes_text)
+		);
+		$text_key = array_rand( $playful_no_themes_text )
 		?>
-		<p class="no-themes" id="tumblr-no-themes"><?php echo $playful_no_themes_text[ $text_key ]; ?></p>
+		<p class="no-themes" id="tumblr-no-themes"><?php echo esc_html( $playful_no_themes_text[ $text_key ] ); ?></p>
 		<?php
 	}
 
