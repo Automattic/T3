@@ -265,6 +265,24 @@ class ThemeGarden {
 		<?php
 	}
 
+	public function render_no_themes() {
+		$playful_no_themes_text = [
+			_x('Nothing turned up. Bummer.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('Sadly, nothing', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('We found nothing. Here it isn’t.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('Couldn’t find that. Please, don’t be upset. Please.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('Sincerely, we found nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('Nothing to see here.', 'The message displayed when no themes were found.', 'tumblr3' ),
+			_x('If you were looking for nothing, congrats, you found it.', 'The message displayed when no themes were found.', 'tumblr3' ),
+
+		];
+		$text_key = array_rand($playful_no_themes_text)
+		?>
+		<p class="no-themes" id="tumblr-no-themes"><?php echo $playful_no_themes_text[ $text_key ]; ?></p>
+		<?php
+	}
+
 	/**
 	 * Renders the theme list.
 	 *
@@ -274,6 +292,7 @@ class ThemeGarden {
 	 */
 	public function render_theme_list( $themes ): void {
 		if ( empty( $themes ) ) {
+			$this->render_no_themes();
 			return;
 		}
 
