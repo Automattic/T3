@@ -105,6 +105,7 @@ return array(
 	'block_submissionsenabled',
 	'block_submission',
 	'block_submitpage',
+	'block_submitenabled',
 	'block_askenabled',
 	'block_askpage',
 	'block_answerer',

@@ -103,6 +103,7 @@ return array(
 	'PhotoHeight-Panorama',
 	'Photoset',
 	'Photoset-700',
+	'Photoset-540',
 	'Photoset-500',
 	'Photoset-400',
 	'Photoset-250',

@@ -13,6 +13,16 @@ defined( 'ABSPATH' ) || exit;
 class Plugin {
 
 	/**
+	 * The Tumblr3 active status.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     bool
+	 */
+	public bool $tumblr3_active = false;
+
+	/**
 	 * The hooks component.
 	 *
 	 * @since   1.0.0
@@ -113,11 +123,13 @@ class Plugin {
 	 * @return  void
 	 */
 	protected function initialize(): void {
+		$this->tumblr3_active = 'tumblr3' === get_option( 'template' );
+
 		$this->hooks = new Hooks();
-		$this->hooks->initialize();
+		$this->hooks->initialize( $this->tumblr3_active );
 
 		$this->customizer = new Customizer();
-		$this->customizer->initialize();
+		$this->customizer->initialize( $this->tumblr3_active );
 
 		if ( is_admin() ) {
 			$this->theme_garden = new ThemeGarden();

@@ -118,18 +118,19 @@ add_filter( 'query_vars', 'tumblr3_add_tumblr_search_var' );
 function tumblr3_redirect_tumblr_search(): void {
 	// If random is set, redirect to a random post.
 	if ( get_query_var( 'random' ) ) {
+		// @see https://docs.wpvip.com/databases/optimize-queries/using-post__not_in/
 		$rand_post = get_posts(
 			array(
-				'posts_per_page' => 1,
+				'posts_per_page' => 2,
 				'orderby'        => 'rand',
 				'post_type'      => 'post',
 				'fields'         => 'ids',
-				'post__not_in'   => array( get_the_ID() ),
 			)
 		);
 
 		if ( ! empty( $rand_post ) ) {
-			wp_safe_redirect( get_permalink( $rand_post[0] ) );
+			$redirect_id = ( isset( $rand_post[1] ) && get_the_ID() !== $rand_post[1] ) ? $rand_post[1] : $rand_post[0];
+			wp_safe_redirect( get_permalink( $redirect_id ) );
 			exit;
 		}
 	}
