@@ -155,6 +155,9 @@ body.admin-color-sunrise {
 
 .tumblr-theme-thumbnail {
 	width: calc(100% - 4px);
+	height: auto;
+	aspect-ratio: 100/67;
+	object-fit: contain;
 	border: 2px solid var(--t3-secondary);
 	border-radius: 4px;
 }
