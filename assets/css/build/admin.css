@@ -210,6 +210,27 @@ body.admin-color-sunrise {
 
 .tumblr-logo-icon {
   width: 30px;
-  margin: 0 16px;
+  margin: 0 12px;
+}
+
+.tumblr-theme-garden-list-item {
+  padding: 4px 10px;
+  background: #000;
+  border-radius: 6px;
+}
+
+.tumblr-theme-garden-link {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: 80px;
+  height: 16px;
+  -webkit-mask-image: url("../../images/tumblr-logo.png");
+          mask-image: url("../../images/tumblr-logo.png");
+  background: repeating-linear-gradient(90deg, var(--t3-red) 0%, var(--t3-orange), var(--t3-yellow), var(--t3-green), var(--t3-violet), var(--t3-red) 50%);
+}
+
+.tumblr-theme-garden-link:hover {
+  animation: play 1.5s linear infinite;
 }
 /*# sourceMappingURL=admin.css.map */

@@ -50,14 +50,7 @@ class ThemeGarden {
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_tumblr-themes' === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
-
-			wp_enqueue_style(
-				'tumblr-theme-garden',
-				TUMBLR3_URL . 'assets/css/build/admin.css',
-				array(),
-				$deps['version']
-			);
-
+			$this->enqueue_admin_styles($deps['version']);
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
@@ -66,6 +59,31 @@ class ThemeGarden {
 				true
 			);
 		}
+
+		if ( 'theme-install.php' === $hook ) {
+			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-install.asset.php' );
+			$this->enqueue_admin_styles($deps['version']);
+			wp_enqueue_script(
+				'tumblr-theme-install',
+				TUMBLR3_URL . 'assets/js/build/theme-install.js',
+				$deps['dependencies'],
+				$deps['version'],
+				true
+			);
+			wp_add_inline_script( 'tumblr-theme-install', 'const T3_Install = ' . json_encode( array(
+					'browseUrl' => admin_url( 'admin.php?page=tumblr-themes' ),
+					'buttonText' => __( 'Browse Tumblr themes', 'tumblr-theme-garden' ),
+				) ), 'before' );
+		}
+	}
+
+	public function enqueue_admin_styles( $version ): void {
+		wp_enqueue_style(
+			'tumblr-theme-garden',
+			TUMBLR3_URL . 'assets/css/build/admin.css',
+			array(),
+			$version
+		);
 	}
 
 	/**
