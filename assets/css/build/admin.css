@@ -132,6 +132,9 @@ body.admin-color-sunrise {
 
 .tumblr-theme-thumbnail {
   width: calc(100% - 4px);
+  height: auto;
+  aspect-ratio: 100/67;
+  object-fit: contain;
   border: 2px solid var(--t3-secondary);
   border-radius: 4px;
 }
@@ -169,17 +172,25 @@ body.admin-color-sunrise {
 }
 
 .tumblr-theme-buttons li a {
-  display: block;
+  display: inline-block;
   overflow: hidden;
-  padding: 0 12px;
+  width: 90px;
   line-height: 24px;
   font-size: 1em;
   white-space: nowrap;
-  text-overflow: ellipsis;
+  text-align: center;
   text-decoration: none;
   border-radius: inherit;
   color: var(--t3-button-text);
+  border: 1px solid var(--t3-primary);
   background: var(--t3-primary);
+}
+
+.tumblr-theme-buttons li a:hover {
+  background: repeating-linear-gradient(90deg, var(--t3-red) 0%, var(--t3-orange), var(--t3-yellow), var(--t3-green), var(--t3-violet), var(--t3-red) 50%);
+  background-size: 90px 100%;
+  animation: play 1.5s linear infinite;
+  color: #000;
 }
 
 #t3-categories {
@@ -188,5 +199,45 @@ body.admin-color-sunrise {
 
 #t3-category-select-form {
   display: inline;
+}
+
+@keyframes play {
+  100% {
+    background-position: -90px top;
+  }
+}
+#theme-garden-heading {
+  display: flex;
+  align-items: center;
+}
+
+.tumblr-logo-icon {
+  width: 30px;
+  margin: 0 12px;
+}
+
+.tumblr-theme-garden-list-item {
+  padding: 4px 10px;
+  background: #000;
+  border-radius: 6px;
+}
+
+.tumblr-theme-garden-link {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: 80px;
+  height: 16px;
+  -webkit-mask-image: url("../../images/tumblr-logo.png");
+          mask-image: url("../../images/tumblr-logo.png");
+  background: repeating-linear-gradient(90deg, var(--t3-red) 0%, var(--t3-orange), var(--t3-yellow), var(--t3-green), var(--t3-violet), var(--t3-red) 50%);
+}
+
+.tumblr-theme-garden-link:hover {
+  animation: play 1.5s linear infinite;
+}
+
+#tumblr-no-themes {
+  display: block;
 }
 /*# sourceMappingURL=admin.css.map */
