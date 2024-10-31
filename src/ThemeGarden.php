@@ -285,7 +285,6 @@ class ThemeGarden {
 	 */
 	public function render_no_themes() {
 		$playful_no_themes_text = array(
-			_x( 'Nothing turned up. Bummer.', 'The message displayed when no themes were found.', 'tumblr3' ),
 			_x( 'Sadly, nothing', 'The message displayed when no themes were found.', 'tumblr3' ),
 			_x( 'Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
 			_x( 'We found nothing. Here it isn’t.', 'The message displayed when no themes were found.', 'tumblr3' ),
