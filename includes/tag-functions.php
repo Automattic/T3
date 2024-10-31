@@ -1158,6 +1158,7 @@ function tumblr3_tag_photoset(): string {
 }
 add_shortcode( 'tag_photoset', 'tumblr3_tag_photoset' );
 add_shortcode( 'tag_photoset-700', 'tumblr3_tag_photoset' );
+add_shortcode( 'tag_photoset-540', 'tumblr3_tag_photoset' );
 add_shortcode( 'tag_photoset-500', 'tumblr3_tag_photoset' );
 add_shortcode( 'tag_photoset-400', 'tumblr3_tag_photoset' );
 add_shortcode( 'tag_photoset-250', 'tumblr3_tag_photoset' );
@@ -1777,8 +1778,7 @@ add_shortcode( 'tag_seconds', 'tumblr3_tag_seconds' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function tumblr3_tag_beats(): string {
-	$now = new DateTime( null, new DateTimeZone( 'UTC' ) );
-	return '@' . floor( ( $now->format( 'G' ) * 3600 + $now->format( 'i' ) * 60 + $now->format( 's' ) + 3600 ) / 86.4 );
+	return get_the_date( 'B' );
 }
 add_shortcode( 'tag_beats', 'tumblr3_tag_beats' );
 
@@ -1803,7 +1803,7 @@ add_shortcode( 'tag_timestamp', 'tumblr3_tag_timestamp' );
  */
 function tumblr3_tag_timeago(): string {
 	$post_time    = get_the_time( 'U' );
-	$current_time = current_time( 'timestamp' );
+	$current_time = time(); // Using PHP's time() for a true Unix UTC timestamp
 	$time_diff    = human_time_diff( $post_time, $current_time );
 	return sprintf( '%s ago', $time_diff );
 }

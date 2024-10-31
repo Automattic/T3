@@ -251,9 +251,11 @@ final class Parser {
 		 * First: Create a new shortcode regex for the unsupported tags and blocks.
 		 * Second: Use the new regex to find and replace the unsupported tags and blocks with an empty string.
 		 * Third: Run the content through the shortcode parser to kick-off page creation.
+		 * Fourth: Clean out any remaining unbalanced block tags, these are likely to be the result of errors in the theme.
 		 */
 		$pattern = get_shortcode_regex( array_merge( TUMBLR3_MISSING_BLOCKS, TUMBLR3_MISSING_TAGS ) );
-		return tumblr3_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
+		$content = tumblr3_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
+		return preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
 	}
 
 	/**

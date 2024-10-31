@@ -14,15 +14,101 @@ class Customizer {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @param boolean $is_tumblr3_active Whether the Tumblr3 theme is active.
+	 *
 	 * @return  void
 	 */
-	public function initialize(): void {
-		// Late action so we can remove menus.
-		add_action( 'customize_register', array( $this, 'remove_defaults' ), 999 );
+	public function initialize( $is_tumblr3_active ): void {
+		// Customizer actions to run when this plugin is active.
+		add_action( 'customize_register', array( $this, 'tumblr_html_options' ) );
 
-		add_action( 'customize_register', array( $this, 'global_options' ) );
+		// Only run the rest of the actions if the Tumblr3 theme is active.
+		if ( $is_tumblr3_active ) {
+			add_action( 'customize_register', array( $this, 'global_options' ) );
+			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
+			add_filter( 'customize_panel_active', array( $this, 'customize_panel_active' ), 10, 2 );
+			add_action( 'customize_register', array( $this, 'remove_defaults' ), 999 );
+		}
+	}
 
-		add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
+	/**
+	 * Add Tumblr theme HTML options.
+	 *
+	 * @param WP_Customize_Manager $wp_customize The customizer manager.
+	 *
+	 * @return void
+	 */
+	public function tumblr_html_options( $wp_customize ): void {
+		// Add Theme HTML section.
+		$wp_customize->add_section(
+			'tumblr3_html',
+			array(
+				'title'    => __( 'Tumblr Theme HTML', 'tumblr3' ),
+				'priority' => 30,
+			)
+		);
+
+		/**
+		 * Theme HTML setting.
+		 *
+		 * @todo lack of sanitization is a security risk.
+		 */
+		$wp_customize->add_setting(
+			'tumblr3_theme_html',
+			array(
+				'type'              => 'option',
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'sanitize_callback' => '',
+			)
+		);
+
+		$wp_customize->add_control(
+			'tumblr3_theme_html',
+			array(
+				'label'    => __( 'HTML', 'tumblr3' ),
+				'section'  => 'tumblr3_html',
+				'type'     => 'textarea',
+				'priority' => 10,
+			)
+		);
+
+		// Add a "use tumblr theme" checkbox.
+		$wp_customize->add_setting(
+			'tumblr3_use_theme',
+			array(
+				'type'              => 'option',
+				'capability'        => 'edit_theme_options',
+				'default'           => 0,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+
+		$wp_customize->add_control(
+			'tumblr3_use_theme',
+			array(
+				'label'    => __( 'Use Tumblr Theme?', 'tumblr3' ),
+				'section'  => 'tumblr3_html',
+				'type'     => 'checkbox',
+				'priority' => 5,
+			)
+		);
+	}
+
+	/**
+	 * Filters response of WP_Customize_Panel::active().
+	 *
+	 * @param boolean            $active Whether the Customizer panel is active.
+	 * @param WP_Customize_Panel $panel  WP_Customize_Panel instance.
+	 *
+	 * @return boolean
+	 */
+	public function customize_panel_active( $active, $panel ): bool {
+		if ( 'nav_menus' === $panel->type ) {
+			return false;
+		}
+
+		return $active;
 	}
 
 	/**
@@ -35,6 +121,13 @@ class Customizer {
 	public function remove_defaults( $wp_customize ): void {
 		// Remove the Homepage Settings section
 		$wp_customize->remove_section( 'static_front_page' );
+
+		// Rename the active theme in the customizer.
+		$panel = $wp_customize->get_panel( 'themes' );
+
+		if ( $panel ) {
+			$panel->title = get_option( 'tumblr3_external_theme_title' );
+		}
 	}
 
 	/**
@@ -207,52 +300,6 @@ class Customizer {
 				'priority' => 10,
 			)
 		);
-
-		/**
-		 * Theme HTML setting.
-		 *
-		 * @todo lack of sanitization is a security risk.
-		 */
-		$wp_customize->add_setting(
-			'tumblr3_theme_html',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => '',
-				'sanitize_callback' => '',
-			)
-		);
-
-		$wp_customize->add_control(
-			'tumblr3_theme_html',
-			array(
-				'label'    => __( 'HTML', 'tumblr3' ),
-				'section'  => 'tumblr3_html',
-				'type'     => 'textarea',
-				'priority' => 10,
-			)
-		);
-
-		// Add a "use tumblr theme" checkbox.
-		$wp_customize->add_setting(
-			'tumblr3_use_theme',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => 0,
-				'sanitize_callback' => 'sanitize_text_field',
-			)
-		);
-
-		$wp_customize->add_control(
-			'tumblr3_use_theme',
-			array(
-				'label'    => __( 'Use Tumblr Theme?', 'tumblr3' ),
-				'section'  => 'tumblr3_html',
-				'type'     => 'checkbox',
-				'priority' => 5,
-			)
-		);
 	}
 
 	/**
@@ -265,15 +312,6 @@ class Customizer {
 	 * @return void
 	 */
 	public function theme_specific_options( $wp_customize ): void {
-		// Add Theme HTML section.
-		$wp_customize->add_section(
-			'tumblr3_html',
-			array(
-				'title'    => __( 'Tumblr Theme HTML', 'tumblr3' ),
-				'priority' => 30,
-			)
-		);
-
 		// Add select options section.
 		$wp_customize->add_section(
 			'tumblr3_select',

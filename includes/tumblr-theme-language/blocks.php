@@ -192,4 +192,5 @@ return array(
 	'block:NotChineseHK',
 	'block:NotIndonesian',
 	'block:NotHindi',
+	'block:SubmitEnabled',
 );
