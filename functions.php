@@ -33,8 +33,6 @@ function tumblr3_get_plugin_slug(): string {
  * is run before running reguular shortcodes, which means that things like link hrefs
  * get populated before they even have context.
  *
- * @todo nested tags of the same type aren't rendering properly.
- *
  * @param string $content The content to parse.
  *
  * @return string The parsed content.
@@ -95,7 +93,7 @@ function tumblr3_normalize_option_name( $name ): string {
 				array( ' ' ),
 				TUMBLR3_OPTIONS
 			),
-			array( '' ),
+			'',
 			$name
 		)
 	);

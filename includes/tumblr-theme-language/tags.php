@@ -274,4 +274,6 @@ return array(
 	'ShareString',
 	'AudioPlayerWhite',
 	'AudioPlayerBlack',
+	'AudioPlayerGrey',
+	'PostTypeNoun',
 );

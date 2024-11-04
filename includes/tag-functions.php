@@ -47,8 +47,9 @@ function tumblr3_tag_lang( $atts ): string {
 
 	// Find keywords in the key and add them to the stack.
 	foreach ( $keywords as $keyword => $callback ) {
-		if ( false !== strpos( $atts['key'], $keyword ) ) {
-			$stack[] = $callback;
+		$pos = strpos( $atts['key'], $keyword );
+		if ( false !== $pos ) {
+			$stack[ $pos ] = $callback;
 		}
 	}
 
@@ -56,6 +57,9 @@ function tumblr3_tag_lang( $atts ): string {
 	if ( empty( $stack ) ) {
 		return '';
 	}
+
+	// Order the stack by key.
+	ksort( $stack );
 
 	// Buffer the stack with empty string callbacks.
 	$stack[] = '__return_empty_string';
@@ -92,7 +96,7 @@ add_shortcode( 'tag_target', 'tumblr3_tag_target' );
  * @return string Nothing, this tag is currently not supported.
  */
 function tumblr3_tag_npf(): string {
-	return '';
+	return '{"content":["test"]}';
 }
 add_shortcode( 'tag_npf', 'tumblr3_tag_npf' );
 
@@ -141,19 +145,14 @@ add_shortcode( 'tag_groupmemberurl', 'tumblr3_tag_groupmemberurl' );
 /**
  * Gets the group member portrait URL.
  *
- * @param array $atts Shortcode attributes.
+ * @param array  $atts           Shortcode attributes.
+ * @param string $content        Shortcode content.
+ * @param string $shortcode_name Shortcode name.
  *
  * @return string The URL of the group member avatar.
  */
-function tumblr3_tag_groupmemberportraiturl( $atts ): string {
-	// Parse shortcode attributes.
-	$atts = shortcode_atts(
-		array(
-			'size' => '',
-		),
-		$atts,
-		'tag_groupmemberportraiturl'
-	);
+function tumblr3_tag_groupmemberportraiturl( $atts, $content, $shortcode_name ): string {
+	$size = str_replace( 'tag_groupmemberportraiturl-', '', $shortcode_name );
 
 	$context = tumblr3_get_parse_context();
 
@@ -161,7 +160,7 @@ function tumblr3_tag_groupmemberportraiturl( $atts ): string {
 		$groupmember_avatar = get_avatar_url(
 			$context['groupmember']->ID,
 			array(
-				'size' => $atts['size'],
+				'size' => $size,
 			)
 		);
 
@@ -208,20 +207,14 @@ add_shortcode( 'tag_postauthorurl', 'tumblr3_tag_postauthorurl' );
 /**
  * The portrait URL of the post author.
  *
- * @param array $atts The attributes of the shortcode.
+ * @param array  $atts           The attributes of the shortcode.
+ * @param string $content        The content of the shortcode.
+ * @param string $shortcode_name The name of the shortcode.
  *
  * @return string The URL of the author portrait.
  */
-function tumblr3_tag_postauthorportraiturl( $atts ): string {
-	// Parse shortcode attributes.
-	$atts = shortcode_atts(
-		array(
-			'size' => '',
-		),
-		$atts,
-		'tag_postauthorportraiturl'
-	);
-
+function tumblr3_tag_postauthorportraiturl( $atts, $content, $shortcode_name ): string {
+	$size      = str_replace( 'tag_postauthorportraiturl-', '', $shortcode_name );
 	$author_id = get_the_author_meta( 'ID' );
 	$author    = get_user_by( 'ID', $author_id );
 
@@ -232,7 +225,7 @@ function tumblr3_tag_postauthorportraiturl( $atts ): string {
 	$author_avatar = get_avatar_url(
 		$author_id,
 		array(
-			'size' => $atts['size'],
+			'size' => $size,
 		)
 	);
 
@@ -482,32 +475,26 @@ add_shortcode( 'tag_favicon', 'tumblr3_tag_favicon' );
 /**
  * The portrait URL of the blog, uses the custom logo if set.
  *
- * @param array $atts The attributes of the shortcode.
+ * @param array  $atts           The attributes of the shortcode.
+ * @param string $content        The content of the shortcode.
+ * @param string $shortcode_name The name of the shortcode.
  *
  * @return string The URL of the blog portrait.
  *
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
-function tumblr3_tag_portraiturl( $atts ): string {
-	// Parse shortcode attributes.
-	$atts = shortcode_atts(
-		array(
-			'size' => '',
-		),
-		$atts,
-		'tag_portraiturl'
-	);
-
+function tumblr3_tag_portraiturl( $atts, $content, $shortcode_name ): string {
 	if ( ! has_custom_logo() ) {
 		return '';
 	}
 
+	$size            = str_replace( 'tag_portraiturl-', '', $shortcode_name );
 	$custom_logo_id  = get_theme_mod( 'custom_logo' );
 	$custom_logo_src = wp_get_attachment_image_src(
 		$custom_logo_id,
 		array(
-			$atts['size'],
-			$atts['size'],
+			$size,
+			$size,
 		)
 	);
 
@@ -658,7 +645,7 @@ add_shortcode( 'tag_tagsasclasses', 'tumblr3_tagsasclasses' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function tumblr3_tag_pinnedpostlabel(): string {
-	return esc_html( TUMBLR3_LANG['Pinned Post'] );
+	return esc_html( TUMBLR3_LANG['lang:Pinned Post'] );
 }
 add_shortcode( 'tag_pinnedpostlabel', 'tumblr3_tag_pinnedpostlabel' );
 
@@ -864,8 +851,8 @@ add_shortcode( 'tag_tagurlchrono', 'tumblr3_tag_tagurl' );
  *
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
-function tumblr3_tag_notecount(): string {
-	return get_comments_number();
+function tumblr3_tag_notecount(): int {
+	return (int) get_comments_number();
 }
 add_shortcode( 'tag_notecount', 'tumblr3_tag_notecount' );
 
@@ -1043,6 +1030,7 @@ add_shortcode( 'tag_audioembed-400', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioembed-250', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioplayerblack', 'tumblr3_tag_audioplayer' );
 add_shortcode( 'tag_audioplayerwhite', 'tumblr3_tag_audioplayer' );
+add_shortcode( 'tag_audioplayergrey', 'tumblr3_tag_audioplayer' );
 
 /**
  * Album art URL, uses the featured image if available.
@@ -1579,6 +1567,28 @@ function tumblr3_tag_dayofmonthsuffix(): string {
 add_shortcode( 'tag_dayofmonthsuffix', 'tumblr3_tag_dayofmonthsuffix' );
 
 /**
+ * Returns the day of the month with the English ordinal suffix.
+ *
+ * @return string
+ *
+ * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
+ */
+function tumblr3_tag_dayofmonthwithsuffix(): string {
+	return get_the_date( 'jS' );
+}
+
+/**
+ * Returns the time of the post in 12-hour format without leading zeros.
+ *
+ * @return string
+ *
+ * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
+ */
+function tumblr3_tag_formattedtime(): string {
+	return get_the_date( 'g:i a' );
+}
+
+/**
  * Returns the day of the year (1 to 365).
  *
  * @return string
@@ -1808,3 +1818,24 @@ function tumblr3_tag_timeago(): string {
 	return sprintf( '%s ago', $time_diff );
 }
 add_shortcode( 'tag_timeago', 'tumblr3_tag_timeago' );
+
+/**
+ * Returns the noun of the current post type.
+ *
+ * @return string
+ */
+function tumblr3_tag_posttypenoun(): string {
+	$format = get_post_format();
+	return ucfirst( ( $format ) ? $format : 'post' );
+}
+add_shortcode( 'tag_posttypenoun', 'tumblr3_tag_posttypenoun' );
+
+/**
+ * By default, simply links to the permalink of the post.
+ *
+ * @return string
+ */
+function tumblr3_tag_reblogurl(): string {
+	return get_the_permalink();
+}
+add_shortcode( 'tag_reblogurl', 'tumblr3_tag_reblogurl' );

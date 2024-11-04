@@ -55,7 +55,6 @@ return array(
 	'tag_replies',
 	'tag_likebutton',
 	'tag_likes',
-	'tag_reblogurl',
 	'tag_reblogparentname',
 	'tag_reblogparenttitle',
 	'tag_reblogparenturl',

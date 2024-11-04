@@ -77,11 +77,12 @@ final class Hooks {
 	 * @return string
 	 */
 	public function theme_root( $root ): string {
+		global $pagenow;
 		static $registered = null;
 
 		// If the user is switching themes, return the default theme directory.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- $_GET value is never consumed.
-		if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) && 'activate' === $_GET['action'] ) {
+		if ( current_user_can( 'switch_themes' ) && 'themes.php' === $pagenow && isset( $_GET['action'] ) && 'activate' === $_GET['action'] ) {
 			return $root;
 		}
 

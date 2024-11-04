@@ -729,6 +729,7 @@ function tumblr3_block_text( $atts, $content = '' ): string {
 	return ( false === get_post_format() ) ? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_text', 'tumblr3_block_text' );
+add_shortcode( 'block_regular', 'tumblr3_block_text' );
 
 /**
  * Rendered for legacy quote posts, or the WordPress quote post format.
@@ -877,6 +878,7 @@ function tumblr3_block_chat( $atts, $content = '' ): string {
 	return $content;
 }
 add_shortcode( 'block_chat', 'tumblr3_block_chat' );
+add_shortcode( 'block_conversation', 'tumblr3_block_chat' );
 
 /**
  * Legacy Chat Post rendered for each line of the post

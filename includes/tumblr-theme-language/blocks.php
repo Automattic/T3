@@ -193,4 +193,6 @@ return array(
 	'block:NotIndonesian',
 	'block:NotHindi',
 	'block:SubmitEnabled',
+	'block:Regular', // https://github.tumblr.net/Tumblr/tumblr/blob/5e69aae5fd71f2a151078abf11a4d146d3aa6bd7/app/controllers/tumblelog.php#L2988
+	'block:Conversation',
 );
