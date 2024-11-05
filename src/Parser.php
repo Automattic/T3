@@ -230,6 +230,11 @@ final class Parser {
 							return $this->apply_modifier( $theme_mod, $applied_modifier );
 						}
 
+						// Ensure color options return something.
+						if ( 'color' === $option && ! $theme_mod ) {
+							return '#FFFFFF';
+						}
+
 						return $theme_mod ? $theme_mod : '';
 					}
 				}

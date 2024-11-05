@@ -3,8 +3,10 @@
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginPostStatusInfo } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect, dispatch } from '@wordpress/data';
 import { Button } from '@wordpress/components';
+import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createBlock } from '@wordpress/blocks';
 
 import './index.scss';
 
@@ -23,7 +25,7 @@ const POST_FORMATS = [
 	},
 	{
 		id: 'image',
-		caption: __( 'Photo' ),
+		caption: __( 'Image' ),
 		icon: (
 			<svg height="35" width="40" viewBox="0 0 17 15">
 				<path d="M14.6 1h-2.7l-.6-1h-6l-.6 1H2.4C1.1 1 0 2 0 3.3v9.3C0 13.9 1.1 15 2.4 15h12.2c1.3 0 2.4-1.1 2.4-2.4V3.3C17 2 15.9 1 14.6 1zM8.3 13.1c-2.9 0-5.2-2.3-5.2-5.1s2.3-5.1 5.2-5.1c2.9 0 5.2 2.3 5.2 5.1s-2.3 5.1-5.2 5.1zm5.9-8.3c-.6 0-1.1-.5-1.1-1.1 0-.6.5-1.1 1.1-1.1s1.1.5 1.1 1.1c0 .6-.5 1.1-1.1 1.1zm-10 3.1c0 1.2.5 2.2 1.3 3 0-.2 0-.4-.1-.6 0-2.2 1.8-4 4.1-4 1.1 0 2 .4 2.8 1.1-.3-2-2-3.4-4-3.4-2.2-.1-4.1 1.7-4.1 3.9z"></path>
@@ -92,6 +94,54 @@ const POST_FORMATS = [
 
 registerPlugin( 'tumblr3-updated-postformat-ui', {
 	render: () => {
+		// Create a suggestion for the post format based on the blocks in the content.
+		const createSuggestion = ( blocks ) => {
+
+			if ( blocks.length > 2 ) {
+				return null;
+			}
+		
+			let name;
+		
+			// If there is only one block in the content of the post grab its name
+			// so we can derive a suitable post format from it.
+			if ( blocks.length === 1 ) {
+				name = blocks[ 0 ].name;
+				// Check for core/embed `video` and `audio` eligible suggestions.
+				if ( name === 'core/embed' ) {
+					const provider = blocks[ 0 ].attributes?.providerNameSlug;
+					if ( [ 'youtube', 'vimeo' ].includes( provider ) ) {
+						name = 'core/video';
+					} else if ( [ 'spotify', 'soundcloud' ].includes( provider ) ) {
+						name = 'core/audio';
+					}
+				}
+			}
+		
+			// If there are two blocks in the content and the last one is a text blocks
+			// grab the name of the first one to also suggest a post format from it.
+			if ( blocks.length === 2 && blocks[ 1 ].name === 'core/paragraph' ) {
+				name = blocks[ 0 ].name;
+			}
+		
+			// We only convert to default post formats in core.
+			switch ( name ) {
+				case 'core/image':
+					return 'image';
+				case 'core/quote':
+				case 'core/pullquote':
+					return 'quote';
+				case 'core/gallery':
+					return 'gallery';
+				case 'core/video':
+					return 'video';
+				case 'core/audio':
+					return 'audio';
+				default:
+					return null;
+			}
+		};
+
 		// Get the `editPost` action from the `core/editor` store.
 		const { editPost } = useDispatch( 'core/editor' );
 
@@ -102,16 +152,58 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 			[]
 		);
 
+		const blocks = useSelect( ( select ) => select( blockEditorStore ).getBlocks(), null );
+
+		// Get the suggestion for the post format.
+		const suggestion = createSuggestion( blocks );
+
+		// Update the post format.
+		const updatePostFormat = ( id ) => {
+			editPost( { format: id } );
+
+			// Finish early if there are already blocks in the content.
+			if ( blocks.length > 1 ) {
+				return;
+			}
+
+			// Finish early if there is only one block in the content and it is not a paragraph.
+			if( blocks.length === 1 && blocks[ 0 ].name !== 'core/paragraph' ) {
+				return;
+			}
+
+			// Insert block format based on the selected post format.
+			switch ( id ) {
+				case 'image':
+					dispatch('core/block-editor').insertBlocks( createBlock('core/image'), 0 );
+					break;
+				case 'quote':
+					dispatch('core/block-editor').insertBlocks( createBlock('core/quote'), 0 );
+					break;
+				case 'gallery':
+					dispatch('core/block-editor').insertBlocks( createBlock('core/gallery'), 0 );
+					break;
+				case 'video':
+					dispatch('core/block-editor').insertBlocks( createBlock('core/video'), 0 );
+					break;
+				case 'audio':
+					dispatch('core/block-editor').insertBlocks( createBlock('core/audio'), 0 );
+					break;
+				default:
+					break;
+			}
+		}
+
 		return (
 			<PluginPostStatusInfo>
 				<div className="tumblr3-post-format-selector">
 					<p>
-						<strong>Post Formats</strong>
+						<strong>{ __( 'Post Formats', 'tumblr3' ) }</strong>
 					</p>
+
 					{ POST_FORMATS.map( ( { id, caption, icon } ) => (
 						<Button
 							key={ id }
-							onClick={ () => editPost( { format: id } ) }
+							onClick={ () => updatePostFormat( id ) }
 							className={ `post-format-${ id } ${
 								id === activeFormat ? 'active' : ''
 							}` }
@@ -122,6 +214,24 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 						</Button>
 					) ) }
 					<span></span>
+
+					{ suggestion && suggestion !== activeFormat && (
+						<p className="editor-post-format__suggestion">
+							<Button
+								__next40pxDefaultSize
+								variant="link"
+								onClick={ () => updatePostFormat( suggestion ) }
+								style={ { width: '100%' } }
+							>
+								{ sprintf(
+									/* translators: %s: post format */
+									__( 'Apply suggested format: %s', 'tumblr3' ),
+									suggestion
+								) }
+							</Button>
+						</p>
+					) }
+
 				</div>
 			</PluginPostStatusInfo>
 		);

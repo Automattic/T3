@@ -142,3 +142,40 @@ function tumblr3_redirect_tumblr_search(): void {
 	}
 }
 add_action( 'template_redirect', 'tumblr3_redirect_tumblr_search' );
+
+/**
+ * Custom comment markup.
+ *
+ * @param WP_Comment $comment The comment object.
+ * @param array      $args    An array of arguments.
+ *
+ * @return void
+ */
+function tumblr3_comment_markup( $comment, $args ) {
+	?>
+	<li class="note">
+		<a href="#" class="avatar_frame">
+			<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
+		</a>
+
+		<span class="action">
+			<?php
+				echo wp_kses_post(
+					sprintf(
+						__( '%s <span class="says">says:</span>' ),
+						sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) )
+					)
+				);
+				comment_text();
+			?>
+
+			<?php if ( '0' === $comment->comment_approved ) : ?>
+				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.' ); ?></p>
+			<?php endif; ?>
+
+		</span>
+
+		<div class="clear"></div>
+
+	<?php
+}

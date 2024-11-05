@@ -1,0 +1,21 @@
+.theme-browser .theme[data-slug="tumblr3"] {
+	.theme-screenshot img {
+		object-fit: cover;
+		height: 100%;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		background-image: url( '../../images/tumblr_logo_icon.png');
+		background-color: #fff;
+		width: 48px;
+		height: 48px;
+		background-size: 36px;
+		background-repeat: no-repeat;
+		background-position: center;
+		top: 8px;
+		right: 8px;
+		border-radius: 99px;
+	}
+}
