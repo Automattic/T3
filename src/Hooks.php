@@ -45,6 +45,7 @@ final class Hooks {
 		// Flush permalink rules when switching to the Tumblr theme.
 		add_action( 'switch_theme', array( $this, 'switch_theme' ), 10, 3 );
 
+		// Only run these if the Tumblr3 theme is active.
 		if ( $this->is_tumblr3_active ) {
 			add_filter( 'validate_current_theme', '__return_false' );
 			add_filter( 'wp_prepare_themes_for_js', array( $this, 'prepare_themes_for_js' ) );

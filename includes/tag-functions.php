@@ -420,7 +420,7 @@ function tumblr3_tag_description(): string {
 	}
 
 	// By default, return the blog description.
-	return wp_kses_post( get_bloginfo( 'description' ) );
+	return get_bloginfo( 'description' );
 }
 add_shortcode( 'tag_description', 'tumblr3_tag_description' );
 
@@ -1464,9 +1464,13 @@ add_shortcode( 'tag_videothumbnailurl', 'tumblr3_tag_videothumbnailurl' );
  * @return string
  */
 function tumblr3_tag_name(): string {
-	return get_the_title( get_the_ID() );
+	if ( 'link' === get_post_format() ) {
+		return get_the_title( get_the_ID() );
+	}
+
+	return get_the_author();
 }
-add_shortcode( 'tag_name', 'tumblr3_tag_title' );
+add_shortcode( 'tag_name', 'tumblr3_tag_name' );
 
 /**
  * Renders the link post host url.
