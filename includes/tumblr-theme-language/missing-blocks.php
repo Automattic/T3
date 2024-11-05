@@ -99,8 +99,6 @@ return array(
 	'block_highlightedposts',
 	'block_hasrelatedtags',
 	'block_relatedtags',
-	'block_hasfeaturedtags',
-	'block_featuredtags',
 	'block_relatedposts',
 	'block_submissionsenabled',
 	'block_submission',

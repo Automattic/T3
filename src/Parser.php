@@ -255,7 +255,9 @@ final class Parser {
 		 */
 		$pattern = get_shortcode_regex( array_merge( TUMBLR3_MISSING_BLOCKS, TUMBLR3_MISSING_TAGS ) );
 		$content = tumblr3_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
-		return preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
+		$content = preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
+
+		return $content;
 	}
 
 	/**
