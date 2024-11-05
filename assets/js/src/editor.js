@@ -197,7 +197,7 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 			<PluginPostStatusInfo>
 				<div className="tumblr3-post-format-selector">
 					<p>
-						<strong>Post Formats</strong>
+						<strong>{ __( 'Post Formats', 'tumblr3' ) }</strong>
 					</p>
 
 					{ POST_FORMATS.map( ( { id, caption, icon } ) => (

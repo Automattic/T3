@@ -100,7 +100,13 @@ export WP_TESTS_DIR="/tmp/wordpress-tests-lib"
 
 To run the tests, follow these steps:
 
-1. **Install the WordPress Test Suite**: You need to install the WordPress test suite. You can do this by running the following command in your terminal:
+1. **Start Docker**: To use the Docker config in this repo fun the following in your terminal:
+
+	```bash
+	docker-compose up -d
+	```
+
+2. **Install the WordPress Test Suite**: You need to install the WordPress test suite. You can do this by running the following command in your terminal:
 
     ```bash
     bash bin/install-wp-tests.sh <db_name> <db_user> <db_pass> <db_host> <wp_version>
@@ -112,13 +118,13 @@ To run the tests, follow these steps:
 	bash bin/install-wp-tests.sh wordpress_test wp_test password 127.0.0.1:3306
 	```
 
-2. **Run the Tests**: Once the test suite is installed, you can run the tests using:
+3. **Run the Tests**: Once the test suite is installed, you can run the tests using:
 
     ```bash
     vendor/bin/phpunit 
     ```
 
-3. **Troubleshooting**: If you encounter any issues, ensure that your database credentials are correct and that the database is accessible. Also, verify that the WordPress version specified is available.
+4. **Troubleshooting**: If you encounter any issues, ensure that your database credentials are correct and that the database is accessible. Also, verify that the WordPress version specified is available.
 
 ### Linting & Code Standards
 

@@ -17,13 +17,15 @@ if ( post_password_required() ) {
 
 <?php if ( have_comments() ) : ?>
 
-	<ol class="comment-list">
+	<ol class="notes">
 		<?php
 		wp_list_comments(
 			array(
 				'style'       => 'ol',
 				'short_ping'  => true,
-				'avatar_size' => 74,
+				'avatar_size' => 24,
+				'callback'    => 'tumblr3_comment_markup',
+				'max_depth'   => 0,
 			)
 		);
 		?>
@@ -42,4 +44,8 @@ if ( post_password_required() ) {
 
 <?php endif; ?>
 
-<?php comment_form(); ?>
+<ol class="notes">
+	<li>
+		<?php comment_form(); ?>
+	</li>
+</ol><!-- .comment-list -->

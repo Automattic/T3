@@ -42,14 +42,14 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 		$reset  = "\033[0m";
 
 		// Output the results in color.
-		fwrite( STDOUT, "Tags with shortcode coverage:\n" );
-		fwrite( STDOUT, $green . implode( ', ', $tags_with_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Tags with shortcode coverage:\n" );
+		WP_CLI::line( $green . implode( ', ', $tags_with_shortcodes ) . $reset . "\n\n" );
 
-		fwrite( STDOUT, "Tags without shortcode coverage:\n" );
-		fwrite( STDOUT, $red . implode( ', ', $tags_without_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Tags without shortcode coverage:\n" );
+		WP_CLI::line( $red . implode( ', ', $tags_without_shortcodes ) . $reset . "\n\n" );
 
-		fwrite( STDOUT, "Tags with missing WordPress functionality:\n" );
-		fwrite( STDOUT, $yellow . implode( ', ', $tags_with_missing_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Tags with missing WordPress functionality:\n" );
+		WP_CLI::line( $yellow . implode( ', ', $tags_with_missing_shortcodes ) . $reset . "\n\n" );
 
 		// Optionally, use assertions for better integration with PHPUnit output.
 		$this->assertTrue( ! empty( $tags_without_shortcodes ) );
@@ -84,14 +84,14 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 		$reset  = "\033[0m";
 
 		// Output the results in color.
-		fwrite( STDOUT, "Blocks with shortcode coverage:\n" );
-		fwrite( STDOUT, $green . implode( ', ', $blocks_with_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Blocks with shortcode coverage:\n" );
+		WP_CLI::line( $green . implode( ', ', $blocks_with_shortcodes ) . $reset . "\n\n" );
 
-		fwrite( STDOUT, "Blocks without shortcode coverage:\n" );
-		fwrite( STDOUT, $red . implode( ', ', $blocks_without_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Blocks without shortcode coverage:\n" );
+		WP_CLI::line( $red . implode( ', ', $blocks_without_shortcodes ) . $reset . "\n\n" );
 
-		fwrite( STDOUT, "Blocks with missing WordPress functionality:\n" );
-		fwrite( STDOUT, $yellow . implode( ', ', $blocks_with_missing_shortcodes ) . $reset . "\n\n" );
+		WP_CLI::line( "Blocks with missing WordPress functionality:\n" );
+		WP_CLI::line( $yellow . implode( ', ', $blocks_with_missing_shortcodes ) . $reset . "\n\n" );
 
 		// Optionally, use assertions for better integration with PHPUnit output.
 		$this->assertTrue( ! empty( $blocks_without_shortcodes ) );
