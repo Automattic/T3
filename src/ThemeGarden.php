@@ -348,7 +348,6 @@ class ThemeGarden {
 				<div class='tumblr-theme-content'>
 					<img class="tumblr-theme-thumbnail" src="<?php echo esc_url( $theme['thumbnail'] ); ?>" />
 					<ul class="tumblr-theme-buttons">
-						<li><a href="#">Preview</a></li>
 						<li><a href="<?php echo esc_url( $activate_url ); ?>">Activate</a></li>
 					</ul>
 				</div>
