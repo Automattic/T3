@@ -64,7 +64,6 @@ function tumblr3_theme_support(): void {
 	add_theme_support( 'custom-header' );
 	add_theme_support( 'header-text' );
 	add_theme_support( 'custom-logo' );
-	add_theme_support( 'html5' );
 }
 add_action( 'after_setup_theme', 'tumblr3_theme_support' );
 
@@ -174,8 +173,9 @@ function tumblr3_comment_markup( $comment, $args ) {
 				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.' ); ?></p>
 			<?php endif; ?>
 
-			<div class="clear"></div>
 		</span>
+
+		<div class="clear"></div>
 
 	<?php
 }

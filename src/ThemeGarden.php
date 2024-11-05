@@ -81,6 +81,15 @@ class ThemeGarden {
 				'before'
 			);
 		}
+
+		if ( 'themes.php' === $hook ) {
+			wp_enqueue_style(
+				'tumblr3-admin',
+				TUMBLR3_URL . 'assets/css/build/themes.css',
+				array(),
+				time()
+			);
+		}
 	}
 
 	/**

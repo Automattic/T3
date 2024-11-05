@@ -371,6 +371,7 @@ return array(
 	'lang:PostTypeNoun reblogged from ReblogParentName with NoteCount notes' => array(
 		// translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 		__( '%1$s reblogged from %2$s with %3$s note', 'tumblr3' ),
+
 		// translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 		__( '%1$s reblogged from %2$s with %3$s notes', 'tumblr3' ),
 	),
@@ -378,6 +379,7 @@ return array(
 	'lang:PostTypeNoun reblogged from ReblogParentTitle with NoteCount notes' => array(
 		// translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 		__( '%1$s reblogged from %2$s with %3$s note', 'tumblr3' ),
+
 		// translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 		__( '%1$s reblogged from %2$s with %3$s notes', 'tumblr3' ),
 	),
