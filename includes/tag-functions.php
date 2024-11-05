@@ -42,7 +42,8 @@ function tumblr3_tag_lang( $atts ): string {
 
 	// If a value is provided, return it.
 	if ( ! empty( $atts['value'] ) ) {
-		return $atts['value'];
+		// Standardize any line endings in the translation to \n.
+		return preg_replace( '/\R/', '\n', $atts['value'] );
 	}
 
 	// Find keywords in the key and add them to the stack.
