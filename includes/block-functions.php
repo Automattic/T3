@@ -1263,7 +1263,7 @@ function tumblr3_block_photo( $atts, $content = '' ): string {
 	foreach ( $blocks as $key => $block ) {
 		if ( 'core/image' === $block['blockName'] ) {
 			$highres   = isset( $block['attrs']['sizeSlug'] ) ? in_array( $block['attrs']['sizeSlug'], $highres_sizes, true ) : false;
-			$image_id  = $block['attrs']['id'];
+			$image_id  = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
 			$link_dest = isset( $block['attrs']['linkDestination'] ) ? $block['attrs']['linkDestination'] : 'none';
 			$lightbox  = isset( $block['attrs']['lightbox'] );
 
