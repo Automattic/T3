@@ -420,7 +420,8 @@ function tumblr3_tag_description(): string {
 	}
 
 	// By default, return the blog description.
-	return wp_kses_post( get_bloginfo( 'description' ) );
+	// We decode the HTML entities to allow for some allowed HTML tags to be rendered
+	return wp_kses_post( wp_specialchars_decode( get_bloginfo( 'description' ) ) );
 }
 add_shortcode( 'tag_description', 'tumblr3_tag_description' );
 
