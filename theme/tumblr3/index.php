@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 // So we need a global to track the context.
 tumblr3_set_parse_context( 'theme', true );
 
+// Get the parsed theme HTML.
 $tumblr3_theme = get_option( 'tumblr3_theme_html', '' );
 
 /**
@@ -28,7 +29,12 @@ wp_footer();
 $tumblr3_footer = ob_get_contents();
 ob_end_clean();
 
+// Parse and potentially store the parsed theme HTML.
+$tumblr3_theme = apply_filters( 'tumblr3_theme_output', $tumblr3_theme );
+
+// Add the head and footer to the theme.
 $tumblr3_theme = str_replace( '</head>', $tumblr3_head . '</head>', $tumblr3_theme );
 $tumblr3_theme = str_replace( '</body>', $tumblr3_footer . '</body>', $tumblr3_theme );
 
-echo apply_filters( 'tumblr3_theme_output', $tumblr3_theme );
+// @todo: Sanitize the theme output?!
+echo $tumblr3_theme;

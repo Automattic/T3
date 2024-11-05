@@ -513,7 +513,7 @@ add_shortcode( 'block_homepage', 'tumblr3_block_homepage' );
  * @return string
  */
 function tumblr3_block_title( $atts, $content = '' ): string {
-	return display_header_text() ? tumblr3_do_shortcode( $content ) : '';
+	return ! empty( get_the_title() ) ? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_title', 'tumblr3_block_title' );
 
@@ -1836,3 +1836,58 @@ function tumblr3_block_even( $atts, $content = '' ): string {
 	return ( in_the_loop() && ( $wp_query->current_post % 2 ) === 0 ) ? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_even', 'tumblr3_block_even' );
+
+/**
+ * Render content if the current post is the first post in the loop.
+ *
+ * @param array  $atts    The attributes of the shortcode.
+ * @param string $content The content of the shortcode.
+ *
+ * @return string
+ */
+function tumblr3_block_hasfeaturedtags( $atts, $content = '' ): string {
+	$output = '';
+	$tags   = get_terms(
+		array(
+			'taxonomy'   => 'post_tag',
+			'meta_key'   => 'featured',
+			'meta_value' => '1',
+		)
+	);
+
+	if ( ! empty( $tags ) ) {
+		tumblr3_set_parse_context( 'hasfeaturedtags', $tags );
+		$output = tumblr3_do_shortcode( $content );
+		tumblr3_set_parse_context( 'theme', true );
+	}
+
+	return $output;
+}
+add_shortcode( 'block_hasfeaturedtags', 'tumblr3_block_hasfeaturedtags' );
+
+/**
+ * Render content if the current post is the last post in the loop.
+ *
+ * @param array  $atts    The attributes of the shortcode.
+ * @param string $content The content of the shortcode.
+ *
+ * @return string
+ */
+function tumblr3_block_featuredtags( $atts, $content = '' ): string {
+	$context = tumblr3_get_parse_context();
+	$output  = '';
+
+	if ( ! isset( $context['hasfeaturedtags'] ) ) {
+		return '';
+	}
+
+	foreach ( $context['hasfeaturedtags'] as $term ) {
+		tumblr3_set_parse_context( 'term', $term );
+		$output .= tumblr3_do_shortcode( $content );
+	}
+
+	tumblr3_set_parse_context( 'theme', true );
+
+	return $output;
+}
+add_shortcode( 'block_featuredtags', 'tumblr3_block_featuredtags' );

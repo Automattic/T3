@@ -1,17 +1,12 @@
-# WP Post Queue
+# Tumblr Theme Translator (T3)
 
-This plugin is designed to help you manage and schedule your blog posts efficiently. It allows you to configure the number of posts to publish per day, set start and end times for publishing, and pause or resume the queue as needed.
-
-Unlike scheduled posts, queued posts are not published at user specific time, but rather based on the queue settings.
-
-This allows for maintaining a steady flow of content, such as regularly publishing blog posts or social media content, without needing to manually schedule each post.
+Tumblr Theme Translator (working name) is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
 ## Features
 
-- **Automatic Scheduling**: Automatically publish queued posts a specified number of times per day.
-- **Time Configuration**: Set start and end times for publishing posts.
-- **Queue Management**: Pause and resume the queue with ease.
-- **Shuffle Queue**: Randomize the order of posts in the queue.
+- **Tumblr Theme Garden**: 1-Click installs of any theme from the Tumblr Theme Garden.
+- **1:1 Aesthetics**: Every care has been taken to ensure T3 will render your chosen Tumblr Theme faithfully.
+- **Customizer Support**: Enjoy the same customization options for your chosen theme you would get on Tumblr, update colors, layouts, etc.
 
 ## Installation
 
@@ -19,24 +14,40 @@ This allows for maintaining a steady flow of content, such as regularly publishi
 
 1. Download the plugin and upload it to your WordPress site's `wp-content/plugins` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Navigate to the settings panel to configure your post queue settings.
+3. Install your first theme by going to 'Tumblr Themes' from the 'Appearance' menu.
 
 ### From GitHub
 
 1. Clone the repository in your WordPress site's `wp-content/plugins` directory.
 2. Run `npm install` to install the dependencies.
 3. Run `npm run build` to build the plugin.
-4. Activate the plugin through the 'Plugins' menu in WordPress.
-5. Navigate to the settings panel to configure your post queue settings.
+4. Run `composer i --no-dev` to build the PHP autoloaders.
+5. Activate the plugin through the 'Plugins' menu in WordPress.
+6. Install your first theme by going to 'Tumblr Themes' from the 'Appearance' menu.
 
 ## Usage
 
-- Access the settings panel from the WordPress admin dashboard by going to Posts > Queue.
-- Configure the number of posts to publish per day and set the start and end times.
-- Use the "Pause Queue" button to temporarily stop the queue.
-- Use the "Resume Queue" button to restart the queue.
-- Click "Shuffle Queue" to randomize the order of posts.
-- Add new posts to the queue by selecting "Queued" under the post status and visibility dropdown in the editor.
+- Install your first theme by going to 'Tumblr Themes' from the 'Appearance' menu.
+- After activating your chosen theme you'll be taken to the site customizer to refine your chosen theme with customization options.
+- Publish your customizer changes and visit the front-end of your site to see your new edgelord theme in all its glory.
+
+## Limitations
+
+Tumblr Themes come with a number of limitations, no menu support, no widget support, to name a few. You should expect more of a What-You-See-Is-What-You-Get compared to the current abilities WordPress native themes have.
+
+T3 is also working to backfill a number of missing features in WordPress that Tumblr currently has, but WordPress does not support out of the box. Whilst these features are in development, you may notice inconsistencies or broken behaviour on your chosen theme. These include:
+
+- Playcount tracking for audio and video files.
+- Blog following.
+- Related tags.
+- Featured tags.
+- Post submissions/question-and-answer system.
+- Reblogging.
+- Content sources.
+- Related posts.
+- Likes.
+- Panorama post format.
+- Daily post archive pages.
 
 ## Development
 
@@ -52,6 +63,7 @@ Run the following commands to build the plugin:
 ```bash
 npm install
 npm run build
+composer i --no-dev
 ```
 
 ### Running in Development Mode
@@ -60,6 +72,7 @@ To start the development server, use:
 
 ```bash
 npm run start
+composer i
 ```
 
 ### Creating a Plugin ZIP
