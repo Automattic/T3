@@ -568,6 +568,6 @@ return array(
 	'lang:This minimalist Tumblr has no posts'             => __( 'This minimalist Tumblr has no posts.', 'tumblr3' ),
 	'lang:Meditate for a while on this empty Tumblr'       => __( 'Meditate for a while on this empty Tumblr.', 'tumblr3' ),
 	'lang:Posts Nah'                                       => __( 'Posts? Nah.', 'tumblr3' ),
-	'lang:This Tumblr has hardly any posts None at all in fact' => __( 'This Tumblr has hardly any posts. \nNone at all, in fact.', 'tumblr3' ),
+	'lang:This Tumblr has hardly any posts None at all in fact' => __( 'This Tumblr has hardly any posts. None at all, in fact.', 'tumblr3' ),
 	'lang:This Tumblr hasnt posted anything'               => __( 'This Tumblr hasn\'t posted anything.', 'tumblr3' ),
 );
