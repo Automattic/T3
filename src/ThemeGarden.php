@@ -134,6 +134,8 @@ class ThemeGarden {
 			return;
 		}
 
+		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
+		// TODO: remove once we are confident that api response will be stable.
 		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $_GET['activate_tumblr_theme'] ) . '?time=' . time() );
 		$status   = wp_remote_retrieve_response_code( $response );
 
