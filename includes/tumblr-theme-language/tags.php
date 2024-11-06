@@ -139,6 +139,7 @@ return array(
 	'Album',
 	'TrackName',
 	'Video-700',
+	'Video-540',
 	'Video-500',
 	'Video-400',
 	'Video-250',

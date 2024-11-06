@@ -170,7 +170,8 @@ function tumblr3_comment_markup( $comment, $args ) {
 			<?php
 				echo wp_kses_post(
 					sprintf(
-						__( '%s <span class="says">says:</span>' ),
+						// Translators: 1 is the author name.
+						__( '%s <span class="says">says:</span>', 'tumblr3' ),
 						sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) )
 					)
 				);
@@ -178,7 +179,7 @@ function tumblr3_comment_markup( $comment, $args ) {
 			?>
 
 			<?php if ( '0' === $comment->comment_approved ) : ?>
-				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.' ); ?></p>
+				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'tumblr3' ); ?></p>
 			<?php endif; ?>
 
 		</span>
