@@ -2,6 +2,8 @@
 
 Tumblr Theme Translator (working name) is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
+[Try Tumblr Theme Translator out in one click!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
+
 ## Features
 
 - **Tumblr Theme Garden**: 1-Click installs of any theme from the Tumblr Theme Garden.

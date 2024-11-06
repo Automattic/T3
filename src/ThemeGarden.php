@@ -150,12 +150,13 @@ class ThemeGarden {
 		}
 
 		// Save theme details to options.
-		update_option( 'tumblr3_use_theme', '1' );
 		update_option( 'tumblr3_theme_html', $body->response->theme );
 		update_option( 'tumblr3_external_theme_id', $_GET['activate_tumblr_theme'] );
 		update_option( 'tumblr3_external_theme_title', $body->response->title );
 		update_option( 'tumblr3_external_theme_thumbnail', $body->response->thumbnail );
 		update_option( 'tumblr3_external_theme_author', $body->response->author );
+		update_option( 'tumblr3_use_theme', '1' );
+		switch_theme( 'tumblr3' );
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );

@@ -64,6 +64,14 @@ function tumblr3_theme_support(): void {
 	add_theme_support( 'custom-header' );
 	add_theme_support( 'header-text' );
 	add_theme_support( 'custom-logo' );
+
+	// Register widget area to support an edge case of Tumblr's theme.
+	register_sidebar(
+		array(
+			'name' => esc_html__( 'Sidebar', 'tumblr3' ),
+			'id'   => 'sidebar-1',
+		)
+	);
 }
 add_action( 'after_setup_theme', 'tumblr3_theme_support' );
 
