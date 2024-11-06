@@ -129,7 +129,6 @@ final class Hooks {
 	public function switch_theme( $new_name, $new_theme, $old_theme ): void {
 		if ( 'tumblr3' === $new_theme->stylesheet ) {
 			flush_rewrite_rules();
-			update_option( 'tumblr3_use_theme', '1' );
 		}
 
 		if ( 'tumblr3' === $old_theme->stylesheet ) {

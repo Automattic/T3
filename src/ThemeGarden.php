@@ -156,7 +156,6 @@ class ThemeGarden {
 		update_option( 'tumblr3_external_theme_thumbnail', $body->response->thumbnail );
 		update_option( 'tumblr3_external_theme_author', $body->response->author );
 		update_option( 'tumblr3_use_theme', '1' );
-		switch_theme( 'tumblr3' );
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );

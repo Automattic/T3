@@ -71,6 +71,18 @@ if ( ! is_file( TUMBLR3_PATH . '/vendor/autoload.php' ) ) {
 require_once TUMBLR3_PATH . '/vendor/autoload.php';
 
 /**
+ * On activation, setup the plugin options.
+ */
+register_activation_hook(
+	__FILE__,
+	static function () {
+		update_option( 'tumblr3_original_theme', '' );
+		update_option( 'tumblr3_theme_html', '' );
+		update_option( 'tumblr3_use_theme', '0' );
+	}
+);
+
+/**
  * On deactivation, switch back to the orignial saved theme and delete the option.
  */
 register_deactivation_hook(
