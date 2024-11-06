@@ -79,6 +79,7 @@ register_activation_hook(
 		update_option( 'tumblr3_original_theme', '' );
 		update_option( 'tumblr3_theme_html', '' );
 		update_option( 'tumblr3_use_theme', '0' );
+		update_option( 'tumblr3_external_theme', array() );
 	}
 );
 
@@ -98,6 +99,7 @@ register_deactivation_hook(
 		delete_option( 'tumblr3_original_theme' );
 		delete_option( 'tumblr3_theme_html' );
 		delete_option( 'tumblr3_use_theme' );
+		delete_option( 'tumblr3_external_theme' );
 	}
 );
 

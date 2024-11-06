@@ -126,7 +126,8 @@ class Customizer {
 		$panel = $wp_customize->get_panel( 'themes' );
 
 		if ( $panel ) {
-			$panel->title = get_option( 'tumblr3_external_theme_title' );
+			$external_theme = get_option( 'tumblr3_external_theme' );
+			$panel->title   = $external_theme['title'] ?? 'Tumblr3';
 		}
 	}
 

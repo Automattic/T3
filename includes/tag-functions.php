@@ -1434,6 +1434,7 @@ function tumblr3_tag_video(): string {
 	return '';
 }
 add_shortcode( 'tag_video-700', 'tumblr3_tag_video' );
+add_shortcode( 'tag_video-540', 'tumblr3_tag_video' );
 add_shortcode( 'tag_video-500', 'tumblr3_tag_video' );
 add_shortcode( 'tag_video-400', 'tumblr3_tag_video' );
 add_shortcode( 'tag_video-250', 'tumblr3_tag_video' );

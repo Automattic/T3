@@ -61,10 +61,25 @@ final class Hooks {
 	 */
 	public function prepare_themes_for_js( $themes ): array {
 		if ( isset( $themes['tumblr3'] ) ) {
-			$themes['tumblr3']['screenshot'][0] = get_option( 'tumblr3_external_theme_thumbnail' );
-			$themes['tumblr3']['author']        = get_option( 'tumblr3_external_theme_author' );
-			$themes['tumblr3']['name']          = get_option( 'tumblr3_external_theme_title' );
-			$themes['tumblr3']['authorAndUri']  = $themes['tumblr3']['author'];
+			$theme_details = get_option( 'tumblr3_external_theme' );
+
+			if ( isset( $theme_details['thumbnail'] ) && ! empty( $theme_details['thumbnail'] ) ) {
+				$themes['tumblr3']['screenshot'][0] = $theme_details['thumbnail'];
+			}
+
+			if ( isset( $theme_details['author_name'] ) && ! empty( $theme_details['author_name'] ) ) {
+				$themes['tumblr3']['author'] = $theme_details['author_name'];
+
+				if ( isset( $theme_details['author_url'] ) && ! empty( $theme_details['author_url'] ) ) {
+					$themes['tumblr3']['authorAndUri'] = '<a href="' . $theme_details['author_url'] . '">' . $theme_details['author_name'] . '</a>';
+				} else {
+					$themes['tumblr3']['authorAndUri'] = $theme_details['author_name'];
+				}
+			}
+
+			if ( isset( $theme_details['title'] ) && ! empty( $theme_details['title'] ) ) {
+				$themes['tumblr3']['name'] = $theme_details['title'];
+			}
 		}
 
 		return $themes;

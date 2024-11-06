@@ -153,10 +153,17 @@ class ThemeGarden {
 
 		// Save theme details to options.
 		update_option( 'tumblr3_theme_html', $body->response->theme );
-		update_option( 'tumblr3_external_theme_id', $_GET['activate_tumblr_theme'] );
-		update_option( 'tumblr3_external_theme_title', $body->response->title );
-		update_option( 'tumblr3_external_theme_thumbnail', $body->response->thumbnail );
-		update_option( 'tumblr3_external_theme_author', $body->response->author );
+
+		// Save all external theme details to an option.
+		$external_theme_details = array(
+			'id'          => $_GET['activate_tumblr_theme'],
+			'title'       => isset( $body->response->title ) ? $body->response->title : '',
+			'thumbnail'   => isset( $body->response->thumbnail ) ? $body->response->thumbnail : '',
+			'author_name' => isset( $body->response->author->name ) ? $body->response->author->name : '',
+			'author_url'  => isset( $body->response->author->url ) ? $body->response->author->url : '',
+		);
+
+		update_option( 'tumblr3_external_theme', $external_theme_details );
 		update_option( 'tumblr3_use_theme', '1' );
 
 		// Setup theme option defaults.
