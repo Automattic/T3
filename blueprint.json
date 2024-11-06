@@ -1,56 +1,56 @@
 {
-	"landingPage": "/wp-admin/",
-	"features": {
-	  "networking": true
-	},
-	"preferredVersions": {
-	  "wp": "latest",
-	  "php": "8.3"
-	},
-	"steps": [
-	  {
-		"step": "mkdir",
-		"path": "wordpress/wp-content/mu-plugins"
-	  },
-	  {
-		"step": "writeFile",
-		"path": "wordpress/wp-content/mu-plugins/addFilter-0.php",
-		"data": "<?php add_action( 'requests-requests.before_request', function( &$url ) {\n$url = 'https://playground.wordpress.net/cors-proxy.php?' . $url;\n} );"
-	  },
-	  {
-		"step": "installPlugin",
-		"pluginData": {
-		  "resource": "url",
-		  "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-translator&release=v0.1.3&asset=tumblr-theme-translator.zip"
-		},
-		"options": {
-		  "activate": true
-		}
-	  },
-	  {
-		"step": "login",
-		"username": "admin",
-		"password": "password"
-	  },
-	  {
-		"step": "runPHP",
-		"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Hello Sample Content', 'post_status' => 'publish')); ?>"
-	  },
-	  {
-		"step": "runPHP",
-		"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Second Sample Content', 'post_status' => 'publish')); ?>"
-	  },
-	  {
-		"step": "runPHP",
-		"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Third Sample Content', 'post_status' => 'publish')); ?>"
-	  },
-	  {
-		"step": "runPHP",
-		"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Fourth Sample Content', 'post_status' => 'publish')); ?>"
-	  },
-	  {
-		"step": "runPHP",
-		"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Fifth Sample Content', 'post_status' => 'publish')); ?>"
-	  }
-	]
-  }
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/wp-admin/admin.php?page=tumblr-themes",
+  "features": {
+    "networking": true
+  },
+  "preferredVersions": {
+    "wp": "latest",
+    "php": "8.3"
+  },
+  "steps": [
+    {
+      "step": "mkdir",
+      "path": "wordpress/wp-content/mu-plugins"
+    },
+    {
+      "step": "writeFile",
+      "path": "wordpress/wp-content/mu-plugins/addFilter-0.php",
+      "data": "<?php add_action( 'requests-requests.before_request', function( &$url ) {\n$url = 'https://playground.wordpress.net/cors-proxy.php?' . $url;\n} );"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-translator&release=v0.1.3&asset=tumblr-theme-translator.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "login",
+      "username": "admin"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Post Format: Standard', 'post_status' => 'publish', 'post_content' => '<!-- wp:paragraph --><p>All children, except one, grow up. They soon know that they will grow up, and the way Wendy knew was this. One day when she was two years old she was playing in a garden, and she plucked another flower and ran with it to her mother. I suppose she must have looked rather delightful, for Mrs. Darling put her hand to her heart and cried, \\\"Oh, why can&#39;t you remain like this for ever!\\\" This was all that passed between them on the subject, but henceforth Wendy knew that she must grow up. You always know after you are two. Two is the beginning of the end.</p><!-- /wp:paragraph -->')); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Post Format: Chat', 'post_status' => 'publish', 'tax_input' => array( 'post_format' => array( 'chat' ) ), 'post_content' => '<!-- wp:paragraph --><p>Abbott: Strange as it may seem, they give ball players nowadays very peculiar names.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Costello: Funny names?</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Abbott: Nicknames, nicknames. Now, on the St. Louis team we have Who&#39;s on first, What&#39;s on second, I Don&#39;t Know is on third--</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Costello: That&#39;s what I want to find out. I want you to tell me the names of the fellows on the St. Louis team.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Abbott: I&#39;m telling you. Who&#39;s on first, What&#39;s on second, I Don&#39;t Know is on third--</p><!-- /wp:paragraph -->')); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Third Sample Content', 'post_status' => 'publish')); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Fourth Sample Content', 'post_status' => 'publish')); ?>"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Fifth Sample Content', 'post_status' => 'publish')); ?>"
+    }
+  ]
+}

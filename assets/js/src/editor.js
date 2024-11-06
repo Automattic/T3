@@ -2,7 +2,7 @@
 
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginPostStatusInfo } from '@wordpress/editor';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useDispatch, useSelect, dispatch } from '@wordpress/data';
 import { Button } from '@wordpress/components';
 import { store as blockEditorStore } from '@wordpress/block-editor';
@@ -96,13 +96,12 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 	render: () => {
 		// Create a suggestion for the post format based on the blocks in the content.
 		const createSuggestion = ( blocks ) => {
-
 			if ( blocks.length > 2 ) {
 				return null;
 			}
-		
+
 			let name;
-		
+
 			// If there is only one block in the content of the post grab its name
 			// so we can derive a suitable post format from it.
 			if ( blocks.length === 1 ) {
@@ -112,18 +111,23 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 					const provider = blocks[ 0 ].attributes?.providerNameSlug;
 					if ( [ 'youtube', 'vimeo' ].includes( provider ) ) {
 						name = 'core/video';
-					} else if ( [ 'spotify', 'soundcloud' ].includes( provider ) ) {
+					} else if (
+						[ 'spotify', 'soundcloud' ].includes( provider )
+					) {
 						name = 'core/audio';
 					}
 				}
 			}
-		
+
 			// If there are two blocks in the content and the last one is a text blocks
 			// grab the name of the first one to also suggest a post format from it.
-			if ( blocks.length === 2 && blocks[ 1 ].name === 'core/paragraph' ) {
+			if (
+				blocks.length === 2 &&
+				blocks[ 1 ].name === 'core/paragraph'
+			) {
 				name = blocks[ 0 ].name;
 			}
-		
+
 			// We only convert to default post formats in core.
 			switch ( name ) {
 				case 'core/image':
@@ -152,7 +156,10 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 			[]
 		);
 
-		const blocks = useSelect( ( select ) => select( blockEditorStore ).getBlocks(), null );
+		const blocks = useSelect(
+			( select ) => select( blockEditorStore ).getBlocks(),
+			[]
+		);
 
 		// Get the suggestion for the post format.
 		const suggestion = createSuggestion( blocks );
@@ -167,31 +174,49 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 			}
 
 			// Finish early if there is only one block in the content and it is not a paragraph.
-			if( blocks.length === 1 && blocks[ 0 ].name !== 'core/paragraph' ) {
+			if (
+				blocks.length === 1 &&
+				blocks[ 0 ].name !== 'core/paragraph'
+			) {
 				return;
 			}
 
 			// Insert block format based on the selected post format.
 			switch ( id ) {
 				case 'image':
-					dispatch('core/block-editor').insertBlocks( createBlock('core/image'), 0 );
+					dispatch( 'core/block-editor' ).insertBlocks(
+						createBlock( 'core/image' ),
+						0
+					);
 					break;
 				case 'quote':
-					dispatch('core/block-editor').insertBlocks( createBlock('core/quote'), 0 );
+					dispatch( 'core/block-editor' ).insertBlocks(
+						createBlock( 'core/quote' ),
+						0
+					);
 					break;
 				case 'gallery':
-					dispatch('core/block-editor').insertBlocks( createBlock('core/gallery'), 0 );
+					dispatch( 'core/block-editor' ).insertBlocks(
+						createBlock( 'core/gallery' ),
+						0
+					);
 					break;
 				case 'video':
-					dispatch('core/block-editor').insertBlocks( createBlock('core/video'), 0 );
+					dispatch( 'core/block-editor' ).insertBlocks(
+						createBlock( 'core/video' ),
+						0
+					);
 					break;
 				case 'audio':
-					dispatch('core/block-editor').insertBlocks( createBlock('core/audio'), 0 );
+					dispatch( 'core/block-editor' ).insertBlocks(
+						createBlock( 'core/audio' ),
+						0
+					);
 					break;
 				default:
 					break;
 			}
-		}
+		};
 
 		return (
 			<PluginPostStatusInfo>
@@ -225,13 +250,15 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 							>
 								{ sprintf(
 									/* translators: %s: post format */
-									__( 'Apply suggested format: %s', 'tumblr3' ),
+									__(
+										'Apply suggested format: %s',
+										'tumblr3'
+									),
 									suggestion
 								) }
 							</Button>
 						</p>
 					) }
-
 				</div>
 			</PluginPostStatusInfo>
 		);
