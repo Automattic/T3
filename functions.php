@@ -70,7 +70,7 @@ function tumblr3_get_parse_context() {
  * Sets the global parse context.
  *
  * @param string $key   The key to set.
- * @param array  $value The value to set.
+ * @param mixed  $value The value to set.
  *
  * @return void
  */

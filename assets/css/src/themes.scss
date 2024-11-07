@@ -1,13 +1,14 @@
 .theme-browser .theme[data-slug="tumblr3"] {
+
 	.theme-screenshot img {
 		object-fit: cover;
 		height: 100%;
 	}
 
 	&::after {
-		content: '';
+		content: "";
 		position: absolute;
-		background-image: url( '../../images/tumblr_logo_icon.png');
+		background-image: url(../../images/tumblr_logo_icon.png);
 		background-color: #fff;
 		width: 48px;
 		height: 48px;

@@ -122,35 +122,27 @@ class Plugin {
 	 *
 	 * @return  void
 	 */
-	protected function initialize(): void {
+	public function initialize(): void {
 		$this->tumblr3_active = 'tumblr3' === get_option( 'template' );
 
+		// Setup all plugin hooks.
 		$this->hooks = new Hooks();
 		$this->hooks->initialize( $this->tumblr3_active );
 
+		// Setup the customizer with default and custom theme options.
 		$this->customizer = new Customizer();
 		$this->customizer->initialize( $this->tumblr3_active );
 
+		// In the admin, setup the theme browser.
 		if ( is_admin() ) {
 			$this->theme_garden = new ThemeGarden();
 			$this->theme_garden->initialize();
 		}
 
+		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {
 			$this->parser = new Parser();
 			$this->parser->initialize();
 		}
-	}
-
-	/**
-	 * Initializes the plugin.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @return  void
-	 */
-	public function maybe_initialize(): void {
-		$this->initialize();
 	}
 }

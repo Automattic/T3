@@ -3,26 +3,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * All non-supported blocks are assigned here.
- *
- * @return string Nothing, this block is not supported.
- */
-function tumblr3_block_functionality_missing(): string {
-	return '';
-}
-
-/**
  * This should not load on front-end views.
  * Effectively, this shortcode strips unwanted HTML.
  * This is the desired outcome, so not marking as a missing block.
  *
  * @return string Nothing, this is intentionally blank on the front-end.
  */
-function tumblr3_block_options(): string {
-	return '';
-}
-add_shortcode( 'block_options', 'tumblr3_block_options' );
-add_shortcode( 'block_hidden', 'tumblr3_block_options' );
+add_shortcode( 'block_options', '__return_empty_string' );
+add_shortcode( 'block_hidden', '__return_empty_string' );
 
 /**
  * Returns parsed content if the blog has more than one post author.
@@ -1807,10 +1795,9 @@ function tumblr3_block_post_n( $atts, $content, $shortcode_name ): string {
 
 	// Extract the post number from the shortcode name (assuming 'block_postN' where N is a number)
 	if ( preg_match( '/block_post(\d+)/', $shortcode_name, $matches ) ) {
-		$post_number = (int) $matches[1] - 1; // Subtract 1 because the index is 0-based
 
 		// Check if in the loop and if the current post is the post number N
-		if ( in_the_loop() && $wp_query->current_post === $post_number ) {
+		if ( in_the_loop() && absint( $matches[1] - 1 ) === $wp_query->current_post ) {
 			return tumblr3_do_shortcode( $content );
 		}
 	}
@@ -1866,7 +1853,9 @@ function tumblr3_block_even( $atts, $content = '' ): string {
 add_shortcode( 'block_even', 'tumblr3_block_even' );
 
 /**
- * Render content if the current post is the first post in the loop.
+ * Test if the blog has featured tags available.
+ *
+ * @see https://github.com/Automattic/featured-tags
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
@@ -1894,7 +1883,9 @@ function tumblr3_block_hasfeaturedtags( $atts, $content = '' ): string {
 add_shortcode( 'block_hasfeaturedtags', 'tumblr3_block_hasfeaturedtags' );
 
 /**
- * Render content if the current post is the last post in the loop.
+ * If the blog has featured tags, render each of them.
+ *
+ * @see https://github.com/Automattic/featured-tags
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.

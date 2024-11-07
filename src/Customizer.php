@@ -27,7 +27,7 @@ class Customizer {
 			add_action( 'customize_register', array( $this, 'global_options' ) );
 			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
 			add_filter( 'customize_panel_active', array( $this, 'customize_panel_active' ), 10, 2 );
-			add_action( 'customize_register', array( $this, 'remove_defaults' ), 999 );
+			add_action( 'customize_register', array( $this, 'rename_panels' ) );
 		}
 	}
 
@@ -118,10 +118,7 @@ class Customizer {
 	 *
 	 * @return void
 	 */
-	public function remove_defaults( $wp_customize ): void {
-		// Remove the Homepage Settings section
-		$wp_customize->remove_section( 'static_front_page' );
-
+	public function rename_panels( $wp_customize ): void {
 		// Rename the active theme in the customizer.
 		$panel = $wp_customize->get_panel( 'themes' );
 
@@ -375,7 +372,7 @@ class Customizer {
 			 */
 			if ( str_starts_with( $name, 'color:' ) ) {
 				$color = $processor->get_attribute( 'content' );
-				$label = ltrim( $name, 'color:' );
+				$label = substr( $name, strlen( 'color:' ) );
 
 				// Option names need to be lowercase and without spaces.
 				$name = tumblr3_normalize_option_name( $name );
@@ -414,7 +411,7 @@ class Customizer {
 			 */
 			if ( str_starts_with( $name, 'font:' ) ) {
 				$font  = $processor->get_attribute( 'content' );
-				$label = ltrim( $name, 'font:' );
+				$label = substr( $name, strlen( 'font:' ) );
 
 				// Option names need to be lowercase and without spaces.
 				$name = tumblr3_normalize_option_name( $name );
@@ -451,7 +448,7 @@ class Customizer {
 			 */
 			if ( str_starts_with( $name, 'if:' ) ) {
 				$condition = $processor->get_attribute( 'content' );
-				$label     = ltrim( $name, 'if:' );
+				$label     = substr( $name, strlen( 'if:' ) );
 
 				// Option names need to be lowercase and without spaces.
 				$name = tumblr3_normalize_option_name( $name );
@@ -483,7 +480,7 @@ class Customizer {
 			 */
 			if ( str_starts_with( $name, 'text:' ) ) {
 				$text  = $processor->get_attribute( 'content' );
-				$label = ltrim( $name, 'text:' );
+				$label = substr( $name, strlen( 'text:' ) );
 
 				// Option names need to be lowercase and without spaces.
 				$name = tumblr3_normalize_option_name( $name );
@@ -520,7 +517,7 @@ class Customizer {
 			 */
 			if ( str_starts_with( $name, 'image:' ) ) {
 				$image = $processor->get_attribute( 'content' );
-				$label = ltrim( $name, 'image:' );
+				$label = substr( $name, strlen( 'image:' ) );
 
 				// Option names need to be lowercase and without spaces.
 				$name = tumblr3_normalize_option_name( $name );

@@ -1,18 +1,18 @@
 {
-  "name": "team51-plugin-scaffold",
+  "name": "t3",
   "version": "1.0.0",
-  "description": "A scaffold for WP.com Special Projects plugins",
+  "description": "A WordPress plugin that lets you run Tumblr Themes.",
   "author": {
-    "name": "WordPress.com Special Projects Team",
-    "url": "https://wpspecialprojects.wordpress.com"
+    "name": "Cupcake Labs",
+    "url": "https://cupcakelabs.wordpress.com"
   },
   "license": "GPL-2.0-or-later",
   "keywords": [
     "wordpress"
   ],
-  "homepage": "https://wordpress.org/plugins/team51-plugin-scaffold",
-  "repository": "https://github.com/a8cteam51/team51-plugin-scaffold",
-  "bugs": "https://github.com/a8cteam51/team51-plugin-scaffold/issues",
+  "homepage": "https://github.com/Automattic/T3/",
+  "repository": "https://github.com/Automattic/T3/",
+  "bugs": "https://github.com/Automattic/T3/issues",
   "engines": {
     "node": ">=20.0",
     "npm": ">=10.0"
@@ -51,7 +51,7 @@
     "format:styles": "npm run lint:styles -- --fix",
     "lint": "npm-run-all --sequential lint:**",
     "lint:scripts": "wp-scripts lint-js assets/js --no-error-on-unmatched-pattern --fix",
-    "lint:styles": "wp-scripts lint-style assets/css/**/*.{css,sass,scss} --allow-empty-input --report-descriptionless-disables --report-invalid-scope-disables --report-needless-disables",
+    "lint:styles": "wp-scripts lint-style assets/css/**/*.{css,sass,scss} --allow-empty-input --report-descriptionless-disables --report-invalid-scope-disables --report-needless-disables --fix",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "lint:readme-md": "wp-scripts lint-md-docs README.md",
     "packages-update": "wp-scripts packages-update --dist-tag=wp-6.5",

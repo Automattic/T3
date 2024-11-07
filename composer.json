@@ -1,17 +1,13 @@
 {
-  "name": "a8cteam51/team51-plugin-scaffold",
+  "name": "cupcakelabs/t3",
   "type": "wordpress-plugin",
-  "description": "A scaffold for WP.com Special Projects plugins.",
-  "homepage": "https://github.com/a8cteam51/team51-plugin-scaffold",
+  "description": "A WordPress plugin that lets you run Tumblr Themes.",
+  "homepage": "https://github.com/Automattic/T3/",
   "license": "GPL-2.0-or-later",
   "authors": [
     {
-      "name": "WordPress.com Special Projects Team",
-      "homepage": "https://wpspecialprojects.wordpress.com/"
-    },
-    {
-      "name": "Contributors",
-      "homepage": "https://github.com/a8cteam51/team51-plugin-scaffold/graphs/contributors"
+      "name": "Cupcake Labs",
+      "homepage": "https://cupcakelabs.wordpress.com/"
     }
   ],
   "repositories": [

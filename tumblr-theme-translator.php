@@ -4,16 +4,16 @@
  *
  * @since       1.0.0
  * @version     1.0.0
- * @author      WordPress.com Special Projects
+ * @author      Cupcake Labs
  * @license     GPL-3.0-or-later
  *
  * @noinspection    ALL
  *
  * @wordpress-plugin
  * Plugin Name:             Tumblr Theme Translator
- * Plugin URI:              https://www.tumblr.com/
+ * Plugin URI:              https://github.com/Automattic/T3/
  * Description:             Allows WordPress to run on Tumblr themes.
- * Version:                 0.1.6
+ * Version:                 0.1.7
  * Requires at least:       6.5
  * Tested up to:            6.5
  * Requires PHP:            8.2
@@ -38,11 +38,13 @@ define( 'TUMBLR3_URL', plugin_dir_url( __FILE__ ) );
 // Define tag and block names from Tumblr Theme language.
 define( 'TUMBLR3_TAGS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/tags.php' );
 define( 'TUMBLR3_BLOCKS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/blocks.php' );
-define( 'TUMBLR3_LANG', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/lang.php' );
 define( 'TUMBLR3_OPTIONS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/options.php' );
 define( 'TUMBLR3_MODIFIERS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/modifiers.php' );
 define( 'TUMBLR3_MISSING_BLOCKS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/missing-blocks.php' );
 define( 'TUMBLR3_MISSING_TAGS', require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/missing-tags.php' );
+
+$lang = require_once TUMBLR3_PATH . 'includes/tumblr-theme-language/lang.php';
+define( 'TUMBLR3_LANG', array_change_key_case( $lang, CASE_LOWER ) );
 
 // Load plugin translations so they are available even for the error admin notices.
 add_action(
@@ -104,4 +106,4 @@ register_deactivation_hook(
 );
 
 require_once TUMBLR3_PATH . 'functions.php';
-add_action( 'plugins_loaded', array( tumblr3_get_plugin_instance(), 'maybe_initialize' ) );
+add_action( 'plugins_loaded', array( tumblr3_get_plugin_instance(), 'initialize' ) );
