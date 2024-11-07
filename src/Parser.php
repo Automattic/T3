@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * The Tumblr theme parser.
  */
-final class Parser {
+class Parser {
 
 	/**
 	 * Supported keywords in lang: tags that trigger text replacements.
@@ -15,22 +15,22 @@ final class Parser {
 	 * @var array
 	 */
 	public array $supported_keywords = array(
-		'CurrentPage'          => 'tumblr3_tag_currentpage',
-		'TotalPages'           => 'tumblr3_tag_totalpages',
-		'SearchResultCount'    => 'tumblr3_tag_searchresultcount',
-		'SearchQuery'          => 'tumblr3_tag_searchquery',
-		'TimeAgo'              => 'tumblr3_tag_timeago',
-		'DayOfWeek'            => 'tumblr3_tag_dayofweek',
-		'DayOfMonth'           => 'tumblr3_tag_dayofmonth',
-		'DayOfMonthWithSuffix' => 'tumblr3_tag_dayofmonthwithsuffix',
-		'Month'                => 'tumblr3_tag_month',
-		'Year'                 => 'tumblr3_tag_year',
-		'FormattedTime'        => 'tumblr3_tag_formattedtime',
-		'NoteCount'            => 'tumblr3_tag_notecount',
-		'PostAuthorName'       => 'tumblr3_tag_postauthorname',
-		'PostTypeNoun'         => 'tumblr3_tag_posttypenoun',
-		'Tag'                  => '__return_empty_string',
-		'TagResultCount'       => '__return_empty_string',
+		'currentpage'          => 'tumblr3_tag_currentpage',
+		'totalpages'           => 'tumblr3_tag_totalpages',
+		'searchresultcount'    => 'tumblr3_tag_searchresultcount',
+		'searchquery'          => 'tumblr3_tag_searchquery',
+		'timeago'              => 'tumblr3_tag_timeago',
+		'dayofweek'            => 'tumblr3_tag_dayofweek',
+		'dayofmonth'           => 'tumblr3_tag_dayofmonth',
+		'dayofmonthwithsuffix' => 'tumblr3_tag_dayofmonthwithsuffix',
+		'month'                => 'tumblr3_tag_month',
+		'year'                 => 'tumblr3_tag_year',
+		'formattedtime'        => 'tumblr3_tag_formattedtime',
+		'notecount'            => 'tumblr3_tag_notecount',
+		'postauthorname'       => 'tumblr3_tag_postauthorname',
+		'posttypenoun'         => 'tumblr3_tag_posttypenoun',
+		'tag'                  => '__return_empty_string',
+		'tagresultcount'       => '__return_empty_string',
 	);
 
 	/**
@@ -173,8 +173,8 @@ final class Parser {
 				 *
 				 * @return string
 				 */
-				if ( array_key_exists( $matches[1], TUMBLR3_LANG ) ) {
-					return $this->language_helper( $matches[1] );
+				if ( array_key_exists( strtolower( $matches[1] ), TUMBLR3_LANG ) ) {
+					return $this->language_helper( strtolower( $matches[1] ) );
 				}
 
 				// Refactor the matches to lowercase.
@@ -211,6 +211,7 @@ final class Parser {
 				 */
 				foreach ( $modifiers as $modifier ) {
 					if ( str_starts_with( $raw_tag, $modifier ) ) {
+						// If the modifier is applied, store it and remove it from the tag.
 						$applied_modifier = strtolower( $modifier );
 						$trim_tag         = substr( $trim_tag, strlen( $modifier ) );
 						$raw_tag          = substr( $raw_tag, strlen( $modifier ) );
@@ -226,6 +227,7 @@ final class Parser {
 						// Normalize the option name.
 						$theme_mod = get_theme_mod( tumblr3_normalize_option_name( $raw_tag ) );
 
+						// Apply the modifier if it exists.
 						if ( '' !== $applied_modifier && $theme_mod ) {
 							return $this->apply_modifier( $theme_mod, $applied_modifier );
 						}
@@ -235,6 +237,7 @@ final class Parser {
 							return '#FFFFFF';
 						}
 
+						// Return the theme option or an empty string if the option wasn't found.
 						return $theme_mod ? $theme_mod : '';
 					}
 				}
@@ -243,9 +246,11 @@ final class Parser {
 				if ( in_array( ltrim( $trim_tag, '/' ), $tags, true ) ) {
 					$shortcode  = 'tag_' . $trim_tag;
 					$attributes = $applied_modifier ? "modifier=\"$applied_modifier\"" : '';
+
 					return ( ! empty( $attributes ) ) ? "[{$shortcode} {$attributes}]" : "[{$shortcode}]";
 				}
 
+				// False positive.
 				return $captured_tag;
 			},
 			$content
@@ -256,7 +261,6 @@ final class Parser {
 		 * First: Create a new shortcode regex for the unsupported tags and blocks.
 		 * Second: Use the new regex to find and replace the unsupported tags and blocks with an empty string.
 		 * Third: Run the content through the shortcode parser to kick-off page creation.
-		 * Fourth: Clean out any remaining unbalanced block tags, these are likely to be the result of errors in the theme.
 		 */
 		$pattern = get_shortcode_regex( array_merge( TUMBLR3_MISSING_BLOCKS, TUMBLR3_MISSING_TAGS ) );
 		$content = tumblr3_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
@@ -272,31 +276,31 @@ final class Parser {
 	 *
 	 * @return string The fixed tag.
 	 */
-	public function block_fixer( $raw_tag ): string {
-		if ( 0 === stripos( $raw_tag, 'block:' ) ) {
+	public function block_fixer( $block ): string {
+		if ( 0 === stripos( $block, 'block:' ) ) {
 			// Uh oh, we've got two of the same openers in a row, attempt to fix.
-			if ( end( $this->block_openers ) === $raw_tag ) {
+			if ( end( $this->block_openers ) === $block ) {
 
 				// Log the error.
 				error_log(
-					$raw_tag . ' is a duplicate block opener. Found at position ' . $this->position . PHP_EOL,
+					$block . ' is a duplicate block opener. Found at position ' . $this->position . PHP_EOL,
 					3,
 					TUMBLR3_PATH . 'parser.log'
 				);
 
-				$raw_tag = '/' . $raw_tag;
+				$block = '/' . $block;
 				array_pop( $this->block_openers );
 
 				// Phew, this is a normal block opener.
 			} else {
-				$this->block_openers[] = $raw_tag;
+				$this->block_openers[] = $block;
 			}
 			// Check if this is a block closer, and test for openers.
-		} elseif ( 0 === stripos( $raw_tag, '/block:' ) && end( $this->block_openers ) === substr( $raw_tag, 1 ) ) {
+		} elseif ( 0 === stripos( $block, '/block:' ) && end( $this->block_openers ) === substr( $block, 1 ) ) {
 			array_pop( $this->block_openers );
 		}
 
-		return $raw_tag;
+		return $block;
 	}
 
 	/**
@@ -307,14 +311,14 @@ final class Parser {
 	 * @return string The modified language string.
 	 */
 	public function language_helper( $key ): string {
-		// Check if the key contains a supported keyword, if so, return the shortcode.
+		// Check if the key contains a supported keyword, if so, return the shortcode to process the keyword.
 		foreach ( $this->supported_keywords as $keyword => $callback ) {
 			if ( false !== strpos( $key, $keyword ) ) {
 				return '[tag_lang key="' . $key . '"]';
 			}
 		}
 
-		// If no keywords are found, return the shortcode.
+		// If no keywords are found, return the shortcode with a set value.
 		return '[tag_lang value="' . TUMBLR3_LANG[ $key ] . '"]';
 	}
 
@@ -325,8 +329,8 @@ final class Parser {
 	 *
 	 * @return string The converted tag.
 	 */
-	public function boolean_helper( $raw_tag ): string {
-		$condition       = ( str_starts_with( ltrim( $raw_tag, '/' ), 'block:ifnot' ) ) ? 'ifnot' : 'if';
+	public function boolean_helper( $boolean ): string {
+		$condition       = ( str_starts_with( ltrim( $boolean, '/' ), 'block:ifnot' ) ) ? 'ifnot' : 'if';
 		$normalized_attr = str_replace(
 			array(
 				' ',
@@ -335,13 +339,15 @@ final class Parser {
 				'/',
 			),
 			'',
-			$raw_tag
+			$boolean
 		);
-		$shortcode       = 'block_' . $condition . '_' . $normalized_attr;
 
-		// Fix for nesting if blocks.
+		// Create the shortcode name.
+		$shortcode = 'block_' . $condition . '_' . $normalized_attr;
+
+		// Register the new shortcode on the fly.
 		add_shortcode( $shortcode, 'tumblr3_block_' . $condition . '_theme_option' );
 
-		return ( str_starts_with( $raw_tag, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
+		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
 	}
 }

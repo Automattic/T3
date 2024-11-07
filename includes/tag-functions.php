@@ -3,15 +3,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * All non-supported tags are assigned here.
- *
- * @return string Nothing, this tag is not supported.
- */
-function tumblr3_tag_functionality_missing(): string {
-	return '';
-}
-
-/**
  * Handles inline replacement of lang: tags.
  *
  * @see \CupcakeLabs\T3\Parser

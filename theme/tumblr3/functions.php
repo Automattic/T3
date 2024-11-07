@@ -96,9 +96,17 @@ add_action( 'wp_enqueue_scripts', 'tumblr3_enqueue_scripts' );
  * @return void
  */
 function tumblr3_random_endpoint_rewrite(): void {
+	// Handle the Tumblr random endpoint.
 	add_rewrite_rule(
 		'^random/?$',
 		'index.php?random=1',
+		'top'
+	);
+
+	// Redirect the Tumblr archive endpoint to the homepage.
+	add_rewrite_rule(
+		'^archive/?$',
+		'index.php',
 		'top'
 	);
 }
@@ -159,9 +167,10 @@ add_action( 'template_redirect', 'tumblr3_redirect_tumblr_search' );
  *
  * @return void
  */
-function tumblr3_comment_markup( $comment, $args ) {
+function tumblr3_comment_markup( $comment, $args ): void {
 	?>
 	<li class="note">
+
 		<a href="#" class="avatar_frame">
 			<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
 		</a>
@@ -188,3 +197,19 @@ function tumblr3_comment_markup( $comment, $args ) {
 
 	<?php
 }
+
+/**
+ * Disable emojis.
+ *
+ * @return void
+ */
+function tumblr3_disable_emojis(): void {
+	// Remove the emoji script from the front end and admin
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+
+	// Remove the emoji styles from the front end and admin
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+}
+add_action( 'init', 'tumblr3_disable_emojis' );

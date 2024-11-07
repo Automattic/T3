@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   1.0.0
  * @version 1.0.0
  */
-final class Hooks {
+class Hooks {
 	/**
 	 * The Tumblr3 active status.
 	 *
