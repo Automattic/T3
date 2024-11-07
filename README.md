@@ -1,8 +1,14 @@
 # Tumblr Theme Translator (T3)
 
+> [!TIP]
+> [Take T3 for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
+
 Tumblr Theme Translator (working name) is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
-[Try Tumblr Theme Translator out in one click!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
+This plugin will form the basis of the Tumblr Blog Network on WordPress.com eventually. This current iteration is designed to be released on WordPress.org/plugins/ for use by anyone.
+
+> [!IMPORTANT] 
+> T3 will not be used as the UI for the Blog Network migration, that will still exist in the Native Tumblr UI. Instead T3 will be the rendering engine for the Blog Network, and it's current UI features exist purely to make this usable by anyone wanting to run their own instance of T3.
 
 ## Features
 
@@ -42,7 +48,7 @@ T3 is also working to backfill a number of missing features in WordPress that Tu
 - Playcount tracking for audio and video files.
 - Blog following.
 - Related tags.
-- Featured tags.
+- Featured tags - [Check this plugin out for initial implementation.](https://github.com/Automattic/Featured-Tags)
 - Post submissions/question-and-answer system.
 - Reblogging.
 - Content sources.

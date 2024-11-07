@@ -13,7 +13,7 @@
  * Plugin Name:             Tumblr Theme Translator
  * Plugin URI:              https://www.tumblr.com/
  * Description:             Allows WordPress to run on Tumblr themes.
- * Version:                 0.1.5
+ * Version:                 0.1.6
  * Requires at least:       6.5
  * Tested up to:            6.5
  * Requires PHP:            8.2

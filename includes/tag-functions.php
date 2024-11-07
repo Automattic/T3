@@ -1220,14 +1220,12 @@ function tumblr3_tag_photourl( $atts, $content, $shortcode_name ): string {
 
 	$context = tumblr3_get_parse_context();
 
-	// Return nothing if no gallery is found.
+	// Return nothing if no image is found.
 	if ( ! isset( $context['image']['image'] ) ) {
 		return '';
 	}
 
-	$src = wp_get_attachment_image_src( $context['image']['image'] );
-
-	return ( false === $src ) ? '' : esc_url( $src[0] );
+	return esc_url( $context['image']['image'] );
 }
 add_shortcode( 'tag_photourl-500', 'tumblr3_tag_photourl' );
 add_shortcode( 'tag_photourl-400', 'tumblr3_tag_photourl' );

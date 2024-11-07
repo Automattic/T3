@@ -1267,6 +1267,20 @@ function tumblr3_block_photo( $atts, $content = '' ): string {
 			$link_dest = isset( $block['attrs']['linkDestination'] ) ? $block['attrs']['linkDestination'] : 'none';
 			$lightbox  = isset( $block['attrs']['lightbox'] );
 
+			$image_src = wp_get_attachment_image_src( $image_id, 'large' );
+			if ( isset( $image_src[0] ) ) {
+				// Grab the internal image.
+				$image_src = $image_src[0];
+			} else {
+				// If the image source is not found, use the block's innerHTML.
+				$processor = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
+
+				while ( $processor->next_tag( array( 'tag_name' => 'IMG' ) ) ) {
+					$image_src = $processor->get_attribute( 'src' );
+					break;
+				}
+			}
+
 			/**
 			 * In Image (Photo) posts, the caption tag is for the rest of the post content.
 			 *
@@ -1284,7 +1298,7 @@ function tumblr3_block_photo( $atts, $content = '' ): string {
 		'image',
 		array(
 			'highres'  => $highres,
-			'image'    => $image_id,
+			'image'    => (string) $image_src,
 			'link'     => $link_dest,
 			'lightbox' => $lightbox,
 			'caption'  => serialize_blocks( $blocks ),
@@ -1300,6 +1314,63 @@ function tumblr3_block_photo( $atts, $content = '' ): string {
 	return $content;
 }
 add_shortcode( 'block_photo', 'tumblr3_block_photo' );
+
+/**
+ * Render each photo in a photoset (gallery) post.
+ *
+ * @param array  $atts    The attributes of the shortcode.
+ * @param string $content The content of the shortcode.
+ *
+ * @return string
+ */
+function tumblr3_block_photos( $atts, $content = '' ): string {
+	$context = tumblr3_get_parse_context();
+	$output  = '';
+
+	if ( ! isset( $context['gallery']['photos'] ) || empty( $context['gallery']['photos'] ) ) {
+		return '';
+	}
+
+	foreach ( $context['gallery']['photos'] as $block ) {
+		$highres_sizes = array( 'large', 'full' );
+		$highres       = isset( $block['attrs']['sizeSlug'] ) ? in_array( $block['attrs']['sizeSlug'], $highres_sizes, true ) : false;
+		$image_id      = $block['attrs']['id'];
+		$link_dest     = isset( $block['attrs']['linkDestination'] ) ? $block['attrs']['linkDestination'] : 'none';
+		$lightbox      = isset( $block['attrs']['lightbox'] );
+
+		$image_src = wp_get_attachment_image_src( $image_id, 'large' );
+		if ( isset( $image_src[0] ) ) {
+			// Grab the internal image.
+			$image_src = $image_src[0];
+		} else {
+			// If the image source is not found, use the block's innerHTML.
+			$processor = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
+
+			while ( $processor->next_tag( array( 'tag_name' => 'IMG' ) ) ) {
+				$image_src = $processor->get_attribute( 'src' );
+				break;
+			}
+		}
+
+		// Set the current context.
+		tumblr3_set_parse_context(
+			'image',
+			array(
+				'highres'  => $highres,
+				'image'    => $image_src,
+				'link'     => $link_dest,
+				'lightbox' => $lightbox,
+				'data'     => wp_get_attachment_metadata( $image_id, true ),
+			)
+		);
+
+		// Parse the content of the quote block before resetting the context.
+		$output .= tumblr3_do_shortcode( $content );
+	}
+
+	return $output;
+}
+add_shortcode( 'block_photos', 'tumblr3_block_photos' );
 
 /**
  * Rendered for photo and panorama posts which have a link set on the image.
@@ -1496,49 +1567,6 @@ function tumblr3_block_photoset( $atts, $content = '' ): string {
 	return $content;
 }
 add_shortcode( 'block_photoset', 'tumblr3_block_photoset' );
-
-/**
- * Render each photo in a photoset (gallery) post.
- *
- * @param array  $atts    The attributes of the shortcode.
- * @param string $content The content of the shortcode.
- *
- * @return string
- */
-function tumblr3_block_photos( $atts, $content = '' ): string {
-	$context = tumblr3_get_parse_context();
-	$output  = '';
-
-	if ( ! isset( $context['gallery']['photos'] ) || empty( $context['gallery']['photos'] ) ) {
-		return '';
-	}
-
-	foreach ( $context['gallery']['photos'] as $block ) {
-		$highres_sizes = array( 'large', 'full' );
-		$highres       = isset( $block['attrs']['sizeSlug'] ) ? in_array( $block['attrs']['sizeSlug'], $highres_sizes, true ) : false;
-		$image_id      = $block['attrs']['id'];
-		$link_dest     = isset( $block['attrs']['linkDestination'] ) ? $block['attrs']['linkDestination'] : 'none';
-		$lightbox      = isset( $block['attrs']['lightbox'] );
-
-		// Set the current context.
-		tumblr3_set_parse_context(
-			'image',
-			array(
-				'highres'  => $highres,
-				'image'    => $image_id,
-				'link'     => $link_dest,
-				'lightbox' => $lightbox,
-				'data'     => wp_get_attachment_metadata( $image_id, true ),
-			)
-		);
-
-		// Parse the content of the quote block before resetting the context.
-		$output .= tumblr3_do_shortcode( $content );
-	}
-
-	return $output;
-}
-add_shortcode( 'block_photos', 'tumblr3_block_photos' );
 
 /**
  * Rendered for link posts with a thumbnail image set.
