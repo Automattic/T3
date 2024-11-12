@@ -2,8 +2,6 @@
 
 namespace CupcakeLabs\T3;
 
-use function cli\err;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
