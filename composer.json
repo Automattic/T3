@@ -10,24 +10,16 @@
       "homepage": "https://cupcakelabs.wordpress.com/"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/a8cteam51/team51-configs"
-    }
-  ],
   "require": {
     "php": ">=7.3",
     "ext-json": "*"
   },
   "require-dev": {
-	"a8cteam51/team51-configs": "dev-trunk",
-    "wp-coding-standards/wpcs": "^3",
-    "phpcompatibility/phpcompatibility-wp": "*",
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^8",
     "yoast/phpunit-polyfills": "^3.0",
-    "wp-cli/wp-cli-bundle": "^2.11"
+    "wp-cli/wp-cli-bundle": "^2.11",
+    "automattic/jetpack-codesniffer": "^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -39,8 +31,8 @@
 	"wp": "vendor/bin/wp",
     "phpunit": "vendor/bin/phpunit",
     "generate-autoloader": "@composer dump-autoload -o",
-    "format:php": "phpcbf --standard=./.phpcs.xml --basepath=. . -v",
-    "lint:php": "phpcs --standard=./.phpcs.xml --basepath=. . -v",
+    "format:php": "phpcbf --standard=./.phpcs.xml --basepath=. --extensions=php . -v",
+    "lint:php": "phpcs --standard=./.phpcs.xml --basepath=. --extensions=php . -v",
     "internationalize": [
       "@makepot",
       "@updatepo",
