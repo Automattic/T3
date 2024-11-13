@@ -28,7 +28,7 @@
   },
   "autoload-dev": {},
   "scripts": {
-	"wp": "vendor/bin/wp",
+    "wp": "vendor/bin/wp",
     "phpunit": "vendor/bin/phpunit",
     "generate-autoloader": "@composer dump-autoload -o",
     "format:php": "phpcbf --standard=./.phpcs.xml --basepath=. --extensions=php . -v",
