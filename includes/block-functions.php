@@ -971,8 +971,10 @@ function tumblr3_block_audio( $atts, $content = '' ): string {
 
 		// Stop on the first audio block.
 		if ( 'core/audio' === $block['blockName'] ) {
-			$media_id = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
-
+			$media_id  = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
+			$trackname = isset( $block['attrs']['mediaTitle'] ) ? $block['attrs']['mediaTitle'] : '';
+			$artist    = isset( $block['attrs']['mediaArtist'] ) ? $block['attrs']['mediaArtist'] : '';
+			$album     = isset( $block['attrs']['mediaAlbum'] ) ? $block['attrs']['mediaAlbum'] : '';
 			$processor = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
@@ -1004,12 +1006,12 @@ function tumblr3_block_audio( $atts, $content = '' ): string {
 		}
 	}
 
-	// Extract metadata from the media ID.
-	if ( is_int( $media_id ) ) {
+	// Extract metadata from the media ID, don't overwrite values if they're already set.
+	if ( is_int( $media_id ) && $media_id > 0 ) {
 		$meta      = wp_get_attachment_metadata( $media_id );
-		$trackname = isset( $meta['title'] ) ? $meta['title'] : '';
-		$artist    = isset( $meta['artist'] ) ? $meta['artist'] : '';
-		$album     = isset( $meta['album'] ) ? $meta['album'] : '';
+		$trackname = ( empty( $trackname ) && isset( $meta['title'] ) ) ? $meta['title'] : $trackname;
+		$artist    = ( empty( $artist ) && isset( $meta['artist'] ) ) ? $meta['artist'] : $artist;
+		$album     = ( empty( $album ) && isset( $meta['album'] ) ) ? $meta['album'] : $album;
 	}
 
 	// Set the current context.

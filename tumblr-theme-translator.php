@@ -6,6 +6,7 @@
  * @version     1.0.0
  * @author      Cupcake Labs
  * @license     GPL-3.0-or-later
+ * @package    Tumblr3
  *
  * @noinspection    ALL
  *

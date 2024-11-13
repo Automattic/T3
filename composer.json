@@ -32,7 +32,7 @@
     "phpunit": "vendor/bin/phpunit",
     "generate-autoloader": "@composer dump-autoload -o",
     "format:php": "phpcbf --standard=./.phpcs.xml --basepath=. --extensions=php . -v",
-    "lint:php": "phpcs --standard=./.phpcs.xml --basepath=. --extensions=php . -v",
+    "lint:php": "phpcs --standard=./.phpcs.xml --basepath=. --extensions=php . -v -s",
     "internationalize": [
       "@makepot",
       "@updatepo",
