@@ -25,6 +25,18 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-audio-block', ( settings,
 				type: 'string',
 				default: '',
 			},
+			provider: {
+				type: 'string',
+				default: '',
+			},
+			embedHtml: {
+				type: 'string',
+				default: '',
+			},
+			embedUrl: {
+				type: 'string',
+				default: '',
+			},
 			poster: {
 				type: 'object',
 				default: {},

@@ -21,15 +21,15 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-video-block', ( settings,
 				type: 'string',
 				default: '',
 			},
-			embed_html: {
+			embedHtml: {
 				type: 'string',
 				default: '',
 			},
-			embed_iframe: {
+			embedIframe: {
 				type: 'object',
 				default: {},
 			},
-			embed_url: {
+			embedUrl: {
 				type: 'string',
 				default: '',
 			},
@@ -41,7 +41,7 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-video-block', ( settings,
 				type: 'object',
 				default: {},
 			},
-			can_autoplay_on_cellular: {
+			canAutoplayOnCellular: {
 				type: 'boolean',
 				default: false,
 			},
@@ -64,7 +64,7 @@ addFilter(
 	createHigherOrderComponent( BlockEdit => {
 		return props => {
 			const { attributes, setAttributes, isSelected } = props;
-			const { src, url, provider, poster } = attributes;
+			const { src, url, provider } = attributes;
 
 			// Sync mediaURL with src if they differ
 			if ( src && src !== url ) {
