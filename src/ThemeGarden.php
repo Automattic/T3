@@ -127,6 +127,24 @@ class ThemeGarden {
 		<?php
 	}
 
+	public function get_theme( $theme_id ) {
+		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
+		// TODO: remove once we are confident that api response will be stable.
+		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id) . '?time=' . time() );
+		$status   = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $status ) {
+			return new \WP_Error();
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
+
+		if ( ! isset( $body->response->theme ) ) {
+			return new \WP_Error();
+		}
+
+		return $body->response;
+	}
+
 	/**
 	 * Checks URL query for a tumblr theme id to activate.
 	 *
@@ -137,40 +155,30 @@ class ThemeGarden {
 			return;
 		}
 
-		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
-		// TODO: remove once we are confident that api response will be stable.
-		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $_GET['activate_tumblr_theme'] ) . '?time=' . time() );
-		$status   = wp_remote_retrieve_response_code( $response );
+		$theme = $this->get_theme( $_GET['activate_tumblr_theme'] );
 
-		if ( 200 !== $status ) {
-			$this->activation_error = 'Error activating theme. Please try again later.';
-			return;
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ) );
-
-		if ( ! isset( $body->response->theme ) ) {
+		if ( is_wp_error( $theme ) ) {
 			$this->activation_error = 'Error activating theme. Please try again later.';
 			return;
 		}
 
 		// Save theme details to options.
-		update_option( 'tumblr3_theme_html', $body->response->theme );
+		update_option( 'tumblr3_theme_html', $theme->theme );
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
 			'id'          => $_GET['activate_tumblr_theme'],
-			'title'       => isset( $body->response->title ) ? $body->response->title : '',
-			'thumbnail'   => isset( $body->response->thumbnail ) ? $body->response->thumbnail : '',
-			'author_name' => isset( $body->response->author->name ) ? $body->response->author->name : '',
-			'author_url'  => isset( $body->response->author->url ) ? $body->response->author->url : '',
+			'title'       => isset( $body->response->title ) ? $theme->title : '',
+			'thumbnail'   => isset( $body->response->thumbnail ) ? $theme->thumbnail : '',
+			'author_name' => isset( $body->response->author->name ) ? $theme->author->name : '',
+			'author_url'  => isset( $body->response->author->url ) ? $theme->author->url : '',
 		);
 
 		update_option( 'tumblr3_external_theme', $external_theme_details );
 		update_option( 'tumblr3_use_theme', '1' );
 
 		// Setup theme option defaults.
-		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );
+		$this->option_defaults_helper( maybe_unserialize( $theme->default_params ) );
 
 		// Finally, redirect to the customizer with the new theme active.
 		wp_safe_redirect( wp_customize_url() );
@@ -278,16 +286,22 @@ class ThemeGarden {
 		if(empty($this->selected_theme_id)) {
 			return;
 		}
+
+		$theme = $this->get_theme( $this->selected_theme_id );
 		?>
 		<div class="theme-overlay">
 			<div class="theme-backdrop"></div>
 			<div class="theme-wrap wp-clearfix">
 				<div class="theme-header"></div>
 				<div class="theme-about wp-clearfix">
-					<div class="theme-screenshot">
+					<div class="theme-screenshots">
 						<div class="screenshot">
-							<img src="http://localhost:8881/wp-content/themes/twentytwentytwo/screenshot.png?ver=1.8" alt="">
+							<img src="<?php echo esc_url($theme->screenshots[0]); ?>" alt="">
 						</div>
+					</div>
+					<div class="theme-info">
+						<h2 class="theme-name"><?php echo $theme->title; ?></h2>
+						<p class="theme-description"><?php echo $theme->description; ?></p>
 					</div>
 				</div>
 			</div>
