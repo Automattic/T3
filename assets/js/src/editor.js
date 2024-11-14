@@ -2,3 +2,4 @@
 import './index.scss';
 import './components/post-formats';
 import './components/audio-block';
+import './components/video-block';

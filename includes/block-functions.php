@@ -1144,15 +1144,37 @@ function tumblr3_block_video( $atts, $content = '' ): string {
 		return '';
 	}
 
-	$blocks    = parse_blocks( $post->post_content );
-	$media_id  = null;
-	$thumbnail = '';
+	$blocks                   = parse_blocks( $post->post_content );
+	$media_id                 = null;
+	$thumbnail                = '';
+	$url                      = '';
+	$media                    = array();
+	$provider                 = '';
+	$embed_html               = '';
+	$embed_iframe             = array();
+	$embed_url                = '';
+	$metadata                 = array();
+	$attribution              = array();
+	$can_autoplay_on_cellular = false;
+	$duration                 = 0;
 
 	// Handle all blocks in the post content.
 	foreach ( $blocks as $block ) {
 
 		// Stop on the first video block.
 		if ( 'core/video' === $block['blockName'] ) {
+			$media_id                 = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
+			$url                      = isset( $block['attrs']['url'] ) ? $block['attrs']['url'] : '';
+			$media                    = isset( $block['attrs']['media'] ) ? $block['attrs']['media'] : array();
+			$provider                 = isset( $block['attrs']['providerNameSlug'] ) ? $block['attrs']['providerNameSlug'] : '';
+			$embed_html               = isset( $block['attrs']['embedHtml'] ) ? $block['attrs']['embedHtml'] : '';
+			$embed_iframe             = isset( $block['attrs']['embedIframe'] ) ? $block['attrs']['embedIframe'] : array();
+			$embed_url                = isset( $block['attrs']['embedUrl'] ) ? $block['attrs']['embedUrl'] : '';
+			$metadata                 = isset( $block['attrs']['metadata'] ) ? $block['attrs']['metadata'] : array();
+			$attribution              = isset( $block['attrs']['attribution'] ) ? $block['attrs']['attribution'] : array();
+			$can_autoplay_on_cellular = isset( $block['attrs']['canAutoplayOnCellular'] ) ? $block['attrs']['canAutoplayOnCellular'] : false;
+			$duration                 = isset( $block['attrs']['mediaDuration'] ) ? $block['attrs']['mediaDuration'] : 0;
+
 			$processor = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
@@ -1195,8 +1217,18 @@ function tumblr3_block_video( $atts, $content = '' ): string {
 	tumblr3_set_parse_context(
 		'video',
 		array(
-			'player'    => $player,
-			'thumbnail' => $thumbnail,
+			'player'                   => $player,
+			'thumbnail'                => $thumbnail,
+			'url'                      => $url,
+			'media'                    => $media,
+			'provider'                 => $provider,
+			'embed_html'               => $embed_html,
+			'embed_iframe'             => $embed_iframe,
+			'embed_url'                => $embed_url,
+			'metadata'                 => $metadata,
+			'attribution'              => $attribution,
+			'can_autoplay_on_cellular' => $can_autoplay_on_cellular,
+			'duration'                 => $duration,
 		)
 	);
 
