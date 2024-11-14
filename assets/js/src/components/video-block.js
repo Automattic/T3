@@ -1,5 +1,5 @@
-import { InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Button } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 
