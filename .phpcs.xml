@@ -3,11 +3,18 @@
 	<config name="minimum_supported_wp_version" value="6.3" />
 	<config name="testVersion" value="7.0-"/>
 
-	<rule ref="Jetpack" />
+	<rule ref="WordPress-Extra" />
+	
+	<rule ref="Jetpack">
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+	</rule>
+
 	<rule ref="Jetpack-Compat-82" />
 
-	<!-- Exclude class filename check -->
-	<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	<!-- Remove isset with multiple values rule -->
+	<rule ref="MediaWiki.Usage.ForbiddenFunctions.isset">
+		<exclude />
+	</rule>
 
 	<!-- Exclude node modules and vendor folders -->
 	<exclude-pattern>node_modules/*</exclude-pattern>

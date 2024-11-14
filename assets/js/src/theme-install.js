@@ -9,10 +9,7 @@ window.addEventListener(
 			window.location = T3_Install.browseUrl;
 		};
 
-		if (
-			filterLinks[ 0 ] &&
-			filterLinks[ 0 ].tagName.toLowerCase() === 'ul'
-		) {
+		if ( filterLinks[ 0 ] && filterLinks[ 0 ].tagName.toLowerCase() === 'ul' ) {
 			const list = filterLinks[ 0 ];
 			const listItem = document.createElement( 'li' );
 			const link = document.createElement( 'button' );
