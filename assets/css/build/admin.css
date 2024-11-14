@@ -134,28 +134,35 @@ body.admin-color-sunrise {
   width: calc(100% - 4px);
   border: 2px solid var(--t3-secondary);
   border-radius: 4px;
+  display: block;
   position: relative;
+  overflow: hidden;
 }
 .tumblr-theme-details label {
   display: none;
   z-index: 2;
+  position: absolute;
 }
 .tumblr-theme-details img {
   width: 100%;
   height: auto;
   aspect-ratio: 100/67;
   object-fit: contain;
+  margin-bottom: -6px;
   z-index: 1;
 }
 .tumblr-theme-details:hover label {
-  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 100/67;
+  object-fit: contain;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: radial-gradient(closest-side, rgba(240, 231, 148, 0.5) calc(100% - 1px), rgba(0, 0, 0, 0)) 0/4px 4px space;
+  background: radial-gradient(closest-side, var(--t3-primary) calc(100% - 1px), rgba(0, 0, 0, 0)) 0/4px 4px space;
 }
 .tumblr-theme-details:hover .tumblr-theme-detail-button {
   display: inline-block;

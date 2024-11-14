@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class ThemeGarden {
 	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
+	const ADMIN_MENU_SLUG = 'tumblr-themes';
 	public string $selected_category = 'featured';
 	public string $search            = '';
 	public string $activation_error  = '';
@@ -46,7 +47,7 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function enqueue_assets( string $hook ): void {
-		if ( 'appearance_page_tumblr-themes' === $hook ) {
+		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
 			wp_enqueue_script(
@@ -72,7 +73,7 @@ class ThemeGarden {
 				'tumblr-theme-install',
 				'const T3_Install = ' . wp_json_encode(
 					array(
-						'browseUrl'  => admin_url( 'admin.php?page=tumblr-themes' ),
+						'browseUrl'  => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'buttonText' => __( 'Browse Tumblr themes', 'tumblr3' ),
 					)
 				),
@@ -201,7 +202,7 @@ class ThemeGarden {
 			__( 'Tumblr Themes', 'tumblr3' ),
 			__( 'Tumblr Themes', 'tumblr3' ),
 			'manage_options',
-			'tumblr-themes',
+			self::ADMIN_MENU_SLUG,
 			array( $this, 'render_page' )
 		);
 	}
@@ -220,6 +221,20 @@ class ThemeGarden {
 			return '?category=' . $this->selected_category;
 		}
 		return '';
+	}
+
+	public function get_theme_details_url(string $theme_id): string {
+		$vars = [
+			'page' => self::ADMIN_MENU_SLUG,
+			'theme' => $theme_id,
+		];
+		if ( ! empty( $this->search ) ) {
+			$vars['search'] = $this->search;
+		}
+		if ( ! empty( $this->selected_category ) ) {
+			$vars['category'] = $this->selected_category;
+		}
+		return add_query_arg( $vars, admin_url( 'admin.php' ) );
 	}
 
 	/**
@@ -341,7 +356,7 @@ class ThemeGarden {
 						array(
 							'activate_tumblr_theme' => $theme['id'],
 						),
-						admin_url( 'admin.php?page=tumblr-themes' )
+						admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG )
 					);
 					$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
 				?>
@@ -353,10 +368,10 @@ class ThemeGarden {
 				</header>
 
 				<div class='tumblr-theme-content'>
-					<button class="tumblr-theme-details">
+					<a class="tumblr-theme-details" href="<?php echo $this->get_theme_details_url($theme['id']); ?>">
 						<label><span class="tumblr-theme-detail-button"><?php echo _('Theme details'); ?></span></label>
 						<img src="<?php echo esc_url( $theme['thumbnail'] ); ?>" />
-					</button>
+					</a>
 					<div class="tumblr-theme-footer">
 						<a class="rainbow-button" href="<?php echo esc_url( $activate_url ); ?>">Activate</a>
 					</div>
