@@ -220,11 +220,15 @@ body.admin-color-sunrise {
 					var(--t3-primary) calc(100% - 1px),
 					#0000
 			) 0/ 4px 4px space;
+			box-shadow: inset 0 0 10px #000;
 		}
 
 		.tumblr-theme-detail-button {
 			@include rainbow-button;
 			@include rainbow-button-hover;
+			font-size: 16px;
+			font-weight: 600;
+			padding: 5px 20px;
 		}
 
 		img {

@@ -15,6 +15,7 @@ class ThemeGarden {
 	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
 	const ADMIN_MENU_SLUG = 'tumblr-themes';
 	public string $selected_category = 'featured';
+	public string $selected_theme_id = '';
 	public string $search            = '';
 	public string $activation_error  = '';
 
@@ -37,6 +38,9 @@ class ThemeGarden {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
 		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( $_GET['search'] ) : '';
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
+		$this->selected_theme_id = ( isset( $_GET['theme'] ) ) ? sanitize_text_field( $_GET['theme'] ) : '';
 	}
 
 	/**
@@ -264,8 +268,30 @@ class ThemeGarden {
 			</h1>
 			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
 			<?php $this->render_theme_list( $themes ); ?>
+			<?php $this->render_theme_details_overlay( $themes ); ?>
 		</div>
 
+		<?php
+	}
+
+	public function render_theme_details_overlay( $themes ): void {
+		if(empty($this->selected_theme_id)) {
+			return;
+		}
+		?>
+		<div class="theme-overlay">
+			<div class="theme-backdrop"></div>
+			<div class="theme-wrap wp-clearfix">
+				<div class="theme-header"></div>
+				<div class="theme-about wp-clearfix">
+					<div class="theme-screenshot">
+						<div class="screenshot">
+							<img src="http://localhost:8881/wp-content/themes/twentytwentytwo/screenshot.png?ver=1.8" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<?php
 	}
 

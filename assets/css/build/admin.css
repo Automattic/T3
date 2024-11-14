@@ -163,6 +163,7 @@ body.admin-color-sunrise {
   justify-content: center;
   cursor: pointer;
   background: radial-gradient(closest-side, var(--t3-primary) calc(100% - 1px), rgba(0, 0, 0, 0)) 0/4px 4px space;
+  box-shadow: inset 0 0 10px #000;
 }
 .tumblr-theme-details:hover .tumblr-theme-detail-button {
   display: inline-block;
@@ -178,6 +179,9 @@ body.admin-color-sunrise {
   background-size: 90px 100%;
   animation: play 1.5s linear infinite;
   color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 20px;
 }
 .tumblr-theme-details:hover img {
   filter: grayscale(100%);
