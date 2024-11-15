@@ -12,12 +12,33 @@ defined( 'ABSPATH' ) || exit;
  * @package CupcakeLabs\T3
  */
 class ThemeGarden {
-	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
-	const ADMIN_MENU_SLUG = 'tumblr-themes';
+	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
+	const ADMIN_MENU_SLUG       = 'tumblr-themes';
+	/**
+	 * The `category` param in the current URL. If present, we'll search Tumblr's API for the given category.
+	 * Defaults to featured if no param is present.
+	 *
+	 * @var string $selected_category
+	 */
 	public string $selected_category = 'featured';
+	/**
+	 * The `theme` param in the current URL. If present, we'll render a theme details overlay.
+	 *
+	 * @var string $selected_theme_id
+	 */
 	public string $selected_theme_id = '';
-	public string $search            = '';
-	public string $activation_error  = '';
+	/**
+	 * The `search` param in the current URL. If present, we'll search Tumblr's API for the given query.
+	 *
+	 * @var string $search
+	 */
+	public string $search = '';
+	/**
+	 * Value will be set if there is an error fetching theme data. If present, a notice will be shown.
+	 *
+	 * @var string $activation_error
+	 */
+	public string $activation_error = '';
 
 	/**
 	 * Initializes the class.
@@ -34,13 +55,13 @@ class ThemeGarden {
 		add_action( 'admin_notices', array( $this, 'maybe_show_notice' ) );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
-		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : '';
+		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : '';
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
-		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( $_GET['search'] ) : '';
+		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
-		$this->selected_theme_id = ( isset( $_GET['theme'] ) ) ? sanitize_text_field( $_GET['theme'] ) : '';
+		$this->selected_theme_id = ( isset( $_GET['theme'] ) ) ? sanitize_text_field( wp_unslash( $_GET['theme'] ) ) : '';
 	}
 
 	/**
@@ -75,7 +96,7 @@ class ThemeGarden {
 			);
 			wp_add_inline_script(
 				'tumblr-theme-install',
-				'const T3_Install = ' . wp_json_encode(
+				'const T3Install = ' . wp_json_encode(
 					array(
 						'browseUrl'  => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'buttonText' => __( 'Browse Tumblr themes', 'tumblr3' ),
@@ -127,10 +148,17 @@ class ThemeGarden {
 		<?php
 	}
 
-	public function get_theme( $theme_id ) {
+	/**
+	 * Fetches and theme object from Tumblr's API.
+	 *
+	 * @param string $theme_id The theme id to send to Tumblr's API.
+	 *
+	 * @return \WP_Error | object
+	 */
+	public function get_theme( string $theme_id ) {
 		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
 		// TODO: remove once we are confident that api response will be stable.
-		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id) . '?time=' . time() );
+		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
 		$status   = wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $status ) {
 			return new \WP_Error();
@@ -151,11 +179,12 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function maybe_activate_theme(): void {
-		if ( empty( $_GET['activate_tumblr_theme'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
+		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+		if ( empty( $_GET['activate_tumblr_theme'] ) || ! wp_verify_nonce( $nonce, 'activate_tumblr_theme' ) ) {
 			return;
 		}
-
-		$theme = $this->get_theme( $_GET['activate_tumblr_theme'] );
+		$theme_id_to_activate = sanitize_text_field( wp_unslash( $_GET['activate_tumblr_theme'] ) );
+		$theme                = $this->get_theme( $theme_id_to_activate );
 
 		if ( is_wp_error( $theme ) ) {
 			$this->activation_error = 'Error activating theme. Please try again later.';
@@ -167,7 +196,7 @@ class ThemeGarden {
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
-			'id'          => $_GET['activate_tumblr_theme'],
+			'id'          => $theme_id_to_activate,
 			'title'       => isset( $body->response->title ) ? $theme->title : '',
 			'thumbnail'   => isset( $body->response->thumbnail ) ? $theme->thumbnail : '',
 			'author_name' => isset( $body->response->author->name ) ? $theme->author->name : '',
@@ -192,7 +221,7 @@ class ThemeGarden {
 	 *
 	 * @return void
 	 */
-	public function option_defaults_helper( $default_params ): void {
+	public function option_defaults_helper( array $default_params ): void {
 		$tumblr3_mods = get_option( 'theme_mods_tumblr3', array() );
 
 		foreach ( $default_params as $key => $value ) {
@@ -235,11 +264,18 @@ class ThemeGarden {
 		return '';
 	}
 
-	public function get_theme_details_url(string $theme_id): string {
-		$vars = [
-			'page' => self::ADMIN_MENU_SLUG,
+	/**
+	 * Builds the URL for the given theme's detail page.
+	 *
+	 * @param string $theme_id The ID of a Tumblr theme.
+	 *
+	 * @return string
+	 */
+	public function get_theme_details_url( string $theme_id ): string {
+		$vars = array(
+			'page'  => self::ADMIN_MENU_SLUG,
 			'theme' => $theme_id,
-		];
+		);
 		if ( ! empty( $this->search ) ) {
 			$vars['search'] = $this->search;
 		}
@@ -282,26 +318,36 @@ class ThemeGarden {
 		<?php
 	}
 
-	public function render_theme_details_overlay( $themes ): void {
-		if(empty($this->selected_theme_id)) {
+	/**
+	 * Renders an overlay with details about the currently selected theme.
+	 *
+	 * @param array $themes An array of theme preview objects. Used to provide previous and next links.
+	 *
+	 * @return void
+	 */
+	public function render_theme_details_overlay( array $themes ): void {
+		if ( empty( $this->selected_theme_id ) ) {
 			return;
 		}
 
 		$theme = $this->get_theme( $this->selected_theme_id );
+		if ( is_wp_error( $theme ) ) {
+			return;
+		}
 		?>
-		<div class="theme-overlay">
+		<div class="theme-overlay" id="tumblr-theme-overlay">
 			<div class="theme-backdrop"></div>
 			<div class="theme-wrap wp-clearfix">
 				<div class="theme-header"></div>
 				<div class="theme-about wp-clearfix">
 					<div class="theme-screenshots">
 						<div class="screenshot">
-							<img src="<?php echo esc_url($theme->screenshots[0]); ?>" alt="">
+							<img src="<?php echo esc_url( $theme->screenshots[0] ); ?>" alt="">
 						</div>
 					</div>
 					<div class="theme-info">
-						<h2 class="theme-name"><?php echo $theme->title; ?></h2>
-						<p class="theme-description"><?php echo $theme->description; ?></p>
+						<h2 class="theme-name"><?php echo esc_html( $theme->title ); ?></h2>
+						<div><?php echo wp_kses_post( $theme->description ); ?></div>
 					</div>
 				</div>
 			</div>
@@ -408,8 +454,8 @@ class ThemeGarden {
 				</header>
 
 				<div class='tumblr-theme-content'>
-					<a class="tumblr-theme-details" href="<?php echo $this->get_theme_details_url($theme['id']); ?>">
-						<label><span class="tumblr-theme-detail-button"><?php echo _('Theme details'); ?></span></label>
+					<a class="tumblr-theme-details" href="<?php echo esc_url( $this->get_theme_details_url( $theme['id'] ) ); ?>">
+						<label><span class="tumblr-theme-detail-button"><?php esc_html_e( 'Theme details', 'tumblr3' ); ?></span></label>
 						<img src="<?php echo esc_url( $theme['thumbnail'] ); ?>" />
 					</a>
 					<div class="tumblr-theme-footer">

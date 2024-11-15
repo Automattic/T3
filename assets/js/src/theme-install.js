@@ -1,4 +1,3 @@
-console.log( T3_Install.themeGardenUrl );
 window.addEventListener(
 	'DOMContentLoaded',
 	function () {
@@ -6,7 +5,7 @@ window.addEventListener(
 		const filterLinks = body.getElementsByClassName( 'filter-links' );
 
 		const handleClick = function () {
-			window.location = T3_Install.browseUrl;
+			window.location = T3Install.browseUrl;
 		};
 
 		if (
@@ -16,9 +15,8 @@ window.addEventListener(
 			const list = filterLinks[ 0 ];
 			const listItem = document.createElement( 'li' );
 			const link = document.createElement( 'button' );
-			const img = document.createElement( 'img' );
 			listItem.setAttribute( 'class', 'tumblr-theme-garden-list-item' );
-			link.setAttribute( 'title', T3_Install.buttonText );
+			link.setAttribute( 'title', T3Install.buttonText );
 			link.addEventListener( 'click', handleClick );
 			link.setAttribute( 'class', 'tumblr-theme-garden-link' );
 			listItem.appendChild( link );
