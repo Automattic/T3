@@ -1,4 +1,9 @@
 <?php
+/**
+ * Tumblr3 theme hooks.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 

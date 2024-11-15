@@ -1,4 +1,9 @@
 <?php
+/**
+ * Tumblr3 theme index file.
+ *
+ * @package Tumblr3
+ */
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,4 +42,5 @@ $tumblr3_theme = str_replace( '</head>', $tumblr3_head . '</head>', $tumblr3_the
 $tumblr3_theme = str_replace( '</body>', $tumblr3_footer . '</body>', $tumblr3_theme );
 
 // @todo: Sanitize the theme output?!
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 echo $tumblr3_theme;

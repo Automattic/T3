@@ -1,4 +1,9 @@
 <?php
+/**
+ * This is a custom processor that extends the default WP_HTML_Tag_Processor.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 

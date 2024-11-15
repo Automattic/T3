@@ -1,5 +1,5 @@
-import { InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Button } from '@wordpress/components';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 
@@ -64,7 +64,7 @@ addFilter(
 	createHigherOrderComponent( BlockEdit => {
 		return props => {
 			const { attributes, setAttributes, isSelected } = props;
-			const { src, url, provider, poster } = attributes;
+			const { src, url, provider } = attributes;
 
 			// Sync mediaURL with src if they differ
 			if ( src && src !== url ) {
