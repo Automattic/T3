@@ -21,8 +21,9 @@ function tumblr3_get_asset_meta( string $asset_path, ?array $extra_dependencies 
 	}
 
 	$asset_path_info = pathinfo( $asset_path );
-	if ( file_exists( $asset_path_info['dirname'] . '/' . $asset_path_info['filename'] . '.asset.php' ) ) {
-		$asset_meta  = require $asset_path_info['dirname'] . '/' . $asset_path_info['filename'] . '.asset.php';
+	error_log(print_r($asset_path_info, true));
+	if ( file_exists( $asset_path_info['dirname'] . '/' . $asset_path_info['filename'] . '.php' ) ) {
+		$asset_meta  = require $asset_path_info['dirname'] . '/' . $asset_path_info['filename'] . '.php';
 		$asset_meta += array( 'dependencies' => array() ); // Ensure 'dependencies' key exists.
 	} else {
 		$asset_meta = array(
