@@ -991,23 +991,29 @@ function tumblr3_block_audio( $atts, $content = '' ): string {
 		return '';
 	}
 
-	$blocks    = parse_blocks( $post->post_content );
-	$player    = '';
-	$trackname = '';
-	$artist    = '';
-	$album     = '';
-	$media_id  = null;
+	$blocks     = parse_blocks( $post->post_content );
+	$player     = '';
+	$trackname  = '';
+	$artist     = '';
+	$album      = '';
+	$media_id   = null;
+	$provider   = '';
+	$embed_html = '';
+	$embed_url  = '';
 
 	// Handle all blocks in the post content.
 	foreach ( $blocks as $block ) {
 
 		// Stop on the first audio block.
 		if ( 'core/audio' === $block['blockName'] ) {
-			$media_id  = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
-			$trackname = isset( $block['attrs']['mediaTitle'] ) ? $block['attrs']['mediaTitle'] : '';
-			$artist    = isset( $block['attrs']['mediaArtist'] ) ? $block['attrs']['mediaArtist'] : '';
-			$album     = isset( $block['attrs']['mediaAlbum'] ) ? $block['attrs']['mediaAlbum'] : '';
-			$processor = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
+			$media_id   = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
+			$trackname  = isset( $block['attrs']['mediaTitle'] ) ? $block['attrs']['mediaTitle'] : '';
+			$artist     = isset( $block['attrs']['mediaArtist'] ) ? $block['attrs']['mediaArtist'] : '';
+			$album      = isset( $block['attrs']['mediaAlbum'] ) ? $block['attrs']['mediaAlbum'] : '';
+			$provider   = isset( $block['attrs']['providerName'] ) ? $block['attrs']['providerName'] : '';
+			$embed_html = isset( $block['attrs']['embedHtml'] ) ? $block['attrs']['embedHtml'] : '';
+			$embed_url  = isset( $block['attrs']['src'] ) ? $block['attrs']['src'] : '';
+			$processor  = new CupcakeLabs\T3\Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
 			while ( $processor->next_tag(
@@ -1050,12 +1056,15 @@ function tumblr3_block_audio( $atts, $content = '' ): string {
 	tumblr3_set_parse_context(
 		'audio',
 		array(
-			'player'    => $player,
-			'art'       => get_the_post_thumbnail_url(),
-			'trackname' => $trackname,
-			'artist'    => $artist,
-			'album'     => $album,
-			'media_id'  => $media_id,
+			'player'     => $player,
+			'art'        => get_the_post_thumbnail_url(),
+			'trackname'  => $trackname,
+			'artist'     => $artist,
+			'album'      => $album,
+			'media_id'   => $media_id,
+			'provider'   => $provider,
+			'embed_html' => $embed_html,
+			'embed_url'  => $embed_url,
 		)
 	);
 
