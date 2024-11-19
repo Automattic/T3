@@ -4,6 +4,7 @@
  *
  * @package Tumblr3
  */
+
 defined( 'ABSPATH' ) || exit;
 
 /**

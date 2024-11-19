@@ -1,4 +1,9 @@
 <?php
+/**
+ * Tumblr language strings.
+ *
+ * @package Tumblr3
+ */
 
 defined( 'ABSPATH' ) || exit;
 

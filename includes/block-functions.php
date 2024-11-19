@@ -1,4 +1,9 @@
 <?php
+/**
+ * Block Functions
+ *
+ * @package Tumblr3
+ */
 
 defined( 'ABSPATH' ) || exit;
 
@@ -624,8 +629,6 @@ add_shortcode( 'block_haspages', 'tumblr3_block_haspages' );
 /**
  * Rendered if you have "Show header image" enabled.
  *
- * @todo This.
- *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
  *
@@ -638,8 +641,6 @@ add_shortcode( 'block_showheaderimage', 'tumblr3_block_showheaderimage' );
 
 /**
  * Rendered if you have "Show header image" disabled.
- *
- * @todo This.
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
@@ -939,7 +940,38 @@ add_shortcode( 'block_label', 'tumblr3_block_label' );
  * @return string
  */
 function tumblr3_block_link( $atts, $content = '' ): string {
-	return ( 'link' === get_post_format() ) ? tumblr3_do_shortcode( $content ) : '';
+	global $post;
+
+	// Don't parse all blocks if the post format is not chat.
+	if ( 'link' !== get_post_format() ) {
+		return '';
+	}
+
+	$blocks = parse_blocks( $post->post_content );
+	$url    = '';
+
+	foreach ( $blocks as $block ) {
+		// capture each paragraph in the chat post as a chat block line.
+		if ( 'core/media-text' === $block['blockName'] ) {
+			$url = $block['attrs']['mediaLink'];
+
+			break;
+		}
+	}
+
+	tumblr3_set_parse_context(
+		'link',
+		array(
+			'url' => $url,
+		)
+	);
+
+	// Parse the content of the chat block before resetting the context.
+	$content = tumblr3_do_shortcode( $content );
+
+	tumblr3_set_parse_context( 'theme', true );
+
+	return $content;
 }
 add_shortcode( 'block_link', 'tumblr3_block_link' );
 
@@ -1154,7 +1186,6 @@ function tumblr3_block_video( $atts, $content = '' ): string {
 	}
 
 	$blocks                   = parse_blocks( $post->post_content );
-	$media_id                 = null;
 	$thumbnail                = '';
 	$url                      = '';
 	$media                    = array();
@@ -1172,7 +1203,6 @@ function tumblr3_block_video( $atts, $content = '' ): string {
 
 		// Stop on the first video block.
 		if ( 'core/video' === $block['blockName'] ) {
-			$media_id                 = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 0;
 			$url                      = isset( $block['attrs']['url'] ) ? $block['attrs']['url'] : '';
 			$media                    = isset( $block['attrs']['media'] ) ? $block['attrs']['media'] : array();
 			$provider                 = isset( $block['attrs']['providerNameSlug'] ) ? $block['attrs']['providerNameSlug'] : '';
@@ -1287,7 +1317,6 @@ function tumblr3_block_photo( $atts, $content = '' ): string {
 	$highres_sizes = array( 'large', 'full' );
 	$image_id      = 0;
 	$link_dest     = 'none';
-	$caption       = '';
 	$lightbox      = false;
 
 	// Handle all blocks in the post content.
@@ -1554,7 +1583,6 @@ function tumblr3_block_photoset( $atts, $content = '' ): string {
 
 	$blocks     = parse_blocks( $post->post_content );
 	$gallery    = '';
-	$caption    = '';
 	$photocount = 0;
 	$photos     = array();
 

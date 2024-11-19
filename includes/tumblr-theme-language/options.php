@@ -1,4 +1,9 @@
 <?php
+/**
+ * Tumblr3 theme option prefixes.
+ *
+ * @package Tumblr3
+ */
 
 defined( 'ABSPATH' ) || exit;
 

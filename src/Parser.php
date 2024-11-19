@@ -1,4 +1,9 @@
 <?php
+/**
+ * The Tumblr theme parser.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 
@@ -272,7 +277,7 @@ class Parser {
 	/**
 	 * Helper function to fix unbalanced block tags.
 	 *
-	 * @param string $raw_tag The raw tag.
+	 * @param string $block The raw tag.
 	 *
 	 * @return string The fixed tag.
 	 */
@@ -280,8 +285,7 @@ class Parser {
 		if ( 0 === stripos( $block, 'block:' ) ) {
 			// Uh oh, we've got two of the same openers in a row, attempt to fix.
 			if ( end( $this->block_openers ) === $block ) {
-
-				// Log the error.
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				error_log(
 					$block . ' is a duplicate block opener. Found at position ' . $this->position . PHP_EOL,
 					3,
@@ -325,7 +329,7 @@ class Parser {
 	/**
 	 * Helper function to convert Tumblr boolean blocks into a custom shortcode.
 	 *
-	 * @param string $raw_tag The raw tag.
+	 * @param string $boolean The boolean block.
 	 *
 	 * @return string The converted tag.
 	 */

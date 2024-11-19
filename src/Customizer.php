@@ -1,4 +1,9 @@
 <?php
+/**
+ * Customizer class.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 
@@ -447,7 +452,7 @@ class Customizer {
 			 * Boolean options.
 			 */
 			if ( str_starts_with( $name, 'if:' ) ) {
-				$condition = $processor->get_attribute( 'content' );
+				$condition = (string) $processor->get_attribute( 'content' );
 				$label     = substr( $name, strlen( 'if:' ) );
 
 				// Option names need to be lowercase and without spaces.
@@ -457,7 +462,7 @@ class Customizer {
 					$name,
 					array(
 						'capability'        => 'edit_theme_options',
-						'default'           => '',
+						'default'           => '1' === $condition ? '1' : '',
 						'sanitize_callback' => 'sanitize_text_field',
 					)
 				);
@@ -471,6 +476,11 @@ class Customizer {
 						'priority' => 10,
 					)
 				);
+
+				// If it doesn't exist, load the default value into the theme mod.
+				if ( ! get_theme_mod( $name ) ) {
+					set_theme_mod( $name, '1' === $condition ? '1' : '' );
+				}
 
 				continue;
 			}

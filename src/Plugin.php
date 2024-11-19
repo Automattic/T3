@@ -1,4 +1,9 @@
 <?php
+/**
+ * Plugin main class.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 

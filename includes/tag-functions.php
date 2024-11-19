@@ -1,4 +1,9 @@
 <?php
+/**
+ * Individual tag functions.
+ *
+ * @package T3
+ */
 
 defined( 'ABSPATH' ) || exit;
 
@@ -100,6 +105,7 @@ function tumblr3_tag_postauthorname(): string {
 	return get_the_author();
 }
 add_shortcode( 'tag_postauthorname', 'tumblr3_tag_postauthorname' );
+add_shortcode( 'tag_author', 'tumblr3_tag_postauthorname' );
 
 /**
  * Returns the group member display name.
@@ -553,6 +559,11 @@ add_shortcode( 'tag_mailsummary', 'tumblr3_tag_tweetsummary' );
 function tumblr3_tag_url(): string {
 	$context = tumblr3_get_parse_context();
 
+	// Link post format.
+	if ( isset( $context['link'], $context['link']['url'] ) ) {
+		return esc_url( $context['link']['url'] );
+	}
+
 	// Handle the jump pagination context for this tag.
 	if ( isset( $context['jumppagination'] ) ) {
 		return '/page/' . intval( $context['jumppagination'] );
@@ -731,7 +742,6 @@ add_shortcode( 'tag_totalpages', 'tumblr3_tag_totalpages' );
  *
  * @return string
  *
- * @todo find a way to get the install date of the blog.
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function tumblr3_tag_copyrightyears(): string {
@@ -862,8 +872,6 @@ add_shortcode( 'tag_notecountwithlabel', 'tumblr3_tag_notecountwithlabel' );
 
 /**
  * The post comments.
- *
- * @todo We need to match the output of tumblr post notes for styling consistency.
  *
  * @param array $atts The attributes of the shortcode.
  *
