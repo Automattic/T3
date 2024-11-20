@@ -230,6 +230,10 @@ class ThemeGarden {
 		);
 	}
 
+	/**
+	 * Makes a target <div> allowing React to render the theme garden.
+	 * @return void
+	 */
 	public function render_theme_garden(): void {
 		?>
 		<div id="tumblr-theme-garden"></div>
@@ -268,7 +272,6 @@ class ThemeGarden {
 		}
 
 		$body       = json_decode( $cached_response, true );
-		$categories = isset( $body['response']['categories'] ) ? $body['response']['categories'] : array();
 		$themes     = isset( $body['response']['themes'] ) ? $body['response']['themes'] : array();
 		?>
 
@@ -277,48 +280,7 @@ class ThemeGarden {
 				<img class="tumblr-logo-icon" src="<?php echo esc_url( $tumblr_logo ); ?>" alt="" />
 				<span><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></span>
 			</h1>
-			<?php $this->render_filter_bar( $categories, count( $themes ) ); ?>
 			<?php $this->render_theme_list( $themes ); ?>
-		</div>
-
-		<?php
-	}
-
-	/**
-	 * Renders the filter bar.
-	 *
-	 * @param array   $categories  The categories to render.
-	 * @param integer $theme_count The number of themes.
-	 *
-	 * @return void
-	 */
-	public function render_filter_bar( array $categories, int $theme_count ): void {
-		?>
-
-		<div class="wp-filter">
-
-			<div class="filter-count"><span class="count"><?php echo esc_html( $theme_count ); ?></span></div>
-
-			<form method="get" id="t3-category-select-form">
-				<input type="hidden" name="page" value="tumblr-themes">
-				<label for="t3-categories">Categories</label>
-				<select id="t3-categories" name="category">
-					<option value="featured">Featured</option>
-					<?php foreach ( $categories as $category ) : ?>
-						<?php $selected = ( $this->selected_category === $category['text_key'] ) ? 'selected' : ''; ?>
-						<option value="<?php echo esc_attr( $category['text_key'] ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $category['name'] ); ?></option>
-					<?php endforeach; ?>
-				</select>
-			</form>
-
-			<form method="get" class="search-form">
-				<input type="hidden" name="page" value="tumblr-themes">
-				<p class="search-box">
-					<label for="wp-filter-search-input">Search Themes</label>
-					<input type="search" aria-describedby="live-search-desc" id="wp-filter-search-input" class="wp-filter-search" name="search" value="<?php echo esc_attr( $this->search ); ?>">
-				</p>
-			</form>
-
 		</div>
 
 		<?php
