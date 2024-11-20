@@ -1,7 +1,10 @@
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
+import { withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
+import './theme-garden-store';
 
-export const ThemeGardenFilterbar = ({themeCount, categories, initialCategory, baseUrl}) => {
+const _ThemeGardenFilterBar = ({themeCount, categories, initialCategory, baseUrl}) => {
 	const [currentCategory, setCurrentCategory] = useState(initialCategory);
 
 	const onChangeCategory = ({currentTarget}) => {
@@ -30,3 +33,7 @@ export const ThemeGardenFilterbar = ({themeCount, categories, initialCategory, b
 		</div>
 	);
 }
+
+export const ThemeGardenFilterBar = compose(
+	withSelect( ( select ) => ( select( 'tumblr3/theme-garden-store' ).getFilterBarProps() ) ),
+)( _ThemeGardenFilterBar );
