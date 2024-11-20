@@ -1,92 +1,90 @@
 // NPF image block styles - most importantly, to render NPF-created photosets.
 // stylelint-disable no-descending-specificity -- unnecessary.
 
-body,
 .post,
-.post-content {
-	// NPF photoset wrapper
-	div.npf_row {
-		align-items: stretch;
-		display: flex;
-		margin-top: 0;
-		overflow: hidden;
+.post-content,
+body {
+    // NPF photoset wrapper
+    div.npf_row {
+        align-items: stretch;
+        display: flex;
+        margin-top: 0;
+        overflow: hidden;
 
-		figure.tmblr-full {
-			flex: 1;
-			justify-content: space-between;
-			margin: 0;
-			overflow-y: hidden;
-		}
+        figure.tmblr-full {
+            flex: 1;
+            justify-content: space-between;
+            margin: 0;
+            overflow-y: hidden;
+        }
 
-		figure.tmblr-full,
-		.npf_col {
-			display: flex;
-			flex-wrap: wrap;
-			padding-left: 2px;
-			padding-right: 2px;
+        figure.tmblr-full,
+        .npf_col {
+            display: flex;
+            flex-direction: column;
+            padding-left: 2px;
+            padding-right: 2px;
 
-			&:first-child {
-				padding-left: 0;
-				padding-right: 2px;
-			}
+            &:first-child {
+                padding-left: 0;
+            }
 
-			&:last-child {
-				padding-left: 2px;
-				padding-right: 0;
-			}
-		}
+            &:last-child {
+                padding-right: 0;
+            }
+        }
 
-		figure.tmblr-full:only-child,
-		.npf_col:only-child {
-			padding-left: 0;
-			padding-right: 0;
-		}
+        img {
+            height: auto;
+        }
 
-		img {
-			height: auto;
-		}
+        .npf_col {
+            flex: 1;
 
-		.npf_col {
-			flex: 1;
+            figure {
+                position: relative;
+                width: 100%;
+                margin: 0;
+                text-align: left;
 
-			figure {
-				position: relative;
-				width: 100%;
-				margin: 0;
-				text-align: left;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
 
-				img {
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-				}
+                p.tmblr-attribution {
+                    box-sizing: border-box;
+                    width: 100%;
+                }
+            }
+        }
+    }
 
-				p.tmblr-attribution {
-					width: 100%;
-				}
-			}
-		}
-	}
+    figure[data-enable-lightbox="1"] {
+        cursor: pointer;
+    }
 
-	figure[data-enable-lightbox="1"],
-	a.post_media_photo_anchor {
-		cursor: pointer;
-	}
+    a.post_media_photo_anchor {
+        cursor: pointer;
+        flex: 1;
+        text-decoration: none;
+    }
 
-	p + div.npf_row,
-	div.npf_row + p {
-		margin-top: 15px;
-	}
+    p + div.npf_row,
+    div.npf_row + p {
+        margin-top: 15px;
+    }
 
-	// Add a margin if following/preceding a video
-	.crt-video + div.npf_row,
-	div.npf_row + .crt-video {
-		margin-top: 15px;
-	}
+    // Add a margin if following/preceding a video
+    .crt-video + div.npf_row,
+    div.npf_row + .crt-video {
+        margin-top: 15px;
+    }
 
-	// Horizontal margins between photoset rows
-	div.npf_row + figure.tmblr-full,
-	div.npf_row + div.npf_row {
-		margin-top: 4px;
-	}
+    // Horizontal margins between photoset rows
+    div.npf_row + figure.tmblr-full,
+    div.npf_row + div.npf_row {
+        margin-top: 4px;
+    }
 }
