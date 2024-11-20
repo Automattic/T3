@@ -10,12 +10,12 @@ import './theme-garden-store';
  * This component appears at the top of the theme browser, and has a category selector and a search bar.
  *
  * @param props
- * @param props.themeCount
+ * @param props.themes
  * @param props.categories
  * @param props.initialCategory
  * @param props.baseUrl
  */
-const _ThemeGardenFilterBar = ({themeCount, categories, initialCategory, baseUrl}) => {
+const _ThemeGardenFilterBar = ({themes, categories, initialCategory, baseUrl}) => {
 	const [currentCategory, setCurrentCategory] = useState(initialCategory);
 
 	const onChangeCategory = ({currentTarget}) => {
@@ -26,7 +26,7 @@ const _ThemeGardenFilterBar = ({themeCount, categories, initialCategory, baseUrl
 	return (
 		<div className="wp-filter">
 			<div className="filter-count">
-				<span className="count">{themeCount}</span>
+				<span className="count">{themes.length}</span>
 			</div>
 			<label htmlFor="t3-categories">{__('Categories', 'tumblr3')}</label>
 			<select id="t3-categories" name="category" onChange={onChangeCategory}>

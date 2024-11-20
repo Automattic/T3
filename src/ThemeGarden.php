@@ -184,6 +184,10 @@ class ThemeGarden {
 		exit;
 	}
 
+	/**
+	 * Checks transients for a cached value of themes and categories. If cache is empty, hits the Tumblr API.
+	 * @return array
+	 */
 	public function get_themes_and_categories(): array {
 		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
 
@@ -254,36 +258,6 @@ class ThemeGarden {
 			return '?category=' . $this->selected_category;
 		}
 		return '';
-	}
-
-	/**
-	 * Renders the theme garden page.
-	 *
-	 * @return void
-	 */
-	public function render_page(): void {
-		$tumblr_logo     = TUMBLR3_PATH . 'assets/images/tumblr_logo_icon.png';
-		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
-
-		if ( false === $cached_response ) {
-			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
-			$cached_response = wp_remote_retrieve_body( $response );
-			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
-		}
-
-		$body       = json_decode( $cached_response, true );
-		$themes     = isset( $body['response']['themes'] ) ? $body['response']['themes'] : array();
-		?>
-
-		<div class="wrap">
-			<h1 class="wp-heading-inline" id="theme-garden-heading">
-				<img class="tumblr-logo-icon" src="<?php echo esc_url( $tumblr_logo ); ?>" alt="" />
-				<span><?php esc_html_e( 'Tumblr Themes', 'tumblr3' ); ?></span>
-			</h1>
-			<?php $this->render_theme_list( $themes ); ?>
-		</div>
-
-		<?php
 	}
 
 	/**

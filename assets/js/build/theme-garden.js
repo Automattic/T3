@@ -36,13 +36,13 @@ __webpack_require__.r(__webpack_exports__);
  * This component appears at the top of the theme browser, and has a category selector and a search bar.
  *
  * @param props
- * @param props.themeCount
+ * @param props.themes
  * @param props.categories
  * @param props.initialCategory
  * @param props.baseUrl
  */
 const _ThemeGardenFilterBar = ({
-  themeCount,
+  themes,
   categories,
   initialCategory,
   baseUrl
@@ -60,7 +60,7 @@ const _ThemeGardenFilterBar = ({
     className: "filter-count"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "count"
-  }, themeCount)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+  }, themes.length)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "t3-categories"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Categories', 'tumblr3')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
     id: "t3-categories",
@@ -96,30 +96,59 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const DEFAULT_STATE = {
-  logoUrl: themeGardenData.logoUrl
+  logoUrl: themeGardenData.logoUrl,
+  themes: themeGardenData.themes,
+  categories: themeGardenData.categories,
+  hello: 'fred'
 };
 const reducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
+    case 'RECEIVE_THEMES_AND_CATEGORIES':
+      return {
+        ...state,
+        hello: action.hello
+      };
     default:
       return state;
   }
 };
-const actions = {};
-const selectors = {
-  getLogoUrl() {
-    return DEFAULT_STATE.logoUrl;
-  },
-  getFilterBarProps() {
+const actions = {
+  receiveThemesAndCategories(themesAndCategories) {
     return {
-      themeCount: themeGardenData.themes.length,
-      categories: themeGardenData.categories,
-      initialCategory: themeGardenData.selectedCategory,
-      baseUrl: themeGardenData.baseUrl
+      type: 'RECEIVE_THEMES_AND_CATEGORIES',
+      themesAndCategories
     };
   }
 };
-const controls = {};
-const resolvers = {};
+const selectors = {
+  getLogoUrl(state) {
+    return state.logoUrl;
+  },
+  getFilterBarProps(state) {
+    return {
+      themes: state.themes,
+      categories: state.categories,
+      initialCategory: state.selectedCategory,
+      baseUrl: state.baseUrl,
+      hello: state.hello
+    };
+  }
+};
+const controls = {
+  FETCH_THEMES_AND_CATEGORIES() {
+    return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+      path: '/tumblr3/v1/themes-and-categories'
+    });
+  }
+};
+const resolvers = {
+  getThemesAndCategories: () => async ({
+    dispatch
+  }) => {
+    const data = await controls.FETCH_THEMES_AND_CATEGORIES();
+    dispatch(actions.receiveThemesAndCategories(data));
+  }
+};
 const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.createReduxStore)('tumblr3/theme-garden-store', {
   reducer,
   actions,

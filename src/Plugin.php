@@ -53,6 +53,16 @@ class Plugin {
 	public ?ThemeGarden $theme_garden = null;
 
 	/**
+	 * The theme browser component.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     RestApi|null
+	 */
+	public ?RestApi $rest_api = null;
+
+	/**
 	 * The parser component.
 	 *
 	 * @since   1.0.0
@@ -137,6 +147,8 @@ class Plugin {
 		if ( is_admin() ) {
 			$this->theme_garden = new ThemeGarden();
 			$this->theme_garden->initialize();
+			$this->rest_api = new RestApi();
+			$this->rest_api->initialize();
 		}
 
 		// In the frontend, setup the parser.
