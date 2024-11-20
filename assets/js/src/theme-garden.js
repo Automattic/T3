@@ -5,6 +5,14 @@ import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './theme-garden-store';
 
+/**
+ * ThemeGarden Component
+ *
+ * This component provides a user interface for browsing themes from Tumblr's theme garden.
+ *
+ * @param props
+ * @param props.logoUrl
+ */
 const ThemeGarden = ({ logoUrl }) => {
 	return (
 		<div className="wrap">

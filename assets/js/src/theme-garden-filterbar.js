@@ -4,6 +4,17 @@ import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './theme-garden-store';
 
+/**
+ * ThemeGardenFilterBar component
+ *
+ * This component appears at the top of the theme browser, and has a category selector and a search bar.
+ *
+ * @param props
+ * @param props.themeCount
+ * @param props.categories
+ * @param props.initialCategory
+ * @param props.baseUrl
+ */
 const _ThemeGardenFilterBar = ({themeCount, categories, initialCategory, baseUrl}) => {
 	const [currentCategory, setCurrentCategory] = useState(initialCategory);
 

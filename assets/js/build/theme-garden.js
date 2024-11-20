@@ -29,6 +29,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/**
+ * ThemeGardenFilterBar component
+ *
+ * This component appears at the top of the theme browser, and has a category selector and a search bar.
+ *
+ * @param props
+ * @param props.themeCount
+ * @param props.categories
+ * @param props.initialCategory
+ * @param props.baseUrl
+ */
 const _ThemeGardenFilterBar = ({
   themeCount,
   categories,
@@ -277,6 +289,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/**
+ * ThemeGarden Component
+ *
+ * This component provides a user interface for browsing themes from Tumblr's theme garden.
+ *
+ * @param props
+ * @param props.logoUrl
+ */
 const ThemeGarden = ({
   logoUrl
 }) => {
