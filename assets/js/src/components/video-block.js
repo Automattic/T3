@@ -49,6 +49,13 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-video-block', ( settings,
 				type: 'number',
 				default: 0,
 			},
+			filmstrip: {
+				type: 'array',
+				items: {
+					type: 'object',
+				},
+				default: [],
+			},
 		} );
 	}
 
