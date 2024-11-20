@@ -1,0 +1,33 @@
+.tmblr-full > audio {
+    width: 100%;
+}
+
+.tmblr-full > .audio-caption {
+    display: flex;
+    flex-direction: row;
+
+    .album-cover {
+        width: 85px;
+        height: 85px;
+    }
+
+    .audio-details {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 20px;
+    }
+
+    .title {
+        font-weight: bold;
+        line-height: 1.5;
+    }
+
+    .artist,
+    .album {
+        font-size: 0.875em;
+        line-height: 1.5;
+    }
+}
