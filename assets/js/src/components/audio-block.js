@@ -1,5 +1,6 @@
 import { InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { PanelBody, TextControl, Button, BaseControl } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 
@@ -38,6 +39,10 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-audio-block', ( settings,
 				default: '',
 			},
 			poster: {
+				type: 'object',
+				default: {},
+			},
+			attribution: {
 				type: 'object',
 				default: {},
 			},
@@ -85,14 +90,18 @@ addFilter(
 									onChange={ value => setAttributes( { mediaAlbum: value } ) }
 								/>
 								<MediaUploadCheck>
+									<BaseControl.VisualLabel>
+										{ __( 'Poster image' ) }
+									</BaseControl.VisualLabel>
 									<MediaUpload
+										title={ __( 'Select poster image' ) }
 										onSelect={ media =>
 											setAttributes( { poster: { url: media.url, alt: media.alt } } )
 										}
 										allowedTypes={ [ 'image' ] }
 										render={ ( { open } ) => (
-											<Button onClick={ open } variant="secondary">
-												{ poster.url ? 'Replace Poster Image' : 'Upload Poster Image' }
+											<Button onClick={ open } variant="primary">
+												{ poster.url ? __( 'Replace' ) : __( 'Select' ) }
 											</Button>
 										) }
 									/>
@@ -101,10 +110,13 @@ addFilter(
 											<img
 												src={ poster.url }
 												alt={ poster.alt || 'Poster Image' }
-												style={ { maxWidth: '100%' } }
+												style={ { maxWidth: '100%', marginTop: '10px' } }
 											/>
-											<Button isDestructive onClick={ () => setAttributes( { poster: {} } ) }>
-												Remove Poster Image
+											<Button
+												isDestructive
+												onClick={ () => setAttributes( { poster: {} } ) }
+											>
+												{ __( 'Remove' ) }
 											</Button>
 										</div>
 									) }
