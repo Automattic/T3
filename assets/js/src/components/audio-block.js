@@ -90,9 +90,7 @@ addFilter(
 									onChange={ value => setAttributes( { mediaAlbum: value } ) }
 								/>
 								<MediaUploadCheck>
-									<BaseControl.VisualLabel>
-										{ __( 'Poster image' ) }
-									</BaseControl.VisualLabel>
+									<BaseControl.VisualLabel>{ __( 'Poster image' ) }</BaseControl.VisualLabel>
 									<MediaUpload
 										title={ __( 'Select poster image' ) }
 										onSelect={ media =>
@@ -112,10 +110,7 @@ addFilter(
 												alt={ poster.alt || 'Poster Image' }
 												style={ { maxWidth: '100%', marginTop: '10px' } }
 											/>
-											<Button
-												isDestructive
-												onClick={ () => setAttributes( { poster: {} } ) }
-											>
+											<Button isDestructive onClick={ () => setAttributes( { poster: {} } ) }>
 												{ __( 'Remove' ) }
 											</Button>
 										</div>

@@ -52,7 +52,7 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-video-block', ( settings,
 			filmstrip: {
 				type: 'array',
 				items: {
-					type: "object",
+					type: 'object',
 				},
 				default: [],
 			},
