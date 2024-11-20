@@ -2,6 +2,62 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./assets/js/src/theme-garden-filterbar.js":
+/*!*************************************************!*\
+  !*** ./assets/js/src/theme-garden-filterbar.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ThemeGardenFilterbar: () => (/* binding */ ThemeGardenFilterbar)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const ThemeGardenFilterbar = ({
+  themeCount,
+  categories,
+  initialCategory,
+  baseUrl
+}) => {
+  const [currentCategory, setCurrentCategory] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialCategory);
+  const onChangeCategory = ({
+    currentTarget
+  }) => {
+    setCurrentCategory(currentTarget.value);
+    window.history.pushState({}, '', baseUrl + '&category=' + currentTarget.value);
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-filter"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "filter-count"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "count"
+  }, themeCount)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "t3-categories"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Categories', 'tumblr3')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
+    id: "t3-categories",
+    name: "category",
+    onChange: onChangeCategory
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+    value: "featured"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._x)('Featured', 'The name of a category in a list of categories.', 'tumblr3')), categories.map(category => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
+      value: category.text_key,
+      selected: currentCategory === category.text_key
+    }, category.name);
+  })));
+};
+
+/***/ }),
+
 /***/ "react":
 /*!************************!*\
   !*** external "React" ***!
@@ -19,6 +75,16 @@ module.exports = window["React"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["element"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
 
 /***/ })
 
@@ -101,29 +167,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _theme_garden_filterbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./theme-garden-filterbar */ "./assets/js/src/theme-garden-filterbar.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 
-// window.addEventListener(
-// 	'DOMContentLoaded',
-// 	function () {
-// 		const categorySelect = document.getElementById( 't3-categories' );
-// 		const categorySelectForm = document.getElementById(
-// 			't3-category-select-form'
-// 		);
-//
-// 		categorySelect.addEventListener( 'change', function () {
-// 			categorySelectForm.submit();
-// 		} );
-// 	},
-// 	false
-// );
 
-const App = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "test!");
+
+
+const ThemeGarden = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wrap"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+    className: "wp-heading-inline",
+    id: "theme-garden-heading"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: "tumblr-logo-icon",
+    src: themeGardenData.logoUrl,
+    alt: ""
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Tumblr Themes', 'tumblr3'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_theme_garden_filterbar__WEBPACK_IMPORTED_MODULE_2__.ThemeGardenFilterbar, {
+    themeCount: themeGardenData.themes.length,
+    categories: themeGardenData.categories,
+    initialCategory: themeGardenData.selectedCategory,
+    baseUrl: themeGardenData.baseUrl
+  }));
 };
 const rootElement = document.getElementById('tumblr-theme-garden');
 if (rootElement) {
   const root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createRoot)(rootElement);
-  root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(App, null));
+  root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ThemeGarden, null));
 } else {
   console.error('Failed to find the root element for the settings panel.');
 }

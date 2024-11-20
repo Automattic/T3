@@ -49,13 +49,24 @@ class ThemeGarden {
 		if ( 'appearance_page_tumblr-themes' === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
-			error_log(print_r( $deps, true ));
+			$themes_and_categories = $this->get_themes_and_categories();
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
 				$deps['dependencies'],
 				$deps['version'],
 				true
+			);
+			wp_localize_script(
+				'tumblr-theme-garden',
+				'themeGardenData',
+				array(
+					'logoUrl' => TUMBLR3_URL . 'assets/images/tumblr_logo_icon.png',
+					'themes'   => $themes_and_categories['themes'],
+					'categories' => $themes_and_categories['categories'],
+					'selectedCategory' => $this->selected_category,
+					'baseUrl'    => admin_url( 'admin.php?page=tumblr-themes' ),
+				)
 			);
 		}
 
@@ -171,6 +182,18 @@ class ThemeGarden {
 		// Finally, redirect to the customizer with the new theme active.
 		wp_safe_redirect( wp_customize_url() );
 		exit;
+	}
+
+	public function get_themes_and_categories(): array {
+		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
+
+		if ( false === $cached_response ) {
+			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
+			$cached_response = wp_remote_retrieve_body( $response );
+			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
+		}
+		$body       = json_decode( $cached_response, true );
+		return $body['response'];
 	}
 
 	/**

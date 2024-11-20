@@ -1,4 +1,3 @@
-console.log( T3_Install.themeGardenUrl );
 window.addEventListener(
 	'DOMContentLoaded',
 	function () {
