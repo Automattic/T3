@@ -4,3 +4,4 @@ import './components/post-formats';
 import './components/audio-block';
 import './components/video-block';
 import './components/image-block';
+import './components/embed-block';
