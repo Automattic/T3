@@ -6,13 +6,16 @@ const DEFAULT_STATE = {
 	themes: themeGardenData.themes,
 	categories: themeGardenData.categories,
 	selectedCategory: themeGardenData.selectedCategory,
+	baseUrl: themeGardenData.baseUrl,
 	hello: 'fred'
 };
 
 const reducer = ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
-		case 'RECEIVE_THEMES_AND_CATEGORIES':
-			return { ...state, hello: action.hello };
+		case 'RECEIVE_THEMES':
+			console.log('action dispatched');
+			console.log(action);
+			return { ...state, hello: action.themes.hello };
 		default:
 			return state;
 	}
@@ -38,14 +41,17 @@ const selectors = {
 	getLogoUrl() {
 		return DEFAULT_STATE.logoUrl;
 	},
-	getInitialFilterBarProps(state) {
+	getInitialFilterBarProps() {
 		return {
-			themeList: state.themes,
-			categories: state.categories,
-			selectedCategory: state.selectedCategory,
-			baseUrl: state.baseUrl,
-			hello: state.hello
+			themeList: DEFAULT_STATE.themes,
+			categories: DEFAULT_STATE.categories,
+			selectedCategory: DEFAULT_STATE.selectedCategory,
+			baseUrl: DEFAULT_STATE.baseUrl,
+			hello: DEFAULT_STATE.hello
 		}
+	},
+	getThemes(state) {
+		return state.hello;
 	}
 };
 

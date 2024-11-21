@@ -41,6 +41,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param props.initialProps.selectedCategory
  * @param props.initialProps.categories
  * @param props.initialProps.themeList
+ * @param props
  * @param props.fetchThemes
  * @param props.receiveThemes
  */
@@ -59,12 +60,10 @@ const _ThemeGardenFilterBar = ({
   const onChangeCategory = async ({
     currentTarget
   }) => {
-    const newCategory = currentTarget.value;
-    // window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
-
     try {
       const response = await fetchThemes();
       receiveThemes(response);
+      window.history.pushState({}, '', baseUrl + '&category=' + currentTarget.value);
     } catch (saveError) {
       console.log(saveError);
       /*setError(
@@ -106,6 +105,47 @@ const ThemeGardenFilterBar = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__.
 
 /***/ }),
 
+/***/ "./assets/js/src/theme-garden-list.js":
+/*!********************************************!*\
+  !*** ./assets/js/src/theme-garden-list.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ThemeGardenList: () => (/* binding */ ThemeGardenList)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _theme_garden_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-garden-store */ "./assets/js/src/theme-garden-store.js");
+
+
+
+
+
+const _ThemeGardenList = ({
+  hello
+}) => {
+  const [localHello, setLocalHello] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(hello);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    console.log('effect used');
+    console.log(hello);
+    setLocalHello(hello);
+  }, [hello]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, localHello);
+};
+const ThemeGardenList = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withSelect)(select => ({
+  hello: select('tumblr3/theme-garden-store').getThemes()
+})))(_ThemeGardenList);
+
+/***/ }),
+
 /***/ "./assets/js/src/theme-garden-store.js":
 /*!*********************************************!*\
   !*** ./assets/js/src/theme-garden-store.js ***!
@@ -127,14 +167,17 @@ const DEFAULT_STATE = {
   themes: themeGardenData.themes,
   categories: themeGardenData.categories,
   selectedCategory: themeGardenData.selectedCategory,
+  baseUrl: themeGardenData.baseUrl,
   hello: 'fred'
 };
 const reducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case 'RECEIVE_THEMES_AND_CATEGORIES':
+    case 'RECEIVE_THEMES':
+      console.log('action dispatched');
+      console.log(action);
       return {
         ...state,
-        hello: action.hello
+        hello: action.themes.hello
       };
     default:
       return state;
@@ -159,14 +202,17 @@ const selectors = {
   getLogoUrl() {
     return DEFAULT_STATE.logoUrl;
   },
-  getInitialFilterBarProps(state) {
+  getInitialFilterBarProps() {
     return {
-      themeList: state.themes,
-      categories: state.categories,
-      selectedCategory: state.selectedCategory,
-      baseUrl: state.baseUrl,
-      hello: state.hello
+      themeList: DEFAULT_STATE.themes,
+      categories: DEFAULT_STATE.categories,
+      selectedCategory: DEFAULT_STATE.selectedCategory,
+      baseUrl: DEFAULT_STATE.baseUrl,
+      hello: DEFAULT_STATE.hello
     };
+  },
+  getThemes(state) {
+    return state.hello;
   }
 };
 const controls = {
@@ -338,13 +384,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _theme_garden_filterbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./theme-garden-filterbar */ "./assets/js/src/theme-garden-filterbar.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _theme_garden_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme-garden-store */ "./assets/js/src/theme-garden-store.js");
+/* harmony import */ var _theme_garden_list__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-garden-list */ "./assets/js/src/theme-garden-list.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _theme_garden_store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme-garden-store */ "./assets/js/src/theme-garden-store.js");
+
 
 
 
@@ -373,9 +421,9 @@ const ThemeGarden = ({
     className: "tumblr-logo-icon",
     src: logoUrl,
     alt: ""
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Tumblr Themes', 'tumblr3'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_theme_garden_filterbar__WEBPACK_IMPORTED_MODULE_2__.ThemeGardenFilterBar, null));
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Tumblr Themes', 'tumblr3'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_theme_garden_filterbar__WEBPACK_IMPORTED_MODULE_2__.ThemeGardenFilterBar, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_theme_garden_list__WEBPACK_IMPORTED_MODULE_3__.ThemeGardenList, null));
 };
-const ConnectedThemeGarden = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withSelect)(select => ({
+const ConnectedThemeGarden = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.withSelect)(select => ({
   logoUrl: select('tumblr3/theme-garden-store').getLogoUrl()
 })))(ThemeGarden);
 const rootElement = document.getElementById('tumblr-theme-garden');

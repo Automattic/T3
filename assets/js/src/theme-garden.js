@@ -1,5 +1,6 @@
 import { createRoot } from '@wordpress/element';
 import { ThemeGardenFilterBar } from "./theme-garden-filterbar";
+import { ThemeGardenList } from "./theme-garden-list";
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
@@ -21,6 +22,7 @@ const ThemeGarden = ({ logoUrl }) => {
 				<span>{__('Tumblr Themes', 'tumblr3')}</span>
 			</h1>
 			<ThemeGardenFilterBar />
+			<ThemeGardenList />
 		</div>
 	)
 }

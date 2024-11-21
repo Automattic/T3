@@ -15,6 +15,7 @@ import './theme-garden-store';
  * @param props.initialProps.selectedCategory
  * @param props.initialProps.categories
  * @param props.initialProps.themeList
+ * @param props
  * @param props.fetchThemes
  * @param props.receiveThemes
  */
@@ -27,12 +28,10 @@ const _ThemeGardenFilterBar = ({
 	const [themeList, setThemeList] = useState(initialThemeList);
 
 	const onChangeCategory = async ({currentTarget}) => {
-		const newCategory = currentTarget.value;
-		// window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
-
 		try {
 			const response = await fetchThemes();
 			receiveThemes(response);
+			window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
 		} catch ( saveError ) {
 			console.log(saveError);
 			/*setError(
