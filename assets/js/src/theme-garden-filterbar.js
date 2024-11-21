@@ -31,6 +31,21 @@ const _ThemeGardenFilterBar = ({
 		setThemeList(themes);
 	}, [themes]);
 
+	useEffect(() => {
+		window.addEventListener('popstate', onBrowserNavigation);
+		return () => {
+			window.removeEventListener('popstate', onBrowserNavigation)
+		}
+	}, []);
+
+	const onBrowserNavigation = async () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const paramValue = urlParams.get('category') || 'featured';
+		const response = await fetchThemes(paramValue);
+		receiveThemes(response);
+		setSelectedCategory(paramValue);
+	}
+
 	const onChangeCategory = async ({currentTarget}) => {
 		try {
 			const newCategory = currentTarget.value;
