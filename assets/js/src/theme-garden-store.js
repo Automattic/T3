@@ -5,6 +5,7 @@ const DEFAULT_STATE = {
 	logoUrl: themeGardenData.logoUrl,
 	themes: themeGardenData.themes,
 	categories: themeGardenData.categories,
+	selectedCategory: themeGardenData.selectedCategory,
 	hello: 'fred'
 };
 
@@ -18,23 +19,30 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 };
 
 const actions = {
-	receiveThemesAndCategories( themesAndCategories ) {
+	receiveThemes( themes ) {
 		return {
-			type: 'RECEIVE_THEMES_AND_CATEGORIES',
-			themesAndCategories,
+			type: 'RECEIVE_THEMES',
+			themes,
 		};
+	},
+	*fetchThemes() {
+		try {
+			return controls.FETCH_THEMES();
+		} catch ( error ) {
+			throw new Error( 'Failed to update settings' );
+		}
 	},
 };
 
 const selectors = {
-	getLogoUrl(state) {
-		return state.logoUrl;
+	getLogoUrl() {
+		return DEFAULT_STATE.logoUrl;
 	},
-	getFilterBarProps(state) {
+	getInitialFilterBarProps(state) {
 		return {
-			themes: state.themes,
+			themeList: state.themes,
 			categories: state.categories,
-			initialCategory: state.selectedCategory,
+			selectedCategory: state.selectedCategory,
 			baseUrl: state.baseUrl,
 			hello: state.hello
 		}
@@ -42,19 +50,22 @@ const selectors = {
 };
 
 const controls = {
-	FETCH_THEMES_AND_CATEGORIES() {
-		return apiFetch( { path: '/tumblr3/v1/themes-and-categories' } );
+	FETCH_THEMES() {
+		return apiFetch( {
+			path: '/tumblr3/v1/themes',
+			method: 'GET',
+		} )
+			.then( ( response ) => {
+				return response;
+			} )
+			.catch( ( error ) => {
+				console.error( 'API Error:', error );
+				throw error;
+			} );
 	},
 };
 
-const resolvers = {
-	getThemesAndCategories:
-		() =>
-			async ( { dispatch } ) => {
-				const data = await controls.FETCH_THEMES_AND_CATEGORIES();
-				dispatch( actions.receiveThemesAndCategories( data ) );
-			},
-};
+const resolvers = {};
 
 
 const store = createReduxStore( 'tumblr3/theme-garden-store', {

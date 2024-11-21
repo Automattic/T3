@@ -1,6 +1,6 @@
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
-import { withSelect } from '@wordpress/data';
+import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './theme-garden-store';
 
@@ -10,23 +10,41 @@ import './theme-garden-store';
  * This component appears at the top of the theme browser, and has a category selector and a search bar.
  *
  * @param props
- * @param props.themes
- * @param props.categories
- * @param props.initialCategory
- * @param props.baseUrl
+ * @param props.initialProps
+ * @param props.initialProps.baseUrl
+ * @param props.initialProps.selectedCategory
+ * @param props.initialProps.categories
+ * @param props.initialProps.themeList
+ * @param props.fetchThemes
+ * @param props.receiveThemes
  */
-const _ThemeGardenFilterBar = ({themes, categories, initialCategory, baseUrl}) => {
-	const [currentCategory, setCurrentCategory] = useState(initialCategory);
+const _ThemeGardenFilterBar = ({
+	initialProps: {baseUrl, selectedCategory: initialSelectedCategory, categories, themeList: initialThemeList},
+	fetchThemes,
+	receiveThemes
+}) => {
+	const [selectedCategory, setSelectedCategory] = useState(initialSelectedCategory);
+	const [themeList, setThemeList] = useState(initialThemeList);
 
-	const onChangeCategory = ({currentTarget}) => {
-		setCurrentCategory(currentTarget.value);
-		window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
+	const onChangeCategory = async ({currentTarget}) => {
+		const newCategory = currentTarget.value;
+		// window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
+
+		try {
+			const response = await fetchThemes();
+			receiveThemes(response);
+		} catch ( saveError ) {
+			console.log(saveError);
+			/*setError(
+				__( 'Failed to save settings. Please try again.', 'post-queue' )
+			);*/
+		}
 	}
 
 	return (
 		<div className="wp-filter">
 			<div className="filter-count">
-				<span className="count">{themes.length}</span>
+				<span className="count">{themeList.length}</span>
 			</div>
 			<label htmlFor="t3-categories">{__('Categories', 'tumblr3')}</label>
 			<select id="t3-categories" name="category" onChange={onChangeCategory}>
@@ -34,7 +52,7 @@ const _ThemeGardenFilterBar = ({themes, categories, initialCategory, baseUrl}) =
 				{categories.map(
 					(category) => {
 						return(
-							<option value={category.text_key} selected={currentCategory === category.text_key}>
+							<option value={category.text_key} selected={selectedCategory === category.text_key}>
 								{category.name}
 							</option>
 						);
@@ -46,5 +64,15 @@ const _ThemeGardenFilterBar = ({themes, categories, initialCategory, baseUrl}) =
 }
 
 export const ThemeGardenFilterBar = compose(
-	withSelect( ( select ) => ( select( 'tumblr3/theme-garden-store' ).getFilterBarProps() ) ),
+	withSelect( ( select ) => ( {
+		initialProps: select( 'tumblr3/theme-garden-store' ).getInitialFilterBarProps(),
+	} ) ),
+	withDispatch( ( dispatch ) => ( {
+		fetchThemes: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).fetchThemes();
+		},
+		receiveThemes: (themesAndCategories) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveThemes(themesAndCategories);
+		}
+	} ) )
 )( _ThemeGardenFilterBar );

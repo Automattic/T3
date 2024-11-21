@@ -19,10 +19,10 @@ class RestApi {
 	public function register_rest_routes(): void {
 		register_rest_route(
 			'tumblr3/v1',
-			'/themes-and-categories',
+			'/themes',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_themes_and_categories' ),
+				'callback'            => array( $this, 'get_themes' ),
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
@@ -33,9 +33,10 @@ class RestApi {
 	/**
 	 * Get the settings for the queue.
 	 *
-	 * @return array The settings for the queue.
+	 * @return \WP_REST_Response The settings for the queue.
 	 */
-	public function get_themes_and_categories(): array {
-		return ['hello' => 'world'];
+	public function get_themes(): \WP_REST_Response {
+		$data = ['hello' => 'world'];
+		return new \WP_REST_Response( $data, 200 );
 	}
 }

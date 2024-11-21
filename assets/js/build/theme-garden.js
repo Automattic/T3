@@ -36,23 +36,41 @@ __webpack_require__.r(__webpack_exports__);
  * This component appears at the top of the theme browser, and has a category selector and a search bar.
  *
  * @param props
- * @param props.themes
- * @param props.categories
- * @param props.initialCategory
- * @param props.baseUrl
+ * @param props.initialProps
+ * @param props.initialProps.baseUrl
+ * @param props.initialProps.selectedCategory
+ * @param props.initialProps.categories
+ * @param props.initialProps.themeList
+ * @param props.fetchThemes
+ * @param props.receiveThemes
  */
 const _ThemeGardenFilterBar = ({
-  themes,
-  categories,
-  initialCategory,
-  baseUrl
+  initialProps: {
+    baseUrl,
+    selectedCategory: initialSelectedCategory,
+    categories,
+    themeList: initialThemeList
+  },
+  fetchThemes,
+  receiveThemes
 }) => {
-  const [currentCategory, setCurrentCategory] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialCategory);
-  const onChangeCategory = ({
+  const [selectedCategory, setSelectedCategory] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialSelectedCategory);
+  const [themeList, setThemeList] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialThemeList);
+  const onChangeCategory = async ({
     currentTarget
   }) => {
-    setCurrentCategory(currentTarget.value);
-    window.history.pushState({}, '', baseUrl + '&category=' + currentTarget.value);
+    const newCategory = currentTarget.value;
+    // window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
+
+    try {
+      const response = await fetchThemes();
+      receiveThemes(response);
+    } catch (saveError) {
+      console.log(saveError);
+      /*setError(
+      	__( 'Failed to save settings. Please try again.', 'post-queue' )
+      );*/
+    }
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wp-filter"
@@ -60,7 +78,7 @@ const _ThemeGardenFilterBar = ({
     className: "filter-count"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "count"
-  }, themes.length)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+  }, themeList.length)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "t3-categories"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Categories', 'tumblr3')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("select", {
     id: "t3-categories",
@@ -71,11 +89,20 @@ const _ThemeGardenFilterBar = ({
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__._x)('Featured', 'The name of a category in a list of categories.', 'tumblr3')), categories.map(category => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("option", {
       value: category.text_key,
-      selected: currentCategory === category.text_key
+      selected: selectedCategory === category.text_key
     }, category.name);
   })));
 };
-const ThemeGardenFilterBar = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withSelect)(select => select('tumblr3/theme-garden-store').getFilterBarProps()))(_ThemeGardenFilterBar);
+const ThemeGardenFilterBar = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withSelect)(select => ({
+  initialProps: select('tumblr3/theme-garden-store').getInitialFilterBarProps()
+})), (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withDispatch)(dispatch => ({
+  fetchThemes: () => {
+    return dispatch('tumblr3/theme-garden-store').fetchThemes();
+  },
+  receiveThemes: themesAndCategories => {
+    return dispatch('tumblr3/theme-garden-store').receiveThemes(themesAndCategories);
+  }
+})))(_ThemeGardenFilterBar);
 
 /***/ }),
 
@@ -99,6 +126,7 @@ const DEFAULT_STATE = {
   logoUrl: themeGardenData.logoUrl,
   themes: themeGardenData.themes,
   categories: themeGardenData.categories,
+  selectedCategory: themeGardenData.selectedCategory,
   hello: 'fred'
 };
 const reducer = (state = DEFAULT_STATE, action) => {
@@ -113,42 +141,48 @@ const reducer = (state = DEFAULT_STATE, action) => {
   }
 };
 const actions = {
-  receiveThemesAndCategories(themesAndCategories) {
+  receiveThemes(themes) {
     return {
-      type: 'RECEIVE_THEMES_AND_CATEGORIES',
-      themesAndCategories
+      type: 'RECEIVE_THEMES',
+      themes
     };
+  },
+  *fetchThemes() {
+    try {
+      return controls.FETCH_THEMES();
+    } catch (error) {
+      throw new Error('Failed to update settings');
+    }
   }
 };
 const selectors = {
-  getLogoUrl(state) {
-    return state.logoUrl;
+  getLogoUrl() {
+    return DEFAULT_STATE.logoUrl;
   },
-  getFilterBarProps(state) {
+  getInitialFilterBarProps(state) {
     return {
-      themes: state.themes,
+      themeList: state.themes,
       categories: state.categories,
-      initialCategory: state.selectedCategory,
+      selectedCategory: state.selectedCategory,
       baseUrl: state.baseUrl,
       hello: state.hello
     };
   }
 };
 const controls = {
-  FETCH_THEMES_AND_CATEGORIES() {
+  FETCH_THEMES() {
     return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-      path: '/tumblr3/v1/themes-and-categories'
+      path: '/tumblr3/v1/themes',
+      method: 'GET'
+    }).then(response => {
+      return response;
+    }).catch(error => {
+      console.error('API Error:', error);
+      throw error;
     });
   }
 };
-const resolvers = {
-  getThemesAndCategories: () => async ({
-    dispatch
-  }) => {
-    const data = await controls.FETCH_THEMES_AND_CATEGORIES();
-    dispatch(actions.receiveThemesAndCategories(data));
-  }
-};
+const resolvers = {};
 const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.createReduxStore)('tumblr3/theme-garden-store', {
   reducer,
   actions,
