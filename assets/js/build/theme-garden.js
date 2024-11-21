@@ -125,7 +125,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
 /* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _theme_garden_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-garden-store */ "./assets/js/src/theme-garden-store.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _theme_garden_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme-garden-store */ "./assets/js/src/theme-garden-store.js");
+
 
 
 
@@ -138,7 +141,26 @@ const _ThemeGardenList = ({
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     setLocalThemes(themes);
   }, [themes]);
-  return localThemes.map(theme => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, theme.title));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "tumblr-themes"
+  }, themes.map(theme => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", {
+    className: "tumblr-theme"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
+    className: "tumblr-theme-header"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "tumblr-theme-title-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "tumblr-theme-title"
+  }, theme.title))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "tumblr-theme-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: "tumblr-theme-thumbnail",
+    src: theme.thumbnail
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "tumblr-theme-buttons"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "#"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__._x)('Activate', 'Text on a button to activate a theme.', 'tumblr3'))))))));
 };
 const ThemeGardenList = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withSelect)(select => ({
   themes: select('tumblr3/theme-garden-store').getThemes()
