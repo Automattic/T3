@@ -130,18 +130,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const _ThemeGardenList = ({
-  hello
+  themes
 }) => {
-  const [localHello, setLocalHello] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(hello);
+  const [localThemes, setLocalThemes] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(themes);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     console.log('effect used');
-    console.log(hello);
-    setLocalHello(hello);
-  }, [hello]);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, localHello);
+    console.log(themes);
+    setLocalThemes(themes);
+  }, [themes]);
+  return localThemes.map(theme => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, theme.title));
 };
 const ThemeGardenList = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withSelect)(select => ({
-  hello: select('tumblr3/theme-garden-store').getThemes()
+  themes: select('tumblr3/theme-garden-store').getThemes()
 })))(_ThemeGardenList);
 
 /***/ }),
@@ -177,7 +177,7 @@ const reducer = (state = DEFAULT_STATE, action) => {
       console.log(action);
       return {
         ...state,
-        hello: action.themes.hello
+        themes: action.themes
       };
     default:
       return state;
@@ -212,7 +212,7 @@ const selectors = {
     };
   },
   getThemes(state) {
-    return state.hello;
+    return state.themes;
   }
 };
 const controls = {

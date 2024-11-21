@@ -36,7 +36,7 @@ class RestApi {
 	 * @return \WP_REST_Response The settings for the queue.
 	 */
 	public function get_themes(): \WP_REST_Response {
-		$data = ['hello' => 'world'];
+		$data = [['title' => 'theme 1'], ['title' => 'theme 2'], ['title' => 'theme 3'], ['title' => 'theme 4'], ];
 		return new \WP_REST_Response( $data, 200 );
 	}
 }

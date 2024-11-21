@@ -2,20 +2,24 @@ import { useEffect, useState } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './theme-garden-store';
-const _ThemeGardenList = ({hello}) => {
-	const [localHello, setLocalHello] = useState(hello);
+const _ThemeGardenList = ({themes}) => {
+	const [localThemes, setLocalThemes] = useState(themes);
 
 	useEffect( () => {
 		console.log('effect used');
-		console.log(hello);
-		setLocalHello(hello);
-	}, [ hello ] );
+		console.log(themes);
+		setLocalThemes(themes);
+	}, [ themes ] );
 
-	return <p>{localHello}</p>;
+	return (
+		localThemes.map(
+			(theme) => <p>{theme.title}</p>
+		)
+	)
 }
 
 export const ThemeGardenList = compose(
 	withSelect( ( select ) => ( {
-		hello: select( 'tumblr3/theme-garden-store' ).getThemes(),
+		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
 	} ) )
 )( _ThemeGardenList );

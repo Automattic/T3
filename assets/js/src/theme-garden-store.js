@@ -15,7 +15,7 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 		case 'RECEIVE_THEMES':
 			console.log('action dispatched');
 			console.log(action);
-			return { ...state, hello: action.themes.hello };
+			return { ...state, themes: action.themes };
 		default:
 			return state;
 	}
@@ -51,7 +51,7 @@ const selectors = {
 		}
 	},
 	getThemes(state) {
-		return state.hello;
+		return state.themes;
 	}
 };
 
