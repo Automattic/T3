@@ -30,6 +30,7 @@ class ThemeGarden {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'init', array( $this, 'maybe_activate_theme' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_show_notice' ) );
+		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
 		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : '';
@@ -116,6 +117,35 @@ class ThemeGarden {
 			array(),
 			$version
 		);
+	}
+
+	/**
+	 * Register REST routes.
+	 *
+	 * @return void
+	 */
+	public function register_rest_routes(): void {
+		register_rest_route(
+			'tumblr3/v1',
+			'/themes',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'api_format_themes' ),
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
+			)
+		);
+	}
+
+	/**
+	 * Get the settings for the queue.
+	 *
+	 * @return \WP_REST_Response The settings for the queue.
+	 */
+	public function api_format_themes(): \WP_REST_Response {
+		$themes_and_categories = $this->get_themes_and_categories();
+		return new \WP_REST_Response( $themes_and_categories['themes'], 200 );
 	}
 
 	/**

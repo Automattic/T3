@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
@@ -14,29 +14,32 @@ import './theme-garden-store';
  * @param props.initialProps.baseUrl
  * @param props.initialProps.selectedCategory
  * @param props.initialProps.categories
- * @param props.initialProps.themeList
- * @param props
+ * @param props.themes
  * @param props.fetchThemes
  * @param props.receiveThemes
  */
 const _ThemeGardenFilterBar = ({
-	initialProps: {baseUrl, selectedCategory: initialSelectedCategory, categories, themeList: initialThemeList},
+	initialProps: {baseUrl, selectedCategory: initialSelectedCategory, categories},
+	themes,
 	fetchThemes,
 	receiveThemes
 }) => {
 	const [selectedCategory, setSelectedCategory] = useState(initialSelectedCategory);
-	const [themeList, setThemeList] = useState(initialThemeList);
+	const [themeList, setThemeList] = useState(themes);
+
+	useEffect(() => {
+		setThemeList(themes);
+	}, [themes]);
 
 	const onChangeCategory = async ({currentTarget}) => {
 		try {
-			const response = await fetchThemes();
+			const newCategory = currentTarget.value;
+			const response = await fetchThemes(newCategory);
 			receiveThemes(response);
+			setSelectedCategory(newCategory);
 			window.history.pushState( {}, '', baseUrl + '&category=' + currentTarget.value);
 		} catch ( saveError ) {
-			console.log(saveError);
-			/*setError(
-				__( 'Failed to save settings. Please try again.', 'post-queue' )
-			);*/
+			console.error(saveError);
 		}
 	}
 
@@ -65,13 +68,14 @@ const _ThemeGardenFilterBar = ({
 export const ThemeGardenFilterBar = compose(
 	withSelect( ( select ) => ( {
 		initialProps: select( 'tumblr3/theme-garden-store' ).getInitialFilterBarProps(),
+		themes: select( 'tumblr3/theme-garden-store' ).getThemes()
 	} ) ),
 	withDispatch( ( dispatch ) => ( {
-		fetchThemes: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).fetchThemes();
+		fetchThemes: (category) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).fetchThemes(category);
 		},
-		receiveThemes: (themesAndCategories) => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveThemes(themesAndCategories);
+		receiveThemes: (themes) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveThemes(themes);
 		}
 	} ) )
 )( _ThemeGardenFilterBar );

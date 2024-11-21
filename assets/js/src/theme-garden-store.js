@@ -7,14 +7,11 @@ const DEFAULT_STATE = {
 	categories: themeGardenData.categories,
 	selectedCategory: themeGardenData.selectedCategory,
 	baseUrl: themeGardenData.baseUrl,
-	hello: 'fred'
 };
 
 const reducer = ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
 		case 'RECEIVE_THEMES':
-			console.log('action dispatched');
-			console.log(action);
 			return { ...state, themes: action.themes };
 		default:
 			return state;
@@ -28,9 +25,9 @@ const actions = {
 			themes,
 		};
 	},
-	*fetchThemes() {
+	*fetchThemes(category) {
 		try {
-			return controls.FETCH_THEMES();
+			return controls.FETCH_THEMES(category);
 		} catch ( error ) {
 			throw new Error( 'Failed to update settings' );
 		}
@@ -43,11 +40,9 @@ const selectors = {
 	},
 	getInitialFilterBarProps() {
 		return {
-			themeList: DEFAULT_STATE.themes,
 			categories: DEFAULT_STATE.categories,
 			selectedCategory: DEFAULT_STATE.selectedCategory,
 			baseUrl: DEFAULT_STATE.baseUrl,
-			hello: DEFAULT_STATE.hello
 		}
 	},
 	getThemes(state) {
@@ -56,9 +51,9 @@ const selectors = {
 };
 
 const controls = {
-	FETCH_THEMES() {
+	FETCH_THEMES(category) {
 		return apiFetch( {
-			path: '/tumblr3/v1/themes',
+			path: '/tumblr3/v1/themes?category=' + category,
 			method: 'GET',
 		} )
 			.then( ( response ) => {

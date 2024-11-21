@@ -143,14 +143,8 @@ class Plugin {
 		$this->customizer = new Customizer();
 		$this->customizer->initialize( $this->tumblr3_active );
 
-		$this->rest_api = new RestApi();
-		$this->rest_api->initialize();
-
-		// In the admin, setup the theme browser.
-		if ( is_admin() ) {
-			$this->theme_garden = new ThemeGarden();
-			$this->theme_garden->initialize();
-		}
+		$this->theme_garden = new ThemeGarden();
+		$this->theme_garden->initialize();
 
 		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {

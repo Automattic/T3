@@ -40,8 +40,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param props.initialProps.baseUrl
  * @param props.initialProps.selectedCategory
  * @param props.initialProps.categories
- * @param props.initialProps.themeList
- * @param props
+ * @param props.themes
  * @param props.fetchThemes
  * @param props.receiveThemes
  */
@@ -49,26 +48,28 @@ const _ThemeGardenFilterBar = ({
   initialProps: {
     baseUrl,
     selectedCategory: initialSelectedCategory,
-    categories,
-    themeList: initialThemeList
+    categories
   },
+  themes,
   fetchThemes,
   receiveThemes
 }) => {
   const [selectedCategory, setSelectedCategory] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialSelectedCategory);
-  const [themeList, setThemeList] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(initialThemeList);
+  const [themeList, setThemeList] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(themes);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    setThemeList(themes);
+  }, [themes]);
   const onChangeCategory = async ({
     currentTarget
   }) => {
     try {
-      const response = await fetchThemes();
+      const newCategory = currentTarget.value;
+      const response = await fetchThemes(newCategory);
       receiveThemes(response);
+      setSelectedCategory(newCategory);
       window.history.pushState({}, '', baseUrl + '&category=' + currentTarget.value);
     } catch (saveError) {
-      console.log(saveError);
-      /*setError(
-      	__( 'Failed to save settings. Please try again.', 'post-queue' )
-      );*/
+      console.error(saveError);
     }
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -93,13 +94,14 @@ const _ThemeGardenFilterBar = ({
   })));
 };
 const ThemeGardenFilterBar = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withSelect)(select => ({
-  initialProps: select('tumblr3/theme-garden-store').getInitialFilterBarProps()
+  initialProps: select('tumblr3/theme-garden-store').getInitialFilterBarProps(),
+  themes: select('tumblr3/theme-garden-store').getThemes()
 })), (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withDispatch)(dispatch => ({
-  fetchThemes: () => {
-    return dispatch('tumblr3/theme-garden-store').fetchThemes();
+  fetchThemes: category => {
+    return dispatch('tumblr3/theme-garden-store').fetchThemes(category);
   },
-  receiveThemes: themesAndCategories => {
-    return dispatch('tumblr3/theme-garden-store').receiveThemes(themesAndCategories);
+  receiveThemes: themes => {
+    return dispatch('tumblr3/theme-garden-store').receiveThemes(themes);
   }
 })))(_ThemeGardenFilterBar);
 
@@ -134,8 +136,6 @@ const _ThemeGardenList = ({
 }) => {
   const [localThemes, setLocalThemes] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(themes);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-    console.log('effect used');
-    console.log(themes);
     setLocalThemes(themes);
   }, [themes]);
   return localThemes.map(theme => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, theme.title));
@@ -167,14 +167,11 @@ const DEFAULT_STATE = {
   themes: themeGardenData.themes,
   categories: themeGardenData.categories,
   selectedCategory: themeGardenData.selectedCategory,
-  baseUrl: themeGardenData.baseUrl,
-  hello: 'fred'
+  baseUrl: themeGardenData.baseUrl
 };
 const reducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case 'RECEIVE_THEMES':
-      console.log('action dispatched');
-      console.log(action);
       return {
         ...state,
         themes: action.themes
@@ -190,9 +187,9 @@ const actions = {
       themes
     };
   },
-  *fetchThemes() {
+  *fetchThemes(category) {
     try {
-      return controls.FETCH_THEMES();
+      return controls.FETCH_THEMES(category);
     } catch (error) {
       throw new Error('Failed to update settings');
     }
@@ -204,11 +201,9 @@ const selectors = {
   },
   getInitialFilterBarProps() {
     return {
-      themeList: DEFAULT_STATE.themes,
       categories: DEFAULT_STATE.categories,
       selectedCategory: DEFAULT_STATE.selectedCategory,
-      baseUrl: DEFAULT_STATE.baseUrl,
-      hello: DEFAULT_STATE.hello
+      baseUrl: DEFAULT_STATE.baseUrl
     };
   },
   getThemes(state) {
@@ -216,9 +211,9 @@ const selectors = {
   }
 };
 const controls = {
-  FETCH_THEMES() {
+  FETCH_THEMES(category) {
     return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-      path: '/tumblr3/v1/themes',
+      path: '/tumblr3/v1/themes?category=' + category,
       method: 'GET'
     }).then(response => {
       return response;

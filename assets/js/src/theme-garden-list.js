@@ -6,8 +6,6 @@ const _ThemeGardenList = ({themes}) => {
 	const [localThemes, setLocalThemes] = useState(themes);
 
 	useEffect( () => {
-		console.log('effect used');
-		console.log(themes);
 		setLocalThemes(themes);
 	}, [ themes ] );
 
