@@ -145,7 +145,28 @@ class ThemeGarden {
 	 */
 	public function api_format_themes(): \WP_REST_Response {
 		$themes_and_categories = $this->get_themes_and_categories();
-		return new \WP_REST_Response( $themes_and_categories['themes'], 200 );
+		$themes = $themes_and_categories['themes'];
+		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
+			// Todo: API is returning themes ordered from oldest to newest. Needs to be fixed on Tumblr side.
+			$themes = array_reverse( $themes_and_categories['themes'] );
+		}
+
+		$formatted_themes = array_map(
+			function ( $theme ) {
+				$url          = add_query_arg(
+					array(
+						'activate_tumblr_theme' => $theme['id'],
+					),
+					admin_url( 'admin.php?page=tumblr-themes' )
+				);
+				$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
+				$theme['activate_url'] = $activate_url;
+				return $theme;
+			},
+			$themes
+		);
+
+		return new \WP_REST_Response( $formatted_themes, 200 );
 	}
 
 	/**
@@ -180,6 +201,7 @@ class ThemeGarden {
 		$status   = wp_remote_retrieve_response_code( $response );
 
 		if ( 200 !== $status ) {
+			error_log('ah 2');
 			$this->activation_error = 'Error activating theme. Please try again later.';
 			return;
 		}
@@ -187,6 +209,7 @@ class ThemeGarden {
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
 		if ( ! isset( $body->response->theme ) ) {
+			error_log('ah 3');
 			$this->activation_error = 'Error activating theme. Please try again later.';
 			return;
 		}
@@ -208,6 +231,7 @@ class ThemeGarden {
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );
+		error_log('ah 4');
 
 		// Finally, redirect to the customizer with the new theme active.
 		wp_safe_redirect( wp_customize_url() );

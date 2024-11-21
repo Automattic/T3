@@ -172,7 +172,7 @@ const _ThemeGardenList = ({
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "tumblr-theme-buttons"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#"
+    href: theme.activate_url
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__._x)('Activate', 'Text on a button to activate a theme.', 'tumblr3'))))))));
 };
 const ThemeGardenList = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withSelect)(select => ({
