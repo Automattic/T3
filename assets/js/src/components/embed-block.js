@@ -95,11 +95,15 @@ addFilter(
 									<MediaUpload
 										title={ __( 'Select poster image' ) }
 										onSelect={ media =>
-											setAttributes( { poster: [{
-												id: media.id,
-												url: media.url,
-												alt: media.alt || ''
-											}] } )
+											setAttributes( {
+												poster: [
+													{
+														id: media.id,
+														url: media.url,
+														alt: media.alt || '',
+													},
+												],
+											} )
 										}
 										allowedTypes={ [ 'image' ] }
 										render={ ( { open } ) => (
@@ -111,8 +115,8 @@ addFilter(
 									{ poster.length > 0 && (
 										<div>
 											<img
-												src={ poster[0].url }
-												alt={ poster[0].alt || 'Poster Image' }
+												src={ poster[ 0 ].url }
+												alt={ poster[ 0 ].alt || 'Poster Image' }
 												style={ { maxWidth: '100%', marginTop: '10px' } }
 											/>
 											<Button isDestructive onClick={ () => setAttributes( { poster: [] } ) }>
