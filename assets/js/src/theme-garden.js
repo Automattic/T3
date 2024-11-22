@@ -1,5 +1,5 @@
 import { createRoot } from '@wordpress/element';
-import { ThemeGardenFilterBar } from "./theme-garden-filterbar";
+import { ThemeGardenFilterbar } from "./theme-garden-filterbar";
 import { ThemeGardenList } from "./theme-garden-list";
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
@@ -21,7 +21,7 @@ const ThemeGarden = ({ logoUrl }) => {
 				<img className="tumblr-logo-icon" src={logoUrl} alt="" />
 				<span>{__('Tumblr Themes', 'tumblr3')}</span>
 			</h1>
-			<ThemeGardenFilterBar />
+			<ThemeGardenFilterbar />
 			<ThemeGardenList />
 		</div>
 	)
