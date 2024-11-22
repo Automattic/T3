@@ -4,7 +4,6 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		'theme-garden': './assets/js/src/theme-garden.js',
-		'editor': './assets/js/src/editor.js',
 		'theme-install': './assets/js/src/theme-install.js'
 	},
 	output: {
