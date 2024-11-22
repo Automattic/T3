@@ -28,9 +28,12 @@ class ThemeGarden {
 	public function initialize(): void {
 		add_action( 'admin_menu', array( $this, 'register_submenu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-		add_action( 'init', array( $this, 'maybe_activate_theme' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_show_notice' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+
+		if ( !empty( $_GET['activate_tumblr_theme'] ) ) {
+			add_action( 'init', array( $this, 'maybe_activate_theme' ) );
+		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
 		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : '';
@@ -130,7 +133,7 @@ class ThemeGarden {
 			'/themes',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'api_format_themes' ),
+				'callback'            => array( $this, 'get_themes' ),
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
@@ -143,30 +146,9 @@ class ThemeGarden {
 	 *
 	 * @return \WP_REST_Response The settings for the queue.
 	 */
-	public function api_format_themes(): \WP_REST_Response {
+	public function get_themes(): \WP_REST_Response {
 		$themes_and_categories = $this->get_themes_and_categories();
-		$themes = $themes_and_categories['themes'];
-		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
-			// Todo: API is returning themes ordered from oldest to newest. Needs to be fixed on Tumblr side.
-			$themes = array_reverse( $themes_and_categories['themes'] );
-		}
-
-		$formatted_themes = array_map(
-			function ( $theme ) {
-				$url          = add_query_arg(
-					array(
-						'activate_tumblr_theme' => $theme['id'],
-					),
-					admin_url( 'admin.php?page=tumblr-themes' )
-				);
-				$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
-				$theme['activate_url'] = $activate_url;
-				return $theme;
-			},
-			$themes
-		);
-
-		return new \WP_REST_Response( $formatted_themes, 200 );
+		return new \WP_REST_Response( $themes_and_categories['themes'], 200 );
 	}
 
 	/**
@@ -191,7 +173,7 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function maybe_activate_theme(): void {
-		if ( empty( $_GET['activate_tumblr_theme'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
+		if (! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
 			return;
 		}
 
@@ -251,7 +233,29 @@ class ThemeGarden {
 			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
 		}
 		$body       = json_decode( $cached_response, true );
-		return $body['response'];
+
+		$themes     = $body['response']['themes'];
+		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
+			// Todo: API is returning themes ordered from oldest to newest. Needs to be fixed on Tumblr side.
+			$themes = array_reverse( $themes );
+		}
+
+		$formatted_themes = array_map(
+			function ( $theme ) {
+				$url          = add_query_arg(
+					array(
+						'activate_tumblr_theme' => $theme['id'],
+					),
+					admin_url( 'admin.php?page=tumblr-themes' )
+				);
+				$activate_url = wp_nonce_url( $url, 'activate_tumblr_theme' );
+				$theme['activate_url'] = $activate_url;
+				return $theme;
+			},
+			$themes
+		);
+
+		return array_merge($body['response'], ['themes' => $formatted_themes]);
 	}
 
 	/**
