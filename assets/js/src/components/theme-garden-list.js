@@ -43,24 +43,25 @@ const _ThemeGardenList = ( { themes, isFetchingThemes } ) => {
 						</div>
 					</header>
 					<div className="tumblr-theme-content">
-						<img className="tumblr-theme-thumbnail" src={ theme.thumbnail } alt="" />
-						<ul className="tumblr-theme-buttons">
-							<li>
-								<a href={ theme.activate_url }>
-									{ _x( 'Activate', 'Text on a button to activate a theme.', 'tumblr3' ) }
-								</a>
-							</li>
-						</ul>
+						<a className="tumblr-theme-details"
+						   href="#">
+							<label><span
+								className="tumblr-theme-detail-button">{_x( 'Theme details', 'Text on a button that will show more information about a Tumblr theme', 'tumblr3' )}</span></label>
+							<img src={theme.thumbnail} alt="" />
+						</a>
+						<div className="tumblr-theme-footer">
+							<a className="rainbow-button" href={theme.activate_url}>Activate</a>
+						</div>
 					</div>
 				</article>
-			) ) }
+			))}
 		</div>
 	);
 };
 
 export const ThemeGardenList = compose(
-	withSelect( select => ( {
-		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
-		isFetchingThemes: select( 'tumblr3/theme-garden-store' ).getIsFetchingThemes(),
-	} ) )
-)( _ThemeGardenList );
+	withSelect(select => ({
+		themes: select('tumblr3/theme-garden-store').getThemes(),
+		isFetchingThemes: select('tumblr3/theme-garden-store').getIsFetchingThemes(),
+	}))
+)(_ThemeGardenList);
