@@ -1,4 +1,9 @@
 <?php
+/**
+ * This is the custom Tumblr theme browsing functionality.
+ *
+ * @package Tumblr3
+ */
 
 namespace CupcakeLabs\T3;
 
@@ -10,9 +15,21 @@ defined( 'ABSPATH' ) || exit;
  * @package CupcakeLabs\T3
  */
 class ThemeGarden {
-	const THEME_GARDEN_ENDPOINT      = 'https://www.tumblr.com/api/v2/theme_garden';
+	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
+
+	/**
+	 * This holds the currently selected category of themes.
+	 *
+	 * @var string
+	 */
 	public string $selected_category = 'featured';
-	public string $search            = '';
+
+	/**
+	 * This holds the current search query.
+	 *
+	 * @var string
+	 */
+	public string $search = '';
 
 	/**
 	 * Initializes the class.
@@ -25,6 +42,7 @@ class ThemeGarden {
 	public function initialize(): void {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only checking this exists.
 		if ( ! empty( $_GET['activate_tumblr_theme'] ) ) {
 			add_action( 'init', array( $this, 'maybe_activate_theme' ) );
 		}
@@ -35,10 +53,10 @@ class ThemeGarden {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
-		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( $_GET['category'] ) : '';
+		$this->selected_category = ( isset( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : '';
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
-		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( $_GET['search'] ) : '';
+		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
 	}
 
 	/**
@@ -64,12 +82,12 @@ class ThemeGarden {
 				'tumblr-theme-garden',
 				'const themeGardenData = ' . wp_json_encode(
 					array(
-						'logoUrl' => TUMBLR3_URL . 'assets/images/tumblr_logo_icon.png',
-						'themes'   => $themes_and_categories['themes'],
-						'categories' => $themes_and_categories['categories'],
+						'logoUrl'          => TUMBLR3_URL . 'assets/images/tumblr_logo_icon.png',
+						'themes'           => $themes_and_categories['themes'],
+						'categories'       => $themes_and_categories['categories'],
 						'selectedCategory' => $this->selected_category,
-						'search'     => $this->search,
-						'baseUrl'    => admin_url( 'admin.php?page=tumblr-themes' ),
+						'search'           => $this->search,
+						'baseUrl'          => admin_url( 'admin.php?page=tumblr-themes' ),
 					)
 				),
 				'before'
@@ -159,13 +177,20 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function maybe_activate_theme(): void {
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_tumblr_theme' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'activate_tumblr_theme' ) ) {
+			return;
+		}
+
+		$theme_id = isset( $_GET['activate_tumblr_theme'] ) ? absint( wp_unslash( $_GET['activate_tumblr_theme'] ) ) : 0;
+
+		// Returns early if theme id was not set.
+		if ( 0 === $theme_id ) {
 			return;
 		}
 
 		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
 		// TODO: remove once we are confident that api response will be stable.
-		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $_GET['activate_tumblr_theme'] ) . '?time=' . time() );
+		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
 		$status   = wp_remote_retrieve_response_code( $response );
 
 		if ( 200 !== $status ) {
@@ -183,7 +208,7 @@ class ThemeGarden {
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
-			'id'          => $_GET['activate_tumblr_theme'],
+			'id'          => $theme_id,
 			'title'       => isset( $body->response->title ) ? $body->response->title : '',
 			'thumbnail'   => isset( $body->response->thumbnail ) ? $body->response->thumbnail : '',
 			'author_name' => isset( $body->response->author->name ) ? $body->response->author->name : '',
@@ -215,9 +240,9 @@ class ThemeGarden {
 			$cached_response = wp_remote_retrieve_body( $response );
 			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
 		}
-		$body       = json_decode( $cached_response, true );
+		$body = json_decode( $cached_response, true );
 
-		$themes     = $body['response']['themes'];
+		$themes = $body['response']['themes'];
 		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
 			// Todo: API is returning themes ordered from oldest to newest. Needs to be fixed on Tumblr side.
 			$themes = array_reverse( $themes );
@@ -229,13 +254,14 @@ class ThemeGarden {
 					'admin.php?page=tumblr-themes&activate_tumblr_theme='
 					. $theme['id']
 					. '&_wpnonce='
-					. wp_create_nonce( 'activate_tumblr_theme' ) );
+					. wp_create_nonce( 'activate_tumblr_theme' )
+				);
 				return $theme;
 			},
 			$themes
 		);
 
-		return array_merge($body['response'], ['themes' => $formatted_themes]);
+		return array_merge( $body['response'], array( 'themes' => $formatted_themes ) );
 	}
 
 	/**
@@ -274,6 +300,7 @@ class ThemeGarden {
 
 	/**
 	 * Makes a target <div> allowing React to render the theme garden.
+	 *
 	 * @return void
 	 */
 	public function render_theme_garden(): void {
