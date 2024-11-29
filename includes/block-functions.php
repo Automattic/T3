@@ -635,12 +635,14 @@ add_shortcode( 'block_haspages', 'tumblr3_block_haspages' );
  * @return string
  */
 function tumblr3_block_showheaderimage( $atts, $content = '' ): string {
-	return ( 'remove-header' !== get_theme_mod( 'header_image', 'remove-header' ) ) ? tumblr3_do_shortcode( $content ) : '';
+	return ( get_theme_mod( 'show_header_image', true ) &&
+		'remove-header' !== get_theme_mod( 'header_image', 'remove-header' ) )
+		? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_showheaderimage', 'tumblr3_block_showheaderimage' );
 
 /**
- * Rendered if you have "Show header image" disabled.
+ * Rendered if you have     "Show header image" disabled.
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
@@ -648,7 +650,9 @@ add_shortcode( 'block_showheaderimage', 'tumblr3_block_showheaderimage' );
  * @return string
  */
 function tumblr3_block_hideheaderimage( $atts, $content = '' ): string {
-	return ( 'remove-header' === get_theme_mod( 'header_image', 'remove-header' ) ) ? tumblr3_do_shortcode( $content ) : '';
+	return ( ! get_theme_mod( 'show_header_image', true ) ||
+		'remove-header' === get_theme_mod( 'header_image', 'remove-header' ) )
+		? tumblr3_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_hideheaderimage', 'tumblr3_block_hideheaderimage' );
 

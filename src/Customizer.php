@@ -228,6 +228,25 @@ class Customizer {
 			)
 		);
 
+		// Add a show header image checkbox control.
+		$wp_customize->add_setting(
+			'show_header_image',
+			array(
+				'default'           => 'yes',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+
+		$wp_customize->add_control(
+			'show_header_image',
+			array(
+				'label'    => __( 'Show Header Image', 'tumblr3' ),
+				'section'  => 'tumblr3_boolean',
+				'type'     => 'checkbox',
+				'priority' => 10,
+			)
+		);
+
 		// Add a stretch header image checkbox control.
 		$wp_customize->add_setting(
 			'stretch_header_image',
