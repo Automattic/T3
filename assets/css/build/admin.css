@@ -162,7 +162,7 @@ body.admin-color-sunrise {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: radial-gradient(closest-side, rgba(0, 0, 0, 0) calc(100% - 1px), var(--t3-background)) 0/4px 4px space;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0) calc(100% - 1px), var(--t3-background)) 0/3px 3px space;
 }
 .tumblr-theme-details:hover .tumblr-theme-detail-button {
   display: inline-block;
