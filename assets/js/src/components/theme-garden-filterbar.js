@@ -7,7 +7,7 @@ import './theme-garden-store';
 /**
  * This component appears at the top of the theme browser, and has a category selector and a search bar.
  *
- * Class names reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
+ * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  *
  * @param {Object}   props
  * @param {Object}   props.initialProps

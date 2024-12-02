@@ -8,7 +8,7 @@ import './theme-garden-store';
 /**
  * Displays a list of Tumblr themes.
  *
- * Class names reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
+ * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  *
  * @param {Object}  props
  * @param {Array}   props.themes
