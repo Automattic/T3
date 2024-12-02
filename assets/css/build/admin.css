@@ -137,6 +137,7 @@ body.admin-color-sunrise {
   display: block;
   position: relative;
   overflow: hidden;
+  padding: 0;
 }
 .tumblr-theme-details label {
   display: none;

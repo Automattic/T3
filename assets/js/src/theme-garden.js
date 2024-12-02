@@ -5,13 +5,14 @@ import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './components/theme-garden-store';
+import {ThemeGardenOverlay} from "./components/theme-garden-overlay";
 
 /**
  * ThemeGarden Component
  *
  * This component provides a user interface for browsing themes from Tumblr's theme garden.
  *
- * Class names reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
+ * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  *
  * @param {Object} props
  * @param {string} props.logoUrl
@@ -25,6 +26,7 @@ const ThemeGarden = ( { logoUrl } ) => {
 			</h1>
 			<ThemeGardenFilterBar />
 			<ThemeGardenList />
+			<ThemeGardenOverlay />
 		</div>
 	);
 };

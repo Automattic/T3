@@ -1,5 +1,5 @@
 import { useEffect, useState } from '@wordpress/element';
-import { withSelect } from '@wordpress/data';
+import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { _x } from '@wordpress/i18n';
 import { ThemeGardenNoThemes } from './theme-garden-no-themes';
@@ -13,13 +13,19 @@ import './theme-garden-store';
  * @param {Object}  props
  * @param {Array}   props.themes
  * @param {boolean} props.isFetchingThemes
+ * @param {Function} props.receiveTheme
+ *
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
 		setLocalThemes( themes );
 	}, [ themes ] );
+
+	const handleDetailsClick = () => {
+		receiveTheme();
+	}
 
 	if ( isFetchingThemes ) {
 		return (
@@ -43,12 +49,11 @@ const _ThemeGardenList = ( { themes, isFetchingThemes } ) => {
 						</div>
 					</header>
 					<div className="tumblr-theme-content">
-						<a className="tumblr-theme-details"
-						   href="#">
+						<button className="tumblr-theme-details" onClick={handleDetailsClick}>
 							<label><span
 								className="tumblr-theme-detail-button">{_x( 'Theme details', 'Text on a button that will show more information about a Tumblr theme', 'tumblr3' )}</span></label>
 							<img src={theme.thumbnail} alt="" />
-						</a>
+						</button>
 						<div className="tumblr-theme-footer">
 							<a className="rainbow-button" href={theme.activate_url}>Activate</a>
 						</div>
@@ -63,5 +68,10 @@ export const ThemeGardenList = compose(
 	withSelect(select => ({
 		themes: select('tumblr3/theme-garden-store').getThemes(),
 		isFetchingThemes: select('tumblr3/theme-garden-store').getIsFetchingThemes(),
-	}))
+	})),
+	withDispatch( dispatch => ( {
+		receiveTheme: themes => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme();
+		},
+	} ) )
 )(_ThemeGardenList);

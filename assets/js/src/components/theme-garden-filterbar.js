@@ -18,7 +18,7 @@ import './theme-garden-store';
  * @param {Array}    props.themes
  * @param {Function} props.fetchThemes
  * @param {Function} props.receiveThemes
- * @param {Function} props.prefetchThemes
+ * @param {Function} props.beforeFetchThemes
  * @param {Function} props.searchThemes
  */
 const _ThemeGardenFilterBar = ( {
@@ -31,7 +31,7 @@ const _ThemeGardenFilterBar = ( {
 	themes,
 	fetchThemes,
 	receiveThemes,
-	prefetchThemes,
+	beforeFetchThemes,
 	searchThemes,
 } ) => {
 	const [ selectedCategory, setSelectedCategory ] = useState( initialSelectedCategory );
@@ -57,13 +57,13 @@ const _ThemeGardenFilterBar = ( {
 	}, [] );
 
 	const fetchThemesByCategory = async category => {
-		prefetchThemes();
+		beforeFetchThemes();
 		const response = await fetchThemes( category );
 		receiveThemes( response );
 	};
 
 	const fetchThemesByQuery = async newSearch => {
-		prefetchThemes();
+		beforeFetchThemes();
 		const response = await searchThemes( newSearch );
 		receiveThemes( response );
 	};
@@ -148,8 +148,8 @@ export const ThemeGardenFilterBar = compose(
 		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
 	} ) ),
 	withDispatch( dispatch => ( {
-		prefetchThemes: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).prefetchThemes();
+		beforeFetchThemes: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchThemes();
 		},
 		fetchThemes: category => {
 			return dispatch( 'tumblr3/theme-garden-store' ).fetchThemes( category );

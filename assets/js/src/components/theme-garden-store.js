@@ -4,8 +4,6 @@ import { createReduxStore, register } from '@wordpress/data';
 /**
  * Default state is loaded from an inline script declared in ThemeGarden.php.
  */
-
-/*ignore jslint start*/
 const DEFAULT_STATE = {
 	logoUrl: themeGardenData.logoUrl, // eslint-disable-line no-undef
 	themes: themeGardenData.themes, // eslint-disable-line no-undef
@@ -14,29 +12,44 @@ const DEFAULT_STATE = {
 	search: themeGardenData.search, // eslint-disable-line no-undef
 	baseUrl: themeGardenData.baseUrl, // eslint-disable-line no-undef
 	isFetchingThemes: false,
+	isOverlayOpen: false,
+	themeDetails: false
 };
-/*ignore jslint end*/
 
 const reducer = ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
-		case 'PREFETCH_THEMES':
+		case 'BEFORE_FETCH_THEMES':
 			return { ...state, isFetchingThemes: true };
 		case 'RECEIVE_THEMES':
 			return { ...state, themes: action.themes, isFetchingThemes: false };
+		case 'RECEIVE_THEME':
+			return { ...state, isOverlayOpen: true };
+		case 'CLOSE_OVERLAY':
+			return { ...state, isOverlayOpen: false };
 		default:
 			return state;
 	}
 };
 
 const actions = {
+	closeOverlay() {
+		return {
+			type: 'CLOSE_OVERLAY'
+		};
+	},
+	receiveTheme() {
+		return {
+			type: 'RECEIVE_THEME'
+		};
+	},
 	receiveThemes( themes ) {
 		return {
 			type: 'RECEIVE_THEMES',
 			themes,
 		};
 	},
-	prefetchThemes() {
-		return { type: 'PREFETCH_THEMES' };
+	beforeFetchThemes() {
+		return { type: 'BEFORE_FETCH_THEMES' };
 	},
 	*fetchThemes( category ) {
 		try {
@@ -72,6 +85,9 @@ const selectors = {
 	getThemes( state ) {
 		return state.themes;
 	},
+	getIsOverlayOpen( state ) {
+		return state.isOverlayOpen;
+	},
 };
 
 const controls = {
@@ -102,14 +118,11 @@ const controls = {
 	},
 };
 
-const resolvers = {};
-
 const store = createReduxStore( 'tumblr3/theme-garden-store', {
 	reducer,
 	actions,
 	selectors,
 	controls,
-	resolvers,
 } );
 
 register( store );
