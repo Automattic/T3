@@ -18,6 +18,7 @@ import {ThemeGardenOverlay} from "./components/theme-garden-overlay";
  * @param {string} props.logoUrl
  */
 const ThemeGarden = ( { logoUrl } ) => {
+
 	return (
 		<div className="wrap">
 			<h1 className="wp-heading-inline" id="theme-garden-heading">
@@ -34,6 +35,7 @@ const ThemeGarden = ( { logoUrl } ) => {
 export const ConnectedThemeGarden = compose(
 	withSelect( select => ( {
 		logoUrl: select( 'tumblr3/theme-garden-store' ).getLogoUrl(),
+		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
 	} ) )
 )( ThemeGarden );
 

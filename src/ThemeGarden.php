@@ -83,6 +83,7 @@ class ThemeGarden {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
 			$themes_and_categories = $this->get_themes_and_categories();
+			$theme_details = $this->selected_theme_id ? $this->get_theme($this->selected_theme_id) : null;
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
@@ -100,6 +101,8 @@ class ThemeGarden {
 						'selectedCategory' => $this->selected_category,
 						'search'           => $this->search,
 						'baseUrl'          => admin_url( 'admin.php?page=tumblr-themes' ),
+						'selectedThemeId'   => $this->selected_theme_id,
+						'themeDetails'      => $theme_details,
 					)
 				),
 				'before'

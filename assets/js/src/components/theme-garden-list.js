@@ -26,9 +26,15 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme,
 	}, [ themes ] );
 
 	const handleDetailsClick = async ( { currentTarget } ) => {
+		const currentUrl = new URL(window.location.href);
+		const params = new URLSearchParams(currentUrl.search);
+		const themeId = currentTarget.value;
+		params.append('theme', themeId);
+		currentUrl.search = params.toString();
 		beforeFetchTheme();
-		const response = await fetchTheme( currentTarget.value );
-		receiveTheme( response );
+		const response = await fetchTheme( themeId );
+		receiveTheme( response, themeId );
+		window.history.pushState( {}, '', currentUrl.toString() );
 	}
 
 	if ( isFetchingThemes ) {
@@ -72,10 +78,11 @@ export const ThemeGardenList = compose(
 	withSelect(select => ({
 		themes: select('tumblr3/theme-garden-store').getThemes(),
 		isFetchingThemes: select('tumblr3/theme-garden-store').getIsFetchingThemes(),
+		globals: select('tumblr3/theme-garden-store').getDefaultState(),
 	})),
 	withDispatch( dispatch => ( {
-		receiveTheme: ( theme ) => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme );
+		receiveTheme: ( theme, themeId ) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme, themeId );
 		},
 		beforeFetchTheme: () => {
 			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();

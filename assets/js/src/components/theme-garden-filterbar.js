@@ -96,8 +96,9 @@ const _ThemeGardenFilterBar = ( {
 
 	const onChangeSearch = async ( { currentTarget } ) => {
 		const newSearch = currentTarget.value;
-		clearTimeout( timerRef.current );
 		setSearch( newSearch );
+		// Debounce so we don't send multiple requests while user is typing.
+		clearTimeout( timerRef.current );
 		timerRef.current = setTimeout( async () => {
 			await fetchThemesByQuery( newSearch );
 			window.history.pushState( {}, '', baseUrl + '&search=' + newSearch );
@@ -145,7 +146,7 @@ const _ThemeGardenFilterBar = ( {
 
 export const ThemeGardenFilterBar = compose(
 	withSelect( select => ( {
-		initialProps: select( 'tumblr3/theme-garden-store' ).getInitialFilterBarProps(),
+		initialProps: select( 'tumblr3/theme-garden-store' ).getDefaultState(),
 		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
 	} ) ),
 	withDispatch( dispatch => ( {

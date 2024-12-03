@@ -11,9 +11,10 @@ const DEFAULT_STATE = {
 	selectedCategory: themeGardenData.selectedCategory, // eslint-disable-line no-undef
 	search: themeGardenData.search, // eslint-disable-line no-undef
 	baseUrl: themeGardenData.baseUrl, // eslint-disable-line no-undef
+	selectedThemeId: themeGardenData.selectedThemeId, // eslint-disable-line no-undef
+	themeDetails: themeGardenData.themeDetails, // eslint-disable-line no-undef
 	isFetchingThemes: false,
-	isOverlayOpen: false,
-	themeDetails: null,
+	isOverlayOpen: !!themeGardenData.selectedThemeId,
 	isFetchingTheme: false,
 };
 
@@ -26,7 +27,7 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 		case 'RECEIVE_THEMES':
 			return { ...state, themes: action.themes, isFetchingThemes: false };
 		case 'RECEIVE_THEME':
-			return { ...state, isFetchingTheme: false, themeDetails: action.theme };
+			return { ...state, isFetchingTheme: false, themeDetails: action.theme, selectedThemeId: action.id };
 		case 'CLOSE_OVERLAY':
 			return { ...state, isOverlayOpen: false, isFetchingTheme: false, themeDetails: null };
 		default:
@@ -40,10 +41,11 @@ const actions = {
 			type: 'CLOSE_OVERLAY'
 		};
 	},
-	receiveTheme( theme ) {
+	receiveTheme( theme, id ) {
 		return {
 			type: 'RECEIVE_THEME',
-			theme: theme,
+			theme,
+			id
 		};
 	},
 	receiveThemes( themes ) {
@@ -85,13 +87,8 @@ const selectors = {
 	getLogoUrl() {
 		return DEFAULT_STATE.logoUrl;
 	},
-	getInitialFilterBarProps() {
-		return {
-			categories: DEFAULT_STATE.categories,
-			selectedCategory: DEFAULT_STATE.selectedCategory,
-			baseUrl: DEFAULT_STATE.baseUrl,
-			search: DEFAULT_STATE.search,
-		};
+	getDefaultState() {
+		return DEFAULT_STATE;
 	},
 	getIsFetchingThemes( state ) {
 		return state.isFetchingThemes;
