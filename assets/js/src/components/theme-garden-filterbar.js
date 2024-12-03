@@ -78,7 +78,8 @@ const _ThemeGardenFilterBar = ( {
 		const category = urlParams.get( 'category' ) || 'featured';
 		const searchParam = urlParams.get( 'search' ) || '';
 		if ( searchParam !== '' ) {
-			setSearch( searchParam );
+			await fetchThemesByQuery( searchParam );
+			setSearch(searchParam);
 		} else {
 			await fetchThemesByCategory( category );
 			setSelectedCategory( category );

@@ -13,7 +13,7 @@ const DEFAULT_STATE = {
 	baseUrl: themeGardenData.baseUrl, // eslint-disable-line no-undef
 	isFetchingThemes: false,
 	isOverlayOpen: false,
-	themeDetails: false,
+	themeDetails: null,
 	isFetchingTheme: false,
 };
 
@@ -28,7 +28,7 @@ const reducer = ( state = DEFAULT_STATE, action ) => {
 		case 'RECEIVE_THEME':
 			return { ...state, isFetchingTheme: false, themeDetails: action.theme };
 		case 'CLOSE_OVERLAY':
-			return { ...state, isOverlayOpen: false, isFetchingTheme: false };
+			return { ...state, isOverlayOpen: false, isFetchingTheme: false, themeDetails: null };
 		default:
 			return state;
 	}
@@ -41,7 +41,6 @@ const actions = {
 		};
 	},
 	receiveTheme( theme ) {
-		console.log('adtion receive theme', theme);
 		return {
 			type: 'RECEIVE_THEME',
 			theme: theme,
