@@ -41,6 +41,7 @@ const actions = {
 		};
 	},
 	receiveTheme( theme ) {
+		console.log('adtion receive theme', theme);
 		return {
 			type: 'RECEIVE_THEME',
 			theme: theme,
@@ -104,6 +105,9 @@ const selectors = {
 	},
 	getIsOverlayOpen( state ) {
 		return state.isOverlayOpen;
+	},
+	getThemeDetails( state ) {
+		return state.themeDetails;
 	},
 };
 

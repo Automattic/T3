@@ -26,10 +26,8 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme,
 	}, [ themes ] );
 
 	const handleDetailsClick = async ( { currentTarget } ) => {
-		console.info('start fetch');
 		beforeFetchTheme();
 		const response = await fetchTheme( currentTarget.value );
-		console.info('end fetch', response);
 		receiveTheme( response );
 	}
 
@@ -76,8 +74,8 @@ export const ThemeGardenList = compose(
 		isFetchingThemes: select('tumblr3/theme-garden-store').getIsFetchingThemes(),
 	})),
 	withDispatch( dispatch => ( {
-		receiveTheme: themes => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme();
+		receiveTheme: ( theme ) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme );
 		},
 		beforeFetchTheme: () => {
 			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();

@@ -1,3 +1,4 @@
+import { useCallback } from '@wordpress/element';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { _x } from '@wordpress/i18n';
@@ -12,34 +13,38 @@ import { _x } from '@wordpress/i18n';
  * @param {boolean} props.isFetchingTheme
  * @param {Function} props.closeOverlay
  * @param {Function} props.fetchTheme
+ * @param {Object} props.themeDetails
  */
-const _ThemeGardenOverlay = ({isOverlayOpen, isFetchingTheme, closeOverlay, fetchTheme}) => {
+const _ThemeGardenOverlay = ({isOverlayOpen, isFetchingTheme, closeOverlay, fetchTheme, themeDetails}) => {
 	const handleCloseOverlay = () => {
 		closeOverlay();
 	}
 
-	const renderThemeDetails = () => {
-		if( isFetchingTheme ) {
+	const renderThemeDetails = useCallback(() => {
+		if( isFetchingTheme || !themeDetails ) {
 			return (
-				<div className="loading-content">
+				<div className="loading-content wp-clearfix">
 					<span className="spinner"></span>
 				</div>
 			);
 		}
+
+		const description = { __html: themeDetails.description };
+
 		return (
 			<div className="theme-about wp-clearfix">
 				<div className="theme-screenshots">
 					<div className="screenshot">
-						<img src="https://i.ytimg.com/vi/tfBIpzdckeU/maxresdefault.jpg" alt=""/>
+						<img src={themeDetails.screenshots[0]} alt=""/>
 					</div>
 				</div>
 				<div className="theme-info">
-					<h2 className="theme-name">Banana Phone</h2>
-					<div>It's a phone that can banana.</div>
+					<h2 className="theme-name">{themeDetails.title}</h2>
+					<div dangerouslySetInnerHTML={description}></div>
 				</div>
 			</div>
-		)
-	}
+		);
+	}, [themeDetails] );
 
 	if (!isOverlayOpen) {
 		return null;
@@ -63,6 +68,7 @@ export const ThemeGardenOverlay = compose(
 	withSelect( select => ( {
 		isOverlayOpen: select( 'tumblr3/theme-garden-store' ).getIsOverlayOpen(),
 		isFetchingTheme: select( 'tumblr3/theme-garden-store' ).getIsFetchingTheme(),
+		themeDetails: select( 'tumblr3/theme-garden-store' ).getThemeDetails(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
