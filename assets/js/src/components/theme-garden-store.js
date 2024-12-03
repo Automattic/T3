@@ -13,19 +13,22 @@ const DEFAULT_STATE = {
 	baseUrl: themeGardenData.baseUrl, // eslint-disable-line no-undef
 	isFetchingThemes: false,
 	isOverlayOpen: false,
-	themeDetails: false
+	themeDetails: false,
+	isFetchingTheme: false,
 };
 
 const reducer = ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
 		case 'BEFORE_FETCH_THEMES':
 			return { ...state, isFetchingThemes: true };
+		case 'BEFORE_FETCH_THEME':
+			return { ...state, isFetchingTheme: true, isOverlayOpen: true, };
 		case 'RECEIVE_THEMES':
 			return { ...state, themes: action.themes, isFetchingThemes: false };
 		case 'RECEIVE_THEME':
-			return { ...state, isOverlayOpen: true };
+			return { ...state, isFetchingTheme: false, themeDetails: action.theme };
 		case 'CLOSE_OVERLAY':
-			return { ...state, isOverlayOpen: false };
+			return { ...state, isOverlayOpen: false, isFetchingTheme: false };
 		default:
 			return state;
 	}
@@ -37,9 +40,10 @@ const actions = {
 			type: 'CLOSE_OVERLAY'
 		};
 	},
-	receiveTheme() {
+	receiveTheme( theme ) {
 		return {
-			type: 'RECEIVE_THEME'
+			type: 'RECEIVE_THEME',
+			theme: theme,
 		};
 	},
 	receiveThemes( themes ) {
@@ -48,6 +52,9 @@ const actions = {
 			themes,
 		};
 	},
+	beforeFetchTheme() {
+		return { type: 'BEFORE_FETCH_THEME' };
+	},
 	beforeFetchThemes() {
 		return { type: 'BEFORE_FETCH_THEMES' };
 	},
@@ -55,16 +62,23 @@ const actions = {
 		try {
 			return controls.FETCH_THEMES( category );
 		} catch ( error ) {
-			throw new Error( 'Failed to update settings' );
+			throw new Error( 'Failed to fetch themes' );
 		}
 	},
 	*searchThemes( query ) {
 		try {
 			return controls.SEARCH_THEMES( query );
 		} catch ( error ) {
-			throw new Error( 'Failed to update settings' );
+			throw new Error( 'Failed to search themes' );
 		}
 	},
+	*fetchTheme( id ) {
+		try {
+			return controls.FETCH_THEME( id );
+		} catch ( error ) {
+			throw new Error( 'Failed to fetch theme' );
+		}
+	}
 };
 
 const selectors = {
@@ -81,6 +95,9 @@ const selectors = {
 	},
 	getIsFetchingThemes( state ) {
 		return state.isFetchingThemes;
+	},
+	getIsFetchingTheme( state ) {
+		return state.isFetchingTheme;
 	},
 	getThemes( state ) {
 		return state.themes;
@@ -106,6 +123,19 @@ const controls = {
 	SEARCH_THEMES( query ) {
 		return apiFetch( {
 			path: '/tumblr3/v1/themes?search=' + query,
+			method: 'GET',
+		} )
+			.then( response => {
+				return response;
+			} )
+			.catch( error => {
+				console.error( 'API Error:', error ); // eslint-disable-line no-console
+				throw error;
+			} );
+	},
+	FETCH_THEME( id ) {
+		return apiFetch( {
+			path: '/tumblr3/v1/theme?theme=' + id,
 			method: 'GET',
 		} )
 			.then( response => {

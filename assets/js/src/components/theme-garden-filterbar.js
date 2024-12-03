@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
-import { __, _x } from '@wordpress/i18n';
+import { _x } from '@wordpress/i18n';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import './theme-garden-store';
@@ -109,7 +109,7 @@ const _ThemeGardenFilterBar = ( {
 			<div className="filter-count">
 				<span className="count">{ themeList.length }</span>
 			</div>
-			<label htmlFor="t3-categories">{ __( 'Categories', 'tumblr3' ) }</label>
+			<label htmlFor="t3-categories">{ _x( 'Categories', 'label for a dropdown list of theme categories', 'tumblr3' ) }</label>
 			<select id="t3-categories" name="category" onChange={ onChangeCategory }>
 				<option value="featured">
 					{ _x( 'Featured', 'The name of a category in a list of categories.', 'tumblr3' ) }
@@ -127,7 +127,7 @@ const _ThemeGardenFilterBar = ( {
 				} ) }
 			</select>
 			<p className="search-box">
-				<label htmlFor="wp-filter-search-input">Search Themes</label>
+				<label htmlFor="wp-filter-search-input">{_x('Search Themes', 'label for a text input', 'tumblr3')}</label>
 				<input
 					type="search"
 					aria-describedby="live-search-desc"

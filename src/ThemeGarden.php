@@ -225,8 +225,8 @@ class ThemeGarden {
 	 * @return \WP_REST_Response The settings for the queue.
 	 */
 	public function rest_api_get_theme(): \WP_REST_Response {
-		$themes_and_categories = $this->get_theme( $this->selected_theme_id );
-		return new \WP_REST_Response( $themes_and_categories['themes'], 200 );
+		$theme = $this->get_theme( $this->selected_theme_id );
+		return new \WP_REST_Response( $theme, 200 );
 	}
 
 	/**

@@ -14,17 +14,23 @@ import './theme-garden-store';
  * @param {Array}   props.themes
  * @param {boolean} props.isFetchingThemes
  * @param {Function} props.receiveTheme
+ * @param {Function} props.fetchTheme
+ * @param {Function} props.beforeFetchTheme
  *
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme, beforeFetchTheme } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
 		setLocalThemes( themes );
 	}, [ themes ] );
 
-	const handleDetailsClick = () => {
-		receiveTheme();
+	const handleDetailsClick = async ( { currentTarget } ) => {
+		console.info('start fetch');
+		beforeFetchTheme();
+		const response = await fetchTheme( currentTarget.value );
+		console.info('end fetch', response);
+		receiveTheme( response );
 	}
 
 	if ( isFetchingThemes ) {
@@ -49,7 +55,7 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme } ) => {
 						</div>
 					</header>
 					<div className="tumblr-theme-content">
-						<button className="tumblr-theme-details" onClick={handleDetailsClick}>
+						<button className="tumblr-theme-details" onClick={handleDetailsClick} value={theme.id}>
 							<label><span
 								className="tumblr-theme-detail-button">{_x( 'Theme details', 'Text on a button that will show more information about a Tumblr theme', 'tumblr3' )}</span></label>
 							<img src={theme.thumbnail} alt="" />
@@ -73,5 +79,11 @@ export const ThemeGardenList = compose(
 		receiveTheme: themes => {
 			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme();
 		},
+		beforeFetchTheme: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();
+		},
+		fetchTheme: ( id ) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
+		}
 	} ) )
 )(_ThemeGardenList);
