@@ -24,6 +24,9 @@ wp_head();
 $tumblr3_head = ob_get_contents();
 ob_end_clean();
 
+// Parse and potentially store the parsed theme HTML.
+$tumblr3_theme = apply_filters( 'tumblr3_theme_output', $tumblr3_theme );
+
 /**
  * Capture wp_footer output.
  *
@@ -33,9 +36,6 @@ ob_start();
 wp_footer();
 $tumblr3_footer = ob_get_contents();
 ob_end_clean();
-
-// Parse and potentially store the parsed theme HTML.
-$tumblr3_theme = apply_filters( 'tumblr3_theme_output', $tumblr3_theme );
 
 // Add the head and footer to the theme.
 $tumblr3_theme = str_replace( '</head>', $tumblr3_head . '</head>', $tumblr3_theme );
