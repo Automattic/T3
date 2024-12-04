@@ -17,12 +17,6 @@ import { _x } from '@wordpress/i18n';
  * @param {Object} props.themeDetails
  */
 const _ThemeGardenOverlay = ({themes, isOverlayOpen, isFetchingTheme, closeOverlay, fetchTheme, themeDetails}) => {
-	const [ localThemes, setLocalThemes ] = useState( themes );
-
-	useEffect( () => {
-		setLocalThemes( themes );
-	}, [ themes ] );
-
 	const handleCloseClick = () => {
 		const currentUrl = new URL(window.location.href);
 		const params = new URLSearchParams(currentUrl.search);

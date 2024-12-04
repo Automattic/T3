@@ -77,10 +77,13 @@ const _ThemeGardenFilterBar = ( {
 		const urlParams = new URLSearchParams( window.location.search );
 		const category = urlParams.get( 'category' ) || 'featured';
 		const searchParam = urlParams.get( 'search' ) || '';
-		if ( searchParam !== '' ) {
+		console.info('detected browser navigation');
+		if ( searchParam !== '' && searchParam !== search ) {
+			console.info('fetching themes by search');
 			await fetchThemesByQuery( searchParam );
 			setSearch(searchParam);
-		} else {
+		} else if ( category !== '' && category !== selectedCategory) {
+			console.info('fetching themes by category');
 			await fetchThemesByCategory( category );
 			setSelectedCategory( category );
 		}

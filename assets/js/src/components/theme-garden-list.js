@@ -16,14 +16,42 @@ import './theme-garden-store';
  * @param {Function} props.receiveTheme
  * @param {Function} props.fetchTheme
  * @param {Function} props.beforeFetchTheme
+ * @param {Function} props.closeOverlay
  *
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme, beforeFetchTheme } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme, beforeFetchTheme, closeOverlay } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
 		setLocalThemes( themes );
 	}, [ themes ] );
+
+	/**
+	 * Detect backwards and forwards browser navigation.
+	 */
+	useEffect( () => {
+		window.addEventListener( 'popstate', onBrowserNavigation );
+		return () => {
+			window.removeEventListener( 'popstate', onBrowserNavigation );
+		};
+	}, [] );
+
+	/**
+	 * After backwards or forwards navigation, check URL search params for indicators that we have to re-fetch themes.
+	 *
+	 * @return {Promise<void>}
+	 */
+	const onBrowserNavigation = async () => {
+		const urlParams = new URLSearchParams( window.location.search );
+		const theme = urlParams.get( 'theme' ) || '';
+		if ( theme !== '' ) {
+			beforeFetchTheme();
+			const response = await fetchTheme( theme );
+			receiveTheme( response, theme );
+		} else {
+			closeOverlay();
+		}
+	};
 
 	const handleDetailsClick = async ( { currentTarget } ) => {
 		const currentUrl = new URL(window.location.href);
@@ -89,6 +117,9 @@ export const ThemeGardenList = compose(
 		},
 		fetchTheme: ( id ) => {
 			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
-		}
+		},
+		closeOverlay: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
+		},
 	} ) )
 )(_ThemeGardenList);

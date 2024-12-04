@@ -14,7 +14,7 @@ const DEFAULT_STATE = {
 	selectedThemeId: themeGardenData.selectedThemeId, // eslint-disable-line no-undef
 	themeDetails: themeGardenData.themeDetails, // eslint-disable-line no-undef
 	isFetchingThemes: false,
-	isOverlayOpen: !!themeGardenData.selectedThemeId,
+	isOverlayOpen: !!themeGardenData.selectedThemeId, // eslint-disable-line no-undef
 	isFetchingTheme: false,
 };
 
