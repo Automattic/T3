@@ -13,18 +13,12 @@ import './theme-garden-store';
  * @param {Object}   props
  * @param {Array}    props.themes
  * @param {boolean}  props.isFetchingThemes
- * @param {Function} props.receiveTheme
- * @param {Function} props.fetchTheme
- * @param {Function} props.beforeFetchTheme
- * @param {Function} props.closeOverlay
+ * @param {Function} props.fetchThemeById
  */
 const _ThemeGardenList = ( {
 	themes,
 	isFetchingThemes,
-	receiveTheme,
-	fetchTheme,
-	beforeFetchTheme,
-	closeOverlay,
+							   fetchThemeById
 } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
@@ -32,42 +26,12 @@ const _ThemeGardenList = ( {
 		setLocalThemes( themes );
 	}, [ themes ] );
 
-	/**
-	 * Detect backwards and forwards browser navigation.
-	 */
-	useEffect( () => {
-		window.addEventListener( 'popstate', onBrowserNavigation );
-		return () => {
-			window.removeEventListener( 'popstate', onBrowserNavigation );
-		};
-	}, [] );
-
-	/**
-	 * After backwards or forwards navigation, check URL search params for indicators that we have to re-fetch themes.
-	 *
-	 * @return {Promise<void>}
-	 */
-	const onBrowserNavigation = async () => {
-		const urlParams = new URLSearchParams( window.location.search );
-		const theme = urlParams.get( 'theme' ) || '';
-		if ( theme !== '' ) {
-			beforeFetchTheme();
-			const response = await fetchTheme( theme );
-			receiveTheme( response, theme );
-		} else {
-			closeOverlay();
-		}
-	};
-
-	const handleDetailsClick = async ( { currentTarget } ) => {
+	const handleDetailsClick = async ( { currentTarget: {value: themeId} } ) => {
 		const currentUrl = new URL( window.location.href );
 		const params = new URLSearchParams( currentUrl.search );
-		const themeId = currentTarget.value;
 		params.append( 'theme', themeId );
 		currentUrl.search = params.toString();
-		beforeFetchTheme();
-		const response = await fetchTheme( themeId );
-		receiveTheme( response, themeId );
+		await fetchThemeById(themeId)
 		window.history.pushState( {}, '', currentUrl.toString() );
 	};
 
@@ -127,15 +91,6 @@ export const ThemeGardenList = compose(
 		isFetchingThemes: select( 'tumblr3/theme-garden-store' ).getIsFetchingThemes(),
 	} ) ),
 	withDispatch( dispatch => ( {
-		receiveTheme: ( theme, themeId ) => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme, themeId );
-		},
-		beforeFetchTheme: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();
-		},
-		fetchTheme: id => {
-			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
-		},
 		closeOverlay: () => {
 			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
 		},

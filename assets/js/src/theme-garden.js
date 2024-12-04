@@ -20,6 +20,10 @@ import { ThemeGardenOverlay } from './components/theme-garden-overlay';
  * @param {Function} props.fetchThemes
  * @param {Function} props.receiveThemes
  * @param {Function} props.searchThemes
+ * @param {Function} props.beforeFetchTheme
+ * @param {Function} props.fetchTheme
+ * @param {Function} props.receiveTheme
+ * @param {Function} props.closeOverlay
  */
 const ThemeGarden = ( {
 	logoUrl,
@@ -27,6 +31,10 @@ const ThemeGarden = ( {
 	fetchThemes,
 	receiveThemes,
 	searchThemes,
+						  beforeFetchTheme,
+	fetchTheme,
+	receiveTheme,
+	closeOverlay
 } ) => {
 	/**
 	 * Detect backwards and forwards browser navigation.
@@ -50,6 +58,12 @@ const ThemeGarden = ( {
 		receiveThemes( response, '', newSearch );
 	};
 
+	const fetchThemeById = async themeId => {
+		beforeFetchTheme();
+		const response = await fetchTheme(themeId);
+		receiveTheme( response, themeId );
+	}
+
 	/**
 	 * After backwards or forwards navigation, check URL search params for indicators that we have to re-fetch themes.
 	 *
@@ -59,6 +73,8 @@ const ThemeGarden = ( {
 		const urlParams = new URLSearchParams( window.location.search );
 		const category = urlParams.get( 'category' ) || 'featured';
 		const searchParam = urlParams.get( 'search' ) || '';
+		const theme = urlParams.get( 'theme' ) || '';
+
 		console.info( 'detected browser navigation' );
 		if ( searchParam !== '' ) {
 			console.info( 'fetching themes by search' );
@@ -66,6 +82,14 @@ const ThemeGarden = ( {
 		} else if ( category !== '' ) {
 			console.info( 'fetching themes by category' );
 			await fetchThemesByCategory( category );
+		}
+
+		if ( theme !== '' ) {
+			beforeFetchTheme();
+			const response = await fetchTheme( theme );
+			receiveTheme( response, theme );
+		} else {
+			closeOverlay();
 		}
 	};
 
@@ -79,7 +103,7 @@ const ThemeGarden = ( {
 				fetchThemesByCategory={ fetchThemesByCategory }
 				fetchThemesByQuery={ fetchThemesByQuery }
 			/>
-			<ThemeGardenList />
+			<ThemeGardenList fetchThemeById={fetchThemeById} />
 			<ThemeGardenOverlay />
 		</div>
 	);
@@ -101,6 +125,18 @@ export const ConnectedThemeGarden = compose(
 		},
 		receiveThemes: ( themes, category, search ) => {
 			return dispatch( 'tumblr3/theme-garden-store' ).receiveThemes( themes, category, search );
+		},
+		beforeFetchTheme: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();
+		},
+		fetchTheme: id => {
+			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
+		},
+		receiveTheme: ( theme, themeId ) => {
+			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme, themeId );
+		},
+		closeOverlay: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( ThemeGarden );
