@@ -10,16 +10,22 @@ import './theme-garden-store';
  *
  * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  *
- * @param {Object}  props
- * @param {Array}   props.themes
- * @param {boolean} props.isFetchingThemes
+ * @param {Object}   props
+ * @param {Array}    props.themes
+ * @param {boolean}  props.isFetchingThemes
  * @param {Function} props.receiveTheme
  * @param {Function} props.fetchTheme
  * @param {Function} props.beforeFetchTheme
  * @param {Function} props.closeOverlay
- *
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme, beforeFetchTheme, closeOverlay } ) => {
+const _ThemeGardenList = ( {
+	themes,
+	isFetchingThemes,
+	receiveTheme,
+	fetchTheme,
+	beforeFetchTheme,
+	closeOverlay,
+} ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
@@ -54,16 +60,16 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme,
 	};
 
 	const handleDetailsClick = async ( { currentTarget } ) => {
-		const currentUrl = new URL(window.location.href);
-		const params = new URLSearchParams(currentUrl.search);
+		const currentUrl = new URL( window.location.href );
+		const params = new URLSearchParams( currentUrl.search );
 		const themeId = currentTarget.value;
-		params.append('theme', themeId);
+		params.append( 'theme', themeId );
 		currentUrl.search = params.toString();
 		beforeFetchTheme();
 		const response = await fetchTheme( themeId );
 		receiveTheme( response, themeId );
 		window.history.pushState( {}, '', currentUrl.toString() );
-	}
+	};
 
 	if ( isFetchingThemes ) {
 		return (
@@ -87,27 +93,39 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, receiveTheme, fetchTheme,
 						</div>
 					</header>
 					<div className="tumblr-theme-content">
-						<button className="tumblr-theme-details" onClick={handleDetailsClick} value={theme.id}>
-							<label><span
-								className="tumblr-theme-detail-button">{_x( 'Theme details', 'Text on a button that will show more information about a Tumblr theme', 'tumblr3' )}</span></label>
-							<img src={theme.thumbnail} alt="" />
+						<button
+							className="tumblr-theme-details"
+							onClick={ handleDetailsClick }
+							value={ theme.id }
+						>
+							<label>
+								<span className="tumblr-theme-detail-button">
+									{ _x(
+										'Theme details',
+										'Text on a button that will show more information about a Tumblr theme',
+										'tumblr3'
+									) }
+								</span>
+							</label>
+							<img src={ theme.thumbnail } alt="" />
 						</button>
 						<div className="tumblr-theme-footer">
-							<a className="rainbow-button" href={theme.activate_url}>Activate</a>
+							<a className="rainbow-button" href={ theme.activate_url }>
+								Activate
+							</a>
 						</div>
 					</div>
 				</article>
-			))}
+			) ) }
 		</div>
 	);
 };
 
 export const ThemeGardenList = compose(
-	withSelect(select => ({
-		themes: select('tumblr3/theme-garden-store').getThemes(),
-		isFetchingThemes: select('tumblr3/theme-garden-store').getIsFetchingThemes(),
-		globals: select('tumblr3/theme-garden-store').getDefaultState(),
-	})),
+	withSelect( select => ( {
+		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
+		isFetchingThemes: select( 'tumblr3/theme-garden-store' ).getIsFetchingThemes(),
+	} ) ),
 	withDispatch( dispatch => ( {
 		receiveTheme: ( theme, themeId ) => {
 			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme, themeId );
@@ -115,11 +133,11 @@ export const ThemeGardenList = compose(
 		beforeFetchTheme: () => {
 			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();
 		},
-		fetchTheme: ( id ) => {
+		fetchTheme: id => {
 			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
 		},
 		closeOverlay: () => {
 			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
-)(_ThemeGardenList);
+)( _ThemeGardenList );
