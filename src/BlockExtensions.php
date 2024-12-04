@@ -37,7 +37,7 @@ class BlockExtensions {
 	 * @return string Modified block content.
 	 */
 	public function tumblr_audio_block_output( $block_content, $block ) {
-		if ( $block['blockName'] !== 'core/audio' ) {
+		if ( get_post_format() !== false && $block['blockName'] !== 'core/audio' ) {
 			return $block_content;
 		}
 
