@@ -54,7 +54,6 @@ class BlockExtensions {
 		$media_album  = $attrs['mediaAlbum'] ?? '';
 		$poster_url   = $attrs['poster']['url'] ?? '';
 
-		// TODO verify how Tumblr handles missing attributes, it probably does not render empty spans
 		$output = sprintf(
 			'<figure class="tmblr-full">
 				<figcaption class="audio-caption">
