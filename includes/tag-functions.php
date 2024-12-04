@@ -1834,11 +1834,71 @@ function tumblr3_tag_posttypenoun(): string {
 add_shortcode( 'tag_posttypenoun', 'tumblr3_tag_posttypenoun' );
 
 /**
- * By default, simply links to the permalink of the post.
+ * Creates a WordPress.com reblog URL for the current post.
  *
  * @return string
  */
 function tumblr3_tag_reblogurl(): string {
-	return get_the_permalink();
+	return esc_url(
+		sprintf(
+			'https://wordpress.com/post?url=%s?is_post_share=true',
+			get_permalink()
+		)
+	);
 }
 add_shortcode( 'tag_reblogurl', 'tumblr3_tag_reblogurl' );
+
+/**
+ * Creates a like iFrame for the current post. Relies on Jetpack's like button.
+ *
+ * @return string
+ *
+ * @see https://github.com/Automattic/jetpack/blob/trunk/projects/plugins/jetpack/extensions/blocks/like/like.php
+ * @see https://github.com/Automattic/jetpack/blob/trunk/projects/plugins/jetpack/modules/likes/queuehandler.js#L417
+ */
+function tumblr3_tag_likebutton(): string {
+	if ( ! function_exists( '\Automattic\Jetpack\Extensions\Like\render_block' ) ) {
+		return '';
+	}
+
+	// Create a block context for the like button.
+	$block = new class( get_the_ID() ) {
+		public array $context = array();
+
+		public function __construct( $id ) {
+			$this->context['postId'] = $id;
+		}
+	};
+
+	$block_output = \Automattic\Jetpack\Extensions\Like\render_block(
+		array(
+			'showAvatars' => false,
+		),
+		'',
+		$block
+	);
+
+	// Get the iFrame src from the rendered block.
+	$src       = '';
+	$processor = new CupcakeLabs\T3\Processor( $block_output );
+
+	while ( $processor->next_tag(
+		array(
+			'tag_name'   => 'div',
+			'class_name' => 'sharedaddy',
+		)
+	) ) {
+		$src = $processor->get_attribute( 'data-src' );
+	}
+
+	// If no iFrame src is found, return an empty string.
+	if ( '' === $src ) {
+		return '';
+	}
+
+	return sprintf(
+		'<div class="like_button"><iframe src="%s" scrolling="no" width="20" height="20" frameborder="0" class="like_toggle" allowtransparency="true"></iframe></div>',
+		esc_url( $src )
+	);
+}
+add_shortcode( 'tag_likebutton', 'tumblr3_tag_likebutton' );

@@ -58,7 +58,6 @@ return array(
 	'tag_asklabel',
 	'tag_answer',
 	'tag_replies',
-	'tag_likebutton',
 	'tag_likes',
 	'tag_reblogparentname',
 	'tag_reblogparenttitle',
