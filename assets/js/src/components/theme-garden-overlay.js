@@ -15,6 +15,7 @@ import classNames from "classnames";
  * @param {boolean}  props.isFetchingTheme
  * @param {Function} props.closeOverlay
  * @param {Object}   props.themeDetails
+ * @param {Function} props.fetchThemeById
  */
 const _ThemeGardenOverlay = ( {
 	themes,
@@ -22,6 +23,7 @@ const _ThemeGardenOverlay = ( {
 	isFetchingTheme,
 	closeOverlay,
 	themeDetails,
+    fetchThemeById,
 } ) => {
 
 	const handleCloseClick = () => {
@@ -57,17 +59,29 @@ const _ThemeGardenOverlay = ( {
 		);
 	}, [ themeDetails, isFetchingTheme ] );
 
+	const onClickNavigate = useCallback( async (nextIndex) => {
+		const currentUrl = new URL( window.location.href );
+		const params = new URLSearchParams( currentUrl.search );
+		const nextId = themes[nextIndex].id;
+		params.delete( 'theme' );
+		params.append( 'theme', nextId);
+		currentUrl.search = params.toString();
+		await fetchThemeById( nextId );
+		window.history.pushState( {}, '', currentUrl.toString() );
+	}, [themes] )
+
 	const renderThemeHeader = useCallback( () => {
 		const currentIndex = themes.findIndex((theme) => theme.id === themeDetails.id );
 		const prevButtonDisabled = !currentIndex || currentIndex === 0;
 		const nextButtonDisabled =  currentIndex === themes.length - 1;
 
-
 		return (
 			<div className="theme-header">
 				<button
 					className={classNames('left', 'dashicons', 'dashicons-no', {disabled: prevButtonDisabled})}
-					disabled={prevButtonDisabled}>
+					disabled={prevButtonDisabled}
+					onClick={() => onClickNavigate(currentIndex - 1)}
+				>
 					<span className="screen-reader-text">
 						{_x(
 							'Show previous theme',
@@ -76,7 +90,11 @@ const _ThemeGardenOverlay = ( {
 						)}
 					</span>
 				</button>
-				<button className={classNames('right', 'dashicons', 'dashicons-no', {disabled: nextButtonDisabled})} disabled={nextButtonDisabled}>
+				<button
+					className={classNames('right', 'dashicons', 'dashicons-no', {disabled: nextButtonDisabled})}
+					disabled={nextButtonDisabled}
+					onClick={() => onClickNavigate(currentIndex + 1)}
+				>
 					<span className="screen-reader-text">
 						{_x(
 							'Show next theme',
@@ -96,7 +114,7 @@ const _ThemeGardenOverlay = ( {
 				</button>
 			</div>
 		);
-	}, [themeDetails, themes]);
+	}, [themeDetails, themes, onClickNavigate]);
 
 	if (!isOverlayOpen || !themeDetails) {
 		return null;

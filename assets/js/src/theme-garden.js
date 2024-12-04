@@ -104,7 +104,7 @@ const ThemeGarden = ( {
 				fetchThemesByQuery={ fetchThemesByQuery }
 			/>
 			<ThemeGardenList fetchThemeById={fetchThemeById} />
-			<ThemeGardenOverlay />
+			<ThemeGardenOverlay fetchThemeById={fetchThemeById} />
 		</div>
 	);
 };

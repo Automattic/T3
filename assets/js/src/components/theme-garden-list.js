@@ -18,7 +18,7 @@ import './theme-garden-store';
 const _ThemeGardenList = ( {
 	themes,
 	isFetchingThemes,
-							   fetchThemeById
+    fetchThemeById
 } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
