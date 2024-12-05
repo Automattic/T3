@@ -77,27 +77,6 @@ class Customizer {
 				'priority' => 10,
 			)
 		);
-
-		// Add a "use tumblr theme" checkbox.
-		$wp_customize->add_setting(
-			'tumblr3_use_theme',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => 0,
-				'sanitize_callback' => 'sanitize_text_field',
-			)
-		);
-
-		$wp_customize->add_control(
-			'tumblr3_use_theme',
-			array(
-				'label'    => __( 'Use Tumblr Theme?', 'tumblr3' ),
-				'section'  => 'tumblr3_html',
-				'type'     => 'checkbox',
-				'priority' => 5,
-			)
-		);
 	}
 
 	/**
