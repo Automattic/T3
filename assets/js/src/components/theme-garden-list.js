@@ -15,23 +15,19 @@ import './theme-garden-store';
  * @param {boolean}  props.isFetchingThemes
  * @param {Function} props.fetchThemeById
  */
-const _ThemeGardenList = ( {
-	themes,
-	isFetchingThemes,
-    fetchThemeById
-} ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
 		setLocalThemes( themes );
 	}, [ themes ] );
 
-	const handleDetailsClick = async ( { currentTarget: {value: themeId} } ) => {
+	const handleDetailsClick = async ( { currentTarget: { value: themeId } } ) => {
 		const currentUrl = new URL( window.location.href );
 		const params = new URLSearchParams( currentUrl.search );
 		params.append( 'theme', themeId );
 		currentUrl.search = params.toString();
-		await fetchThemeById(themeId)
+		await fetchThemeById( themeId );
 		window.history.pushState( {}, '', currentUrl.toString() );
 	};
 
@@ -49,38 +45,42 @@ const _ThemeGardenList = ( {
 
 	return (
 		<div className="tumblr-themes">
-			{ themes.map( theme => (
-				<article className="tumblr-theme" key={ theme.title }>
-					<header className="tumblr-theme-header">
-						<div className="tumblr-theme-title-wrapper">
-							<span className="tumblr-theme-title">{ theme.title }</span>
+			{ themes.map( theme => {
+				const label = `t3-theme-details-${ theme.id }`;
+				return (
+					<article className="tumblr-theme" key={ theme.title }>
+						<header className="tumblr-theme-header">
+							<div className="tumblr-theme-title-wrapper">
+								<span className="tumblr-theme-title">{ theme.title }</span>
+							</div>
+						</header>
+						<div className="tumblr-theme-content">
+							<button
+								className="tumblr-theme-details"
+								onClick={ handleDetailsClick }
+								value={ theme.id }
+								id={ label }
+							>
+								<label htmlFor={ label }>
+									<span className="tumblr-theme-detail-button">
+										{ _x(
+											'Theme details',
+											'Text on a button that will show more information about a Tumblr theme',
+											'tumblr3'
+										) }
+									</span>
+								</label>
+								<img src={ theme.thumbnail } alt="" />
+							</button>
+							<div className="tumblr-theme-footer">
+								<a className="rainbow-button" href={ theme.activate_url }>
+									Activate
+								</a>
+							</div>
 						</div>
-					</header>
-					<div className="tumblr-theme-content">
-						<button
-							className="tumblr-theme-details"
-							onClick={ handleDetailsClick }
-							value={ theme.id }
-						>
-							<label>
-								<span className="tumblr-theme-detail-button">
-									{ _x(
-										'Theme details',
-										'Text on a button that will show more information about a Tumblr theme',
-										'tumblr3'
-									) }
-								</span>
-							</label>
-							<img src={ theme.thumbnail } alt="" />
-						</button>
-						<div className="tumblr-theme-footer">
-							<a className="rainbow-button" href={ theme.activate_url }>
-								Activate
-							</a>
-						</div>
-					</div>
-				</article>
-			) ) }
+					</article>
+				);
+			} ) }
 		</div>
 	);
 };

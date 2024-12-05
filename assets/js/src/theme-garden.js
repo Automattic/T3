@@ -1,4 +1,4 @@
-import { createRoot, useEffect } from '@wordpress/element';
+import { createRoot, useEffect, useCallback } from '@wordpress/element';
 import { ThemeGardenFilterBar } from './components/theme-garden-filterbar';
 import { ThemeGardenList } from './components/theme-garden-list';
 import { __ } from '@wordpress/i18n';
@@ -24,6 +24,8 @@ import { ThemeGardenOverlay } from './components/theme-garden-overlay';
  * @param {Function} props.fetchTheme
  * @param {Function} props.receiveTheme
  * @param {Function} props.closeOverlay
+ * @param {string}   props.selectedCategory
+ * @param {string}   props.search
  */
 const ThemeGarden = ( {
 	logoUrl,
@@ -31,56 +33,44 @@ const ThemeGarden = ( {
 	fetchThemes,
 	receiveThemes,
 	searchThemes,
-						  beforeFetchTheme,
+	beforeFetchTheme,
 	fetchTheme,
 	receiveTheme,
-	closeOverlay
+	closeOverlay,
+	search,
+	selectedCategory,
 } ) => {
-	/**
-	 * Detect backwards and forwards browser navigation.
-	 */
-	useEffect( () => {
-		window.addEventListener( 'popstate', onBrowserNavigation );
-		return () => {
-			window.removeEventListener( 'popstate', onBrowserNavigation );
-		};
-	}, [] );
+	const fetchThemesByCategory = useCallback(
+		async category => {
+			beforeFetchThemes();
+			const response = await fetchThemes( category );
+			receiveThemes( response, category, '' );
+		},
+		[ beforeFetchThemes, receiveThemes, fetchThemes ]
+	);
 
-	const fetchThemesByCategory = async category => {
-		beforeFetchThemes();
-		const response = await fetchThemes( category );
-		receiveThemes( response, category, '' );
-	};
-
-	const fetchThemesByQuery = async newSearch => {
-		beforeFetchThemes();
-		const response = await searchThemes( newSearch );
-		receiveThemes( response, '', newSearch );
-	};
-
-	const fetchThemeById = async themeId => {
-		beforeFetchTheme();
-		const response = await fetchTheme(themeId);
-		receiveTheme( response, themeId );
-	}
-
+	const fetchThemesByQuery = useCallback(
+		async newSearch => {
+			beforeFetchThemes();
+			const response = await searchThemes( newSearch );
+			receiveThemes( response, '', newSearch );
+		},
+		[ beforeFetchThemes, receiveThemes, searchThemes ]
+	);
 	/**
 	 * After backwards or forwards navigation, check URL search params for indicators that we have to re-fetch themes.
 	 *
 	 * @return {Promise<void>}
 	 */
-	const onBrowserNavigation = async () => {
+	const onBrowserNavigation = useCallback( async () => {
 		const urlParams = new URLSearchParams( window.location.search );
 		const category = urlParams.get( 'category' ) || 'featured';
 		const searchParam = urlParams.get( 'search' ) || '';
 		const theme = urlParams.get( 'theme' ) || '';
 
-		console.info( 'detected browser navigation' );
-		if ( searchParam !== '' ) {
-			console.info( 'fetching themes by search' );
+		if ( searchParam !== '' && searchParam !== search ) {
 			await fetchThemesByQuery( searchParam );
-		} else if ( category !== '' ) {
-			console.info( 'fetching themes by category' );
+		} else if ( category !== '' && category !== selectedCategory ) {
 			await fetchThemesByCategory( category );
 		}
 
@@ -91,7 +81,34 @@ const ThemeGarden = ( {
 		} else {
 			closeOverlay();
 		}
-	};
+	}, [
+		selectedCategory,
+		search,
+		beforeFetchTheme,
+		closeOverlay,
+		fetchTheme,
+		fetchThemesByCategory,
+		fetchThemesByQuery,
+		receiveTheme,
+	] );
+	/**
+	 * Detect backwards and forwards browser navigation.
+	 */
+	useEffect( () => {
+		window.addEventListener( 'popstate', onBrowserNavigation );
+		return () => {
+			window.removeEventListener( 'popstate', onBrowserNavigation );
+		};
+	}, [ onBrowserNavigation ] );
+
+	const fetchThemeById = useCallback(
+		async themeId => {
+			beforeFetchTheme();
+			const response = await fetchTheme( themeId );
+			receiveTheme( response, themeId );
+		},
+		[ beforeFetchTheme, receiveTheme, fetchTheme ]
+	);
 
 	return (
 		<div className="wrap">
@@ -103,8 +120,8 @@ const ThemeGarden = ( {
 				fetchThemesByCategory={ fetchThemesByCategory }
 				fetchThemesByQuery={ fetchThemesByQuery }
 			/>
-			<ThemeGardenList fetchThemeById={fetchThemeById} />
-			<ThemeGardenOverlay fetchThemeById={fetchThemeById} />
+			<ThemeGardenList fetchThemeById={ fetchThemeById } />
+			<ThemeGardenOverlay fetchThemeById={ fetchThemeById } />
 		</div>
 	);
 };
@@ -112,6 +129,8 @@ const ThemeGarden = ( {
 export const ConnectedThemeGarden = compose(
 	withSelect( select => ( {
 		logoUrl: select( 'tumblr3/theme-garden-store' ).getLogoUrl(),
+		selectedCategory: select( 'tumblr3/theme-garden-store' ).getSelectedCategory(),
+		search: select( 'tumblr3/theme-garden-store' ).getSearch(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		beforeFetchThemes: () => {

@@ -1,8 +1,8 @@
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { _x } from '@wordpress/i18n';
-import classNames from "classnames";
+import classNames from 'classnames';
 
 /**
  * Displays an overlay with details about a Tumblr theme.
@@ -23,17 +23,16 @@ const _ThemeGardenOverlay = ( {
 	isFetchingTheme,
 	closeOverlay,
 	themeDetails,
-    fetchThemeById,
+	fetchThemeById,
 } ) => {
-
-	const handleCloseClick = () => {
+	const handleCloseClick = useCallback( () => {
 		const currentUrl = new URL( window.location.href );
 		const params = new URLSearchParams( currentUrl.search );
 		params.delete( 'theme' );
 		currentUrl.search = params.toString();
 		window.history.pushState( {}, '', currentUrl.toString() );
 		closeOverlay();
-	};
+	}, [ closeOverlay ] );
 
 	const renderThemeDetails = useCallback( () => {
 		if ( isFetchingTheme || ! themeDetails ) {
@@ -59,64 +58,71 @@ const _ThemeGardenOverlay = ( {
 		);
 	}, [ themeDetails, isFetchingTheme ] );
 
-	const onClickNavigate = useCallback( async (nextIndex) => {
-		const currentUrl = new URL( window.location.href );
-		const params = new URLSearchParams( currentUrl.search );
-		const nextId = themes[nextIndex].id;
-		params.delete( 'theme' );
-		params.append( 'theme', nextId);
-		currentUrl.search = params.toString();
-		await fetchThemeById( nextId );
-		window.history.pushState( {}, '', currentUrl.toString() );
-	}, [themes] )
+	const onClickNavigate = useCallback(
+		async nextIndex => {
+			const currentUrl = new URL( window.location.href );
+			const params = new URLSearchParams( currentUrl.search );
+			const nextId = themes[ nextIndex ].id;
+			params.delete( 'theme' );
+			params.append( 'theme', nextId );
+			currentUrl.search = params.toString();
+			await fetchThemeById( nextId );
+			window.history.pushState( {}, '', currentUrl.toString() );
+		},
+		[ themes, fetchThemeById ]
+	);
 
 	const renderThemeHeader = useCallback( () => {
-		const currentIndex = themes.findIndex((theme) => theme.id === themeDetails.id );
-		const prevButtonDisabled = !currentIndex || currentIndex === 0;
-		const nextButtonDisabled =  currentIndex === themes.length - 1;
+		const currentIndex = themes.findIndex( theme => theme.id === themeDetails.id );
+		const prevButtonDisabled = currentIndex === -1 || currentIndex === 0;
+		const nextButtonDisabled = currentIndex === -1 || currentIndex === themes.length - 1;
 
 		return (
 			<div className="theme-header">
 				<button
-					className={classNames('left', 'dashicons', 'dashicons-no', {disabled: prevButtonDisabled})}
-					disabled={prevButtonDisabled}
-					onClick={() => onClickNavigate(currentIndex - 1)}
+					className={ classNames( 'left', 'dashicons', 'dashicons-no', {
+						disabled: prevButtonDisabled,
+					} ) }
+					disabled={ prevButtonDisabled }
+					onClick={ () => onClickNavigate( currentIndex - 1 ) }
 				>
 					<span className="screen-reader-text">
-						{_x(
+						{ _x(
 							'Show previous theme',
 							'label for a button that will navigate to previous theme',
 							'tumblr3'
-						)}
+						) }
 					</span>
 				</button>
 				<button
-					className={classNames('right', 'dashicons', 'dashicons-no', {disabled: nextButtonDisabled})}
-					disabled={nextButtonDisabled}
-					onClick={() => onClickNavigate(currentIndex + 1)}
+					className={ classNames( 'right', 'dashicons', 'dashicons-no', {
+						disabled: nextButtonDisabled,
+					} ) }
+					disabled={ nextButtonDisabled }
+					onClick={ () => onClickNavigate( currentIndex + 1 ) }
 				>
 					<span className="screen-reader-text">
-						{_x(
+						{ _x(
 							'Show next theme',
 							'label for a button that will navigate to next theme',
 							'tumblr3'
-						)}
+						) }
 					</span>
 				</button>
-				<button className="close dashicons dashicons-no" onClick={handleCloseClick}>
-						<span className="screen-reader-text">
-							{_x(
-								'Close theme details overlay',
-								'label for a button that will close an overlay',
-								'tumblr3'
-							)}
-						</span>
+				<button className="close dashicons dashicons-no" onClick={ handleCloseClick }>
+					<span className="screen-reader-text">
+						{ _x(
+							'Close theme details overlay',
+							'label for a button that will close an overlay',
+							'tumblr3'
+						) }
+					</span>
 				</button>
 			</div>
 		);
-	}, [themeDetails, themes, onClickNavigate]);
+	}, [ themeDetails, themes, onClickNavigate, handleCloseClick ] );
 
-	if (!isOverlayOpen || !themeDetails) {
+	if ( ! isOverlayOpen || ! themeDetails ) {
 		return null;
 	}
 
@@ -124,8 +130,8 @@ const _ThemeGardenOverlay = ( {
 		<div className="theme-overlay" id="tumblr-theme-overlay">
 			<div className="theme-backdrop"></div>
 			<div className="theme-wrap wp-clearfix">
-				{renderThemeHeader()}
-				{renderThemeDetails()}
+				{ renderThemeHeader() }
+				{ renderThemeDetails() }
 			</div>
 		</div>
 	);
