@@ -4,7 +4,6 @@
  *
  * @package Tumblr3
  */
-
 defined( 'ABSPATH' ) || exit;
 
 return array(
@@ -282,4 +281,5 @@ return array(
 	'AudioPlayerBlack',
 	'AudioPlayerGrey',
 	'PostTypeNoun',
+	'LikeButton',
 );
