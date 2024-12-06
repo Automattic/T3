@@ -3,7 +3,7 @@ import { _x } from '@wordpress/i18n';
 /**
  * These playful messages were written by Tumblr staff.
  *
- * Class names reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
+ * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  */
 export const ThemeGardenNoThemes = () => {
 	const playfulNoThemesText = [

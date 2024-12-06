@@ -1,5 +1,32 @@
 $buttonWidth: 70px;
 
+@mixin rainbow-button {
+	display: inline-block;
+	line-height: 24px;
+	padding: 0 20px;
+	font-size: 1em;
+	text-decoration: none;
+	border-radius: 4px;
+	color: var(--t3-button-text);
+	border: 1px solid var(--t3-primary);
+	background: var(--t3-primary);
+}
+
+@mixin rainbow-button-hover {
+	background: repeating-linear-gradient(
+			90deg,
+			var(--t3-red) 0%,
+			var(--t3-orange),
+			var(--t3-yellow),
+			var(--t3-green),
+			var(--t3-violet),
+			var(--t3-red) 50%
+	);
+	background-size: 90px 100%;
+	animation: play 1.5s linear infinite;
+	color: #000;
+}
+
 body {
 	--t3-primary: #49a2c4;
 	--t3-secondary: #8eb2c0;
@@ -153,13 +180,57 @@ body.admin-color-sunrise {
 		4px 0 0 0 var(--t3-text);
 }
 
-.tumblr-theme-thumbnail {
+.tumblr-theme-details {
 	width: calc(100% - 4px);
-	height: auto;
-	aspect-ratio: 100/67;
-	object-fit: contain;
 	border: 2px solid var(--t3-secondary);
 	border-radius: 4px;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+
+	label {
+		display: none;
+		z-index: 2;
+		position: absolute;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 100/67;
+		object-fit: contain;
+		margin-bottom: -6px;
+		z-index: 1;
+	}
+
+	&:hover {
+		label {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: auto;
+			aspect-ratio: 100/67;
+			object-fit: contain;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			background: radial-gradient(
+					closest-side,
+					#0000 calc(100% - 1px),
+					var(--t3-background)
+			) 0/ 3px 3px space;
+		}
+
+		.tumblr-theme-detail-button {
+			@include rainbow-button;
+			@include rainbow-button-hover;
+			font-size: 16px;
+			font-weight: 600;
+			padding: 5px 20px;
+		}
+	}
 }
 
 .tumblr-theme-title {
@@ -201,56 +272,21 @@ body.admin-color-sunrise {
 		20px 16px 0 var(--t3-text);
 }
 
-.tumblr-theme-buttons {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
+.tumblr-theme-footer {
 	position: relative;
+	text-align: right;
 	margin: 10px 0  0;
 	padding: 0;
 	width: 100%;
+
+	a {
+		@include rainbow-button;
+
+		&:hover {
+			@include rainbow-button-hover;
+		}
+	}
 }
-
-.tumblr-theme-buttons li {
-	flex: none;
-	display: block;
-	overflow: hidden;
-	position: relative;
-	margin-left: 10px;
-	border-radius: 4px;
-}
-
-
-.tumblr-theme-buttons li a {
-	display: inline-block;
-	overflow: hidden;
-	width: 90px;
-	line-height: 24px;
-	font-size: 1em;
-	white-space: nowrap;
-	text-align: center;
-	text-decoration: none;
-	border-radius: inherit;
-	color: var(--t3-button-text);
-	border: 1px solid var(--t3-primary);
-	background: var(--t3-primary);
-}
-
-.tumblr-theme-buttons li a:hover {
-	background: repeating-linear-gradient(
-			90deg,
-			var(--t3-red) 0%,
-			var(--t3-orange),
-			var(--t3-yellow),
-			var(--t3-green),
-			var(--t3-violet),
-			var(--t3-red) 50%
-	);
-	background-size: 90px 100%;
-	animation: play 1.5s linear infinite;
-	color: #000;
-}
-
 
 #t3-categories {
 	margin: 10px;
