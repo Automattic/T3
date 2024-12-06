@@ -1,9 +1,23 @@
 body {
-	> .iframe-container {
+	>.iframe-container {
 		display: none;
 	}
 
 	iframe[src*="https://www.tumblr.com/dashboard/iframe"] {
 		display: none;
+	}
+
+	div.jetpack-likes-widget-wrapper.t3-likes {
+		min-height: 0px;
+		position: static;
+
+		.likes-widget-placeholder.post-likes-widget-placeholder {
+			display: none;
+		}
+
+		iframe {
+			width: 20px !important;
+			height: 20px !important;
+		}
 	}
 }
