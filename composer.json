@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.2",
     "ext-json": "*",
     "cupcacke-labs/redvelvet-lib": "dev-trunk"
   },
