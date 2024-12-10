@@ -16,18 +16,27 @@ defined( 'ABSPATH' ) || exit;
  */
 class ThemeGarden {
 	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
+	const ADMIN_MENU_SLUG = 'tumblr-themes';
 
 	/**
-	 * This holds the currently selected category of themes.
+	 * The `category` param in the current URL. If present, we'll search Tumblr's API for the given category.
+	 * Defaults to featured if no param is present.
 	 *
-	 * @var string
+	 * @var string $selected_category
 	 */
 	public string $selected_category = 'featured';
 
 	/**
-	 * This holds the current search query.
+	 * The `theme` param in the current URL. If present, we'll render a theme details overlay.
 	 *
-	 * @var string
+	 * @var string $selected_theme_id
+	 */
+	public string $selected_theme_id = '';
+
+	/**
+	 * The `search` param in the current URL. If present, we'll search Tumblr's API for the given query.
+	 *
+	 * @var string $search
 	 */
 	public string $search = '';
 
@@ -57,6 +66,9 @@ class ThemeGarden {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
 		$this->search = ( isset( $_GET['search'] ) ) ? sanitize_text_field( wp_unslash( $_GET['search'] ) ) : '';
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is verified in maybe_activate_theme.
+		$this->selected_theme_id = ( isset( $_GET['theme'] ) ) ? sanitize_text_field( wp_unslash( $_GET['theme'] ) ) : '';
 	}
 
 	/**
@@ -67,10 +79,11 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function enqueue_assets( string $hook ): void {
-		if ( 'appearance_page_tumblr-themes' === $hook ) {
+		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
 			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
 			$themes_and_categories = $this->get_themes_and_categories();
+			$theme_details = $this->selected_theme_id ? $this->get_theme($this->selected_theme_id) : null;
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
@@ -88,6 +101,8 @@ class ThemeGarden {
 						'selectedCategory' => $this->selected_category,
 						'search'           => $this->search,
 						'baseUrl'          => admin_url( 'admin.php?page=tumblr-themes' ),
+						'selectedThemeId'   => $this->selected_theme_id,
+						'themeDetails'      => $theme_details,
 					)
 				),
 				'before'
@@ -108,7 +123,7 @@ class ThemeGarden {
 				'tumblr-theme-install',
 				'const T3_Install = ' . wp_json_encode(
 					array(
-						'browseUrl'  => admin_url( 'admin.php?page=tumblr-themes' ),
+						'browseUrl'  => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'buttonText' => __( 'Browse Tumblr themes', 'tumblr3' ),
 					)
 				),
@@ -143,6 +158,30 @@ class ThemeGarden {
 	}
 
 	/**
+	 * Fetches and theme object from Tumblr's API.
+	 *
+	 * @param string $theme_id The theme id to send to Tumblr's API.
+	 *
+	 * @return \WP_Error | object
+	 */
+	public function get_theme( string $theme_id ) {
+		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
+		$status   = wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status ) {
+			return new \WP_Error();
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
+
+		if ( ! isset( $body->response->theme ) ) {
+			return new \WP_Error();
+		}
+
+		return $body->response;
+	}
+
+	/**
 	 * Register REST routes.
 	 *
 	 * @return void
@@ -153,7 +192,19 @@ class ThemeGarden {
 			'/themes',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_themes' ),
+				'callback'            => array( $this, 'rest_api_get_themes' ),
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
+			)
+		);
+
+		register_rest_route(
+			'tumblr3/v1',
+			'/theme',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'rest_api_get_theme' ),
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
@@ -166,9 +217,19 @@ class ThemeGarden {
 	 *
 	 * @return \WP_REST_Response The settings for the queue.
 	 */
-	public function get_themes(): \WP_REST_Response {
+	public function rest_api_get_themes(): \WP_REST_Response {
 		$themes_and_categories = $this->get_themes_and_categories();
 		return new \WP_REST_Response( $themes_and_categories['themes'], 200 );
+	}
+
+	/**
+	 * Gets theme details for an ajax request.
+	 *
+	 * @return \WP_REST_Response The settings for the queue.
+	 */
+	public function rest_api_get_theme(): \WP_REST_Response {
+		$theme = $this->get_theme( $this->selected_theme_id );
+		return new \WP_REST_Response( $theme, 200 );
 	}
 
 	/**
@@ -181,45 +242,29 @@ class ThemeGarden {
 			return;
 		}
 
-		$theme_id = isset( $_GET['activate_tumblr_theme'] ) ? absint( wp_unslash( $_GET['activate_tumblr_theme'] ) ) : 0;
+		$theme_id_to_activate = sanitize_text_field( wp_unslash( $_GET['activate_tumblr_theme'] ) );
+		$theme                = $this->get_theme( $theme_id_to_activate );
 
-		// Returns early if theme id was not set.
-		if ( 0 === $theme_id ) {
+		if ( is_wp_error( $theme ) ) {
 			return;
 		}
-
-		// During development, we don't want to be so limited by cache. So we'll send a cache invalidator to every request.
-		// TODO: remove once we are confident that api response will be stable.
-		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
-		$status   = wp_remote_retrieve_response_code( $response );
-
-		if ( 200 !== $status ) {
-			return;
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ) );
-
-		if ( ! isset( $body->response->theme ) ) {
-			return;
-		}
-
 		// Save theme details to options.
-		update_option( 'tumblr3_theme_html', $body->response->theme );
+		update_option( 'tumblr3_theme_html', $theme->theme );
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
-			'id'          => $theme_id,
-			'title'       => isset( $body->response->title ) ? $body->response->title : '',
-			'thumbnail'   => isset( $body->response->thumbnail ) ? $body->response->thumbnail : '',
-			'author_name' => isset( $body->response->author->name ) ? $body->response->author->name : '',
-			'author_url'  => isset( $body->response->author->url ) ? $body->response->author->url : '',
+			'id'          => $theme_id_to_activate,
+			'title'       => isset( $theme->title ) ? $theme->title : '',
+			'thumbnail'   => isset( $theme->thumbnail ) ? $theme->thumbnail : '',
+			'author_name' => isset( $theme->author->name) ? $theme->author->name : '',
+			'author_url'  => isset( $theme->author->url ) ? $theme->author->url : '',
 		);
 
 		update_option( 'tumblr3_external_theme', $external_theme_details );
 		update_option( 'tumblr3_use_theme', '1' );
 
 		// Setup theme option defaults.
-		$this->option_defaults_helper( maybe_unserialize( $body->response->default_params ) );
+		$this->option_defaults_helper( maybe_unserialize( $theme->default_params ) );
 
 		// Finally, redirect to the customizer with the new theme active.
 		wp_safe_redirect( wp_customize_url() );

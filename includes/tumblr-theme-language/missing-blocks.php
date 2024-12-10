@@ -145,4 +145,5 @@ return array(
 	'block_blogs',
 	'block_nofollowing',
 	'block_answer',
+	'block_taggedpage',
 );
