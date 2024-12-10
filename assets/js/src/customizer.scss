@@ -1,0 +1,140 @@
+.customize-control-code_editor .CodeMirror,
+.customize-control-code_editor textarea {
+	height: 100%;
+}
+
+.customizer-resizer {
+	display: none;
+}
+
+.wp-full-overlay-sidebar {
+	max-width: 100%;
+}
+
+.resizable {
+	.customizer-resizer {
+		content: '';
+		display: block;
+		height: 100%;
+		width: 4px;
+		position: absolute;
+		right: -4px;
+		margin-top: -30px;
+		cursor: pointer;
+		cursor: col-resize;
+		z-index: 9999999;
+		opacity: 0.8;
+	}
+
+	.wp-full-overlay-sidebar {
+		border-right-width: 4px;
+	}
+
+	.wp-full-overlay.collapsed .wp-full-overlay-sidebar {
+		margin-left: -286px;
+	}
+
+	&.wp-core-ui .wp-full-overlay .collapse-sidebar {
+		left: 22px;
+	}
+}
+
+.no-animation {
+
+	.wp-full-overlay,
+	.wp-full-overlay-sidebar,
+	.wp-full-overlay .collapse-sidebar,
+	.wp-full-overlay-main {
+		-webkit-transition: none;
+		transition: none;
+	}
+}
+
+// Mimic @media screen and ( max-width: 640px ) styles when body has .fullwidth-customizer
+.fullwidth-customizer {
+	#customize-controls {
+		width: 100%;
+	}
+
+	.wp-full-overlay.expanded {
+		margin-left: 0;
+	}
+
+	.wp-full-overlay-sidebar .wp-full-overlay-sidebar-content {
+		bottom: 0;
+	}
+
+	.customize-controls-preview-toggle {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 48px;
+		line-height: 45px;
+		font-size: 14px;
+		padding: 0 12px;
+		margin: 0;
+		height: 45px;
+		background: #eee;
+		border-right: 1px solid #ddd;
+		color: #444;
+		cursor: pointer;
+		-webkit-transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
+		transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
+	}
+
+	#customize-footer-actions,
+	#customize-preview,
+	.customize-controls-preview-toggle .controls,
+	.preview-only .wp-full-overlay-sidebar-content,
+	.preview-only .customize-controls-preview-toggle .preview {
+		display: none;
+	}
+
+	.customize-controls-preview-toggle {
+
+		.preview:before,
+		.controls:before {
+			font: normal 20px/1 dashicons;
+			content: "\f177";
+			position: relative;
+			top: 4px;
+			margin-right: 6px;
+		}
+
+		.controls:before {
+			content: "\f540";
+		}
+	}
+
+	.preview-only {
+		#customize-controls {
+			height: 45px;
+		}
+
+		#customize-preview,
+		.customize-controls-preview-toggle .controls {
+			display: block;
+		}
+	}
+
+	#customize-preview {
+		top: 45px;
+		bottom: 0;
+		height: auto;
+	}
+
+	&.wp-core-ui.wp-customizer {
+		.button {
+			padding: 6px 14px;
+			line-height: normal;
+			font-size: 14px;
+			vertical-align: middle;
+			height: auto;
+			margin-bottom: 4px;
+		}
+
+		#customize-header-actions .button-primary {
+			margin-top: 6px;
+		}
+	}
+}

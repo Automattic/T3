@@ -1,5 +1,5 @@
 import { useEffect, useState } from '@wordpress/element';
-import { withSelect } from '@wordpress/data';
+import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { _x } from '@wordpress/i18n';
 import { ThemeGardenNoThemes } from './theme-garden-no-themes';
@@ -8,18 +8,28 @@ import './theme-garden-store';
 /**
  * Displays a list of Tumblr themes.
  *
- * Class names reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
+ * CSS classNames reference built-in wp-admin styles, and styles declared in _theme_garden.scss.
  *
- * @param {Object}  props
- * @param {Array}   props.themes
- * @param {boolean} props.isFetchingThemes
+ * @param {Object}   props
+ * @param {Array}    props.themes
+ * @param {boolean}  props.isFetchingThemes
+ * @param {Function} props.fetchThemeById
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
 		setLocalThemes( themes );
 	}, [ themes ] );
+
+	const handleDetailsClick = async ( { currentTarget: { value: themeId } } ) => {
+		const currentUrl = new URL( window.location.href );
+		const params = new URLSearchParams( currentUrl.search );
+		params.append( 'theme', themeId );
+		currentUrl.search = params.toString();
+		await fetchThemeById( themeId );
+		window.history.pushState( {}, '', currentUrl.toString() );
+	};
 
 	if ( isFetchingThemes ) {
 		return (
@@ -35,25 +45,42 @@ const _ThemeGardenList = ( { themes, isFetchingThemes } ) => {
 
 	return (
 		<div className="tumblr-themes">
-			{ themes.map( theme => (
-				<article className="tumblr-theme" key={ theme.title }>
-					<header className="tumblr-theme-header">
-						<div className="tumblr-theme-title-wrapper">
-							<span className="tumblr-theme-title">{ theme.title }</span>
-						</div>
-					</header>
-					<div className="tumblr-theme-content">
-						<img className="tumblr-theme-thumbnail" src={ theme.thumbnail } alt="" />
-						<ul className="tumblr-theme-buttons">
-							<li>
-								<a href={ theme.activate_url }>
-									{ _x( 'Activate', 'Text on a button to activate a theme.', 'tumblr3' ) }
+			{ themes.map( theme => {
+				const label = `t3-theme-details-${ theme.id }`;
+				return (
+					<article className="tumblr-theme" key={ theme.title }>
+						<header className="tumblr-theme-header">
+							<div className="tumblr-theme-title-wrapper">
+								<span className="tumblr-theme-title">{ theme.title }</span>
+							</div>
+						</header>
+						<div className="tumblr-theme-content">
+							<button
+								className="tumblr-theme-details"
+								onClick={ handleDetailsClick }
+								value={ theme.id }
+								id={ label }
+							>
+								<label htmlFor={ label }>
+									<span className="tumblr-theme-detail-button">
+										{ _x(
+											'Theme details',
+											'Text on a button that will show more information about a Tumblr theme',
+											'tumblr3'
+										) }
+									</span>
+								</label>
+								<img src={ theme.thumbnail } alt="" />
+							</button>
+							<div className="tumblr-theme-footer">
+								<a className="rainbow-button" href={ theme.activate_url }>
+									Activate
 								</a>
-							</li>
-						</ul>
-					</div>
-				</article>
-			) ) }
+							</div>
+						</div>
+					</article>
+				);
+			} ) }
 		</div>
 	);
 };
@@ -62,5 +89,10 @@ export const ThemeGardenList = compose(
 	withSelect( select => ( {
 		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
 		isFetchingThemes: select( 'tumblr3/theme-garden-store' ).getIsFetchingThemes(),
+	} ) ),
+	withDispatch( dispatch => ( {
+		closeOverlay: () => {
+			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
+		},
 	} ) )
 )( _ThemeGardenList );

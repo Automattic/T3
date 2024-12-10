@@ -1883,27 +1883,35 @@ function tumblr3_tag_likebutton(): string {
 		$block
 	);
 
-	// Get the iFrame src from the rendered block.
-	$src       = '';
 	$processor = new CupcakeLabs\T3\Processor( $block_output );
 
+	// The standard block output won't work, we need to extract details from the block.
 	while ( $processor->next_tag(
 		array(
 			'tag_name'   => 'div',
 			'class_name' => 'sharedaddy',
 		)
 	) ) {
-		$src = $processor->get_attribute( 'data-src' );
+		$class      = $processor->get_attribute( 'class' );
+		$id         = $processor->get_attribute( 'id' );
+		$data_src   = $processor->get_attribute( 'data-src' );
+		$data_name  = $processor->get_attribute( 'data-name' );
+		$data_title = $processor->get_attribute( 'data-title' );
 	}
 
-	// If no iFrame src is found, return an empty string.
-	if ( '' === $src ) {
+	// The processor never found the block, return an empty string.
+	if ( ! isset( $class ) ) {
 		return '';
 	}
 
+	// Here we reconstruct the like button with the extracted details.
 	return sprintf(
-		'<div class="like_button"><iframe src="%s" scrolling="no" width="20" height="20" frameborder="0" class="like_toggle" allowtransparency="true"></iframe></div>',
-		esc_url( $src )
+		'<div class="t3-likes like_button %s" id="%s" data-src="%s" data-name="%s" data-title="%s"><div class="likes-widget-placeholder post-likes-widget-placeholder"></div></div>',
+		$class,
+		$id,
+		$data_src,
+		$data_name,
+		$data_title
 	);
 }
 add_shortcode( 'tag_likebutton', 'tumblr3_tag_likebutton' );
