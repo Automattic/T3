@@ -122,7 +122,7 @@ class Parser {
 				$output = wp_strip_all_tags( $output );
 				break;
 			case 'js':
-				$output = wp_json_encode( $output );
+				$output = $this->js_string( $output );
 				break;
 			case 'jsplaintext':
 				$output = wp_json_encode( wp_strip_all_tags( $output ) );
@@ -353,5 +353,41 @@ class Parser {
 		add_shortcode( $shortcode, 'tumblr3_block_' . $condition . '_theme_option' );
 
 		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
+	}
+
+	/**
+	 * From https://github.tumblr.net/Tumblr/tumblr/blob/9e3ae6aab6f91900b7aab2c71be8da606452c6e3/chorus/Utils.php#L749
+	 *
+	 * Convert a string to a JavaScript string.
+	 *
+	 * @param string $input The input string.
+	 *
+	 * @return string The JavaScript string.
+	 */
+	public function js_string( $input ) {
+		if ( ! strlen( (string) $input ) ) {
+			return "''";
+		}
+
+		$wchars = mb_convert_encoding( $input, 'UCS-2', 'UTF-8' );
+		$out    = '';
+		foreach ( str_split( $wchars, 2 ) as $wchar ) {
+			list($o1, $o2) = array( ord( $wchar[0] ), ord( $wchar[1] ) );
+			if ( $o1 === 0 && (
+				$o2 <= 0x1F ||
+				$wchar[1] === '<' || $wchar[1] === '>' || $wchar[1] === '"' || $wchar[1] === '&'
+			) ) {
+				$out .= '\x' . sprintf( '%02x', $o2 );
+			} elseif ( $o1 === 0 && $wchar[1] === '\\' ) {
+				$out .= '\\\\';
+			} elseif ( $o1 === 0 && $wchar[1] === "'" ) {
+				$out .= "\'";
+			} elseif ( $o1 === 0 && $o2 <= 0x7F ) {
+				$out .= $wchar[1];
+			} else {
+				$out .= '\u' . sprintf( '%02x%02x', $o1, $o2 );
+			}
+		}
+		return "'$out'";
 	}
 }

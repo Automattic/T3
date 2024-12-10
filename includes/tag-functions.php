@@ -87,12 +87,17 @@ add_shortcode( 'tag_target', 'tumblr3_tag_target' );
 /**
  * Returns the NPF JSON string of the current post.
  *
- * @todo Rafael is writing a PHP parser for NPF.
- *
- * @return string Nothing, this tag is currently not supported.
+ * @return string The NPF JSON representation of the current post content.
  */
 function tumblr3_tag_npf(): string {
-	return '{"content":["test"]}';
+	// Get the current post content
+	$post_content = get_the_content();
+
+	// Create an instance of the Blocks2Npf class
+	$converter = new CupcakeLabs\RedVelvet\Converter\Blocks2Npf();
+
+	// Convert the content to NPF format
+	return $converter->convert( $post_content );
 }
 add_shortcode( 'tag_npf', 'tumblr3_tag_npf' );
 
