@@ -11,8 +11,9 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
-    "ext-json": "*"
+    "php": ">=8.2",
+    "ext-json": "*",
+    "cupcacke-labs/redvelvet-lib": "dev-trunk"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
@@ -21,6 +22,12 @@
     "wp-cli/wp-cli-bundle": "^2.11",
     "automattic/jetpack-codesniffer": "^4.0"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:Automattic/redvelvet-lib.git"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "CupcakeLabs\\T3\\": "src/"
