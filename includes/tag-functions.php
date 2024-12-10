@@ -1834,11 +1834,79 @@ function tumblr3_tag_posttypenoun(): string {
 add_shortcode( 'tag_posttypenoun', 'tumblr3_tag_posttypenoun' );
 
 /**
- * By default, simply links to the permalink of the post.
+ * Creates a WordPress.com reblog URL for the current post.
  *
  * @return string
  */
 function tumblr3_tag_reblogurl(): string {
-	return get_the_permalink();
+	return esc_url(
+		sprintf(
+			'https://wordpress.com/post?url=%s?is_post_share=true',
+			get_permalink()
+		)
+	);
 }
 add_shortcode( 'tag_reblogurl', 'tumblr3_tag_reblogurl' );
+
+/**
+ * Creates a like iFrame for the current post. Relies on Jetpack's like button.
+ *
+ * @return string
+ *
+ * @see https://github.com/Automattic/jetpack/blob/trunk/projects/plugins/jetpack/extensions/blocks/like/like.php
+ * @see https://github.com/Automattic/jetpack/blob/trunk/projects/plugins/jetpack/modules/likes/queuehandler.js#L417
+ */
+function tumblr3_tag_likebutton(): string {
+	if ( ! function_exists( '\Automattic\Jetpack\Extensions\Like\render_block' ) ) {
+		return '';
+	}
+
+	// Create a block context for the like button.
+	$block = new class( get_the_ID() ) {
+		public array $context = array();
+
+		public function __construct( $id ) {
+			$this->context['postId'] = $id;
+		}
+	};
+
+	$block_output = \Automattic\Jetpack\Extensions\Like\render_block(
+		array(
+			'showAvatars' => false,
+		),
+		'',
+		$block
+	);
+
+	$processor = new CupcakeLabs\T3\Processor( $block_output );
+
+	// The standard block output won't work, we need to extract details from the block.
+	while ( $processor->next_tag(
+		array(
+			'tag_name'   => 'div',
+			'class_name' => 'sharedaddy',
+		)
+	) ) {
+		$class      = $processor->get_attribute( 'class' );
+		$id         = $processor->get_attribute( 'id' );
+		$data_src   = $processor->get_attribute( 'data-src' );
+		$data_name  = $processor->get_attribute( 'data-name' );
+		$data_title = $processor->get_attribute( 'data-title' );
+	}
+
+	// The processor never found the block, return an empty string.
+	if ( ! isset( $class ) ) {
+		return '';
+	}
+
+	// Here we reconstruct the like button with the extracted details.
+	return sprintf(
+		'<div class="t3-likes like_button %s" id="%s" data-src="%s" data-name="%s" data-title="%s"><div class="likes-widget-placeholder post-likes-widget-placeholder"></div></div>',
+		$class,
+		$id,
+		$data_src,
+		$data_name,
+		$data_title
+	);
+}
+add_shortcode( 'tag_likebutton', 'tumblr3_tag_likebutton' );

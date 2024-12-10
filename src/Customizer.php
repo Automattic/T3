@@ -29,11 +29,31 @@ class Customizer {
 
 		// Only run the rest of the actions if the Tumblr3 theme is active.
 		if ( $is_tumblr3_active ) {
+			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_scripts' ) );
 			add_action( 'customize_register', array( $this, 'global_options' ) );
 			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
 			add_filter( 'customize_panel_active', array( $this, 'customize_panel_active' ), 10, 2 );
 			add_action( 'customize_register', array( $this, 'rename_panels' ) );
 		}
+	}
+
+	public function enqueue_customizer_scripts(): void {
+		$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/customizer.asset.php' );
+
+		wp_enqueue_script(
+			'tumblr3-customizer',
+			TUMBLR3_URL . 'assets/js/build/customizer.js',
+			$deps['dependencies'],
+			$deps['version'],
+			true
+		);
+
+		wp_enqueue_style(
+			'tumblr3-customizer',
+			TUMBLR3_URL . 'assets/js/build/customizer.css',
+			array(),
+			$deps['version']
+		);
 	}
 
 	/**
@@ -48,8 +68,14 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_html',
 			array(
-				'title'    => __( 'Tumblr Theme HTML', 'tumblr3' ),
-				'priority' => 30,
+				'title'              => __( 'Tumblr Theme HTML', 'tumblr3' ),
+				'priority'           => 30,
+				'description'        => sprintf(
+					'%s<br /><a href="https://www.tumblr.com/docs/en/custom_themes" target="_blank">%s</a>',
+					__( 'Want to create a custom look for your blog? Read:', 'tumblr3' ),
+					__( 'Tumblr Theme Documentation', 'tumblr3' )
+				),
+				'description_hidden' => true,
 			)
 		);
 
@@ -68,36 +94,29 @@ class Customizer {
 			)
 		);
 
-		$wp_customize->add_control(
+		/**
+		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
+		 */
+		$editor = new \WP_Customize_Code_Editor_Control(
+			$wp_customize,
 			'tumblr3_theme_html',
 			array(
-				'label'    => __( 'HTML', 'tumblr3' ),
+				'label'    => '',
 				'section'  => 'tumblr3_html',
-				'type'     => 'textarea',
 				'priority' => 10,
 			)
 		);
 
-		// Add a "use tumblr theme" checkbox.
-		$wp_customize->add_setting(
-			'tumblr3_use_theme',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => 0,
-				'sanitize_callback' => 'sanitize_text_field',
-			)
+		$editor->code_type       = 'text/html';
+		$editor->editor_settings = array(
+			'codemirror' => array(
+				'indentUnit' => 2,
+				'tabSize'    => 2,
+				'lint'       => false,
+			),
 		);
 
-		$wp_customize->add_control(
-			'tumblr3_use_theme',
-			array(
-				'label'    => __( 'Use Tumblr Theme?', 'tumblr3' ),
-				'section'  => 'tumblr3_html',
-				'type'     => 'checkbox',
-				'priority' => 5,
-			)
-		);
+		$wp_customize->add_control( $editor );
 	}
 
 	/**
@@ -338,7 +357,7 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_select',
 			array(
-				'title'    => __( 'Theme Select Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Select Options', 'tumblr3' ),
 				'priority' => 30,
 			)
 		);
@@ -347,7 +366,7 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_text',
 			array(
-				'title'    => __( 'Theme Text Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Text Options', 'tumblr3' ),
 				'priority' => 30,
 			)
 		);
@@ -356,7 +375,7 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_font',
 			array(
-				'title'    => __( 'Theme Font Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Font Options', 'tumblr3' ),
 				'priority' => 30,
 			)
 		);
@@ -365,7 +384,7 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_boolean',
 			array(
-				'title'    => __( 'Theme Boolean Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Checkbox Options', 'tumblr3' ),
 				'priority' => 30,
 			)
 		);
@@ -374,7 +393,7 @@ class Customizer {
 		$wp_customize->add_section(
 			'tumblr3_image',
 			array(
-				'title'    => __( 'Theme Image Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Image Options', 'tumblr3' ),
 				'priority' => 30,
 			)
 		);

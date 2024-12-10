@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "classnames": "^2.5.1",
     "gsap": "^3.12.5",
     "use-debounce": "^10.0.4"
   }
