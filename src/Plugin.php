@@ -68,6 +68,16 @@ class Plugin {
 	public ?Parser $parser = null;
 
 	/**
+	 * The block extensions component.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     BlockExtensions|null
+	 */
+	public ?BlockExtensions $block_extensions = null;
+
+	/**
 	 * Plugin constructor.
 	 *
 	 * @since   1.0.0
@@ -140,6 +150,9 @@ class Plugin {
 
 		$this->theme_garden = new ThemeGarden();
 		$this->theme_garden->initialize();
+
+		$this->block_extensions = new BlockExtensions();
+		$this->block_extensions->initialize( $this->tumblr3_active );
 
 		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {
