@@ -139,14 +139,14 @@ const _ThemeGardenOverlay = ( {
 
 export const ThemeGardenOverlay = compose(
 	withSelect( select => ( {
-		themes: select( 'ttgarden/theme-garden-store' ).getThemes(),
-		isOverlayOpen: select( 'ttgarden/theme-garden-store' ).getIsOverlayOpen(),
-		isFetchingTheme: select( 'ttgarden/theme-garden-store' ).getIsFetchingTheme(),
-		themeDetails: select( 'ttgarden/theme-garden-store' ).getThemeDetails(),
+		themes: select( 'tumblr-theme-garden/theme-garden-store' ).getThemes(),
+		isOverlayOpen: select( 'tumblr-theme-garden/theme-garden-store' ).getIsOverlayOpen(),
+		isFetchingTheme: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingTheme(),
+		themeDetails: select( 'tumblr-theme-garden/theme-garden-store' ).getThemeDetails(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
-			return dispatch( 'ttgarden/theme-garden-store' ).closeOverlay();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( _ThemeGardenOverlay );

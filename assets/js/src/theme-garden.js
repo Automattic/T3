@@ -128,34 +128,34 @@ const ThemeGarden = ( {
 
 export const ConnectedThemeGarden = compose(
 	withSelect( select => ( {
-		logoUrl: select( 'ttgarden/theme-garden-store' ).getLogoUrl(),
-		selectedCategory: select( 'ttgarden/theme-garden-store' ).getSelectedCategory(),
-		search: select( 'ttgarden/theme-garden-store' ).getSearch(),
+		logoUrl: select( 'tumblr-theme-garden/theme-garden-store' ).getLogoUrl(),
+		selectedCategory: select( 'tumblr-theme-garden/theme-garden-store' ).getSelectedCategory(),
+		search: select( 'tumblr-theme-garden/theme-garden-store' ).getSearch(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		beforeFetchThemes: () => {
-			return dispatch( 'ttgarden/theme-garden-store' ).beforeFetchThemes();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).beforeFetchThemes();
 		},
 		fetchThemes: category => {
-			return dispatch( 'ttgarden/theme-garden-store' ).fetchThemes( category );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).fetchThemes( category );
 		},
 		searchThemes: query => {
-			return dispatch( 'ttgarden/theme-garden-store' ).searchThemes( query );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).searchThemes( query );
 		},
 		receiveThemes: ( themes, category, search ) => {
-			return dispatch( 'ttgarden/theme-garden-store' ).receiveThemes( themes, category, search );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveThemes( themes, category, search );
 		},
 		beforeFetchTheme: () => {
-			return dispatch( 'ttgarden/theme-garden-store' ).beforeFetchTheme();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).beforeFetchTheme();
 		},
 		fetchTheme: id => {
-			return dispatch( 'ttgarden/theme-garden-store' ).fetchTheme( id );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).fetchTheme( id );
 		},
 		receiveTheme: ( theme, themeId ) => {
-			return dispatch( 'ttgarden/theme-garden-store' ).receiveTheme( theme, themeId );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveTheme( theme, themeId );
 		},
 		closeOverlay: () => {
-			return dispatch( 'ttgarden/theme-garden-store' ).closeOverlay();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( ThemeGarden );

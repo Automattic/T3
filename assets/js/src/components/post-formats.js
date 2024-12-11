@@ -218,7 +218,7 @@ registerPlugin( 'ttgarden-updated-postformat-ui', {
 							>
 								{ sprintf(
 									/* translators: %s: post format */
-									__( 'Apply suggested format: %s', 'ttgarden' ),
+									__( 'Apply suggested format: %s', 'tumblr-theme-garden' ),
 									suggestion
 								) }
 							</Button>

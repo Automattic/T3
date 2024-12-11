@@ -46,7 +46,7 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 	return (
 		<div className="tumblr-themes">
 			{ themes.map( theme => {
-				const label = `t3-theme-details-${ theme.id }`;
+				const label = `ttgarden-theme-details-${ theme.id }`;
 				return (
 					<article className="tumblr-theme" key={ theme.title }>
 						<header className="tumblr-theme-header">
@@ -66,7 +66,7 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 										{ _x(
 											'Theme details',
 											'Text on a button that will show more information about a Tumblr theme',
-											'ttgarden'
+											'tumblr-theme-garden'
 										) }
 									</span>
 								</label>
@@ -87,12 +87,12 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 
 export const ThemeGardenList = compose(
 	withSelect( select => ( {
-		themes: select( 'ttgarden/theme-garden-store' ).getThemes(),
-		isFetchingThemes: select( 'ttgarden/theme-garden-store' ).getIsFetchingThemes(),
+		themes: select( 'tumblr-theme-garden/theme-garden-store' ).getThemes(),
+		isFetchingThemes: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingThemes(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
-			return dispatch( 'ttgarden/theme-garden-store' ).closeOverlay();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( _ThemeGardenList );

@@ -173,7 +173,7 @@ const controls = {
 	},
 };
 
-const store = createReduxStore( 'ttgarden/theme-garden-store', {
+const store = createReduxStore( 'tumblr-theme-garden/theme-garden-store', {
 	reducer,
 	actions,
 	selectors,
