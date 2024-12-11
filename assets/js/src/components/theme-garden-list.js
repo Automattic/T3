@@ -46,7 +46,7 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 	return (
 		<div className="tumblr-themes">
 			{ themes.map( theme => {
-				const label = `ttgarden-theme-details-${ theme.id }`;
+				const label = `tumblr-theme-garden-theme-details-${ theme.id }`;
 				return (
 					<article className="tumblr-theme" key={ theme.title }>
 						<header className="tumblr-theme-header">

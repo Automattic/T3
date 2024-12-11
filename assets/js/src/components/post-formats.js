@@ -89,7 +89,7 @@ const POST_FORMATS = [
 	},
 ];
 
-registerPlugin( 'ttgarden-updated-postformat-ui', {
+registerPlugin( 'tumblr-theme-garden-updated-postformat-ui', {
 	render: () => {
 		// Create a suggestion for the post format based on the blocks in the content.
 		const createSuggestion = blocks => {
@@ -190,9 +190,9 @@ registerPlugin( 'ttgarden-updated-postformat-ui', {
 
 		return (
 			<PluginPostStatusInfo>
-				<div className="ttgarden-post-format-selector">
+				<div className="tumblr-theme-garden-post-format-selector">
 					<p>
-						<strong>{ __( 'Post Formats', 'ttgarden' ) }</strong>
+						<strong>{ __( 'Post Formats', 'tumblr-theme-garden' ) }</strong>
 					</p>
 
 					{ POST_FORMATS.map( ( { id, caption, icon } ) => (

@@ -46,7 +46,7 @@
       "@makejson"
     ],
     "makepot": "wp i18n make-pot .",
-    "updatepo": "wp i18n update-po ./languages/ttgarden.pot",
+    "updatepo": "wp i18n update-po ./languages/tumblr-theme-garden.pot",
     "makejson": "wp i18n make-json ./languages --pretty-print --no-purge",
     "makemo": "wp i18n make-mo ./languages",
     "packages-install": "@composer install --ignore-platform-reqs --no-interaction",

@@ -133,7 +133,7 @@ class ThemeGarden {
 
 		if ( 'themes.php' === $hook ) {
 			wp_enqueue_style(
-				'ttgarden-admin',
+				'tumblr-theme-garden-admin',
 				TTGARDEN_URL . 'assets/css/build/themes.css',
 				array(),
 				time()
@@ -188,7 +188,7 @@ class ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'ttgarden/v1',
+			'tumblr-theme-garden/v1',
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -200,7 +200,7 @@ class ThemeGarden {
 		);
 
 		register_rest_route(
-			'ttgarden/v1',
+			'tumblr-theme-garden/v1',
 			'/theme',
 			array(
 				'methods'             => 'GET',

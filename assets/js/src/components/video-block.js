@@ -6,7 +6,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the audio block.
  */
-addFilter( 'blocks.registerBlockType', 'ttgarden/extend-video-block', ( settings, name ) => {
+addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-video-block', ( settings, name ) => {
 	if ( typeof settings.attributes !== 'undefined' && name === 'core/video' ) {
 		settings.attributes = Object.assign( settings.attributes, {
 			url: {

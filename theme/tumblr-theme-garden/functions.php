@@ -83,7 +83,7 @@ add_action( 'after_setup_theme', 'ttgarden_theme_support' );
  */
 function ttgarden_enqueue_scripts(): void {
 	wp_enqueue_style(
-		'ttgarden-style',
+		'tumblr-theme-garden-style',
 		TTGARDEN_URL . 'assets/css/build/index.css',
 		array(),
 		TTGARDEN_METADATA['Version']

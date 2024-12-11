@@ -138,7 +138,7 @@ class Plugin {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		$this->ttgarden_active = 'ttgarden' === get_option( 'template' );
+		$this->ttgarden_active = 'tumblr-theme-garden' === get_option( 'template' );
 
 		// Setup all plugin hooks.
 		$this->hooks = new Hooks();

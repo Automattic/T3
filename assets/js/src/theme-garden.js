@@ -114,7 +114,7 @@ const ThemeGarden = ( {
 		<div className="wrap">
 			<h1 className="wp-heading-inline" id="theme-garden-heading">
 				<img className="tumblr-logo-icon" src={ logoUrl } alt="" />
-				<span>{ __( 'Tumblr Themes', 'ttgarden' ) }</span>
+				<span>{ __( 'Tumblr Themes', 'tumblr-theme-garden' ) }</span>
 			</h1>
 			<ThemeGardenFilterBar
 				fetchThemesByCategory={ fetchThemesByCategory }

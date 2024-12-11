@@ -46,7 +46,7 @@ class Customizer {
 		$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/customizer.asset.php' );
 
 		wp_enqueue_script(
-			'ttgarden-customizer',
+			'tumblr-theme-garden-customizer',
 			TTGARDEN_URL . 'assets/js/build/customizer.js',
 			$deps['dependencies'],
 			$deps['version'],
@@ -54,7 +54,7 @@ class Customizer {
 		);
 
 		wp_enqueue_style(
-			'ttgarden-customizer',
+			'tumblr-theme-garden-customizer',
 			TTGARDEN_URL . 'assets/js/build/customizer.css',
 			array(),
 			$deps['version']
@@ -71,7 +71,7 @@ class Customizer {
 	public function tumblr_html_options( $wp_customize ): void {
 		// Add Theme HTML section.
 		$wp_customize->add_section(
-			'ttgarden_html',
+			'tumblr-theme-garden_html',
 			array(
 				'title'              => __( 'Tumblr Theme HTML', 'tumblr-theme-garden' ),
 				'priority'           => 30,
@@ -90,7 +90,7 @@ class Customizer {
 		 * @todo lack of sanitization is a security risk.
 		 */
 		$wp_customize->add_setting(
-			'ttgarden_theme_html',
+			'tumblr-theme-garden_theme_html',
 			array(
 				'type'              => 'option',
 				'capability'        => 'edit_theme_options',
@@ -102,10 +102,10 @@ class Customizer {
 		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
 		$editor = new \WP_Customize_Code_Editor_Control(
 			$wp_customize,
-			'ttgarden_theme_html',
+			'tumblr-theme-garden_theme_html',
 			array(
 				'label'    => '',
-				'section'  => 'ttgarden_html',
+				'section'  => 'tumblr-theme-garden_html',
 				'priority' => 10,
 			)
 		);

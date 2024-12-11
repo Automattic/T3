@@ -90,7 +90,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Show previous theme',
 							'label for a button that will navigate to previous theme',
-							'ttgarden'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
@@ -105,7 +105,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Show next theme',
 							'label for a button that will navigate to next theme',
-							'ttgarden'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
@@ -114,7 +114,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Close theme details overlay',
 							'label for a button that will close an overlay',
-							'ttgarden'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
