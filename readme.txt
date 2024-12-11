@@ -7,7 +7,7 @@ Stable tag: 0.1.12
 Requires PHP: 8.2
 License: GPLv2 or later
 Text Domain: tumblr-theme-translator
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Browse all of the themes available on Tumblr and use them on your WordPress site.
 
