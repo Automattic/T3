@@ -65,25 +65,25 @@ class Hooks {
 	 * @return array
 	 */
 	public function prepare_themes_for_js( $themes ): array {
-		if ( isset( $themes['ttgarden'] ) ) {
+		if ( isset( $themes['tumblr-theme-garden'] ) ) {
 			$theme_details = get_option( 'ttgarden_external_theme' );
 
 			if ( isset( $theme_details['thumbnail'] ) && ! empty( $theme_details['thumbnail'] ) ) {
-				$themes['ttgarden']['screenshot'][0] = $theme_details['thumbnail'];
+				$themes['tumblr-theme-garden']['screenshot'][0] = $theme_details['thumbnail'];
 			}
 
 			if ( isset( $theme_details['author_name'] ) && ! empty( $theme_details['author_name'] ) ) {
-				$themes['ttgarden']['author'] = $theme_details['author_name'];
+				$themes['tumblr-theme-garden']['author'] = $theme_details['author_name'];
 
 				if ( isset( $theme_details['author_url'] ) && ! empty( $theme_details['author_url'] ) ) {
-					$themes['ttgarden']['authorAndUri'] = '<a href="' . $theme_details['author_url'] . '">' . $theme_details['author_name'] . '</a>';
+					$themes['tumblr-theme-garden']['authorAndUri'] = '<a href="' . $theme_details['author_url'] . '">' . $theme_details['author_name'] . '</a>';
 				} else {
-					$themes['ttgarden']['authorAndUri'] = $theme_details['author_name'];
+					$themes['tumblr-theme-garden']['authorAndUri'] = $theme_details['author_name'];
 				}
 			}
 
 			if ( isset( $theme_details['title'] ) && ! empty( $theme_details['title'] ) ) {
-				$themes['ttgarden']['name'] = $theme_details['title'];
+				$themes['tumblr-theme-garden']['name'] = $theme_details['title'];
 			}
 		}
 
@@ -91,7 +91,7 @@ class Hooks {
 	}
 
 	/**
-	 * Switches theme roots to support the ttgarden theme in this plugin.
+	 * Switches theme roots to support the tumblr-theme-garden theme in this plugin.
 	 *
 	 * @param string $root Current WP theme root.
 	 *
@@ -131,7 +131,7 @@ class Hooks {
 	public function update_option_ttgarden_use_theme( $old_value, $value ): void {
 		if ( '1' === $value ) {
 			update_option( 'ttgarden_original_theme', get_option( 'template' ) );
-			switch_theme( 'ttgarden' );
+			switch_theme( 'tumblr-theme-garden' );
 		} else {
 			switch_theme( get_option( 'ttgarden_original_theme' ) );
 		}

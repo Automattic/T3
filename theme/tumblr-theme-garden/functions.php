@@ -19,7 +19,7 @@ function ttgarden_enqueue_block_editor_assets(): void {
 	$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/editor.asset.php' );
 
 	wp_enqueue_script(
-		'cupcakelabs-t3',
+		'cupcakelabs-tumblr-theme-garden',
 		TTGARDEN_URL . 'assets/js/build/editor.js',
 		$deps['dependencies'],
 		$deps['version'],
@@ -27,7 +27,7 @@ function ttgarden_enqueue_block_editor_assets(): void {
 	);
 
 	wp_enqueue_style(
-		'cupcakelabs-t3',
+		'cupcakelabs-tumblr-theme-garden',
 		TTGARDEN_URL . 'assets/js/build/editor.css',
 		array(),
 		$deps['version']

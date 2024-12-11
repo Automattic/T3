@@ -67,7 +67,7 @@ addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-video-block',
  */
 addFilter(
 	'editor.BlockEdit',
-	'ttgarden/extend-video-block',
+	'tumblr-theme-garden/extend-video-block',
 	createHigherOrderComponent( BlockEdit => {
 		return props => {
 			const { attributes, setAttributes, isSelected } = props;

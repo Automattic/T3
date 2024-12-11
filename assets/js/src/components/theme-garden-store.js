@@ -135,7 +135,7 @@ const selectors = {
 const controls = {
 	FETCH_THEMES( category ) {
 		return apiFetch( {
-			path: '/ttgarden/v1/themes?category=' + category,
+			path: '/tumblr-theme-garden/v1/themes?category=' + category,
 			method: 'GET',
 		} )
 			.then( response => {
@@ -147,7 +147,7 @@ const controls = {
 	},
 	SEARCH_THEMES( query ) {
 		return apiFetch( {
-			path: '/ttgarden/v1/themes?search=' + query,
+			path: '/tumblr-theme-garden/v1/themes?search=' + query,
 			method: 'GET',
 		} )
 			.then( response => {
@@ -160,7 +160,7 @@ const controls = {
 	},
 	FETCH_THEME( id ) {
 		return apiFetch( {
-			path: '/ttgarden/v1/theme?theme=' + id,
+			path: '/tumblr-theme-garden/v1/theme?theme=' + id,
 			method: 'GET',
 		} )
 			.then( response => {
