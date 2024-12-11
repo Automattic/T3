@@ -16,12 +16,12 @@
  * Description:             Allows WordPress to run on Tumblr themes.
  * Version:                 0.1.14
  * Requires at least:       6.5
- * Tested up to:            6.5
+ * Tested up to:            6.7
  * Requires PHP:            8.2
  * Author:                  Cupcake Labs
  * Author URI:              https://www.automattic.com/
- * License:                 GPL v2 or later
- * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
+ * License:                 GPLv2 or later
+ * License URI:             https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:             tumblr-theme-garden
  * Domain Path:             /languages
  **/

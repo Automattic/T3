@@ -2,10 +2,10 @@
 Contributors: automattic, tommusrhodus, aaronjbaptiste, rtio, roccotripaldi
 Tags: tumblr, theme
 Requires at least: 6.5
-Tested up to: 6.5
+Tested up to: 6.7
 Stable tag: 0.1.14
 Requires PHP: 8.2
-License: GPLv3 or later
+License: GPLv2 or later
 Text Domain: tumblr-theme-garden
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
