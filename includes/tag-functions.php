@@ -1868,8 +1868,19 @@ function ttgarden_tag_likebutton(): string {
 
 	// Create a block context for the like button.
 	$block = new class( get_the_ID() ) {
+
+		/**
+		 * The context of the block.
+		 *
+		 * @var array
+		 */
 		public array $context = array();
 
+		/**
+		 * Constructor.
+		 *
+		 * @param int $id The post ID.
+		 */
 		public function __construct( $id ) {
 			$this->context['postId'] = $id;
 		}

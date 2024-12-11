@@ -242,7 +242,7 @@ class ThemeGarden {
 			return;
 		}
 
-		$theme_id_to_activate = sanitize_text_field( wp_unslash( $_GET['activate_tumblr_theme'] ) );
+		$theme_id_to_activate = sanitize_text_field( wp_unslash( isset( $_GET['activate_tumblr_theme'] ) ? $_GET['activate_tumblr_theme'] : '' ) );
 		$theme                = $this->get_theme( $theme_id_to_activate );
 
 		if ( is_wp_error( $theme ) ) {

@@ -37,6 +37,11 @@ class Customizer {
 		}
 	}
 
+	/**
+	 * Enqueue customizer scripts
+	 *
+	 * @return void
+	 */
 	public function enqueue_customizer_scripts(): void {
 		$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/customizer.asset.php' );
 
@@ -94,9 +99,7 @@ class Customizer {
 			)
 		);
 
-		/**
-		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
-		 */
+		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
 		$editor = new \WP_Customize_Code_Editor_Control(
 			$wp_customize,
 			'ttgarden_theme_html',

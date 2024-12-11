@@ -4,6 +4,7 @@
  *
  * @package TumblrThemeGarden
  */
+
 defined( 'ABSPATH' ) || exit;
 
 return array(

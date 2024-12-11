@@ -9,6 +9,9 @@ namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * BlockExtensions class
+ */
 class BlockExtensions {
 	/**
 	 * The TumblrThemeGarden active status.
@@ -20,6 +23,12 @@ class BlockExtensions {
 	 */
 	private $is_ttgarden_active;
 
+	/**
+	 * Initialize block extensions
+	 *
+	 * @param bool $is_ttgarden_active Whether flag is active.
+	 * @return void
+	 */
 	public function initialize( $is_ttgarden_active ): void {
 		$this->is_ttgarden_active = $is_ttgarden_active;
 
