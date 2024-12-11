@@ -147,11 +147,11 @@ class Hooks {
 	 * @return void
 	 */
 	public function switch_theme( $new_name, $new_theme, $old_theme ): void {
-		if ( 'ttgarden' === $new_theme->stylesheet ) {
+		if ( 'tumblr-theme-garden' === $new_theme->stylesheet ) {
 			flush_rewrite_rules();
 		}
 
-		if ( 'ttgarden' === $old_theme->stylesheet ) {
+		if ( 'tumblr-theme-garden' === $old_theme->stylesheet ) {
 			update_option( 'ttgarden_original_theme', '' );
 			update_option( 'ttgarden_use_theme', '' );
 		}

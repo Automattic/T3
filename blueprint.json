@@ -6,7 +6,7 @@
   },
   "preferredVersions": {
     "wp": "latest",
-    "php": "8.3"
+    "php": "8.2"
   },
   "steps": [
     {
@@ -22,7 +22,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-translator&release=v0.1.14&asset=tumblr-theme-garden.zip"
+        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-garden&release=v0.1.14&asset=tumblr-theme-garden.zip"
       },
       "options": {
         "activate": true
