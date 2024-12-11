@@ -20,7 +20,7 @@ jobs:
       run: composer install --no-dev --optimize-autoloader
 
     - name: Zip the plugin
-      run: zip -r tumblr-theme-garden.zip . -x ".*" -x "bin/*" -x "**/tests/*" -x "**/run-tests.sh" -x "*.dist"
+      run: zip -r tumblr-theme-garden.zip . -x ".*" -x "tests/*" -x "bin/*"
 
     - name: Upload plugin zip as release asset
       env:
