@@ -69,10 +69,10 @@ const _ThemeGardenFilterBar = ( {
 			<div className="filter-count">
 				<span className="count">{ localThemes.length }</span>
 			</div>
-			<label htmlFor="t3-categories">
+			<label htmlFor="tumblr-theme-garden-categories">
 				{ _x( 'Categories', 'label for a dropdown list of theme categories', 'tumblr-theme-garden' ) }
 			</label>
-			<select id="t3-categories" name="category" onChange={ onChangeCategory }>
+			<select id="tumblr-theme-garden-categories" name="category" onChange={ onChangeCategory }>
 				<option value="featured">
 					{ _x( 'Featured', 'The name of a category in a list of categories.', 'tumblr-theme-garden' ) }
 				</option>
