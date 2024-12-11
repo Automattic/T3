@@ -2,21 +2,21 @@
 /**
  * This is the custom Tumblr theme browsing functionality.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class to manage Tumblr theme browsing.
  *
- * @package CupcakeLabs\T3
+ * @package CupcakeLabs\TumblrThemeGarden
  */
 class ThemeGarden {
 	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
-	const ADMIN_MENU_SLUG = 'tumblr-themes';
+	const ADMIN_MENU_SLUG       = 'tumblr-themes';
 
 	/**
 	 * The `category` param in the current URL. If present, we'll search Tumblr's API for the given category.
@@ -80,13 +80,13 @@ class ThemeGarden {
 	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
-			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-garden.asset.php' );
+			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-garden.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
 			$themes_and_categories = $this->get_themes_and_categories();
-			$theme_details = $this->selected_theme_id ? $this->get_theme($this->selected_theme_id) : null;
+			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
 			wp_enqueue_script(
 				'tumblr-theme-garden',
-				TUMBLR3_URL . 'assets/js/build/theme-garden.js',
+				TTGARDEN_URL . 'assets/js/build/theme-garden.js',
 				$deps['dependencies'],
 				$deps['version'],
 				true
@@ -95,14 +95,14 @@ class ThemeGarden {
 				'tumblr-theme-garden',
 				'const themeGardenData = ' . wp_json_encode(
 					array(
-						'logoUrl'          => TUMBLR3_URL . 'assets/images/tumblr_logo_icon.png',
+						'logoUrl'          => TTGARDEN_URL . 'assets/images/tumblr_logo_icon.png',
 						'themes'           => $themes_and_categories['themes'],
 						'categories'       => $themes_and_categories['categories'],
 						'selectedCategory' => $this->selected_category,
 						'search'           => $this->search,
 						'baseUrl'          => admin_url( 'admin.php?page=tumblr-themes' ),
-						'selectedThemeId'   => $this->selected_theme_id,
-						'themeDetails'      => $theme_details,
+						'selectedThemeId'  => $this->selected_theme_id,
+						'themeDetails'     => $theme_details,
 					)
 				),
 				'before'
@@ -110,21 +110,21 @@ class ThemeGarden {
 		}
 
 		if ( 'theme-install.php' === $hook ) {
-			$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/theme-install.asset.php' );
+			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-install.asset.php' );
 			$this->enqueue_admin_styles( $deps['version'] );
 			wp_enqueue_script(
 				'tumblr-theme-install',
-				TUMBLR3_URL . 'assets/js/build/theme-install.js',
+				TTGARDEN_URL . 'assets/js/build/theme-install.js',
 				$deps['dependencies'],
 				$deps['version'],
 				true
 			);
 			wp_add_inline_script(
 				'tumblr-theme-install',
-				'const T3_Install = ' . wp_json_encode(
+				'const TumblrThemeGarden_Install = ' . wp_json_encode(
 					array(
 						'browseUrl'  => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
-						'buttonText' => __( 'Browse Tumblr themes', 'tumblr3' ),
+						'buttonText' => __( 'Browse Tumblr themes', 'tumblr-theme-garden' ),
 					)
 				),
 				'before'
@@ -133,8 +133,8 @@ class ThemeGarden {
 
 		if ( 'themes.php' === $hook ) {
 			wp_enqueue_style(
-				'tumblr3-admin',
-				TUMBLR3_URL . 'assets/css/build/themes.css',
+				'ttgarden-admin',
+				TTGARDEN_URL . 'assets/css/build/themes.css',
 				array(),
 				time()
 			);
@@ -151,7 +151,7 @@ class ThemeGarden {
 	public function enqueue_admin_styles( $version ): void {
 		wp_enqueue_style(
 			'tumblr-theme-garden',
-			TUMBLR3_URL . 'assets/css/build/admin.css',
+			TTGARDEN_URL . 'assets/css/build/admin.css',
 			array(),
 			$version
 		);
@@ -188,7 +188,7 @@ class ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'tumblr3/v1',
+			'ttgarden/v1',
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -200,7 +200,7 @@ class ThemeGarden {
 		);
 
 		register_rest_route(
-			'tumblr3/v1',
+			'ttgarden/v1',
 			'/theme',
 			array(
 				'methods'             => 'GET',
@@ -249,19 +249,19 @@ class ThemeGarden {
 			return;
 		}
 		// Save theme details to options.
-		update_option( 'tumblr3_theme_html', $theme->theme );
+		update_option( 'ttgarden_theme_html', $theme->theme );
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
 			'id'          => $theme_id_to_activate,
 			'title'       => isset( $theme->title ) ? $theme->title : '',
 			'thumbnail'   => isset( $theme->thumbnail ) ? $theme->thumbnail : '',
-			'author_name' => isset( $theme->author->name) ? $theme->author->name : '',
+			'author_name' => isset( $theme->author->name ) ? $theme->author->name : '',
 			'author_url'  => isset( $theme->author->url ) ? $theme->author->url : '',
 		);
 
-		update_option( 'tumblr3_external_theme', $external_theme_details );
-		update_option( 'tumblr3_use_theme', '1' );
+		update_option( 'ttgarden_external_theme', $external_theme_details );
+		update_option( 'ttgarden_use_theme', '1' );
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( maybe_unserialize( $theme->default_params ) );
@@ -317,14 +317,14 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function option_defaults_helper( $default_params ): void {
-		$tumblr3_mods = get_option( 'theme_mods_tumblr3', array() );
+		$ttgarden_mods = get_option( 'theme_mods_ttgarden', array() );
 
 		foreach ( $default_params as $key => $value ) {
-			$normal                  = tumblr3_normalize_option_name( $key );
-			$tumblr3_mods[ $normal ] = $value;
+			$normal                   = ttgarden_normalize_option_name( $key );
+			$ttgarden_mods[ $normal ] = $value;
 		}
 
-		update_option( 'theme_mods_tumblr3', $tumblr3_mods );
+		update_option( 'theme_mods_ttgarden', $ttgarden_mods );
 	}
 
 	/**
@@ -335,8 +335,8 @@ class ThemeGarden {
 	public function register_submenu(): void {
 		add_submenu_page(
 			'themes.php',
-			__( 'Tumblr Themes', 'tumblr3' ),
-			__( 'Tumblr Themes', 'tumblr3' ),
+			__( 'Tumblr Themes', 'tumblr-theme-garden' ),
+			__( 'Tumblr Themes', 'tumblr-theme-garden' ),
 			'manage_options',
 			'tumblr-themes',
 			array( $this, 'render_theme_garden' )

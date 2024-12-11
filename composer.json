@@ -1,8 +1,8 @@
 {
-  "name": "cupcakelabs/t3",
+  "name": "cupcakelabs/tumblr-theme-garden",
   "type": "wordpress-plugin",
   "description": "A WordPress plugin that lets you run Tumblr Themes.",
-  "homepage": "https://github.com/Automattic/T3/",
+  "homepage": "https://github.com/Automattic/tumblr-theme-garden/",
   "license": "GPL-2.0-or-later",
   "authors": [
     {
@@ -30,7 +30,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "CupcakeLabs\\T3\\": "src/"
+      "CupcakeLabs\\TumblrThemeGarden\\": "src/"
     }
   },
   "autoload-dev": {},
@@ -46,7 +46,7 @@
       "@makejson"
     ],
     "makepot": "wp i18n make-pot .",
-    "updatepo": "wp i18n update-po ./languages/tumblr3.pot",
+    "updatepo": "wp i18n update-po ./languages/ttgarden.pot",
     "makejson": "wp i18n make-json ./languages --pretty-print --no-purge",
     "makemo": "wp i18n make-mo ./languages",
     "packages-install": "@composer install --ignore-platform-reqs --no-interaction",

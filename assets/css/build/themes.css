@@ -1,8 +1,8 @@
-.theme-browser .theme[data-slug=tumblr3] .theme-screenshot img {
+.theme-browser .theme[data-slug=ttgarden] .theme-screenshot img {
   object-fit: cover;
   height: 100%;
 }
-.theme-browser .theme[data-slug=tumblr3]::after {
+.theme-browser .theme[data-slug=ttgarden]::after {
   content: "";
   position: absolute;
   background-image: url(../../images/tumblr_logo_icon.png);

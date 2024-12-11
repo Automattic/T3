@@ -1,5 +1,5 @@
 {
-  "name": "t3",
+  "name": "tumblr-theme-garden",
   "version": "1.0.0",
   "description": "A WordPress plugin that lets you run Tumblr Themes.",
   "author": {
@@ -10,9 +10,9 @@
   "keywords": [
     "wordpress"
   ],
-  "homepage": "https://github.com/Automattic/T3/",
-  "repository": "https://github.com/Automattic/T3/",
-  "bugs": "https://github.com/Automattic/T3/issues",
+  "homepage": "https://github.com/Automattic/tumblr-theme-garden/",
+  "repository": "https://github.com/Automattic/tumblr-theme-garden/",
+  "bugs": "https://github.com/Automattic/tumblr-theme-garden/issues",
   "engines": {
     "node": ">=20.0",
     "npm": ">=10.0"

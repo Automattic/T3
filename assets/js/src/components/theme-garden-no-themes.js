@@ -7,28 +7,28 @@ import { _x } from '@wordpress/i18n';
  */
 export const ThemeGardenNoThemes = () => {
 	const playfulNoThemesText = [
-		_x( 'Sadly, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
-		_x( 'Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr3' ),
+		_x( 'Sadly, nothing.', 'The message displayed when no themes were found.', 'ttgarden' ),
+		_x( 'Tragically, nothing.', 'The message displayed when no themes were found.', 'ttgarden' ),
 		_x(
 			'We found nothing. Here it isn’t.',
 			'The message displayed when no themes were found.',
-			'tumblr3'
+			'ttgarden'
 		),
 		_x(
 			'Couldn’t find that. Please, don’t be upset. Please.',
 			'The message displayed when no themes were found.',
-			'tumblr3'
+			'ttgarden'
 		),
 		_x(
 			'Sincerely, we found nothing.',
 			'The message displayed when no themes were found.',
-			'tumblr3'
+			'ttgarden'
 		),
-		_x( 'Nothing to see here.', 'The message displayed when no themes were found.', 'tumblr3' ),
+		_x( 'Nothing to see here.', 'The message displayed when no themes were found.', 'ttgarden' ),
 		_x(
 			'If you were looking for nothing, congrats, you found it.',
 			'The message displayed when no themes were found.',
-			'tumblr3'
+			'ttgarden'
 		),
 	];
 	const textKey = Math.floor( Math.random() * playfulNoThemesText.length );

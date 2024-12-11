@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset name="t3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+<ruleset name="ttgarden" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
 	<config name="testVersion" value="7.0-"/>
-	
+
 	<rule ref="Jetpack">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="MediaWiki.Usage.ForbiddenFunctions.isset" />
@@ -72,7 +72,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="tumblr3"/>
+				<element value="tumblr-theme-garden"/>
 			</property>
 		</properties>
 	</rule>
@@ -80,7 +80,7 @@
 	<rule ref="Jetpack.Functions.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="tumblr3"/>
+				<element value="tumblr-theme-garden"/>
 			</property>
 		</properties>
 	</rule>
@@ -89,8 +89,8 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="tumblr3_"/>
-				<element value="CupcakeLabs\T3"/>
+				<element value="ttgarden_"/>
+				<element value="CupcakeLabs\TumblrThemeGarden"/>
 			</property>
 		</properties>
 	</rule>

@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2024-11-05T16:23:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: tumblr3\n"
+"X-Domain: ttgarden\n"
 
 #. Plugin Name of the plugin
 #: tumblr-theme-garden.php
@@ -1327,15 +1327,15 @@ msgctxt "The message displayed when no themes were found."
 msgid "If you were looking for nothing, congrats, you found it."
 msgstr ""
 
-#: theme/tumblr3/comments.php:36
+#: theme/ttgarden/comments.php:36
 msgid "&larr; Older Comments"
 msgstr ""
 
-#: theme/tumblr3/comments.php:37
+#: theme/ttgarden/comments.php:37
 msgid "Newer Comments &rarr;"
 msgstr ""
 
-#: theme/tumblr3/comments.php:42
+#: theme/ttgarden/comments.php:42
 msgid "Comments are closed."
 msgstr ""
 

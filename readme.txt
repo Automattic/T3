@@ -6,7 +6,7 @@ Tested up to: 6.5
 Stable tag: 0.1.14
 Requires PHP: 8.2
 License: GPLv3 or later
-Text Domain: tumblr3
+Text Domain: ttgarden
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Browse all of the themes available on Tumblr and use them on your WordPress site.
@@ -36,7 +36,7 @@ Enables WordPress to use [Tumblr themes](https://www.tumblr.com/themes/). Browse
 
 == Source Code and Development ==
 
-The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/T3).
+The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/TumblrThemeGarden).
 
 This repository includes all of the necessary build tools and documentation on how to use them. We encourage developers to explore and contribute to the project!
 

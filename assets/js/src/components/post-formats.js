@@ -89,7 +89,7 @@ const POST_FORMATS = [
 	},
 ];
 
-registerPlugin( 'tumblr3-updated-postformat-ui', {
+registerPlugin( 'ttgarden-updated-postformat-ui', {
 	render: () => {
 		// Create a suggestion for the post format based on the blocks in the content.
 		const createSuggestion = blocks => {
@@ -190,9 +190,9 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 
 		return (
 			<PluginPostStatusInfo>
-				<div className="tumblr3-post-format-selector">
+				<div className="ttgarden-post-format-selector">
 					<p>
-						<strong>{ __( 'Post Formats', 'tumblr3' ) }</strong>
+						<strong>{ __( 'Post Formats', 'ttgarden' ) }</strong>
 					</p>
 
 					{ POST_FORMATS.map( ( { id, caption, icon } ) => (
@@ -218,7 +218,7 @@ registerPlugin( 'tumblr3-updated-postformat-ui', {
 							>
 								{ sprintf(
 									/* translators: %s: post format */
-									__( 'Apply suggested format: %s', 'tumblr3' ),
+									__( 'Apply suggested format: %s', 'ttgarden' ),
 									suggestion
 								) }
 							</Button>

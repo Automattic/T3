@@ -7,7 +7,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the embed block.
  */
-addFilter( 'blocks.registerBlockType', 'tumblr3/extend-embed-block', ( settings, name ) => {
+addFilter( 'blocks.registerBlockType', 'ttgarden/extend-embed-block', ( settings, name ) => {
 	if ( typeof settings.attributes !== 'undefined' && name === 'core/embed' ) {
 		settings.attributes = Object.assign( settings.attributes, {
 			title: {
@@ -48,7 +48,7 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-embed-block', ( settings,
  */
 addFilter(
 	'editor.BlockEdit',
-	'tumblr3/extend-embed-block',
+	'ttgarden/extend-embed-block',
 	createHigherOrderComponent( BlockEdit => {
 		return props => {
 			const { attributes, setAttributes, isSelected } = props;

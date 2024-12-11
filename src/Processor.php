@@ -2,10 +2,10 @@
 /**
  * This is a custom processor that extends the default WP_HTML_Tag_Processor.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 

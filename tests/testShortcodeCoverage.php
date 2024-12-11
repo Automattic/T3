@@ -14,8 +14,8 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 	 * A single example test.
 	 */
 	public function test_tag_coverage() {
-		$tags         = TUMBLR3_TAGS;
-		$missing_tags = TUMBLR3_MISSING_TAGS;
+		$tags         = TTGARDEN_TAGS;
+		$missing_tags = TTGARDEN_MISSING_TAGS;
 
 		// Arrays to store tags with and without shortcodes.
 		$tags_with_shortcodes         = array();
@@ -56,8 +56,8 @@ class TestShortcodeCoverage extends WP_UnitTestCase {
 	}
 
 	public function test_block_coverage() {
-		$blocks         = TUMBLR3_BLOCKS;
-		$missing_blocks = TUMBLR3_MISSING_BLOCKS;
+		$blocks         = TTGARDEN_BLOCKS;
+		$missing_blocks = TTGARDEN_MISSING_BLOCKS;
 
 		// Arrays to store blocks with and without shortcodes.
 		$blocks_with_shortcodes         = array();

@@ -1,8 +1,8 @@
 <?php
 /**
- * Tumblr3 functions and definitions
+ * TumblrThemeGarden functions and definitions
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -15,12 +15,12 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return  void
  */
-function tumblr3_enqueue_block_editor_assets(): void {
-	$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/editor.asset.php' );
+function ttgarden_enqueue_block_editor_assets(): void {
+	$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/editor.asset.php' );
 
 	wp_enqueue_script(
 		'cupcakelabs-t3',
-		TUMBLR3_URL . 'assets/js/build/editor.js',
+		TTGARDEN_URL . 'assets/js/build/editor.js',
 		$deps['dependencies'],
 		$deps['version'],
 		true
@@ -28,12 +28,12 @@ function tumblr3_enqueue_block_editor_assets(): void {
 
 	wp_enqueue_style(
 		'cupcakelabs-t3',
-		TUMBLR3_URL . 'assets/js/build/editor.css',
+		TTGARDEN_URL . 'assets/js/build/editor.css',
 		array(),
 		$deps['version']
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'tumblr3_enqueue_block_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'ttgarden_enqueue_block_editor_assets' );
 
 /**
  * Filters the block editor settings.
@@ -46,18 +46,18 @@ add_action( 'enqueue_block_editor_assets', 'tumblr3_enqueue_block_editor_assets'
  *
  * @return  array
  */
-function tumblr3_disable_post_format_ui( array $settings ): array {
+function ttgarden_disable_post_format_ui( array $settings ): array {
 	$settings['disablePostFormats'] = true;
 	return $settings;
 }
-add_filter( 'block_editor_settings_all', 'tumblr3_disable_post_format_ui' );
+add_filter( 'block_editor_settings_all', 'ttgarden_disable_post_format_ui' );
 
 /**
  * Setup theme support.
  *
  * @return void
  */
-function tumblr3_theme_support(): void {
+function ttgarden_theme_support(): void {
 	add_theme_support( 'post-formats', array( 'image', 'gallery', 'link', 'audio', 'video', 'quote', 'chat' ) );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'wp-block-styles' );
@@ -69,34 +69,34 @@ function tumblr3_theme_support(): void {
 	// Register widget area to support an edge case of Tumblr's theme.
 	register_sidebar(
 		array(
-			'name' => esc_html__( 'Sidebar', 'tumblr3' ),
+			'name' => esc_html__( 'Sidebar', 'tumblr-theme-garden' ),
 			'id'   => 'sidebar-1',
 		)
 	);
 }
-add_action( 'after_setup_theme', 'tumblr3_theme_support' );
+add_action( 'after_setup_theme', 'ttgarden_theme_support' );
 
 /**
  * Enqueue theme styles and scripts.
  *
  * @return void
  */
-function tumblr3_enqueue_scripts(): void {
+function ttgarden_enqueue_scripts(): void {
 	wp_enqueue_style(
-		'tumblr3-style',
-		TUMBLR3_URL . 'assets/css/build/index.css',
+		'ttgarden-style',
+		TTGARDEN_URL . 'assets/css/build/index.css',
 		array(),
-		TUMBLR3_METADATA['Version']
+		TTGARDEN_METADATA['Version']
 	);
 }
-add_action( 'wp_enqueue_scripts', 'tumblr3_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'ttgarden_enqueue_scripts' );
 
 /**
  * Adds a random endpoint to match Tumblr's behavior.
  *
  * @return void
  */
-function tumblr3_random_endpoint_rewrite(): void {
+function ttgarden_random_endpoint_rewrite(): void {
 	// Handle the Tumblr random endpoint.
 	add_rewrite_rule(
 		'^random/?$',
@@ -111,7 +111,7 @@ function tumblr3_random_endpoint_rewrite(): void {
 		'top'
 	);
 }
-add_action( 'init', 'tumblr3_random_endpoint_rewrite' );
+add_action( 'init', 'ttgarden_random_endpoint_rewrite' );
 
 /**
  * Add a new query variable for Tumblr search.
@@ -120,19 +120,19 @@ add_action( 'init', 'tumblr3_random_endpoint_rewrite' );
  *
  * @return array
  */
-function tumblr3_add_tumblr_search_var( $vars ): array {
+function ttgarden_add_tumblr_search_var( $vars ): array {
 	$vars[] = 'q';
 	$vars[] = 'random';
 	return $vars;
 }
-add_filter( 'query_vars', 'tumblr3_add_tumblr_search_var' );
+add_filter( 'query_vars', 'ttgarden_add_tumblr_search_var' );
 
 /**
  * Redirect Tumblr search to core search.
  *
  * @return void
  */
-function tumblr3_redirect_tumblr_search(): void {
+function ttgarden_redirect_tumblr_search(): void {
 	// If random is set, redirect to a random post.
 	if ( get_query_var( 'random' ) ) {
 		// @see https://docs.wpvip.com/databases/optimize-queries/using-post__not_in/
@@ -158,7 +158,7 @@ function tumblr3_redirect_tumblr_search(): void {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'tumblr3_redirect_tumblr_search' );
+add_action( 'template_redirect', 'ttgarden_redirect_tumblr_search' );
 
 /**
  * Custom comment markup.
@@ -168,7 +168,7 @@ add_action( 'template_redirect', 'tumblr3_redirect_tumblr_search' );
  *
  * @return void
  */
-function tumblr3_comment_markup( $comment, $args ): void {
+function ttgarden_comment_markup( $comment, $args ): void {
 	?>
 	<li class="note">
 
@@ -181,7 +181,7 @@ function tumblr3_comment_markup( $comment, $args ): void {
 				echo wp_kses_post(
 					sprintf(
 						// Translators: 1 is the author name.
-						__( '%s <span class="says">says:</span>', 'tumblr3' ),
+						__( '%s <span class="says">says:</span>', 'tumblr-theme-garden' ),
 						sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) )
 					)
 				);
@@ -189,7 +189,7 @@ function tumblr3_comment_markup( $comment, $args ): void {
 			?>
 
 			<?php if ( '0' === $comment->comment_approved ) : ?>
-				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'tumblr3' ); ?></p>
+				<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'tumblr-theme-garden' ); ?></p>
 			<?php endif; ?>
 
 		</span>
@@ -204,7 +204,7 @@ function tumblr3_comment_markup( $comment, $args ): void {
  *
  * @return void
  */
-function tumblr3_disable_emojis(): void {
+function ttgarden_disable_emojis(): void {
 	// Remove the emoji script from the front end and admin
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -213,4 +213,4 @@ function tumblr3_disable_emojis(): void {
 	remove_action( 'wp_print_styles', 'print_emoji_styles' );
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );
 }
-add_action( 'init', 'tumblr3_disable_emojis' );
+add_action( 'init', 'ttgarden_disable_emojis' );

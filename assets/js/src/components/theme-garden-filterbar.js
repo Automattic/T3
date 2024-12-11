@@ -70,11 +70,11 @@ const _ThemeGardenFilterBar = ( {
 				<span className="count">{ localThemes.length }</span>
 			</div>
 			<label htmlFor="t3-categories">
-				{ _x( 'Categories', 'label for a dropdown list of theme categories', 'tumblr3' ) }
+				{ _x( 'Categories', 'label for a dropdown list of theme categories', 'ttgarden' ) }
 			</label>
 			<select id="t3-categories" name="category" onChange={ onChangeCategory }>
 				<option value="featured">
-					{ _x( 'Featured', 'The name of a category in a list of categories.', 'tumblr3' ) }
+					{ _x( 'Featured', 'The name of a category in a list of categories.', 'ttgarden' ) }
 				</option>
 				{ categories.map( category => {
 					return (
@@ -90,7 +90,7 @@ const _ThemeGardenFilterBar = ( {
 			</select>
 			<p className="search-box">
 				<label htmlFor="wp-filter-search-input">
-					{ _x( 'Search Themes', 'label for a text input', 'tumblr3' ) }
+					{ _x( 'Search Themes', 'label for a text input', 'ttgarden' ) }
 				</label>
 				<input
 					type="search"
@@ -108,10 +108,10 @@ const _ThemeGardenFilterBar = ( {
 
 export const ThemeGardenFilterBar = compose(
 	withSelect( select => ( {
-		baseUrl: select( 'tumblr3/theme-garden-store' ).getBaseUrl(),
-		selectedCategory: select( 'tumblr3/theme-garden-store' ).getSelectedCategory(),
-		categories: select( 'tumblr3/theme-garden-store' ).getCategories(),
-		search: select( 'tumblr3/theme-garden-store' ).getSearch(),
-		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
+		baseUrl: select( 'ttgarden/theme-garden-store' ).getBaseUrl(),
+		selectedCategory: select( 'ttgarden/theme-garden-store' ).getSelectedCategory(),
+		categories: select( 'ttgarden/theme-garden-store' ).getCategories(),
+		search: select( 'ttgarden/theme-garden-store' ).getSearch(),
+		themes: select( 'ttgarden/theme-garden-store' ).getThemes(),
 	} ) )
 )( _ThemeGardenFilterBar );
