@@ -5,7 +5,7 @@
  * @since       1.0.0
  * @version     1.0.0
  * @author      Cupcake Labs
- * @license     GPL-3.0-or-later
+ * @license     GPL-2.0-or-later
  * @package    TumblrThemeGarden
  *
  * @noinspection    ALL
@@ -20,7 +20,7 @@
  * Requires PHP:            8.2
  * Author:                  Cupcake Labs
  * Author URI:              https://www.automattic.com/
- * License:                 GPL v3 or later
+ * License:                 GPL v2 or later
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             tumblr-theme-garden
  * Domain Path:             /languages
