@@ -1,9 +1,9 @@
-=== Tumblr Theme Translator ===
+=== Tumblr Theme Garden ===
 Contributors: automattic, tommusrhodus, aaronjbaptiste, rtio, roccotripaldi
 Tags: tumblr, theme
 Requires at least: 6.5
 Tested up to: 6.5
-Stable tag: 0.1.13
+Stable tag: 0.1.14
 Requires PHP: 8.2
 License: GPLv3 or later
 Text Domain: tumblr3
@@ -36,11 +36,11 @@ Enables WordPress to use [Tumblr themes](https://www.tumblr.com/themes/). Browse
 
 == Source Code and Development ==
 
-The source code for the Tumblr Theme Translator plugin is publicly available and maintained on GitHub. [Tumblr Theme Translator Repository](https://github.com/Automattic/T3).
+The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/T3).
 
 This repository includes all of the necessary build tools and documentation on how to use them. We encourage developers to explore and contribute to the project!
 
 == Changelog ==
 
-= 0.1.13 =
+= 0.1.14 =
 * Initial release for browsing and activating Tumblr themes

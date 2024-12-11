@@ -1,9 +1,9 @@
-# Tumblr Theme Translator (T3)
+# Tumblr Theme Garden
 
 > [!TIP]
 > [Take T3 for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
 
-Tumblr Theme Translator (working name) is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
+Tumblr Theme Garden is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
 This plugin will form the basis of the Tumblr Blog Network on WordPress.com eventually. This current iteration is designed to be released on WordPress.org/plugins/ for use by anyone.
 
