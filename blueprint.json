@@ -22,7 +22,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-translator&release=v0.1.7&asset=tumblr-theme-translator.zip"
+        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-translator&release=v0.1.12&asset=tumblr-theme-translator.zip"
       },
       "options": {
         "activate": true
