@@ -1,6 +1,6 @@
 <?php
 /**
- * The Tumblr Theme Translator bootstrap file.
+ * The Tumblr Theme Garden bootstrap file.
  *
  * @since       1.0.0
  * @version     1.0.0
@@ -11,10 +11,10 @@
  * @noinspection    ALL
  *
  * @wordpress-plugin
- * Plugin Name:             Tumblr Theme Translator
+ * Plugin Name:             Tumblr Theme Garden
  * Plugin URI:              https://github.com/Automattic/T3/
  * Description:             Allows WordPress to run on Tumblr themes.
- * Version:                 0.1.13
+ * Version:                 0.1.14
  * Requires at least:       6.5
  * Tested up to:            6.5
  * Requires PHP:            8.2
@@ -64,7 +64,7 @@ if ( ! is_file( TUMBLR3_PATH . '/vendor/autoload.php' ) ) {
 	add_action(
 		'admin_notices',
 		static function () {
-			$message      = __( 'It seems like <strong>Tumblr Theme Translator</strong> failed to autoload. Run composer i.', 'tumblr3' );
+			$message      = __( 'It seems like <strong>Tumblr Theme Garden</strong> failed to autoload. Run composer i.', 'tumblr3' );
 			$html_message = wp_sprintf( '<div class="error notice tumblr3-error">%s</div>', wpautop( $message ) );
 			echo wp_kses_post( $html_message );
 		}

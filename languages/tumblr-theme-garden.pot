@@ -2,8 +2,8 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumblr Theme Translator 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tumblr-theme-translator\n"
+"Project-Id-Version: Tumblr Theme Garden 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tumblr-theme-garden\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,27 +15,27 @@ msgstr ""
 "X-Domain: tumblr3\n"
 
 #. Plugin Name of the plugin
-#: tumblr-theme-translator.php
-msgid "Tumblr Theme Translator"
+#: tumblr-theme-garden.php
+msgid "Tumblr Theme Garden"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: tumblr-theme-translator.php
+#: tumblr-theme-garden.php
 msgid "https://www.tumblr.com/"
 msgstr ""
 
 #. Description of the plugin
-#: tumblr-theme-translator.php
+#: tumblr-theme-garden.php
 msgid "Allows WordPress to run on Tumblr themes."
 msgstr ""
 
 #. Author of the plugin
-#: tumblr-theme-translator.php
+#: tumblr-theme-garden.php
 msgid "Cupcake Labs"
 msgstr ""
 
 #. Author URI of the plugin
-#: tumblr-theme-translator.php
+#: tumblr-theme-garden.php
 msgid "https://www.automattic.com/"
 msgstr ""
 
@@ -1339,8 +1339,8 @@ msgstr ""
 msgid "Comments are closed."
 msgstr ""
 
-#: tumblr-theme-translator.php:64
-msgid "It seems like <strong>Tumblr Theme Translator</strong> failed to autoload. Run composer i."
+#: tumblr-theme-garden.php:64
+msgid "It seems like <strong>Tumblr Theme Garden</strong> failed to autoload. Run composer i."
 msgstr ""
 
 #: assets/js/build/editor.js:1
