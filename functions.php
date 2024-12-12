@@ -1,13 +1,13 @@
 <?php
 /**
- * Tumblr3 theme functions.
+ * TumblrThemeGarden theme functions.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use CupcakeLabs\T3\Plugin;
+use CupcakeLabs\TumblrThemeGarden\Plugin;
 
 /**
  * Returns the plugin's main class instance.
@@ -17,7 +17,7 @@ use CupcakeLabs\T3\Plugin;
  *
  * @return  Plugin
  */
-function tumblr3_get_plugin_instance(): Plugin {
+function ttgarden_get_plugin_instance(): Plugin {
 	return Plugin::get_instance();
 }
 
@@ -29,8 +29,8 @@ function tumblr3_get_plugin_instance(): Plugin {
  *
  * @return  string
  */
-function tumblr3_get_plugin_slug(): string {
-	return sanitize_key( TUMBLR3_METADATA['TextDomain'] );
+function ttgarden_get_plugin_slug(): string {
+	return sanitize_key( TTGARDEN_METADATA['TextDomain'] );
 }
 
 /**
@@ -46,8 +46,8 @@ function tumblr3_get_plugin_slug(): string {
  *
  * @return  array|null
  */
-function tumblr3_get_asset_meta( string $asset_path, ?array $extra_dependencies = null ): ?array {
-	if ( ! file_exists( $asset_path ) || ! str_starts_with( $asset_path, TUMBLR3_PATH ) ) {
+function ttgarden_get_asset_meta( string $asset_path, ?array $extra_dependencies = null ): ?array {
+	if ( ! file_exists( $asset_path ) || ! str_starts_with( $asset_path, TTGARDEN_PATH ) ) {
 		return null;
 	}
 
@@ -61,7 +61,7 @@ function tumblr3_get_asset_meta( string $asset_path, ?array $extra_dependencies 
 			'version'      => filemtime( $asset_path ),
 		);
 		if ( false === $asset_meta['version'] ) { // Safeguard against filemtime() returning false.
-			$asset_meta['version'] = TUMBLR3_METADATA['Version'];
+			$asset_meta['version'] = TTGARDEN_METADATA['Version'];
 		}
 	}
 
@@ -82,7 +82,7 @@ function tumblr3_get_asset_meta( string $asset_path, ?array $extra_dependencies 
  *
  * @return string The parsed content.
  */
-function tumblr3_do_shortcode( $content ): string {
+function ttgarden_do_shortcode( $content ): string {
 	global $shortcode_tags;
 	static $pattern = null;
 
@@ -106,9 +106,9 @@ function tumblr3_do_shortcode( $content ): string {
  *
  * @return array|null|string The current parse context.
  */
-function tumblr3_get_parse_context() {
-	global $tumblr3_parse_context;
-	return $tumblr3_parse_context;
+function ttgarden_get_parse_context() {
+	global $ttgarden_parse_context;
+	return $ttgarden_parse_context;
 }
 
 /**
@@ -119,9 +119,9 @@ function tumblr3_get_parse_context() {
  *
  * @return void
  */
-function tumblr3_set_parse_context( $key, $value ): void {
-	global $tumblr3_parse_context;
-	$tumblr3_parse_context = array( $key => $value );
+function ttgarden_set_parse_context( $key, $value ): void {
+	global $ttgarden_parse_context;
+	$ttgarden_parse_context = array( $key => $value );
 }
 
 /**
@@ -131,12 +131,12 @@ function tumblr3_set_parse_context( $key, $value ): void {
  *
  * @return string The normalized name.
  */
-function tumblr3_normalize_option_name( $name ): string {
+function ttgarden_normalize_option_name( $name ): string {
 	return strtolower(
 		str_replace(
 			array_merge(
 				array( ' ' ),
-				TUMBLR3_OPTIONS
+				TTGARDEN_OPTIONS
 			),
 			'',
 			$name
@@ -145,5 +145,5 @@ function tumblr3_normalize_option_name( $name ): string {
 }
 
 // Include tag and block hydration functions for each Tumblr Theme tag|block.
-require TUMBLR3_PATH . 'includes/block-functions.php';
-require TUMBLR3_PATH . 'includes/tag-functions.php';
+require TTGARDEN_PATH . 'includes/block-functions.php';
+require TTGARDEN_PATH . 'includes/tag-functions.php';

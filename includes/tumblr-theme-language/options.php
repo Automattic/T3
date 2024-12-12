@@ -1,8 +1,8 @@
 <?php
 /**
- * Tumblr3 theme option prefixes.
+ * TumblrThemeGarden theme option prefixes.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
 defined( 'ABSPATH' ) || exit;

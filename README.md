@@ -1,19 +1,19 @@
-# Tumblr Theme Translator (T3)
+# Tumblr Theme Garden
 
 > [!TIP]
-> [Take T3 for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
+> [Take TumblrThemeGarden for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
 
-Tumblr Theme Translator (working name) is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
+Tumblr Theme Garden is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
 This plugin will form the basis of the Tumblr Blog Network on WordPress.com eventually. This current iteration is designed to be released on WordPress.org/plugins/ for use by anyone.
 
 > [!IMPORTANT] 
-> T3 will not be used as the UI for the Blog Network migration, that will still exist in the Native Tumblr UI. Instead T3 will be the rendering engine for the Blog Network, and it's current UI features exist purely to make this usable by anyone wanting to run their own instance of T3.
+> TumblrThemeGarden will not be used as the UI for the Blog Network migration, that will still exist in the Native Tumblr UI. Instead TumblrThemeGarden will be the rendering engine for the Blog Network, and it's current UI features exist purely to make this usable by anyone wanting to run their own instance of TumblrThemeGarden.
 
 ## Features
 
 - **Tumblr Theme Garden**: 1-Click installs of any theme from the Tumblr Theme Garden.
-- **1:1 Aesthetics**: Every care has been taken to ensure T3 will render your chosen Tumblr Theme faithfully.
+- **1:1 Aesthetics**: Every care has been taken to ensure TumblrThemeGarden will render your chosen Tumblr Theme faithfully.
 - **Customizer Support**: Enjoy the same customization options for your chosen theme you would get on Tumblr, update colors, layouts, etc.
 
 ## Installation
@@ -43,7 +43,7 @@ This plugin will form the basis of the Tumblr Blog Network on WordPress.com even
 
 Tumblr Themes come with a number of limitations, no menu support, no widget support, to name a few. You should expect more of a What-You-See-Is-What-You-Get compared to the current abilities WordPress native themes have.
 
-T3 is also working to backfill a number of missing features in WordPress that Tumblr currently has, but WordPress does not support out of the box. Whilst these features are in development, you may notice inconsistencies or broken behaviour on your chosen theme. These include:
+TumblrThemeGarden is also working to backfill a number of missing features in WordPress that Tumblr currently has, but WordPress does not support out of the box. Whilst these features are in development, you may notice inconsistencies or broken behaviour on your chosen theme. These include:
 
 - Playcount tracking for audio and video files.
 - Blog following.

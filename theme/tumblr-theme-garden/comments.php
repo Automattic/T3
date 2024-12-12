@@ -4,7 +4,7 @@
  *
  * The area of the page that contains comments and the comment form.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -27,7 +27,7 @@ if ( post_password_required() ) {
 				'style'       => 'ol',
 				'short_ping'  => true,
 				'avatar_size' => 24,
-				'callback'    => 'tumblr3_comment_markup',
+				'callback'    => 'ttgarden_comment_markup',
 				'max_depth'   => 0,
 			)
 		);
@@ -36,13 +36,13 @@ if ( post_password_required() ) {
 
 	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
 		<nav class="navigation comment-navigation" role="navigation">
-			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'tumblr3' ) ); ?></div>
-			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'tumblr3' ) ); ?></div>
+			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'tumblr-theme-garden' ) ); ?></div>
+			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'tumblr-theme-garden' ) ); ?></div>
 		</nav><!-- .comment-navigation -->
 	<?php endif; // Check for comment navigation ?>
 
 	<?php if ( ! comments_open() && get_comments_number() ) : ?>
-		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'tumblr3' ); ?></p>
+		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'tumblr-theme-garden' ); ?></p>
 	<?php endif; ?>
 
 <?php endif; ?>

@@ -2,29 +2,38 @@
 /**
  * BlockExtensions class.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * BlockExtensions class
+ */
 class BlockExtensions {
 	/**
-	 * The Tumblr3 active status.
+	 * The TumblrThemeGarden active status.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     bool
 	 */
-	private $is_tumblr3_active;
+	private $is_ttgarden_active;
 
-	public function initialize( $is_tumblr3_active ): void {
-		$this->is_tumblr3_active = $is_tumblr3_active;
+	/**
+	 * Initialize block extensions
+	 *
+	 * @param bool $is_ttgarden_active Whether flag is active.
+	 * @return void
+	 */
+	public function initialize( $is_ttgarden_active ): void {
+		$this->is_ttgarden_active = $is_ttgarden_active;
 
-		// Only run if the Tumblr3 theme is active.
-		if ( $this->is_tumblr3_active ) {
+		// Only run if the TumblrThemeGarden theme is active.
+		if ( $this->is_ttgarden_active ) {
 			add_filter( 'render_block', array( $this, 'tumblr_audio_block_output' ), 10, 2 );
 		}
 	}
@@ -44,7 +53,7 @@ class BlockExtensions {
 		$attrs = $block['attrs'];
 
 		// Only modify if we have the Tumblr custom attributes
-		if ( $this->is_tumblr3_active && empty( $attrs['mediaURL'] ) && empty( $attrs['mediaTitle'] ) ) {
+		if ( $this->is_ttgarden_active && empty( $attrs['mediaURL'] ) && empty( $attrs['mediaTitle'] ) ) {
 			return $block_content;
 		}
 

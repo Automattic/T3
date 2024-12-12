@@ -2,10 +2,10 @@
 /**
  * Customizer class.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,16 +19,16 @@ class Customizer {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param boolean $is_tumblr3_active Whether the Tumblr3 theme is active.
+	 * @param boolean $is_ttgarden_active Whether the TumblrThemeGarden theme is active.
 	 *
 	 * @return  void
 	 */
-	public function initialize( $is_tumblr3_active ): void {
+	public function initialize( $is_ttgarden_active ): void {
 		// Customizer actions to run when this plugin is active.
 		add_action( 'customize_register', array( $this, 'tumblr_html_options' ) );
 
-		// Only run the rest of the actions if the Tumblr3 theme is active.
-		if ( $is_tumblr3_active ) {
+		// Only run the rest of the actions if the TumblrThemeGarden theme is active.
+		if ( $is_ttgarden_active ) {
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_scripts' ) );
 			add_action( 'customize_register', array( $this, 'global_options' ) );
 			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
@@ -37,20 +37,25 @@ class Customizer {
 		}
 	}
 
+	/**
+	 * Enqueue customizer scripts
+	 *
+	 * @return void
+	 */
 	public function enqueue_customizer_scripts(): void {
-		$deps = tumblr3_get_asset_meta( TUMBLR3_PATH . 'assets/js/build/customizer.asset.php' );
+		$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/customizer.asset.php' );
 
 		wp_enqueue_script(
-			'tumblr3-customizer',
-			TUMBLR3_URL . 'assets/js/build/customizer.js',
+			'tumblr-theme-garden-customizer',
+			TTGARDEN_URL . 'assets/js/build/customizer.js',
 			$deps['dependencies'],
 			$deps['version'],
 			true
 		);
 
 		wp_enqueue_style(
-			'tumblr3-customizer',
-			TUMBLR3_URL . 'assets/js/build/customizer.css',
+			'tumblr-theme-garden-customizer',
+			TTGARDEN_URL . 'assets/js/build/customizer.css',
 			array(),
 			$deps['version']
 		);
@@ -66,14 +71,14 @@ class Customizer {
 	public function tumblr_html_options( $wp_customize ): void {
 		// Add Theme HTML section.
 		$wp_customize->add_section(
-			'tumblr3_html',
+			'tumblr-theme-garden_html',
 			array(
-				'title'              => __( 'Tumblr Theme HTML', 'tumblr3' ),
+				'title'              => __( 'Tumblr Theme HTML', 'tumblr-theme-garden' ),
 				'priority'           => 30,
 				'description'        => sprintf(
 					'%s<br /><a href="https://www.tumblr.com/docs/en/custom_themes" target="_blank">%s</a>',
-					__( 'Want to create a custom look for your blog? Read:', 'tumblr3' ),
-					__( 'Tumblr Theme Documentation', 'tumblr3' )
+					__( 'Want to create a custom look for your blog? Read:', 'tumblr-theme-garden' ),
+					__( 'Tumblr Theme Documentation', 'tumblr-theme-garden' )
 				),
 				'description_hidden' => true,
 			)
@@ -85,7 +90,7 @@ class Customizer {
 		 * @todo lack of sanitization is a security risk.
 		 */
 		$wp_customize->add_setting(
-			'tumblr3_theme_html',
+			'tumblr-theme-garden_theme_html',
 			array(
 				'type'              => 'option',
 				'capability'        => 'edit_theme_options',
@@ -94,15 +99,13 @@ class Customizer {
 			)
 		);
 
-		/**
-		 * @see https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
-		 */
+		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
 		$editor = new \WP_Customize_Code_Editor_Control(
 			$wp_customize,
-			'tumblr3_theme_html',
+			'tumblr-theme-garden_theme_html',
 			array(
 				'label'    => '',
-				'section'  => 'tumblr3_html',
+				'section'  => 'tumblr-theme-garden_html',
 				'priority' => 10,
 			)
 		);
@@ -147,8 +150,8 @@ class Customizer {
 		$panel = $wp_customize->get_panel( 'themes' );
 
 		if ( $panel ) {
-			$external_theme = get_option( 'tumblr3_external_theme' );
-			$panel->title   = $external_theme['title'] ?? 'Tumblr3';
+			$external_theme = get_option( 'ttgarden_external_theme' );
+			$panel->title   = $external_theme['title'] ?? 'TumblrThemeGarden';
 		}
 	}
 
@@ -175,7 +178,7 @@ class Customizer {
 				$wp_customize,
 				'accent_color',
 				array(
-					'label'    => __( 'Accent Color', 'tumblr3' ),
+					'label'    => __( 'Accent Color', 'tumblr-theme-garden' ),
 					'section'  => 'colors',
 					'settings' => 'accent_color',
 				)
@@ -194,8 +197,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'title_font',
 			array(
-				'label'    => __( 'Title Font', 'tumblr3' ),
-				'section'  => 'tumblr3_font',
+				'label'    => __( 'Title Font', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_font',
 				'type'     => 'text',
 				'priority' => 10,
 			)
@@ -213,8 +216,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'title_font_weight',
 			array(
-				'label'    => __( 'Title Font Weight', 'tumblr3' ),
-				'section'  => 'tumblr3_font',
+				'label'    => __( 'Title Font Weight', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_font',
 				'type'     => 'select',
 				'choices'  => array(
 					'normal' => 'Normal',
@@ -236,8 +239,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'avatar_shape',
 			array(
-				'label'    => __( 'Avatar Shape', 'tumblr3' ),
-				'section'  => 'tumblr3_select',
+				'label'    => __( 'Avatar Shape', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_select',
 				'type'     => 'select',
 				'choices'  => array(
 					'circle' => 'Circle',
@@ -259,8 +262,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'show_header_image',
 			array(
-				'label'    => __( 'Show Header Image', 'tumblr3' ),
-				'section'  => 'tumblr3_boolean',
+				'label'    => __( 'Show Header Image', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -278,8 +281,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'stretch_header_image',
 			array(
-				'label'    => __( 'Stretch Header Image', 'tumblr3' ),
-				'section'  => 'tumblr3_boolean',
+				'label'    => __( 'Stretch Header Image', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -297,8 +300,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'show_avatar',
 			array(
-				'label'    => __( 'Show Avatar', 'tumblr3' ),
-				'section'  => 'tumblr3_boolean',
+				'label'    => __( 'Show Avatar', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -316,8 +319,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'target_blank',
 			array(
-				'label'    => __( 'Open Links in New Tab', 'tumblr3' ),
-				'section'  => 'tumblr3_boolean',
+				'label'    => __( 'Open Links in New Tab', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -335,8 +338,8 @@ class Customizer {
 		$wp_customize->add_control(
 			'twitter_username',
 			array(
-				'label'    => __( 'Twitter Username', 'tumblr3' ),
-				'section'  => 'tumblr3_text',
+				'label'    => __( 'Twitter Username', 'tumblr-theme-garden' ),
+				'section'  => 'ttgarden_text',
 				'type'     => 'text',
 				'priority' => 10,
 			)
@@ -355,51 +358,51 @@ class Customizer {
 	public function theme_specific_options( $wp_customize ): void {
 		// Add select options section.
 		$wp_customize->add_section(
-			'tumblr3_select',
+			'ttgarden_select',
 			array(
-				'title'    => __( 'Tumblr Theme Select Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Select Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
 			)
 		);
 
 		// Add text options section.
 		$wp_customize->add_section(
-			'tumblr3_text',
+			'ttgarden_text',
 			array(
-				'title'    => __( 'Tumblr Theme Text Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Text Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
 			)
 		);
 
 		// Add font options section.
 		$wp_customize->add_section(
-			'tumblr3_font',
+			'ttgarden_font',
 			array(
-				'title'    => __( 'Tumblr Theme Font Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Font Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
 			)
 		);
 
 		// Add boolean options section.
 		$wp_customize->add_section(
-			'tumblr3_boolean',
+			'ttgarden_boolean',
 			array(
-				'title'    => __( 'Tumblr Theme Checkbox Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Checkbox Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
 			)
 		);
 
 		// Add image options section.
 		$wp_customize->add_section(
-			'tumblr3_image',
+			'ttgarden_image',
 			array(
-				'title'    => __( 'Tumblr Theme Image Options', 'tumblr3' ),
+				'title'    => __( 'Tumblr Theme Image Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
 			)
 		);
 
 		// Parse the theme HTML.
-		$processor      = new \WP_HTML_Tag_Processor( get_option( 'tumblr3_theme_html', '' ) );
+		$processor      = new \WP_HTML_Tag_Processor( get_option( 'ttgarden_theme_html', '' ) );
 		$select_options = array();
 
 		// Stop on META tags.
@@ -418,7 +421,7 @@ class Customizer {
 				$label = substr( $name, strlen( 'color:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = tumblr3_normalize_option_name( $name );
+				$name = ttgarden_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -457,7 +460,7 @@ class Customizer {
 				$label = substr( $name, strlen( 'font:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = tumblr3_normalize_option_name( $name );
+				$name = ttgarden_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -472,7 +475,7 @@ class Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'tumblr3_font',
+						'section'  => 'ttgarden_font',
 						'type'     => 'text',
 						'priority' => 10,
 					)
@@ -494,7 +497,7 @@ class Customizer {
 				$label     = substr( $name, strlen( 'if:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = tumblr3_normalize_option_name( $name );
+				$name = ttgarden_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -509,7 +512,7 @@ class Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'tumblr3_boolean',
+						'section'  => 'ttgarden_boolean',
 						'type'     => 'checkbox',
 						'priority' => 10,
 					)
@@ -531,7 +534,7 @@ class Customizer {
 				$label = substr( $name, strlen( 'text:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = tumblr3_normalize_option_name( $name );
+				$name = ttgarden_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -546,7 +549,7 @@ class Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'tumblr3_text',
+						'section'  => 'ttgarden_text',
 						'type'     => 'text',
 						'priority' => 10,
 					)
@@ -568,7 +571,7 @@ class Customizer {
 				$label = substr( $name, strlen( 'image:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = tumblr3_normalize_option_name( $name );
+				$name = ttgarden_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -585,7 +588,7 @@ class Customizer {
 						$name,
 						array(
 							'label'    => $label,
-							'section'  => 'tumblr3_image',
+							'section'  => 'ttgarden_image',
 							'settings' => $name,
 							'priority' => 10,
 						)
@@ -618,7 +621,7 @@ class Customizer {
 			$default = ( isset( $options[0], $options[0]['content'] ) ) ? $options[0]['content'] : '';
 
 			// Option names need to be lowercase and without spaces.
-			$name = tumblr3_normalize_option_name( $label );
+			$name = ttgarden_normalize_option_name( $label );
 
 			$wp_customize->add_setting(
 				$name,
@@ -633,7 +636,7 @@ class Customizer {
 				$name,
 				array(
 					'label'    => $label,
-					'section'  => 'tumblr3_select',
+					'section'  => 'ttgarden_select',
 					'type'     => 'select',
 					'choices'  => array_column( $options, 'title', 'content' ),
 					'priority' => 10,

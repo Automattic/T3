@@ -1,11 +1,11 @@
 <?php
 /**
- * Tumblr3 theme hooks.
+ * TumblrThemeGarden theme hooks.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,14 +17,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class Hooks {
 	/**
-	 * The Tumblr3 active status.
+	 * The TumblrThemeGarden active status.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     bool
 	 */
-	private $is_tumblr3_active;
+	private $is_ttgarden_active;
 
 	/**
 	 * Initializes the Hooks.
@@ -32,15 +32,15 @@ class Hooks {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param boolean $is_tumblr3_active The Tumblr3 active status.
+	 * @param boolean $is_ttgarden_active The TumblrThemeGarden active status.
 	 *
 	 * @return  void
 	 */
-	public function initialize( $is_tumblr3_active ): void {
-		$this->is_tumblr3_active = $is_tumblr3_active;
+	public function initialize( $is_ttgarden_active ): void {
+		$this->is_ttgarden_active = $is_ttgarden_active;
 
 		// Add actions to the checkbox option that turns on the Tumblr theme.
-		add_action( 'update_option_tumblr3_use_theme', array( $this, 'update_option_tumblr3_use_theme' ), 10, 2 );
+		add_action( 'update_option_ttgarden_use_theme', array( $this, 'update_option_ttgarden_use_theme' ), 10, 2 );
 
 		// Filter the theme root to use the Tumblr theme directory, if the option is set.
 		add_filter( 'theme_root', array( $this, 'theme_root' ), 10, 2 );
@@ -50,40 +50,40 @@ class Hooks {
 		// Flush permalink rules when switching to the Tumblr theme.
 		add_action( 'switch_theme', array( $this, 'switch_theme' ), 10, 3 );
 
-		// Only run these if the Tumblr3 theme is active.
-		if ( $this->is_tumblr3_active ) {
+		// Only run these if the TumblrThemeGarden theme is active.
+		if ( $this->is_ttgarden_active ) {
 			add_filter( 'validate_current_theme', '__return_false' );
 			add_filter( 'wp_prepare_themes_for_js', array( $this, 'prepare_themes_for_js' ) );
 		}
 	}
 
 	/**
-	 * Modify the themes JavaScript object to include the Tumblr3 theme data.
+	 * Modify the themes JavaScript object to include the TumblrThemeGarden theme data.
 	 *
 	 * @param array $themes Array of installed themedata.
 	 *
 	 * @return array
 	 */
 	public function prepare_themes_for_js( $themes ): array {
-		if ( isset( $themes['tumblr3'] ) ) {
-			$theme_details = get_option( 'tumblr3_external_theme' );
+		if ( isset( $themes['tumblr-theme-garden'] ) ) {
+			$theme_details = get_option( 'ttgarden_external_theme' );
 
 			if ( isset( $theme_details['thumbnail'] ) && ! empty( $theme_details['thumbnail'] ) ) {
-				$themes['tumblr3']['screenshot'][0] = $theme_details['thumbnail'];
+				$themes['tumblr-theme-garden']['screenshot'][0] = $theme_details['thumbnail'];
 			}
 
 			if ( isset( $theme_details['author_name'] ) && ! empty( $theme_details['author_name'] ) ) {
-				$themes['tumblr3']['author'] = $theme_details['author_name'];
+				$themes['tumblr-theme-garden']['author'] = $theme_details['author_name'];
 
 				if ( isset( $theme_details['author_url'] ) && ! empty( $theme_details['author_url'] ) ) {
-					$themes['tumblr3']['authorAndUri'] = '<a href="' . $theme_details['author_url'] . '">' . $theme_details['author_name'] . '</a>';
+					$themes['tumblr-theme-garden']['authorAndUri'] = '<a href="' . $theme_details['author_url'] . '">' . $theme_details['author_name'] . '</a>';
 				} else {
-					$themes['tumblr3']['authorAndUri'] = $theme_details['author_name'];
+					$themes['tumblr-theme-garden']['authorAndUri'] = $theme_details['author_name'];
 				}
 			}
 
 			if ( isset( $theme_details['title'] ) && ! empty( $theme_details['title'] ) ) {
-				$themes['tumblr3']['name'] = $theme_details['title'];
+				$themes['tumblr-theme-garden']['name'] = $theme_details['title'];
 			}
 		}
 
@@ -91,7 +91,7 @@ class Hooks {
 	}
 
 	/**
-	 * Switches theme roots to support the tumblr3 theme in this plugin.
+	 * Switches theme roots to support the tumblr-theme-garden theme in this plugin.
 	 *
 	 * @param string $root Current WP theme root.
 	 *
@@ -107,14 +107,14 @@ class Hooks {
 			return $root;
 		}
 
-		// If Tumblr3 is the active theme, return the Tumblr theme directory.
-		if ( $this->is_tumblr3_active ) {
+		// If TumblrThemeGarden is the active theme, return the Tumblr theme directory.
+		if ( $this->is_ttgarden_active ) {
 			// Register the theme directory if it hasn't been registered yet.
 			if ( null === $registered || false === $registered ) {
-				$registered = register_theme_directory( TUMBLR3_PATH . 'theme' );
+				$registered = register_theme_directory( TTGARDEN_PATH . 'theme' );
 			}
 
-			return TUMBLR3_PATH . 'theme';
+			return TTGARDEN_PATH . 'theme';
 		}
 
 		return $root;
@@ -128,12 +128,12 @@ class Hooks {
 	 *
 	 * @return void
 	 */
-	public function update_option_tumblr3_use_theme( $old_value, $value ): void {
+	public function update_option_ttgarden_use_theme( $old_value, $value ): void {
 		if ( '1' === $value ) {
-			update_option( 'tumblr3_original_theme', get_option( 'template' ) );
-			switch_theme( 'tumblr3' );
+			update_option( 'ttgarden_original_theme', get_option( 'template' ) );
+			switch_theme( 'tumblr-theme-garden' );
 		} else {
-			switch_theme( get_option( 'tumblr3_original_theme' ) );
+			switch_theme( get_option( 'ttgarden_original_theme' ) );
 		}
 	}
 
@@ -147,13 +147,13 @@ class Hooks {
 	 * @return void
 	 */
 	public function switch_theme( $new_name, $new_theme, $old_theme ): void {
-		if ( 'tumblr3' === $new_theme->stylesheet ) {
+		if ( 'tumblr-theme-garden' === $new_theme->stylesheet ) {
 			flush_rewrite_rules();
 		}
 
-		if ( 'tumblr3' === $old_theme->stylesheet ) {
-			update_option( 'tumblr3_original_theme', '' );
-			update_option( 'tumblr3_use_theme', '' );
+		if ( 'tumblr-theme-garden' === $old_theme->stylesheet ) {
+			update_option( 'ttgarden_original_theme', '' );
+			update_option( 'ttgarden_use_theme', '' );
 		}
 	}
 }

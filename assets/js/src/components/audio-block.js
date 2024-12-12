@@ -7,7 +7,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the audio block.
  */
-addFilter( 'blocks.registerBlockType', 'tumblr3/extend-audio-block', ( settings, name ) => {
+addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-audio-block', ( settings, name ) => {
 	if ( typeof settings.attributes !== 'undefined' && name === 'core/audio' ) {
 		settings.attributes = Object.assign( settings.attributes, {
 			mediaURL: {
@@ -57,7 +57,7 @@ addFilter( 'blocks.registerBlockType', 'tumblr3/extend-audio-block', ( settings,
  */
 addFilter(
 	'editor.BlockEdit',
-	'tumblr3/extend-audio-block',
+	'tumblr-theme-garden/extend-audio-block',
 	createHigherOrderComponent( BlockEdit => {
 		return props => {
 			const { attributes, setAttributes, isSelected } = props;
