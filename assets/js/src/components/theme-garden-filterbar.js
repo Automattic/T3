@@ -61,7 +61,7 @@ const _ThemeGardenFilterBar = ( {
 		timerRef.current = setTimeout( async () => {
 			await fetchThemesByQuery( newSearch );
 			window.history.pushState( {}, '', baseUrl + '&search=' + newSearch );
-		}, 500 );
+		}, 800 );
 	};
 
 	return (
