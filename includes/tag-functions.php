@@ -1925,9 +1925,14 @@ function ttgarden_tag_likebutton(): string {
 		$data_title
 	);
 }
-add_shortcode( 'tag_likebutton', 'tumblr3_tag_likebutton' );
+add_shortcode( 'tag_likebutton', 'ttgarden_tag_likebutton' );
 
-function tumblr3_tag_postnotesurl(): string {
+/**
+ * Returns a URL to the post comments.
+ *
+ * @return string
+ */
+function ttgarden_tag_postnotesurl(): string {
 	return get_comments_link();
 }
-add_shortcode( 'tag_postnotesurl', 'tumblr3_tag_postnotesurl' );
+add_shortcode( 'tag_postnotesurl', 'ttgarden_tag_postnotesurl' );
