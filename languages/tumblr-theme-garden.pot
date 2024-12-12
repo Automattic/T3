@@ -1,18 +1,18 @@
 # Copyright (C) 2024 Cupcake Labs
-# This file is distributed under the GPL v3 or later.
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumblr Theme Garden 1.0.0\n"
+"Project-Id-Version: Tumblr Theme Garden 0.1.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tumblr-theme-garden\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-05T16:23:13+00:00\n"
+"POT-Creation-Date: 2024-12-12T12:46:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: ttgarden\n"
+"X-Domain: tumblr-theme-garden\n"
 
 #. Plugin Name of the plugin
 #: tumblr-theme-garden.php
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: tumblr-theme-garden.php
-msgid "https://www.tumblr.com/"
+msgid "https://github.com/Automattic/tumblr-theme-garden/"
 msgstr ""
 
 #. Description of the plugin
@@ -40,1316 +40,1387 @@ msgid "https://www.automattic.com/"
 msgstr ""
 
 #. translators: %1$s and %2$s are the opening and closing <a> tags, respectively.
-#: includes/tumblr-theme-language/lang.php:13
-#: includes/tumblr-theme-language/lang.php:19
+#: includes/tumblr-theme-language/lang.php:18
+#: includes/tumblr-theme-language/lang.php:24
 msgid "Powered by %1$sTumblr%2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:23
+#: includes/tumblr-theme-language/lang.php:28
 msgid "Download"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:24
+#: includes/tumblr-theme-language/lang.php:29
 msgid "Download this track"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:25
+#: includes/tumblr-theme-language/lang.php:30
 msgid "Tagged"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:26
+#: includes/tumblr-theme-language/lang.php:31
 msgid "Tags"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:27
+#: includes/tumblr-theme-language/lang.php:32
 msgid "Filed under"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:28
+#: includes/tumblr-theme-language/lang.php:33
 msgid "Tagged with"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:29
+#: includes/tumblr-theme-language/lang.php:34
 msgid "Search"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:30
+#: includes/tumblr-theme-language/lang.php:35
 msgid "Search keywords"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:31
+#: includes/tumblr-theme-language/lang.php:36
 msgid "My blog"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:32
+#: includes/tumblr-theme-language/lang.php:37
 msgid "All of Tumblr"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:33
+#: includes/tumblr-theme-language/lang.php:38
 msgid "Follow me"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:34
+#: includes/tumblr-theme-language/lang.php:39
 msgid "Follow on Tumblr"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:35
+#: includes/tumblr-theme-language/lang.php:40
 msgid "Follow on Twitter"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:36
+#: includes/tumblr-theme-language/lang.php:41
 msgid "Latest Tweets"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:37
+#: includes/tumblr-theme-language/lang.php:42
 msgid "Tweets"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:38
+#: includes/tumblr-theme-language/lang.php:43
 msgid "Tweet this"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:39
+#: includes/tumblr-theme-language/lang.php:44
 msgid "Following"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:40
+#: includes/tumblr-theme-language/lang.php:45
 msgid "People I follow"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:41
+#: includes/tumblr-theme-language/lang.php:46
 msgid "RSS feed"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:42
+#: includes/tumblr-theme-language/lang.php:47
 msgid "RSS"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:43
+#: includes/tumblr-theme-language/lang.php:48
 msgid "Feed"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:44
+#: includes/tumblr-theme-language/lang.php:49
 msgid "Get the RSS"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:45
+#: includes/tumblr-theme-language/lang.php:50
 msgid "Subscribe"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:46
+#: includes/tumblr-theme-language/lang.php:51
 msgid "Subscribe via RSS"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:47
+#: includes/tumblr-theme-language/lang.php:52
 msgid "Random"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:48
+#: includes/tumblr-theme-language/lang.php:53
 msgid "Random post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:49
+#: includes/tumblr-theme-language/lang.php:54
 msgid "Archive"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:50
+#: includes/tumblr-theme-language/lang.php:55
 msgid "Browse the Archive"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:51
+#: includes/tumblr-theme-language/lang.php:56
 msgid "Mobile"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:52
+#: includes/tumblr-theme-language/lang.php:57
 msgid "Mobile version"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:53
+#: includes/tumblr-theme-language/lang.php:58
 msgid "High-res"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:54
+#: includes/tumblr-theme-language/lang.php:59
 msgid "High-res photo"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:55
-#: includes/tumblr-theme-language/lang.php:56
+#: includes/tumblr-theme-language/lang.php:60
+#: includes/tumblr-theme-language/lang.php:61
 msgid "View high resolution"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:57
+#: includes/tumblr-theme-language/lang.php:62
 msgid "Permalink"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:58
+#: includes/tumblr-theme-language/lang.php:63
 msgid "Permalink for this post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:59
+#: includes/tumblr-theme-language/lang.php:64
 msgid "Short URL"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:60
+#: includes/tumblr-theme-language/lang.php:65
 msgid "Short URL for this post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:61
+#: includes/tumblr-theme-language/lang.php:66
 msgid "View notes for this post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:62
+#: includes/tumblr-theme-language/lang.php:67
 msgid "View comments for this post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:63
+#: includes/tumblr-theme-language/lang.php:68
 msgid "Contributors"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:64
+#: includes/tumblr-theme-language/lang.php:69
 msgid "Members"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:65
+#: includes/tumblr-theme-language/lang.php:70
 msgid "Group members"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:66
+#: includes/tumblr-theme-language/lang.php:71
 msgid "Authors"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:67
+#: includes/tumblr-theme-language/lang.php:72
 msgid "Posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:68
+#: includes/tumblr-theme-language/lang.php:73
 msgid "Likes"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:69
+#: includes/tumblr-theme-language/lang.php:74
 msgid "Reblogs"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:70
+#: includes/tumblr-theme-language/lang.php:75
 msgid "Liked posts"
 msgstr ""
 
 #. translators: %1$s and %2$s are the opening and closing <a> tags, respectively.
-#: includes/tumblr-theme-language/lang.php:73
-#: includes/tumblr-theme-language/lang.php:79
+#: includes/tumblr-theme-language/lang.php:78
+#: includes/tumblr-theme-language/lang.php:84
 msgid "Liked posts on %1$sTumblr%2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:83
+#: includes/tumblr-theme-language/lang.php:88
 msgid "More liked posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:84
+#: includes/tumblr-theme-language/lang.php:89
 msgid "Stuff I like"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:85
+#: includes/tumblr-theme-language/lang.php:90
 msgid "See more"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:86
+#: includes/tumblr-theme-language/lang.php:91
 msgid "See more stuff I like"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:87
+#: includes/tumblr-theme-language/lang.php:92
 msgid "Read more"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:88
+#: includes/tumblr-theme-language/lang.php:93
 msgid "Continue reading"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:89
+#: includes/tumblr-theme-language/lang.php:94
 msgid "Keep reading"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:90
+#: includes/tumblr-theme-language/lang.php:95
 msgid "Answer"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:91
+#: includes/tumblr-theme-language/lang.php:96
 msgid "Notes"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:92
+#: includes/tumblr-theme-language/lang.php:97
 msgid "Replies"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:93
+#: includes/tumblr-theme-language/lang.php:98
 msgid "Load more posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:94
+#: includes/tumblr-theme-language/lang.php:99
 msgid "Loading"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:95
+#: includes/tumblr-theme-language/lang.php:100
 msgid "No more posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:96
+#: includes/tumblr-theme-language/lang.php:101
 msgid "Send me an email"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:97
+#: includes/tumblr-theme-language/lang.php:102
 msgid "Send us an email"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:98
+#: includes/tumblr-theme-language/lang.php:103
 msgid "Send email"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:99
+#: includes/tumblr-theme-language/lang.php:104
 msgid "About"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:100
+#: includes/tumblr-theme-language/lang.php:105
 msgid "About me"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:101
+#: includes/tumblr-theme-language/lang.php:106
 msgid "Home"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:102
+#: includes/tumblr-theme-language/lang.php:107
 msgid "Close"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:103
+#: includes/tumblr-theme-language/lang.php:108
 msgid "Zoom"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:104
+#: includes/tumblr-theme-language/lang.php:109
 msgid "Navigate"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:105
+#: includes/tumblr-theme-language/lang.php:110
 msgid "Plays"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:106
+#: includes/tumblr-theme-language/lang.php:111
 msgid "Show"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:107
+#: includes/tumblr-theme-language/lang.php:112
 msgid "Pages"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:108
+#: includes/tumblr-theme-language/lang.php:113
 msgid "Share this"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:109
+#: includes/tumblr-theme-language/lang.php:114
 msgid "Show all posts made on this day"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:110
+#: includes/tumblr-theme-language/lang.php:115
 msgid "Source"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:111
+#: includes/tumblr-theme-language/lang.php:116
 msgctxt "Submitted by %1$s"
 msgid "Submitted by $user"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:112
+#: includes/tumblr-theme-language/lang.php:117
 msgid "Via"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:114
+#: includes/tumblr-theme-language/lang.php:119
 msgid "Text"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:115
+#: includes/tumblr-theme-language/lang.php:120
 msgid "Photo"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:116
+#: includes/tumblr-theme-language/lang.php:121
 msgid "Photos"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:117
+#: includes/tumblr-theme-language/lang.php:122
 msgid "Photoset"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:118
+#: includes/tumblr-theme-language/lang.php:123
 msgid "Quote"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:119
+#: includes/tumblr-theme-language/lang.php:124
 msgid "Link"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:120
+#: includes/tumblr-theme-language/lang.php:125
 msgid "Chat"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:121
+#: includes/tumblr-theme-language/lang.php:126
 msgid "Video"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:122
+#: includes/tumblr-theme-language/lang.php:127
 msgid "Audio"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:124
+#: includes/tumblr-theme-language/lang.php:129
 msgid "Text post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:125
+#: includes/tumblr-theme-language/lang.php:130
 msgid "Photo post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:126
+#: includes/tumblr-theme-language/lang.php:131
 msgid "Photoset post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:127
+#: includes/tumblr-theme-language/lang.php:132
 msgid "Quote post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:128
+#: includes/tumblr-theme-language/lang.php:133
 msgid "Link post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:129
+#: includes/tumblr-theme-language/lang.php:134
 msgid "Chat post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:130
+#: includes/tumblr-theme-language/lang.php:135
 msgid "Video post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:131
+#: includes/tumblr-theme-language/lang.php:136
 msgid "Audio post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:133
+#: includes/tumblr-theme-language/lang.php:138
 msgid "Prev"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:134
+#: includes/tumblr-theme-language/lang.php:139
 msgid "Previous"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:135
+#: includes/tumblr-theme-language/lang.php:140
 msgid "Previous page"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:136
+#: includes/tumblr-theme-language/lang.php:141
 msgid "Next"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:137
+#: includes/tumblr-theme-language/lang.php:142
 msgid "Back"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:138
+#: includes/tumblr-theme-language/lang.php:143
 msgid "More"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:139
+#: includes/tumblr-theme-language/lang.php:144
 msgid "Next page"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:140
+#: includes/tumblr-theme-language/lang.php:145
 msgid "Prev post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:141
+#: includes/tumblr-theme-language/lang.php:146
 msgid "Previous post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:142
+#: includes/tumblr-theme-language/lang.php:147
 msgid "Next post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:143
+#: includes/tumblr-theme-language/lang.php:148
 msgid "Newer entries"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:144
+#: includes/tumblr-theme-language/lang.php:149
 msgid "Older entries"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:145
+#: includes/tumblr-theme-language/lang.php:150
 msgid "Newer posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:146
+#: includes/tumblr-theme-language/lang.php:151
 msgid "Older posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:147
+#: includes/tumblr-theme-language/lang.php:152
 msgid "Newer"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:148
+#: includes/tumblr-theme-language/lang.php:153
 msgid "Older"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:149
+#: includes/tumblr-theme-language/lang.php:154
 msgid "New"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:150
+#: includes/tumblr-theme-language/lang.php:155
 msgid "Old"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:151
+#: includes/tumblr-theme-language/lang.php:156
 msgid "Earlier posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:152
+#: includes/tumblr-theme-language/lang.php:157
 msgid "Later posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:153
+#: includes/tumblr-theme-language/lang.php:158
 msgid "Next day"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:154
+#: includes/tumblr-theme-language/lang.php:159
 msgid "Previous day"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:155
+#: includes/tumblr-theme-language/lang.php:160
 msgid "Future"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:156
+#: includes/tumblr-theme-language/lang.php:161
 msgid "Past"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:157
+#: includes/tumblr-theme-language/lang.php:162
 msgid "To the past"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:158
+#: includes/tumblr-theme-language/lang.php:163
 msgid "To the future"
 msgstr ""
 
 #. translators: %1$s and %2$s are the current page number and the total number of pages, respectively.
-#: includes/tumblr-theme-language/lang.php:161
+#: includes/tumblr-theme-language/lang.php:166
 msgid "Page %1$s of %2$s"
 msgstr ""
 
 #. translators: %1$s and %2$s are the current page number and the total number of pages, respectively.
-#: includes/tumblr-theme-language/lang.php:163
+#: includes/tumblr-theme-language/lang.php:168
 msgid "Page %1$s <em>of</em> %2$s"
 msgstr ""
 
 #. translators: %1$s and %2$s are the current page number and the total number of pages, respectively.
-#: includes/tumblr-theme-language/lang.php:165
+#: includes/tumblr-theme-language/lang.php:170
 msgid "%1$s of %2$s"
 msgstr ""
 
 #. translators: %1$s and %2$s are the current page number and the total number of pages, respectively.
-#: includes/tumblr-theme-language/lang.php:167
+#: includes/tumblr-theme-language/lang.php:172
 msgid "%1$s <em>of</em> %2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:169
+#: includes/tumblr-theme-language/lang.php:174
 msgid "Comment"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:170
+#: includes/tumblr-theme-language/lang.php:175
 msgid "Recent comments"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:171
+#: includes/tumblr-theme-language/lang.php:176
 msgid "View comments"
 msgstr ""
 
 #. translators: %1$s and %2$s are the opening and closing <a> tags, respectively.
 #. translators: %1$s and %2$s are the opening and closing <span> tags, respectively.
-#: includes/tumblr-theme-language/lang.php:174
-#: includes/tumblr-theme-language/lang.php:180
+#: includes/tumblr-theme-language/lang.php:179
+#: includes/tumblr-theme-language/lang.php:185
 msgid "Blog comments powered by %1$sDisqus%2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:184
+#: includes/tumblr-theme-language/lang.php:189
 msgid "View the discussion thread"
 msgstr ""
 
 #. translators: %1$s is the number of search results.
-#: includes/tumblr-theme-language/lang.php:188
+#: includes/tumblr-theme-language/lang.php:193
 msgid "%1$s result"
 msgstr ""
 
 #. translators: %1$s is the number of search results.
-#: includes/tumblr-theme-language/lang.php:190
+#: includes/tumblr-theme-language/lang.php:195
 msgid "%1$s results"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:194
+#: includes/tumblr-theme-language/lang.php:199
 msgid "Search results for: %1$s"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:196
+#: includes/tumblr-theme-language/lang.php:201
 msgid "Search results for <span class=\"search_query\">%1$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:200
+#: includes/tumblr-theme-language/lang.php:205
 msgid "%1$s result for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:202
+#: includes/tumblr-theme-language/lang.php:207
 msgid "%1$s results for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:206
+#: includes/tumblr-theme-language/lang.php:211
 msgid "%1$s result for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:208
+#: includes/tumblr-theme-language/lang.php:213
 msgid "%1$s results for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:213
+#: includes/tumblr-theme-language/lang.php:218
 msgid "Showing %1$s result for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:215
+#: includes/tumblr-theme-language/lang.php:220
 msgid "Showing %1$s results for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:219
+#: includes/tumblr-theme-language/lang.php:224
 msgid "Showing %1$s result for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:221
+#: includes/tumblr-theme-language/lang.php:226
 msgid "Showing %1$s results for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:225
+#: includes/tumblr-theme-language/lang.php:230
 msgid "Found %1$s result for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:227
+#: includes/tumblr-theme-language/lang.php:232
 msgid "Found %1$s results for %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:231
+#: includes/tumblr-theme-language/lang.php:236
 msgid "Found %1$s result for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:233
+#: includes/tumblr-theme-language/lang.php:238
 msgid "Found %1$s results for <span class=\"search_query\">%2$s</span>"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:238
+#: includes/tumblr-theme-language/lang.php:243
 msgid "Your search for %2$s returned %1$s result"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:240
+#: includes/tumblr-theme-language/lang.php:245
 msgid "Your search for %2$s returned %1$s results"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:244
+#: includes/tumblr-theme-language/lang.php:249
 msgid "Your search for <span class=\"search_query\">%2$s</span> returned %1$s result"
 msgstr ""
 
 #. translators: %1$s is the number of search results and %2$s is the search query.
-#: includes/tumblr-theme-language/lang.php:246
+#: includes/tumblr-theme-language/lang.php:251
 msgid "Your search for <span class=\"search_query\">%2$s</span> returned %1$s results"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:249
+#: includes/tumblr-theme-language/lang.php:254
 msgid "Sorry"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:250
+#: includes/tumblr-theme-language/lang.php:255
 msgid "No results found"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:251
+#: includes/tumblr-theme-language/lang.php:256
 msgid "No posts found"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:252
+#: includes/tumblr-theme-language/lang.php:257
 msgid "Sorry, no posts found"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:253
+#: includes/tumblr-theme-language/lang.php:258
 msgid "Sorry, no search results found"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:255
+#: includes/tumblr-theme-language/lang.php:260
 msgid "No results for: %1$s"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:257
+#: includes/tumblr-theme-language/lang.php:262
 msgid "No results for <span class=\"search_query\">%1$s</span>"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:259
+#: includes/tumblr-theme-language/lang.php:264
 msgid "No search results for: %1$s"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:261
+#: includes/tumblr-theme-language/lang.php:266
 msgid "No search results for <span class=\"search_query\">%1$s</span>"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:263
+#: includes/tumblr-theme-language/lang.php:268
 msgid "No posts containing %1$s"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:265
+#: includes/tumblr-theme-language/lang.php:270
 msgid "No posts containing <span class=\"search_query\">%1$s</span>"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:267
+#: includes/tumblr-theme-language/lang.php:272
 msgid "Sorry, no results for %1$s"
 msgstr ""
 
 #. translators: %1$s is the search query.
-#: includes/tumblr-theme-language/lang.php:269
+#: includes/tumblr-theme-language/lang.php:274
 msgid "Sorry, no results for <span class=\"search_query\">%1$s</span>"
 msgstr ""
 
 #. translators: %1$d is the number of times the audio has been played.
-#: includes/tumblr-theme-language/lang.php:273
+#: includes/tumblr-theme-language/lang.php:278
 msgid "Played %d time"
 msgstr ""
 
 #. translators: %1$d is the number of times the audio has been played.
-#: includes/tumblr-theme-language/lang.php:275
+#: includes/tumblr-theme-language/lang.php:280
 msgid "Played %d times"
 msgstr ""
 
 #. translators: %1$s is the time ago string.
-#: includes/tumblr-theme-language/lang.php:279
+#: includes/tumblr-theme-language/lang.php:284
 msgid "Posted %1$s"
 msgstr ""
 
 #. translators: %1$s is the time ago string.
-#: includes/tumblr-theme-language/lang.php:282
+#: includes/tumblr-theme-language/lang.php:287
 msgid "This was posted %1$s"
 msgstr ""
 
 #. translators: %1$s is the day of the week, %2$s is the day of the month, %3$s is the month, %4$s is the year, and %5$s is the time.
-#: includes/tumblr-theme-language/lang.php:285
+#: includes/tumblr-theme-language/lang.php:290
 msgid "Posted on %1$s the %2$s of %3$s at %4$s"
 msgstr ""
 
 #. translators: %1$s is the formatted date and time.
-#: includes/tumblr-theme-language/lang.php:287
+#: includes/tumblr-theme-language/lang.php:292
 msgid "Posted at %1$s"
 msgstr ""
 
 #. translators: %1$s is the post author name.
-#: includes/tumblr-theme-language/lang.php:311
+#: includes/tumblr-theme-language/lang.php:316
 msgid "By %1$s"
 msgstr ""
 
 #. translators: %1$s is the post author name.
-#: includes/tumblr-theme-language/lang.php:314
+#: includes/tumblr-theme-language/lang.php:319
 msgid "Posted by %1$s"
 msgstr ""
 
 #. translators: %1$s is the time ago string, %2$s is the post author name.
-#: includes/tumblr-theme-language/lang.php:317
+#: includes/tumblr-theme-language/lang.php:322
 msgid "Posted %1$s by %2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:320
+#: includes/tumblr-theme-language/lang.php:325
 msgid "Reblogged"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:321
+#: includes/tumblr-theme-language/lang.php:326
 msgid "Reblogged from"
 msgstr ""
 
 #. translators: %1$s is the reblogged post author name.
-#: includes/tumblr-theme-language/lang.php:323
-#: includes/tumblr-theme-language/lang.php:326
-#: includes/tumblr-theme-language/lang.php:337
-#: includes/tumblr-theme-language/lang.php:340
+#: includes/tumblr-theme-language/lang.php:328
+#: includes/tumblr-theme-language/lang.php:331
+#: includes/tumblr-theme-language/lang.php:342
+#: includes/tumblr-theme-language/lang.php:345
 msgid "Reblogged from %1$s"
 msgstr ""
 
 #. translators: %1$s is the reblogged post author name.
-#: includes/tumblr-theme-language/lang.php:330
-#: includes/tumblr-theme-language/lang.php:333
-#: includes/tumblr-theme-language/lang.php:344
-#: includes/tumblr-theme-language/lang.php:347
+#: includes/tumblr-theme-language/lang.php:335
+#: includes/tumblr-theme-language/lang.php:338
+#: includes/tumblr-theme-language/lang.php:349
+#: includes/tumblr-theme-language/lang.php:352
 msgid "Reblogged %1$s from %2$s"
 msgstr ""
 
 #. translators: %1$s is the reblog root name.
-#: includes/tumblr-theme-language/lang.php:351
-#: includes/tumblr-theme-language/lang.php:354
+#: includes/tumblr-theme-language/lang.php:356
+#: includes/tumblr-theme-language/lang.php:359
 msgid "Originally from %1$s"
 msgstr ""
 
 #. translators: %1$s is the post type noun and %2$s is the number of notes.
-#: includes/tumblr-theme-language/lang.php:359
+#: includes/tumblr-theme-language/lang.php:364
 msgid "%1$s with %2$s note"
 msgstr ""
 
 #. translators: %1$s is the post type noun and %2$s is the number of notes.
-#: includes/tumblr-theme-language/lang.php:361
+#: includes/tumblr-theme-language/lang.php:366
 msgid "%1$s with %2$s notes"
 msgstr ""
 
 #. translators: %1$s is the post type noun, %2$s is the reblog parent name.
 #. translators: %1$s is the post type noun, %2$s is the reblog root name.
-#: includes/tumblr-theme-language/lang.php:365
-#: includes/tumblr-theme-language/lang.php:368
-#: includes/tumblr-theme-language/lang.php:389
-#: includes/tumblr-theme-language/lang.php:392
+#: includes/tumblr-theme-language/lang.php:370
+#: includes/tumblr-theme-language/lang.php:373
+#: includes/tumblr-theme-language/lang.php:394
+#: includes/tumblr-theme-language/lang.php:397
 msgid "%1$s reblogged from %2$s"
 msgstr ""
 
 #. translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 #. translators: %1$s is the post type noun, %2$s is the reblog root name, and %3$s is the number of notes.
 #. translators: %1$s is the post type noun, %2$s is the reblog root title, and %3$s is the number of notes.
-#: includes/tumblr-theme-language/lang.php:373
-#: includes/tumblr-theme-language/lang.php:381
-#: includes/tumblr-theme-language/lang.php:397
-#: includes/tumblr-theme-language/lang.php:404
+#: includes/tumblr-theme-language/lang.php:378
+#: includes/tumblr-theme-language/lang.php:386
+#: includes/tumblr-theme-language/lang.php:402
+#: includes/tumblr-theme-language/lang.php:409
 msgid "%1$s reblogged from %2$s with %3$s note"
 msgstr ""
 
 #. translators: %1$s is the post type noun, %2$s is the reblog parent title, and %3$s is the number of notes.
 #. translators: %1$s is the post type noun, %2$s is the reblog root title, and %3$s is the number of notes.
-#: includes/tumblr-theme-language/lang.php:376
-#: includes/tumblr-theme-language/lang.php:384
-#: includes/tumblr-theme-language/lang.php:399
-#: includes/tumblr-theme-language/lang.php:406
+#: includes/tumblr-theme-language/lang.php:381
+#: includes/tumblr-theme-language/lang.php:389
+#: includes/tumblr-theme-language/lang.php:404
+#: includes/tumblr-theme-language/lang.php:411
 msgid "%1$s reblogged from %2$s with %3$s notes"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:416
+#: includes/tumblr-theme-language/lang.php:421
 msgid "Open in app"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:417
+#: includes/tumblr-theme-language/lang.php:422
 msgid "Facebook"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:418
+#: includes/tumblr-theme-language/lang.php:423
 msgid "Tweet"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:419
+#: includes/tumblr-theme-language/lang.php:424
 msgid "Pinterest"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:420
+#: includes/tumblr-theme-language/lang.php:425
 msgid "Reddit"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:421
+#: includes/tumblr-theme-language/lang.php:426
 msgid "Mail"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:422
+#: includes/tumblr-theme-language/lang.php:427
 msgid "Embed"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:426
+#: includes/tumblr-theme-language/lang.php:431
 msgid "This post has %d note"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:428
+#: includes/tumblr-theme-language/lang.php:433
 msgid "This post has %d notes"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:432
+#: includes/tumblr-theme-language/lang.php:437
 msgid "This post has %d note from other Tumblr users"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:434
+#: includes/tumblr-theme-language/lang.php:439
 msgid "This post has %d notes from other Tumblr users"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:439
+#: includes/tumblr-theme-language/lang.php:444
 msgid "It has %d note"
 msgstr ""
 
 #. translators: %1$d is the number of notes.
-#: includes/tumblr-theme-language/lang.php:441
+#: includes/tumblr-theme-language/lang.php:446
 msgid "It has %d notes"
 msgstr ""
 
 #. translators: %1$s is the URL of the post.
-#: includes/tumblr-theme-language/lang.php:445
+#: includes/tumblr-theme-language/lang.php:450
 msgid "It has %2$s note and <a href=\"%1$s#disqus_thread\" class=\"comments_link\">0 comments</a>"
 msgstr ""
 
 #. translators: %1$s is the URL of the post.
-#: includes/tumblr-theme-language/lang.php:447
+#: includes/tumblr-theme-language/lang.php:452
 msgid "It has %2$s notes and <a href=\"%1$s#disqus_thread\" class=\"comments_link\">0 comments</a>"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:450
+#: includes/tumblr-theme-language/lang.php:455
 msgctxt "%1$s answered"
 msgid "$tumblelog answered"
 msgstr ""
 
 #. translators: %1$s is the asker name.
-#: includes/tumblr-theme-language/lang.php:453
+#: includes/tumblr-theme-language/lang.php:458
 msgid "%1$s asked"
 msgstr ""
 
 #. translators: %1$s is the asker name.
-#: includes/tumblr-theme-language/lang.php:457
+#: includes/tumblr-theme-language/lang.php:462
 msgid "Asked by %1$s"
 msgstr ""
 
 #. translators: %1$s is the tag name.
-#: includes/tumblr-theme-language/lang.php:461
+#: includes/tumblr-theme-language/lang.php:466
 msgid "Posts tagged %1$s"
 msgstr ""
 
 #. translators: %1$s is the tag name.
-#: includes/tumblr-theme-language/lang.php:466
+#: includes/tumblr-theme-language/lang.php:471
 msgid "Showing posts tagged %1$s"
 msgstr ""
 
 #. translators: %1$s is the number of posts and %2$s is the tag.
-#: includes/tumblr-theme-language/lang.php:472
+#: includes/tumblr-theme-language/lang.php:477
 msgid "%1$s post tagged %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of posts and %2$s is the tag.
-#: includes/tumblr-theme-language/lang.php:474
+#: includes/tumblr-theme-language/lang.php:479
 msgid "%1$s posts tagged %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of posts and %2$s is the tag.
-#: includes/tumblr-theme-language/lang.php:481
+#: includes/tumblr-theme-language/lang.php:486
 msgid "Showing %1$s post tagged %2$s"
 msgstr ""
 
 #. translators: %1$s is the number of posts and %2$s is the tag.
-#: includes/tumblr-theme-language/lang.php:483
+#: includes/tumblr-theme-language/lang.php:488
 msgid "Showing %1$s posts tagged %2$s"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:488
+#: includes/tumblr-theme-language/lang.php:493
 msgid "Install this theme"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:493
+#: includes/tumblr-theme-language/lang.php:498
 msgid "See, that’s what the app is perfect for."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:494
+#: includes/tumblr-theme-language/lang.php:499
 msgid "Sounds perfect"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:495
+#: includes/tumblr-theme-language/lang.php:500
 msgid "Wahhhh, I don’t wanna"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:496
+#: includes/tumblr-theme-language/lang.php:501
 msgctxt "1.5M ratings"
 msgid "Number of ratings for Tumblr in Google Play Store"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:497
+#: includes/tumblr-theme-language/lang.php:502
 msgctxt "277k ratings"
 msgid "Number of ratings for Tumblr in iTunes"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:499
+#: includes/tumblr-theme-language/lang.php:504
 msgid "You scrolled this far."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:500
+#: includes/tumblr-theme-language/lang.php:505
 msgid "Check out the Tumblr app."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:501
+#: includes/tumblr-theme-language/lang.php:506
 msgid "Get the app"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:503
+#: includes/tumblr-theme-language/lang.php:508
 msgid "Related Posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:504
-#: includes/tumblr-theme-language/lang.php:510
+#: includes/tumblr-theme-language/lang.php:509
+#: includes/tumblr-theme-language/lang.php:515
 msgid "See this in the app"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:505
+#: includes/tumblr-theme-language/lang.php:510
 msgid "See more posts"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:506
+#: includes/tumblr-theme-language/lang.php:511
 msgid "Show more"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:507
+#: includes/tumblr-theme-language/lang.php:512
 msgid "More you might like"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:508
+#: includes/tumblr-theme-language/lang.php:513
 msgid "See more posts like this on Tumblr"
 msgstr ""
 
 #. translators: %1$s is the Tumblr name.
-#: includes/tumblr-theme-language/lang.php:512
+#: includes/tumblr-theme-language/lang.php:517
 msgid "See %1$s in the app"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:513
+#: includes/tumblr-theme-language/lang.php:518
 msgid "See the rest of this Tumblr"
 msgstr ""
 
 #. translators: %1$s is the Tumblr name.
-#: includes/tumblr-theme-language/lang.php:515
+#: includes/tumblr-theme-language/lang.php:520
 msgid "See %1$s's whole Tumblr"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:516
+#: includes/tumblr-theme-language/lang.php:521
 msgid "You scrolled this far. Check out the rest."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:517
+#: includes/tumblr-theme-language/lang.php:522
 msgid "Follow this Tumblr"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:519
+#: includes/tumblr-theme-language/lang.php:524
 msgid "This Tumblr hasn't liked any posts yet."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:520
+#: includes/tumblr-theme-language/lang.php:525
 msgid "This Tumblr doesn't like anything…yet."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:521
+#: includes/tumblr-theme-language/lang.php:526
 msgid "No likes! Sheesh!"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:522
+#: includes/tumblr-theme-language/lang.php:527
 msgid "Amazing! This Tumblr doesn't like anything."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:523
+#: includes/tumblr-theme-language/lang.php:528
 msgid "Incredible! This Tumblr doesn't like anything."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:524
+#: includes/tumblr-theme-language/lang.php:529
 msgid "Neat! This Tumblr doesn't like anything."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:525
+#: includes/tumblr-theme-language/lang.php:530
 msgid "Ta-da! No likes!"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:526
+#: includes/tumblr-theme-language/lang.php:531
 msgid "*Plink* (The sound of no likes.)"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:527
+#: includes/tumblr-theme-language/lang.php:532
 msgid "Apparently this Tumblr is hard to please."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:528
+#: includes/tumblr-theme-language/lang.php:533
 msgid "Wow! This Tumblr hasn't liked anything ever."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:529
+#: includes/tumblr-theme-language/lang.php:534
 msgid "This Tumblr hasn't liked anything yet. How very intriguing."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:530
+#: includes/tumblr-theme-language/lang.php:535
 msgid "This Tumblr has never met a post it didn't not like."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:531
+#: includes/tumblr-theme-language/lang.php:536
 msgid "No likes here. Just a howling wind."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:532
+#: includes/tumblr-theme-language/lang.php:537
 msgid "Swoosh! No likes!"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:534
+#: includes/tumblr-theme-language/lang.php:539
 msgid "This Tumblr hasn't followed any other Tumblrs."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:535
+#: includes/tumblr-theme-language/lang.php:540
 msgid "Aw. This Tumblr isn't following anyone."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:536
+#: includes/tumblr-theme-language/lang.php:541
 msgid "Nope, this Tumblr doesn't follow anyone."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:537
+#: includes/tumblr-theme-language/lang.php:542
 msgid "This cool Tumblr doesn't follow anyone."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:538
+#: includes/tumblr-theme-language/lang.php:543
 msgid "This far-out Tumblr doesn't follow anyone."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:539
+#: includes/tumblr-theme-language/lang.php:544
 msgid "This fiercely independent Tumblr doesn't follow anyone."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:540
+#: includes/tumblr-theme-language/lang.php:545
 msgid "This Tumblr doesn't follow anything except for its own rules."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:541
+#: includes/tumblr-theme-language/lang.php:546
 msgid "This Tumblr doesn't really \\\"follow\\\" anything."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:543
+#: includes/tumblr-theme-language/lang.php:548
 msgid "Follow"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:546
+#: includes/tumblr-theme-language/lang.php:551
 msgid "Sponsored"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:547
+#: includes/tumblr-theme-language/lang.php:552
 msgid "Ads like this keep Tumblr free."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:548
+#: includes/tumblr-theme-language/lang.php:553
 msgid "Learn more"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:549
+#: includes/tumblr-theme-language/lang.php:554
 msgid "Tired of seeing ads here?"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:550
+#: includes/tumblr-theme-language/lang.php:555
 msgctxt "Join Tumblr"
 msgid "Join Tumblr and wave them goodbye"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:551
+#: includes/tumblr-theme-language/lang.php:556
 msgctxt "and wave them goodbye."
 msgid "Join Tumblr and wave them goodbye"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:554
+#: includes/tumblr-theme-language/lang.php:559
 msgid "Top Photos"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:555
+#: includes/tumblr-theme-language/lang.php:560
 msgid "Recently Liked"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:556
+#: includes/tumblr-theme-language/lang.php:561
 msgid "Back to top"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:559
+#: includes/tumblr-theme-language/lang.php:564
 msgctxt "Label for a pinned post"
 msgid "Pinned Post"
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:566
+#: includes/tumblr-theme-language/lang.php:571
 msgid "This Tumblr hasn't made any posts."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:567
+#: includes/tumblr-theme-language/lang.php:572
 msgid "This silly Tumblr hasn't posted anything yet."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:568
+#: includes/tumblr-theme-language/lang.php:573
 msgid "This Tumblr is cool, but empty."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:569
+#: includes/tumblr-theme-language/lang.php:574
 msgid "This Tumblr is content-free."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:570
+#: includes/tumblr-theme-language/lang.php:575
 msgid "This minimalist Tumblr has no posts."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:571
+#: includes/tumblr-theme-language/lang.php:576
 msgid "Meditate for a while on this empty Tumblr."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:572
+#: includes/tumblr-theme-language/lang.php:577
 msgid "Posts? Nah."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:573
+#: includes/tumblr-theme-language/lang.php:578
 msgid "This Tumblr has hardly any posts. None at all, in fact."
 msgstr ""
 
-#: includes/tumblr-theme-language/lang.php:574
+#: includes/tumblr-theme-language/lang.php:579
 msgid "This Tumblr hasn't posted anything."
 msgstr ""
 
-#: src/Customizer.php:46
+#: src/BlockExtensions.php:83
+msgid "Poster image"
+msgstr ""
+
+#: src/Customizer.php:76
 msgid "Tumblr Theme HTML"
 msgstr ""
 
-#: src/Customizer.php:69
-msgid "HTML"
+#: src/Customizer.php:80
+msgid "Want to create a custom look for your blog? Read:"
 msgstr ""
 
-#: src/Customizer.php:90
-msgid "Use Tumblr Theme?"
+#: src/Customizer.php:81
+msgid "Tumblr Theme Documentation"
 msgstr ""
 
-#: src/Customizer.php:156
+#: src/Customizer.php:181
 msgid "Accent Color"
 msgstr ""
 
-#: src/Customizer.php:175
+#: src/Customizer.php:200
 msgid "Title Font"
 msgstr ""
 
-#: src/Customizer.php:194
+#: src/Customizer.php:219
 msgid "Title Font Weight"
 msgstr ""
 
-#: src/Customizer.php:217
+#: src/Customizer.php:242
 msgid "Avatar Shape"
 msgstr ""
 
-#: src/Customizer.php:240
+#: src/Customizer.php:265
+msgid "Show Header Image"
+msgstr ""
+
+#: src/Customizer.php:284
 msgid "Stretch Header Image"
 msgstr ""
 
-#: src/Customizer.php:259
+#: src/Customizer.php:303
 msgid "Show Avatar"
 msgstr ""
 
-#: src/Customizer.php:278
+#: src/Customizer.php:322
 msgid "Open Links in New Tab"
 msgstr ""
 
-#: src/Customizer.php:297
+#: src/Customizer.php:341
 msgid "Twitter Username"
 msgstr ""
 
-#: src/Customizer.php:319
-msgid "Theme Select Options"
+#: src/Customizer.php:363
+msgid "Tumblr Theme Select Options"
 msgstr ""
 
-#: src/Customizer.php:328
-msgid "Theme Text Options"
+#: src/Customizer.php:372
+msgid "Tumblr Theme Text Options"
 msgstr ""
 
-#: src/Customizer.php:337
-msgid "Theme Font Options"
+#: src/Customizer.php:381
+msgid "Tumblr Theme Font Options"
 msgstr ""
 
-#: src/Customizer.php:346
-msgid "Theme Boolean Options"
+#: src/Customizer.php:390
+msgid "Tumblr Theme Checkbox Options"
 msgstr ""
 
-#: src/Customizer.php:355
-msgid "Theme Image Options"
+#: src/Customizer.php:399
+msgid "Tumblr Theme Image Options"
 msgstr ""
 
-#: src/ThemeGarden.php:78
+#: src/ThemeGarden.php:127
 msgid "Browse Tumblr themes"
 msgstr ""
 
-#: src/ThemeGarden.php:185
-#: src/ThemeGarden.php:186
-#: src/ThemeGarden.php:232
+#: src/ThemeGarden.php:338
+#: src/ThemeGarden.php:339
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/theme-garden.js:117
 msgid "Tumblr Themes"
 msgstr ""
 
-#: src/ThemeGarden.php:288
-msgctxt "The message displayed when no themes were found."
-msgid "Sadly, nothing"
-msgstr ""
-
-#: src/ThemeGarden.php:289
-msgctxt "The message displayed when no themes were found."
-msgid "Tragically, nothing."
-msgstr ""
-
-#: src/ThemeGarden.php:290
-msgctxt "The message displayed when no themes were found."
-msgid "We found nothing. Here it isn’t."
-msgstr ""
-
-#: src/ThemeGarden.php:291
-msgctxt "The message displayed when no themes were found."
-msgid "Couldn’t find that. Please, don’t be upset. Please."
-msgstr ""
-
-#: src/ThemeGarden.php:292
-msgctxt "The message displayed when no themes were found."
-msgid "Sincerely, we found nothing."
-msgstr ""
-
-#: src/ThemeGarden.php:293
-msgctxt "The message displayed when no themes were found."
-msgid "Nothing to see here."
-msgstr ""
-
-#: src/ThemeGarden.php:294
-msgctxt "The message displayed when no themes were found."
-msgid "If you were looking for nothing, congrats, you found it."
-msgstr ""
-
-#: theme/ttgarden/comments.php:36
+#: theme/tumblr-theme-garden/comments.php:39
 msgid "&larr; Older Comments"
 msgstr ""
 
-#: theme/ttgarden/comments.php:37
+#: theme/tumblr-theme-garden/comments.php:40
 msgid "Newer Comments &rarr;"
 msgstr ""
 
-#: theme/ttgarden/comments.php:42
+#: theme/tumblr-theme-garden/comments.php:45
 msgid "Comments are closed."
 msgstr ""
 
-#: tumblr-theme-garden.php:64
+#: theme/tumblr-theme-garden/functions.php:72
+msgid "Sidebar"
+msgstr ""
+
+#. Translators: 1 is the author name.
+#: theme/tumblr-theme-garden/functions.php:184
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: theme/tumblr-theme-garden/functions.php:192
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: tumblr-theme-garden.php:67
 msgid "It seems like <strong>Tumblr Theme Garden</strong> failed to autoload. Run composer i."
 msgstr ""
 
 #: assets/js/build/editor.js:1
-#: assets/js/src/editor.js:200
+#: assets/js/src/components/post-formats.js:195
 msgid "Post Formats"
 msgstr ""
 
 #. translators: %s: post format
 #: assets/js/build/editor.js:2
-#: assets/js/src/editor.js:228
+#: assets/js/src/components/post-formats.js:221
 msgid "Apply suggested format: %s"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-filterbar.js:73
+msgctxt "label for a dropdown list of theme categories"
+msgid "Categories"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-filterbar.js:77
+msgctxt "The name of a category in a list of categories."
+msgid "Featured"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-filterbar.js:93
+msgctxt "label for a text input"
+msgid "Search Themes"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:10
+msgctxt "The message displayed when no themes were found."
+msgid "Sadly, nothing."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:11
+msgctxt "The message displayed when no themes were found."
+msgid "Tragically, nothing."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:12
+msgctxt "The message displayed when no themes were found."
+msgid "We found nothing. Here it isn’t."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:17
+msgctxt "The message displayed when no themes were found."
+msgid "Couldn’t find that. Please, don’t be upset. Please."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:22
+msgctxt "The message displayed when no themes were found."
+msgid "Sincerely, we found nothing."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:27
+msgctxt "The message displayed when no themes were found."
+msgid "Nothing to see here."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-no-themes.js:28
+msgctxt "The message displayed when no themes were found."
+msgid "If you were looking for nothing, congrats, you found it."
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-list.js:66
+msgctxt "Text on a button that will show more information about a Tumblr theme"
+msgid "Theme details"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-overlay.js:90
+msgctxt "label for a button that will navigate to previous theme"
+msgid "Show previous theme"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-overlay.js:105
+msgctxt "label for a button that will navigate to next theme"
+msgid "Show next theme"
+msgstr ""
+
+#: assets/js/build/theme-garden.js:1
+#: assets/js/src/components/theme-garden-overlay.js:114
+msgctxt "label for a button that will close an overlay"
+msgid "Close theme details overlay"
 msgstr ""
