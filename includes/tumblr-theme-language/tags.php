@@ -1,9 +1,10 @@
 <?php
 /**
- * Tumblr3 theme tags.
+ * TumblrThemeGarden theme tags.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
+
 defined( 'ABSPATH' ) || exit;
 
 return array(

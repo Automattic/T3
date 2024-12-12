@@ -7,20 +7,20 @@ $buttonWidth: 70px;
 	font-size: 1em;
 	text-decoration: none;
 	border-radius: 4px;
-	color: var(--t3-button-text);
-	border: 1px solid var(--t3-primary);
-	background: var(--t3-primary);
+	color: var(--tumblr-theme-garden-button-text);
+	border: 1px solid var(--tumblr-theme-garden-primary);
+	background: var(--tumblr-theme-garden-primary);
 }
 
 @mixin rainbow-button-hover {
 	background: repeating-linear-gradient(
 			90deg,
-			var(--t3-red) 0%,
-			var(--t3-orange),
-			var(--t3-yellow),
-			var(--t3-green),
-			var(--t3-violet),
-			var(--t3-red) 50%
+			var(--tumblr-theme-garden-red) 0%,
+			var(--tumblr-theme-garden-orange),
+			var(--tumblr-theme-garden-yellow),
+			var(--tumblr-theme-garden-green),
+			var(--tumblr-theme-garden-violet),
+			var(--tumblr-theme-garden-red) 50%
 	);
 	background-size: 90px 100%;
 	animation: play 1.5s linear infinite;
@@ -28,63 +28,63 @@ $buttonWidth: 70px;
 }
 
 body {
-	--t3-primary: #49a2c4;
-	--t3-secondary: #8eb2c0;
-	--t3-background: #f1f1f1;
-	--t3-text: #49a2c4;
-	--t3-button-text: #fff;
-	--t3-red: #f8c7c3;
-	--t3-orange: #f8d8bf;
-	--t3-yellow: #f0e794;
-	--t3-green: #b9ebc8;
-	--t3-violet: #d4caf7;
+	--tumblr-theme-garden-primary: #49a2c4;
+	--tumblr-theme-garden-secondary: #8eb2c0;
+	--tumblr-theme-garden-background: #f1f1f1;
+	--tumblr-theme-garden-text: #49a2c4;
+	--tumblr-theme-garden-button-text: #fff;
+	--tumblr-theme-garden-red: #f8c7c3;
+	--tumblr-theme-garden-orange: #f8d8bf;
+	--tumblr-theme-garden-yellow: #f0e794;
+	--tumblr-theme-garden-green: #b9ebc8;
+	--tumblr-theme-garden-violet: #d4caf7;
 }
 
 body.admin-color-light {
-	--t3-primary: #04a4cc;
-	--t3-secondary: #e5e5e5;
-	--t3-text: #999;
+	--tumblr-theme-garden-primary: #04a4cc;
+	--tumblr-theme-garden-secondary: #e5e5e5;
+	--tumblr-theme-garden-text: #999;
 }
 
 body.admin-color-modern {
-	--t3-primary: #3858e9;
-	--t3-text: #1e1e1e;
+	--tumblr-theme-garden-primary: #3858e9;
+	--tumblr-theme-garden-text: #1e1e1e;
 }
 
 body.admin-color-blue {
-	--t3-primary: #4796b3;
-	--t3-secondary: #74b6ce;
-	--t3-text: #096484;
+	--tumblr-theme-garden-primary: #4796b3;
+	--tumblr-theme-garden-secondary: #74b6ce;
+	--tumblr-theme-garden-text: #096484;
 }
 
 body.admin-color-coffee {
-	--t3-primary: #c7a589;
-	--t3-secondary: #9ea476;
-	--t3-text: #46403c;
+	--tumblr-theme-garden-primary: #c7a589;
+	--tumblr-theme-garden-secondary: #9ea476;
+	--tumblr-theme-garden-text: #46403c;
 }
 
 body.admin-color-ectoplasm {
-	--t3-primary: #a3b745;
-	--t3-secondary: #a3b745;
-	--t3-text: #523f6d;
+	--tumblr-theme-garden-primary: #a3b745;
+	--tumblr-theme-garden-secondary: #a3b745;
+	--tumblr-theme-garden-text: #523f6d;
 }
 
 body.admin-color-midnight {
-	--t3-primary: #e14d43;
-	--t3-secondary: #363b3f;
-	--t3-text: #25282b;
+	--tumblr-theme-garden-primary: #e14d43;
+	--tumblr-theme-garden-secondary: #363b3f;
+	--tumblr-theme-garden-text: #25282b;
 }
 
 body.admin-color-ocean {
-	--t3-primary: #9ebaa0;
-	--t3-secondary: #738e96;
-	--t3-text: #627c83;
+	--tumblr-theme-garden-primary: #9ebaa0;
+	--tumblr-theme-garden-secondary: #738e96;
+	--tumblr-theme-garden-text: #627c83;
 }
 
 body.admin-color-sunrise {
-	--t3-primary: #dd823b;
-	--t3-secondary: #e5e5e5;
-	--t3-text: #000;
+	--tumblr-theme-garden-primary: #dd823b;
+	--tumblr-theme-garden-secondary: #e5e5e5;
+	--tumblr-theme-garden-text: #000;
 }
 
 .tumblr-themes {
@@ -97,25 +97,25 @@ body.admin-color-sunrise {
 
 .tumblr-theme {
 	width: 100%;
-	color: var(--t3-text);
+	color: var(--tumblr-theme-garden-text);
 	margin-bottom: 40px;
 	font-family: monospace;
-	filter: drop-shadow(-8px 8px 0 var(--t3-red));
+	filter: drop-shadow(-8px 8px 0 var(--tumblr-theme-garden-red));
 
 	&:nth-child(5n + 2) {
-		filter: drop-shadow(-8px 8px 0 var(--t3-orange));
+		filter: drop-shadow(-8px 8px 0 var(--tumblr-theme-garden-orange));
 	}
 
 	&:nth-child(5n + 3) {
-		filter: drop-shadow(-8px 8px 0 var(--t3-yellow));
+		filter: drop-shadow(-8px 8px 0 var(--tumblr-theme-garden-yellow));
 	}
 
 	&:nth-child(5n + 4) {
-		filter: drop-shadow(-8px 8px 0 var(--t3-green));
+		filter: drop-shadow(-8px 8px 0 var(--tumblr-theme-garden-green));
 	}
 
 	&:nth-child(5n + 5) {
-		filter: drop-shadow(-8px 8px 0 var(--t3-violet));
+		filter: drop-shadow(-8px 8px 0 var(--tumblr-theme-garden-violet));
 	}
 }
 
@@ -164,25 +164,25 @@ body.admin-color-sunrise {
 }
 
 .tumblr-theme-content {
-	background-color: var(--t3-background);
+	background-color: var(--tumblr-theme-garden-background);
 	padding: 10px;
 	box-shadow:
-		-2px -2px 0 0 var(--t3-background),
-		0 -2px 0 0 var(--t3-background),
-		-2px 0 0 0 var(--t3-background),
-		0 2px 0 0 var(--t3-background),
-		2px 0 0 0 var(--t3-background),
-		0 0 0 2px var(--t3-text),
-		-4px -4px 0 0 var(--t3-text),
-		0 -4px 0 0 var(--t3-text),
-		-4px 0 0 0 var(--t3-text),
-		0 4px 0 0 var(--t3-text),
-		4px 0 0 0 var(--t3-text);
+		-2px -2px 0 0 var(--tumblr-theme-garden-background),
+		0 -2px 0 0 var(--tumblr-theme-garden-background),
+		-2px 0 0 0 var(--tumblr-theme-garden-background),
+		0 2px 0 0 var(--tumblr-theme-garden-background),
+		2px 0 0 0 var(--tumblr-theme-garden-background),
+		0 0 0 2px var(--tumblr-theme-garden-text),
+		-4px -4px 0 0 var(--tumblr-theme-garden-text),
+		0 -4px 0 0 var(--tumblr-theme-garden-text),
+		-4px 0 0 0 var(--tumblr-theme-garden-text),
+		0 4px 0 0 var(--tumblr-theme-garden-text),
+		4px 0 0 0 var(--tumblr-theme-garden-text);
 }
 
 .tumblr-theme-details {
 	width: calc(100% - 4px);
-	border: 2px solid var(--t3-secondary);
+	border: 2px solid var(--tumblr-theme-garden-secondary);
 	border-radius: 4px;
 	display: block;
 	position: relative;
@@ -219,7 +219,7 @@ body.admin-color-sunrise {
 			background: radial-gradient(
 					closest-side,
 					#0000 calc(100% - 1px),
-					var(--t3-background)
+					var(--tumblr-theme-garden-background)
 			) 0/ 3px 3px space;
 		}
 
@@ -236,7 +236,7 @@ body.admin-color-sunrise {
 .tumblr-theme-title {
 	display: block;
 	position: relative;
-	background-color: var(--t3-background);
+	background-color: var(--tumblr-theme-garden-background);
 	padding: 3px 12px 0 10px;
 	height: 18px;
 	line-height: 18px;
@@ -244,32 +244,32 @@ body.admin-color-sunrise {
 	font-size: 1em;
 	font-weight: 700;
 	box-shadow:
-		-2px 4px 0 var(--t3-background),
-		0 -2px 0 var(--t3-background),
-		-2px 0 0 var(--t3-background),
-		2px 0 0 var(--t3-background),
-		4px 2px 0 var(--t3-background),
-		6px 4px 0 var(--t3-background),
-		8px 6px 0 var(--t3-background),
-		10px 8px 0 var(--t3-background),
-		12px 10px 0 var(--t3-background),
-		14px 12px 0 var(--t3-background),
-		16px 14px 0 var(--t3-background),
-		18px 16px 0 var(--t3-background),
-		20px 18px 0 var(--t3-background),
-		-4px 0 0 var(--t3-text),
-		0 -4px 0 var(--t3-text),
-		-2px -2px 0 var(--t3-text),
-		2px -2px 0 var(--t3-text),
-		4px 0 0 var(--t3-text),
-		6px 2px 0 var(--t3-text),
-		8px 4px 0 var(--t3-text),
-		10px 6px 0 var(--t3-text),
-		12px 8px 0 var(--t3-text),
-		14px 10px 0 var(--t3-text),
-		16px 12px 0 var(--t3-text),
-		18px 14px 0 var(--t3-text),
-		20px 16px 0 var(--t3-text);
+		-2px 4px 0 var(--tumblr-theme-garden-background),
+		0 -2px 0 var(--tumblr-theme-garden-background),
+		-2px 0 0 var(--tumblr-theme-garden-background),
+		2px 0 0 var(--tumblr-theme-garden-background),
+		4px 2px 0 var(--tumblr-theme-garden-background),
+		6px 4px 0 var(--tumblr-theme-garden-background),
+		8px 6px 0 var(--tumblr-theme-garden-background),
+		10px 8px 0 var(--tumblr-theme-garden-background),
+		12px 10px 0 var(--tumblr-theme-garden-background),
+		14px 12px 0 var(--tumblr-theme-garden-background),
+		16px 14px 0 var(--tumblr-theme-garden-background),
+		18px 16px 0 var(--tumblr-theme-garden-background),
+		20px 18px 0 var(--tumblr-theme-garden-background),
+		-4px 0 0 var(--tumblr-theme-garden-text),
+		0 -4px 0 var(--tumblr-theme-garden-text),
+		-2px -2px 0 var(--tumblr-theme-garden-text),
+		2px -2px 0 var(--tumblr-theme-garden-text),
+		4px 0 0 var(--tumblr-theme-garden-text),
+		6px 2px 0 var(--tumblr-theme-garden-text),
+		8px 4px 0 var(--tumblr-theme-garden-text),
+		10px 6px 0 var(--tumblr-theme-garden-text),
+		12px 8px 0 var(--tumblr-theme-garden-text),
+		14px 10px 0 var(--tumblr-theme-garden-text),
+		16px 12px 0 var(--tumblr-theme-garden-text),
+		18px 14px 0 var(--tumblr-theme-garden-text),
+		20px 16px 0 var(--tumblr-theme-garden-text);
 }
 
 .tumblr-theme-footer {
@@ -288,11 +288,11 @@ body.admin-color-sunrise {
 	}
 }
 
-#t3-categories {
+#tumblr-theme-garden-categories {
 	margin: 10px;
 }
 
-#t3-category-select-form {
+#tumblr-theme-garden-category-select-form {
 	display: inline;
 }
 
@@ -327,12 +327,12 @@ body.admin-color-sunrise {
 	mask-image: url(../../images/tumblr-logo.png) ;
 	background: repeating-linear-gradient(
 			90deg,
-			var(--t3-red) 0%,
-			var(--t3-orange),
-			var(--t3-yellow),
-			var(--t3-green),
-			var(--t3-violet),
-			var(--t3-red) 50%
+			var(--tumblr-theme-garden-red) 0%,
+			var(--tumblr-theme-garden-orange),
+			var(--tumblr-theme-garden-yellow),
+			var(--tumblr-theme-garden-green),
+			var(--tumblr-theme-garden-violet),
+			var(--tumblr-theme-garden-red) 50%
 	);
 }
 

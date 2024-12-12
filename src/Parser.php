@@ -2,10 +2,10 @@
 /**
  * The Tumblr theme parser.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,20 +20,20 @@ class Parser {
 	 * @var array
 	 */
 	public array $supported_keywords = array(
-		'currentpage'          => 'tumblr3_tag_currentpage',
-		'totalpages'           => 'tumblr3_tag_totalpages',
-		'searchresultcount'    => 'tumblr3_tag_searchresultcount',
-		'searchquery'          => 'tumblr3_tag_searchquery',
-		'timeago'              => 'tumblr3_tag_timeago',
-		'dayofweek'            => 'tumblr3_tag_dayofweek',
-		'dayofmonth'           => 'tumblr3_tag_dayofmonth',
-		'dayofmonthwithsuffix' => 'tumblr3_tag_dayofmonthwithsuffix',
-		'month'                => 'tumblr3_tag_month',
-		'year'                 => 'tumblr3_tag_year',
-		'formattedtime'        => 'tumblr3_tag_formattedtime',
-		'notecount'            => 'tumblr3_tag_notecount',
-		'postauthorname'       => 'tumblr3_tag_postauthorname',
-		'posttypenoun'         => 'tumblr3_tag_posttypenoun',
+		'currentpage'          => 'ttgarden_tag_currentpage',
+		'totalpages'           => 'ttgarden_tag_totalpages',
+		'searchresultcount'    => 'ttgarden_tag_searchresultcount',
+		'searchquery'          => 'ttgarden_tag_searchquery',
+		'timeago'              => 'ttgarden_tag_timeago',
+		'dayofweek'            => 'ttgarden_tag_dayofweek',
+		'dayofmonth'           => 'ttgarden_tag_dayofmonth',
+		'dayofmonthwithsuffix' => 'ttgarden_tag_dayofmonthwithsuffix',
+		'month'                => 'ttgarden_tag_month',
+		'year'                 => 'ttgarden_tag_year',
+		'formattedtime'        => 'ttgarden_tag_formattedtime',
+		'notecount'            => 'ttgarden_tag_notecount',
+		'postauthorname'       => 'ttgarden_tag_postauthorname',
+		'posttypenoun'         => 'ttgarden_tag_posttypenoun',
 		'tag'                  => '__return_empty_string',
 		'tagresultcount'       => '__return_empty_string',
 	);
@@ -79,7 +79,7 @@ class Parser {
 		add_filter( 'do_shortcode_tag', array( $this, 'modifiers' ), 10, 3 );
 
 		// Parse the Tumblr theme.
-		add_filter( 'tumblr3_theme_output', array( $this, 'parse_theme' ), 10 );
+		add_filter( 'ttgarden_theme_output', array( $this, 'parse_theme' ), 10 );
 	}
 
 	/**
@@ -145,10 +145,10 @@ class Parser {
 	 * @return string Parsed content.
 	 */
 	public function parse_theme( $content ): string {
-		$tags      = array_map( 'strtolower', TUMBLR3_TAGS );
-		$blocks    = array_map( 'strtolower', TUMBLR3_BLOCKS );
-		$options   = array_map( 'strtolower', TUMBLR3_OPTIONS );
-		$modifiers = array_map( 'strtolower', TUMBLR3_MODIFIERS );
+		$tags      = array_map( 'strtolower', TTGARDEN_TAGS );
+		$blocks    = array_map( 'strtolower', TTGARDEN_BLOCKS );
+		$options   = array_map( 'strtolower', TTGARDEN_OPTIONS );
+		$modifiers = array_map( 'strtolower', TTGARDEN_MODIFIERS );
 
 		/**
 		 * Before parsing, clean out comments that could contain tags and cause issues, e.g unbalanced blocks.
@@ -178,7 +178,7 @@ class Parser {
 				 *
 				 * @return string
 				 */
-				if ( array_key_exists( strtolower( $matches[1] ), TUMBLR3_LANG ) ) {
+				if ( array_key_exists( strtolower( $matches[1] ), TTGARDEN_LANG ) ) {
 					return $this->language_helper( strtolower( $matches[1] ) );
 				}
 
@@ -230,7 +230,7 @@ class Parser {
 				foreach ( $options as $option ) {
 					if ( str_starts_with( $raw_tag, $option ) ) {
 						// Normalize the option name.
-						$theme_mod = get_theme_mod( tumblr3_normalize_option_name( $raw_tag ) );
+						$theme_mod = get_theme_mod( ttgarden_normalize_option_name( $raw_tag ) );
 
 						// Apply the modifier if it exists.
 						if ( '' !== $applied_modifier && $theme_mod ) {
@@ -267,8 +267,8 @@ class Parser {
 		 * Second: Use the new regex to find and replace the unsupported tags and blocks with an empty string.
 		 * Third: Run the content through the shortcode parser to kick-off page creation.
 		 */
-		$pattern = get_shortcode_regex( array_merge( TUMBLR3_MISSING_BLOCKS, TUMBLR3_MISSING_TAGS ) );
-		$content = tumblr3_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
+		$pattern = get_shortcode_regex( array_merge( TTGARDEN_MISSING_BLOCKS, TTGARDEN_MISSING_TAGS ) );
+		$content = ttgarden_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
 		$content = preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
 
 		return $content;
@@ -289,7 +289,7 @@ class Parser {
 				error_log(
 					$block . ' is a duplicate block opener. Found at position ' . $this->position . PHP_EOL,
 					3,
-					TUMBLR3_PATH . 'parser.log'
+					TTGARDEN_PATH . 'parser.log'
 				);
 
 				$block = '/' . $block;
@@ -323,7 +323,7 @@ class Parser {
 		}
 
 		// If no keywords are found, return the shortcode with a set value.
-		return '[tag_lang value="' . TUMBLR3_LANG[ $key ] . '"]';
+		return '[tag_lang value="' . TTGARDEN_LANG[ $key ] . '"]';
 	}
 
 	/**
@@ -350,7 +350,7 @@ class Parser {
 		$shortcode = 'block_' . $condition . '_' . $normalized_attr;
 
 		// Register the new shortcode on the fly.
-		add_shortcode( $shortcode, 'tumblr3_block_' . $condition . '_theme_option' );
+		add_shortcode( $shortcode, 'ttgarden_block_' . $condition . '_theme_option' );
 
 		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
 	}

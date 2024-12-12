@@ -1,6 +1,6 @@
 {
-  "name": "t3",
-  "version": "1.0.0",
+  "name": "tumblr-theme-garden",
+  "version": "0.1.14",
   "description": "A WordPress plugin that lets you run Tumblr Themes.",
   "author": {
     "name": "Cupcake Labs",
@@ -10,9 +10,9 @@
   "keywords": [
     "wordpress"
   ],
-  "homepage": "https://github.com/Automattic/T3/",
-  "repository": "https://github.com/Automattic/T3/",
-  "bugs": "https://github.com/Automattic/T3/issues",
+  "homepage": "https://github.com/Automattic/tumblr-theme-garden/",
+  "repository": "https://github.com/Automattic/tumblr-theme-garden/",
+  "bugs": "https://github.com/Automattic/tumblr-theme-garden/issues",
   "engines": {
     "node": ">=20.0",
     "npm": ">=10.0"

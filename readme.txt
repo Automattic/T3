@@ -2,12 +2,12 @@
 Contributors: automattic, tommusrhodus, aaronjbaptiste, rtio, roccotripaldi
 Tags: tumblr, theme
 Requires at least: 6.5
-Tested up to: 6.5
+Tested up to: 6.7
 Stable tag: 0.1.14
 Requires PHP: 8.2
-License: GPLv3 or later
-Text Domain: tumblr3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later
+Text Domain: tumblr-theme-garden
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Browse all of the themes available on Tumblr and use them on your WordPress site.
 
@@ -19,7 +19,7 @@ Enables WordPress to use [Tumblr themes](https://www.tumblr.com/themes/). Browse
 
 - **Tumblr Theme Browser**: Find a Tumblr theme, search by name or filter by category.
 - **One click to Activate**: Activate the theme with a single click.
-- **Customize**: Change and personalize the theme as you would any other WordpPress theme.
+- **Customize**: Change and personalize the theme as you would any other WordPress theme.
 
 == Installation ==
 
@@ -36,7 +36,7 @@ Enables WordPress to use [Tumblr themes](https://www.tumblr.com/themes/). Browse
 
 == Source Code and Development ==
 
-The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/T3).
+The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/tumblr-theme-garden).
 
 This repository includes all of the necessary build tools and documentation on how to use them. We encourage developers to explore and contribute to the project!
 

@@ -114,7 +114,7 @@ const ThemeGarden = ( {
 		<div className="wrap">
 			<h1 className="wp-heading-inline" id="theme-garden-heading">
 				<img className="tumblr-logo-icon" src={ logoUrl } alt="" />
-				<span>{ __( 'Tumblr Themes', 'tumblr3' ) }</span>
+				<span>{ __( 'Tumblr Themes', 'tumblr-theme-garden' ) }</span>
 			</h1>
 			<ThemeGardenFilterBar
 				fetchThemesByCategory={ fetchThemesByCategory }
@@ -128,34 +128,34 @@ const ThemeGarden = ( {
 
 export const ConnectedThemeGarden = compose(
 	withSelect( select => ( {
-		logoUrl: select( 'tumblr3/theme-garden-store' ).getLogoUrl(),
-		selectedCategory: select( 'tumblr3/theme-garden-store' ).getSelectedCategory(),
-		search: select( 'tumblr3/theme-garden-store' ).getSearch(),
+		logoUrl: select( 'tumblr-theme-garden/theme-garden-store' ).getLogoUrl(),
+		selectedCategory: select( 'tumblr-theme-garden/theme-garden-store' ).getSelectedCategory(),
+		search: select( 'tumblr-theme-garden/theme-garden-store' ).getSearch(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		beforeFetchThemes: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchThemes();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).beforeFetchThemes();
 		},
 		fetchThemes: category => {
-			return dispatch( 'tumblr3/theme-garden-store' ).fetchThemes( category );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).fetchThemes( category );
 		},
 		searchThemes: query => {
-			return dispatch( 'tumblr3/theme-garden-store' ).searchThemes( query );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).searchThemes( query );
 		},
 		receiveThemes: ( themes, category, search ) => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveThemes( themes, category, search );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveThemes( themes, category, search );
 		},
 		beforeFetchTheme: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).beforeFetchTheme();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).beforeFetchTheme();
 		},
 		fetchTheme: id => {
-			return dispatch( 'tumblr3/theme-garden-store' ).fetchTheme( id );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).fetchTheme( id );
 		},
 		receiveTheme: ( theme, themeId ) => {
-			return dispatch( 'tumblr3/theme-garden-store' ).receiveTheme( theme, themeId );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveTheme( theme, themeId );
 		},
 		closeOverlay: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( ThemeGarden );

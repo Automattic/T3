@@ -90,7 +90,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Show previous theme',
 							'label for a button that will navigate to previous theme',
-							'tumblr3'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
@@ -105,7 +105,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Show next theme',
 							'label for a button that will navigate to next theme',
-							'tumblr3'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
@@ -114,7 +114,7 @@ const _ThemeGardenOverlay = ( {
 						{ _x(
 							'Close theme details overlay',
 							'label for a button that will close an overlay',
-							'tumblr3'
+							'tumblr-theme-garden'
 						) }
 					</span>
 				</button>
@@ -139,14 +139,14 @@ const _ThemeGardenOverlay = ( {
 
 export const ThemeGardenOverlay = compose(
 	withSelect( select => ( {
-		themes: select( 'tumblr3/theme-garden-store' ).getThemes(),
-		isOverlayOpen: select( 'tumblr3/theme-garden-store' ).getIsOverlayOpen(),
-		isFetchingTheme: select( 'tumblr3/theme-garden-store' ).getIsFetchingTheme(),
-		themeDetails: select( 'tumblr3/theme-garden-store' ).getThemeDetails(),
+		themes: select( 'tumblr-theme-garden/theme-garden-store' ).getThemes(),
+		isOverlayOpen: select( 'tumblr-theme-garden/theme-garden-store' ).getIsOverlayOpen(),
+		isFetchingTheme: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingTheme(),
+		themeDetails: select( 'tumblr-theme-garden/theme-garden-store' ).getThemeDetails(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
-			return dispatch( 'tumblr3/theme-garden-store' ).closeOverlay();
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).closeOverlay();
 		},
 	} ) )
 )( _ThemeGardenOverlay );

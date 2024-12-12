@@ -2,10 +2,10 @@
 /**
  * Plugin main class.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
-namespace CupcakeLabs\T3;
+namespace CupcakeLabs\TumblrThemeGarden;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,14 +18,14 @@ defined( 'ABSPATH' ) || exit;
 class Plugin {
 
 	/**
-	 * The Tumblr3 active status.
+	 * The TumblrThemeGarden active status.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     bool
 	 */
-	public bool $tumblr3_active = false;
+	public bool $ttgarden_active = false;
 
 	/**
 	 * The hooks component.
@@ -138,21 +138,21 @@ class Plugin {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		$this->tumblr3_active = 'tumblr3' === get_option( 'template' );
+		$this->ttgarden_active = 'tumblr-theme-garden' === get_option( 'template' );
 
 		// Setup all plugin hooks.
 		$this->hooks = new Hooks();
-		$this->hooks->initialize( $this->tumblr3_active );
+		$this->hooks->initialize( $this->ttgarden_active );
 
 		// Setup the customizer with default and custom theme options.
 		$this->customizer = new Customizer();
-		$this->customizer->initialize( $this->tumblr3_active );
+		$this->customizer->initialize( $this->ttgarden_active );
 
 		$this->theme_garden = new ThemeGarden();
 		$this->theme_garden->initialize();
 
 		$this->block_extensions = new BlockExtensions();
-		$this->block_extensions->initialize( $this->tumblr3_active );
+		$this->block_extensions->initialize( $this->ttgarden_active );
 
 		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {

@@ -1,8 +1,8 @@
 <?php
 /**
- * Tumblr3 theme blocks.
+ * TumblrThemeGarden theme blocks.
  *
- * @package Tumblr3
+ * @package TumblrThemeGarden
  */
 
 defined( 'ABSPATH' ) || exit;
