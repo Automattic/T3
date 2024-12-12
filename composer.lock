@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01d8b05890af8c6238ec558977144368",
+    "content-hash": "8d7cd2ef95cccc95204d7dc83d2a7765",
     "packages": [
         {
             "name": "cupcacke-labs/redvelvet-lib",
@@ -7876,6 +7876,6 @@
         "php": ">=8.2",
         "ext-json": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
