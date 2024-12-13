@@ -68,10 +68,12 @@ class Hooks {
 		if ( isset( $themes['tumblr-theme-garden'] ) ) {
 			$theme_details = get_option( 'ttgarden_external_theme' );
 
+			// Prepare the Tumblr theme screenshot.
 			if ( isset( $theme_details['thumbnail'] ) && ! empty( $theme_details['thumbnail'] ) ) {
 				$themes['tumblr-theme-garden']['screenshot'][0] = $theme_details['thumbnail'];
 			}
 
+			// Prepare the Tumblr theme author.
 			if ( isset( $theme_details['author_name'] ) && ! empty( $theme_details['author_name'] ) ) {
 				$themes['tumblr-theme-garden']['author'] = $theme_details['author_name'];
 
@@ -82,6 +84,7 @@ class Hooks {
 				}
 			}
 
+			// Prepare the Tumblr theme name.
 			if ( isset( $theme_details['title'] ) && ! empty( $theme_details['title'] ) ) {
 				$themes['tumblr-theme-garden']['name'] = $theme_details['title'];
 			}

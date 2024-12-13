@@ -46,7 +46,7 @@ class BlockExtensions {
 	 * @return string Modified block content.
 	 */
 	public function tumblr_audio_block_output( $block_content, $block ) {
-		if ( get_post_format() !== false && $block['blockName'] !== 'core/audio' ) {
+		if ( get_post_format() !== false && 'core/audio' !== $block['blockName'] ) {
 			return $block_content;
 		}
 
@@ -80,7 +80,7 @@ class BlockExtensions {
 			esc_html( $media_title ),
 			esc_html( $media_artist ),
 			esc_html( $media_album ),
-			$poster_url ? sprintf( '<img class="album-cover" src="%s" alt="image">', esc_url( $poster_url ) ) : '',
+			$poster_url ? sprintf( '<img class="album-cover" src="%s" alt="' . esc_attr__( 'Poster image', 'tumblr-theme-garden' ) . '">', esc_url( $poster_url ) ) : '',
 			esc_url( $media_url )
 		);
 

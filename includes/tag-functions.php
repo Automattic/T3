@@ -1926,3 +1926,13 @@ function ttgarden_tag_likebutton(): string {
 	);
 }
 add_shortcode( 'tag_likebutton', 'ttgarden_tag_likebutton' );
+
+/**
+ * Returns a URL to the post comments.
+ *
+ * @return string
+ */
+function ttgarden_tag_postnotesurl(): string {
+	return get_comments_link();
+}
+add_shortcode( 'tag_postnotesurl', 'ttgarden_tag_postnotesurl' );
