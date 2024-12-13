@@ -1,7 +1,7 @@
 # Tumblr Theme Garden
 
 > [!TIP]
-> [Take TumblrThemeGarden for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-translator/refs/heads/trunk/blueprint.json)
+> [Take TumblrThemeGarden for a spin in one-click right now on WordPress Playground!](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/Automattic/tumblr-theme-garden/refs/heads/trunk/blueprint.json)
 
 Tumblr Theme Garden is a WordPress plugin that allows you to use Tumblr Themes on your WordPress site to display your content in the way your edgy teenage self would have loved.
 
