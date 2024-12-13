@@ -3,7 +3,7 @@ Contributors: automattic, tommusrhodus, aaronjbaptiste, rtio, roccotripaldi
 Tags: tumblr, theme
 Requires at least: 6.5
 Tested up to: 6.7
-Stable tag: 0.1.14
+Stable tag: 0.1.15
 Requires PHP: 8.2
 License: GPLv2 or later
 Text Domain: tumblr-theme-garden
@@ -42,5 +42,5 @@ This repository includes all of the necessary build tools and documentation on h
 
 == Changelog ==
 
-= 0.1.14 =
+= 0.1.15 =
 * Initial release for browsing and activating Tumblr themes
