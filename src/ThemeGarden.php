@@ -81,9 +81,12 @@ class ThemeGarden {
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
 			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-garden.asset.php' );
+
 			$this->enqueue_admin_styles( $deps['version'] );
+
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
+
 			wp_enqueue_script(
 				'tumblr-theme-garden',
 				TTGARDEN_URL . 'assets/js/build/theme-garden.js',
@@ -91,6 +94,7 @@ class ThemeGarden {
 				$deps['version'],
 				true
 			);
+
 			wp_add_inline_script(
 				'tumblr-theme-garden',
 				'const themeGardenData = ' . wp_json_encode(
@@ -111,7 +115,9 @@ class ThemeGarden {
 
 		if ( 'theme-install.php' === $hook ) {
 			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-install.asset.php' );
+
 			$this->enqueue_admin_styles( $deps['version'] );
+
 			wp_enqueue_script(
 				'tumblr-theme-install',
 				TTGARDEN_URL . 'assets/js/build/theme-install.js',
@@ -119,6 +125,7 @@ class ThemeGarden {
 				$deps['version'],
 				true
 			);
+
 			wp_add_inline_script(
 				'tumblr-theme-install',
 				'const TumblrThemeGarden_Install = ' . wp_json_encode(
@@ -285,6 +292,7 @@ class ThemeGarden {
 			$cached_response = wp_remote_retrieve_body( $response );
 			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
 		}
+
 		$body = json_decode( $cached_response, true );
 
 		$themes = $body['response']['themes'];
@@ -296,11 +304,13 @@ class ThemeGarden {
 		$formatted_themes = array_map(
 			function ( $theme ) {
 				$theme['activate_url'] = admin_url(
-					'admin.php?page=tumblr-themes&activate_tumblr_theme='
-					. $theme['id']
-					. '&_wpnonce='
-					. wp_create_nonce( 'activate_tumblr_theme' )
+					sprintf(
+						'admin.php?page=tumblr-themes&activate_tumblr_theme=%s&_wpnonce=%s',
+						$theme['id'],
+						wp_create_nonce( 'activate_tumblr_theme' )
+					)
 				);
+
 				return $theme;
 			},
 			$themes
@@ -367,6 +377,7 @@ class ThemeGarden {
 		if ( ! empty( $this->selected_category ) && 'featured' !== $this->selected_category ) {
 			return '?category=' . $this->selected_category;
 		}
+
 		return '';
 	}
 }

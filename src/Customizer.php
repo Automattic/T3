@@ -71,7 +71,7 @@ class Customizer {
 	public function tumblr_html_options( $wp_customize ): void {
 		// Add Theme HTML section.
 		$wp_customize->add_section(
-			'tumblr-theme-garden_html',
+			'ttgarden_html',
 			array(
 				'title'              => __( 'Tumblr Theme HTML', 'tumblr-theme-garden' ),
 				'priority'           => 30,
@@ -90,7 +90,7 @@ class Customizer {
 		 * @todo lack of sanitization is a security risk.
 		 */
 		$wp_customize->add_setting(
-			'tumblr-theme-garden_theme_html',
+			'ttgarden_theme_html',
 			array(
 				'type'              => 'option',
 				'capability'        => 'edit_theme_options',
@@ -102,10 +102,10 @@ class Customizer {
 		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
 		$editor = new \WP_Customize_Code_Editor_Control(
 			$wp_customize,
-			'tumblr-theme-garden_theme_html',
+			'ttgarden_theme_html',
 			array(
 				'label'    => '',
-				'section'  => 'tumblr-theme-garden_html',
+				'section'  => 'ttgarden_html',
 				'priority' => 10,
 			)
 		);
