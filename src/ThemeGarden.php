@@ -50,6 +50,7 @@ class ThemeGarden {
 	 */
 	public function initialize(): void {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar_render' ) );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only checking this exists.
 		if ( ! empty( $_GET['activate_tumblr_theme'] ) ) {
@@ -104,7 +105,7 @@ class ThemeGarden {
 						'categories'       => $themes_and_categories['categories'],
 						'selectedCategory' => $this->selected_category,
 						'search'           => $this->search,
-						'baseUrl'          => admin_url( 'admin.php?page=tumblr-themes' ),
+						'baseUrl'          => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'selectedThemeId'  => $this->selected_theme_id,
 						'themeDetails'     => $theme_details,
 					)
@@ -305,7 +306,8 @@ class ThemeGarden {
 			function ( $theme ) {
 				$theme['activate_url'] = admin_url(
 					sprintf(
-						'admin.php?page=tumblr-themes&activate_tumblr_theme=%s&_wpnonce=%s',
+						'admin.php?page=%s&activate_tumblr_theme=%s&_wpnonce=%s',
+						self::ADMIN_MENU_SLUG,
 						$theme['id'],
 						wp_create_nonce( 'activate_tumblr_theme' )
 					)
@@ -379,5 +381,25 @@ class ThemeGarden {
 		}
 
 		return '';
+	}
+
+	/**
+	 * The admin bar on the front end has a site-name drop down menu, which includes a link to
+	 * install themes. Let's also include a link to install Tumblr themes.
+	 *
+	 * @return void
+	 */
+	public function admin_bar_render(): void {
+		if ( is_admin() ) {
+			return;
+		}
+		global $wp_admin_bar;
+		$wp_admin_bar->add_menu( array(
+			'parent' => 'site-name',
+			'id' => 'tumblr_themes',
+			'title' => __('Tumblr Themes'),
+			'href' => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
+			'meta' => false
+		));
 	}
 }
