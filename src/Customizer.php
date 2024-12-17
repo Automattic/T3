@@ -59,6 +59,16 @@ class Customizer {
 			array(),
 			$deps['version']
 		);
+
+		wp_add_inline_script(
+			'tumblr-theme-garden-customizer',
+			'const themeGardenCustomizerData = ' . wp_json_encode(
+				array(
+					'baseUrl' => admin_url( 'admin.php?page=' . ThemeGarden::ADMIN_MENU_SLUG ),
+				)
+			),
+			'before'
+		);
 	}
 
 	/**

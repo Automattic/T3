@@ -7,8 +7,16 @@ import { _x } from '@wordpress/i18n';
  */
 export const ThemeGardenNoThemes = () => {
 	const playfulNoThemesText = [
-		_x( 'Sadly, nothing.', 'The message displayed when no themes were found.', 'tumblr-theme-garden' ),
-		_x( 'Tragically, nothing.', 'The message displayed when no themes were found.', 'tumblr-theme-garden' ),
+		_x(
+			'Sadly, nothing.',
+			'The message displayed when no themes were found.',
+			'tumblr-theme-garden'
+		),
+		_x(
+			'Tragically, nothing.',
+			'The message displayed when no themes were found.',
+			'tumblr-theme-garden'
+		),
 		_x(
 			'We found nothing. Here it isn’t.',
 			'The message displayed when no themes were found.',
@@ -24,7 +32,11 @@ export const ThemeGardenNoThemes = () => {
 			'The message displayed when no themes were found.',
 			'tumblr-theme-garden'
 		),
-		_x( 'Nothing to see here.', 'The message displayed when no themes were found.', 'tumblr-theme-garden' ),
+		_x(
+			'Nothing to see here.',
+			'The message displayed when no themes were found.',
+			'tumblr-theme-garden'
+		),
 		_x(
 			'If you were looking for nothing, congrats, you found it.',
 			'The message displayed when no themes were found.',
