@@ -1,5 +1,6 @@
 /* global _ */
 /* global jQuery */
+/* global themeGardenCustomizerData */
 
 import './customizer.scss';
 
@@ -24,12 +25,15 @@ window.wp.customize = window.wp.customize || {};
 	};
 
 	app.init = function () {
+		const themeGardenListItemHtml = '<li id="accordion-section-tumblr_themes" class="theme-section control-subsection">' +
+			'<button type="button" id="tumblr-themes-button" class="customize-themes-section-title themes-section-tumblr_themes">Tumblr themes</button>' +
+			'</li>';
 		app.cache();
-
 		app.$.customizer.append( '<div class="customizer-resizer"></div>' );
+		$('#sub-accordion-section-themes').append(themeGardenListItemHtml);
+		app.$.tumblrThemesButton = $('#tumblr-themes-button');
 		app.$.resizer = $( '.customizer-resizer' );
 		app.checkWidth();
-
 		app.events();
 	};
 
@@ -39,6 +43,7 @@ window.wp.customize = window.wp.customize || {};
 
 		app.$.resizer.on( 'mousedown', app.resizerEngage );
 		app.$.collapser.on( 'click', app.snapToDefault );
+		app.$.tumblrThemesButton.on( 'click', app.goToTumblrThemes );
 		$( window ).resize( _.debounce( app.checkWidth, 50 ) );
 	};
 
@@ -202,6 +207,10 @@ window.wp.customize = window.wp.customize || {};
 			iframe.dispatchEvent( newEvt );
 		};
 	};
+
+	app.goToTumblrThemes = function () {
+		window.location = themeGardenCustomizerData.baseUrl;
+	}
 
 	wp.customize.bind( 'ready', app.init );
 } )( window, document, jQuery, window.wp );
