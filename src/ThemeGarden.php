@@ -394,12 +394,14 @@ class ThemeGarden {
 			return;
 		}
 		global $wp_admin_bar;
-		$wp_admin_bar->add_menu( array(
-			'parent' => 'site-name',
-			'id' => 'tumblr_themes',
-			'title' => __('Tumblr Themes'),
-			'href' => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
-			'meta' => false
-		));
+		$wp_admin_bar->add_menu(
+			array(
+				'parent' => 'site-name',
+				'id'     => 'tumblr_themes',
+				'title'  => __( 'Tumblr Themes', 'tumblr-theme-garden' ),
+				'href'   => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
+				'meta'   => false,
+			)
+		);
 	}
 }

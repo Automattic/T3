@@ -6,61 +6,65 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the audio block.
  */
-addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-video-block', ( settings, name ) => {
-	if ( typeof settings.attributes !== 'undefined' && name === 'core/video' ) {
-		settings.attributes = Object.assign( settings.attributes, {
-			url: {
-				type: 'string',
-				default: '',
-			},
-			media: {
-				type: 'object',
-				default: {},
-			},
-			provider: {
-				type: 'string',
-				default: '',
-			},
-			embedHtml: {
-				type: 'string',
-				default: '',
-			},
-			embedIframe: {
-				type: 'object',
-				default: {},
-			},
-			embedUrl: {
-				type: 'string',
-				default: '',
-			},
-			metadata: {
-				type: 'object',
-				default: {},
-			},
-			attribution: {
-				type: 'object',
-				default: {},
-			},
-			canAutoplayOnCellular: {
-				type: 'boolean',
-				default: false,
-			},
-			duration: {
-				type: 'number',
-				default: 0,
-			},
-			filmstrip: {
-				type: 'array',
-				items: {
-					type: 'object',
+addFilter(
+	'blocks.registerBlockType',
+	'tumblr-theme-garden/extend-video-block',
+	( settings, name ) => {
+		if ( typeof settings.attributes !== 'undefined' && name === 'core/video' ) {
+			settings.attributes = Object.assign( settings.attributes, {
+				url: {
+					type: 'string',
+					default: '',
 				},
-				default: [],
-			},
-		} );
-	}
+				media: {
+					type: 'object',
+					default: {},
+				},
+				provider: {
+					type: 'string',
+					default: '',
+				},
+				embedHtml: {
+					type: 'string',
+					default: '',
+				},
+				embedIframe: {
+					type: 'object',
+					default: {},
+				},
+				embedUrl: {
+					type: 'string',
+					default: '',
+				},
+				metadata: {
+					type: 'object',
+					default: {},
+				},
+				attribution: {
+					type: 'object',
+					default: {},
+				},
+				canAutoplayOnCellular: {
+					type: 'boolean',
+					default: false,
+				},
+				duration: {
+					type: 'number',
+					default: 0,
+				},
+				filmstrip: {
+					type: 'array',
+					items: {
+						type: 'object',
+					},
+					default: [],
+				},
+			} );
+		}
 
-	return settings;
-} );
+		return settings;
+	}
+);
 
 /**
  * Extend the video block with sidebar controls.

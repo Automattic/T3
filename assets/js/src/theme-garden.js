@@ -143,7 +143,11 @@ export const ConnectedThemeGarden = compose(
 			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).searchThemes( query );
 		},
 		receiveThemes: ( themes, category, search ) => {
-			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveThemes( themes, category, search );
+			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).receiveThemes(
+				themes,
+				category,
+				search
+			);
 		},
 		beforeFetchTheme: () => {
 			return dispatch( 'tumblr-theme-garden/theme-garden-store' ).beforeFetchTheme();

@@ -7,50 +7,54 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the audio block.
  */
-addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-audio-block', ( settings, name ) => {
-	if ( typeof settings.attributes !== 'undefined' && name === 'core/audio' ) {
-		settings.attributes = Object.assign( settings.attributes, {
-			mediaURL: {
-				type: 'string',
-				default: '',
-			},
-			mediaTitle: {
-				type: 'string',
-				default: '',
-			},
-			mediaArtist: {
-				type: 'string',
-				default: '',
-			},
-			mediaAlbum: {
-				type: 'string',
-				default: '',
-			},
-			provider: {
-				type: 'string',
-				default: '',
-			},
-			embedHtml: {
-				type: 'string',
-				default: '',
-			},
-			embedUrl: {
-				type: 'string',
-				default: '',
-			},
-			poster: {
-				type: 'object',
-				default: {},
-			},
-			attribution: {
-				type: 'object',
-				default: {},
-			},
-		} );
-	}
+addFilter(
+	'blocks.registerBlockType',
+	'tumblr-theme-garden/extend-audio-block',
+	( settings, name ) => {
+		if ( typeof settings.attributes !== 'undefined' && name === 'core/audio' ) {
+			settings.attributes = Object.assign( settings.attributes, {
+				mediaURL: {
+					type: 'string',
+					default: '',
+				},
+				mediaTitle: {
+					type: 'string',
+					default: '',
+				},
+				mediaArtist: {
+					type: 'string',
+					default: '',
+				},
+				mediaAlbum: {
+					type: 'string',
+					default: '',
+				},
+				provider: {
+					type: 'string',
+					default: '',
+				},
+				embedHtml: {
+					type: 'string',
+					default: '',
+				},
+				embedUrl: {
+					type: 'string',
+					default: '',
+				},
+				poster: {
+					type: 'object',
+					default: {},
+				},
+				attribution: {
+					type: 'object',
+					default: {},
+				},
+			} );
+		}
 
-	return settings;
-} );
+		return settings;
+	}
+);
 
 /**
  * Extend the audio block with sidebar controls.

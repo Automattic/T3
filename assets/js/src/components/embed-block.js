@@ -7,41 +7,45 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 /**
  * Register new attributes for the embed block.
  */
-addFilter( 'blocks.registerBlockType', 'tumblr-theme-garden/extend-embed-block', ( settings, name ) => {
-	if ( typeof settings.attributes !== 'undefined' && name === 'core/embed' ) {
-		settings.attributes = Object.assign( settings.attributes, {
-			title: {
-				type: 'string',
-				default: '',
-			},
-			description: {
-				type: 'string',
-				default: '',
-			},
-			author: {
-				type: 'string',
-				default: '',
-			},
-			siteName: {
-				type: 'string',
-				default: '',
-			},
-			displayUrl: {
-				type: 'string',
-				default: '',
-			},
-			poster: {
-				type: 'array',
-				default: [],
-				items: {
-					type: 'object',
+addFilter(
+	'blocks.registerBlockType',
+	'tumblr-theme-garden/extend-embed-block',
+	( settings, name ) => {
+		if ( typeof settings.attributes !== 'undefined' && name === 'core/embed' ) {
+			settings.attributes = Object.assign( settings.attributes, {
+				title: {
+					type: 'string',
+					default: '',
 				},
-			},
-		} );
-	}
+				description: {
+					type: 'string',
+					default: '',
+				},
+				author: {
+					type: 'string',
+					default: '',
+				},
+				siteName: {
+					type: 'string',
+					default: '',
+				},
+				displayUrl: {
+					type: 'string',
+					default: '',
+				},
+				poster: {
+					type: 'array',
+					default: [],
+					items: {
+						type: 'object',
+					},
+				},
+			} );
+		}
 
-	return settings;
-} );
+		return settings;
+	}
+);
 
 /**
  * Extend the embed block with sidebar controls.
