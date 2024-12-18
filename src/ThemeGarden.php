@@ -85,6 +85,7 @@ class ThemeGarden {
 
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
+			$active_theme          = get_option('ttgarden_external_theme');
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
@@ -106,6 +107,7 @@ class ThemeGarden {
 						'baseUrl'          => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'selectedThemeId'  => $this->selected_theme_id,
 						'themeDetails'     => $theme_details,
+						'activeTheme'      => $active_theme,
 					)
 				),
 				'before'

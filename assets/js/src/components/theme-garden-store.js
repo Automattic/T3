@@ -1,3 +1,4 @@
+/* global themeGardenData */
 import apiFetch from '@wordpress/api-fetch';
 import { createReduxStore, register } from '@wordpress/data';
 
@@ -5,19 +6,20 @@ import { createReduxStore, register } from '@wordpress/data';
  * Default state is loaded from an inline script declared in ThemeGarden.php.
  */
 const DEFAULT_STATE = {
-	// The following properties are static and will not change.
-	logoUrl: themeGardenData.logoUrl, // eslint-disable-line no-undef
-	categories: themeGardenData.categories, // eslint-disable-line no-undef
-	baseUrl: themeGardenData.baseUrl, // eslint-disable-line no-undef
+	// The following properties are static and will not change while someone browses through themes.
+	logoUrl: themeGardenData.logoUrl,
+	categories: themeGardenData.categories,
+	baseUrl: themeGardenData.baseUrl,
+	activeTheme: themeGardenData.activeTheme,
 
-	// The following properties will change during usage of the app.
-	themes: themeGardenData.themes, // eslint-disable-line no-undef
-	selectedCategory: themeGardenData.selectedCategory, // eslint-disable-line no-undef
-	search: themeGardenData.search, // eslint-disable-line no-undef
-	selectedThemeId: themeGardenData.selectedThemeId, // eslint-disable-line no-undef
-	themeDetails: themeGardenData.themeDetails, // eslint-disable-line no-undef
+	// The following properties will change while someone browses through themes.
+	themes: themeGardenData.themes,
+	selectedCategory: themeGardenData.selectedCategory,
+	search: themeGardenData.search,
+	selectedThemeId: themeGardenData.selectedThemeId,
+	themeDetails: themeGardenData.themeDetails,
 	isFetchingThemes: false,
-	isOverlayOpen: !! themeGardenData.selectedThemeId, // eslint-disable-line no-undef
+	isOverlayOpen: !! themeGardenData.selectedThemeId,
 	isFetchingTheme: false,
 };
 
@@ -122,7 +124,7 @@ const selectors = {
 		return state.isFetchingTheme;
 	},
 	getThemes( state ) {
-		return state.themes;
+		return state.themes.filter( theme => parseInt( theme.id ) !== parseInt( state.activeTheme.id ) );
 	},
 	getIsOverlayOpen( state ) {
 		return state.isOverlayOpen;
@@ -130,6 +132,9 @@ const selectors = {
 	getThemeDetails( state ) {
 		return state.themeDetails;
 	},
+	getActiveTheme( state ) {
+		return state.activeTheme;
+	}
 };
 
 const controls = {

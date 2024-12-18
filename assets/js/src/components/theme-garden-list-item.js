@@ -12,12 +12,23 @@ import { _x } from '@wordpress/i18n';
  * @param {string}   props.theme.thumbnail
  * @param {string}   props.theme.title
  * @param {Function} props.handleDetailsClick
+ * @param {boolean}  props.isActive
  */
-export const ThemeGardenListItem = ({theme: {activate_url, id, thumbnail, title}, handleDetailsClick}) => {
+export const ThemeGardenListItem = ({theme: {activate_url, id, thumbnail, title}, handleDetailsClick, isActive}) => {
 	const label = `tumblr-theme-garden-theme-details-${ id }`;
 
+	const renderActivationButton = () => {
+		return isActive ? (
+			<span>Active!</span>
+		) : (
+			<a className="rainbow-button" href={activate_url}>
+				Activate
+			</a>
+		)
+	}
+
 	return (
-		<article className="tumblr-theme" key={title}>
+		<article className="tumblr-theme">
 			<header className="tumblr-theme-header">
 				<div className="tumblr-theme-title-wrapper">
 					<span className="tumblr-theme-title">{title}</span>
@@ -42,9 +53,7 @@ export const ThemeGardenListItem = ({theme: {activate_url, id, thumbnail, title}
 					<img src={thumbnail} alt=""/>
 				</button>
 				<div className="tumblr-theme-footer">
-					<a className="rainbow-button" href={activate_url}>
-						Activate
-					</a>
+					{renderActivationButton()}
 				</div>
 			</div>
 		</article>

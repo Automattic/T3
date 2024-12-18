@@ -14,8 +14,9 @@ import {ThemeGardenListItem} from "./theme-garden-list-item";
  * @param {Array}    props.themes
  * @param {boolean}  props.isFetchingThemes
  * @param {Function} props.fetchThemeById
+ * @param {Object}   props.activeTheme
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeTheme } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
@@ -45,8 +46,9 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 
 	return (
 		<div className="tumblr-themes">
+			{ activeTheme && <ThemeGardenListItem theme={ activeTheme } handleDetailsClick={handleDetailsClick} isActive /> }
 			{ themes.map( theme =>
-				<ThemeGardenListItem theme={theme} handleDetailsClick={handleDetailsClick} />
+				<ThemeGardenListItem theme={theme} handleDetailsClick={handleDetailsClick} key={theme.title} />
 			 ) }
 		</div>
 	);
@@ -56,6 +58,7 @@ export const ThemeGardenList = compose(
 	withSelect( select => ( {
 		themes: select( 'tumblr-theme-garden/theme-garden-store' ).getThemes(),
 		isFetchingThemes: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingThemes(),
+		activeTheme: select( 'tumblr-theme-garden/theme-garden-store' ).getActiveTheme(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
