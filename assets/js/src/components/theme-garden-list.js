@@ -1,9 +1,9 @@
 import { useEffect, useState } from '@wordpress/element';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { _x } from '@wordpress/i18n';
 import { ThemeGardenNoThemes } from './theme-garden-no-themes';
 import './theme-garden-store';
+import {ThemeGardenListItem} from "./theme-garden-list-item";
 
 /**
  * Displays a list of Tumblr themes.
@@ -45,42 +45,9 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById } ) => {
 
 	return (
 		<div className="tumblr-themes">
-			{ themes.map( theme => {
-				const label = `tumblr-theme-garden-theme-details-${ theme.id }`;
-				return (
-					<article className="tumblr-theme" key={ theme.title }>
-						<header className="tumblr-theme-header">
-							<div className="tumblr-theme-title-wrapper">
-								<span className="tumblr-theme-title">{ theme.title }</span>
-							</div>
-						</header>
-						<div className="tumblr-theme-content">
-							<button
-								className="tumblr-theme-details"
-								onClick={ handleDetailsClick }
-								value={ theme.id }
-								id={ label }
-							>
-								<label htmlFor={ label }>
-									<span className="tumblr-theme-detail-button">
-										{ _x(
-											'Theme details',
-											'Text on a button that will show more information about a Tumblr theme',
-											'tumblr-theme-garden'
-										) }
-									</span>
-								</label>
-								<img src={ theme.thumbnail } alt="" />
-							</button>
-							<div className="tumblr-theme-footer">
-								<a className="rainbow-button" href={ theme.activate_url }>
-									Activate
-								</a>
-							</div>
-						</div>
-					</article>
-				);
-			} ) }
+			{ themes.map( theme =>
+				<ThemeGardenListItem theme={theme} handleDetailsClick={handleDetailsClick} />
+			 ) }
 		</div>
 	);
 };
