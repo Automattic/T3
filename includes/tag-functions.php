@@ -653,7 +653,7 @@ add_shortcode( 'tag_tagsasclasses', 'ttgarden_tagsasclasses' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_pinnedpostlabel(): string {
-	return esc_html( TTGARDEN_LANG['lang:Pinned Post'] );
+	return esc_html( TTGARDEN_LANG['lang:pinned post'] );
 }
 add_shortcode( 'tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
 
