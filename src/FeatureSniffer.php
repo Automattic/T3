@@ -58,23 +58,27 @@ array(
 	 * @param string $html The HTML to be sniffed.
 	 */
 	public function __construct( $html = '' ) {
-		$this->unsupported_features = array(
-			'{npf}'        => array(
-				'name'       => 'Neue Post Format',
-				'dependency' => null,
-				'alt_tags'   => array(
-					'{jsnpf}',
+		// Define the unsupported features, done in constructor due to dynamic data.
+		$this->unsupported_features = apply_filters(
+			'ttgarden_unsupported_features',
+			array(
+				'{npf}'        => array(
+					'name'       => 'Neue Post Format',
+					'dependency' => null,
+					'alt_tags'   => array(
+						'{jsnpf}',
+					),
 				),
-			),
-			'{likebutton}' => array(
-				'name'       => 'Like Button',
-				'dependency' => array(
-					'name'  => 'Jetpack',
-					'slug'  => 'jetpack/jetpack.php',
-					'url'   => admin_url( 'plugin-install.php?tab=plugin-information&plugin=jetpack&TB_iframe=true' ),
-					'wporg' => true,
+				'{likebutton}' => array(
+					'name'       => 'Like Button',
+					'dependency' => array(
+						'name'  => 'Jetpack',
+						'slug'  => 'jetpack/jetpack.php',
+						'url'   => admin_url( 'plugin-install.php?tab=plugin-information&plugin=jetpack&TB_iframe=true' ),
+						'wporg' => true,
+					),
 				),
-			),
+			)
 		);
 
 		$this->find_unsupported_features();
@@ -120,6 +124,8 @@ array(
 
 	/**
 	 * Returns the HTML list for the unsupported features.
+	 *
+	 * @param bool $list_only Whether to return a list of features only.
 	 *
 	 * @return string
 	 */
@@ -186,6 +192,8 @@ array(
 
 	/**
 	 * Returns the internal array of found unsupported features.
+	 *
+	 * @param string $context The context in which to return the features.
 	 *
 	 * @return array
 	 */

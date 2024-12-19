@@ -550,7 +550,7 @@ class Customizer {
 				);
 
 				// If it doesn't exist, load the default value into the theme mod.
-				if ( ! get_theme_mod( $name ) ) {
+				if ( null === get_theme_mod( $name, null ) ) {
 					set_theme_mod( $name, '1' === $condition ? '1' : '' );
 				}
 
