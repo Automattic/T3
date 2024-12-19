@@ -3,7 +3,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { ThemeGardenNoThemes } from './theme-garden-no-themes';
 import './theme-garden-store';
-import {ThemeGardenListItem} from "./theme-garden-list-item";
+import { ThemeGardenListItem } from './theme-garden-list-item';
 
 /**
  * Displays a list of Tumblr themes.
@@ -15,8 +15,15 @@ import {ThemeGardenListItem} from "./theme-garden-list-item";
  * @param {boolean}  props.isFetchingThemes
  * @param {Function} props.fetchThemeById
  * @param {Object}   props.activeTheme
+ * @param {string}   props.customizeUrl
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeTheme, customizeUrl } ) => {
+const _ThemeGardenList = ( {
+	themes,
+	isFetchingThemes,
+	fetchThemeById,
+	activeTheme,
+	customizeUrl,
+} ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
@@ -24,7 +31,7 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeThe
 	}, [ themes ] );
 
 	const handleDetailsClick = async ( { currentTarget: { value: themeId } } ) => {
-		if (themeId === activeTheme.id ) {
+		if ( themeId === activeTheme.id ) {
 			window.location.href = customizeUrl;
 			return;
 		}
@@ -51,10 +58,20 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeThe
 
 	return (
 		<div className="tumblr-themes">
-			{ activeTheme && <ThemeGardenListItem theme={ activeTheme } handleDetailsClick={handleDetailsClick} isActive /> }
-			{ themes.map( theme =>
-				<ThemeGardenListItem theme={theme} handleDetailsClick={handleDetailsClick} key={theme.title} />
-			 ) }
+			{ activeTheme && (
+				<ThemeGardenListItem
+					theme={ activeTheme }
+					handleDetailsClick={ handleDetailsClick }
+					isActive
+				/>
+			) }
+			{ themes.map( theme => (
+				<ThemeGardenListItem
+					theme={ theme }
+					handleDetailsClick={ handleDetailsClick }
+					key={ theme.title }
+				/>
+			) ) }
 		</div>
 	);
 };

@@ -125,7 +125,9 @@ const selectors = {
 		return state.isFetchingTheme;
 	},
 	getThemes( state ) {
-		return state.themes.filter( theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id ) );
+		return state.themes.filter(
+			theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id )
+		);
 	},
 	getIsOverlayOpen( state ) {
 		return state.isOverlayOpen;
@@ -133,12 +135,12 @@ const selectors = {
 	getThemeDetails( state ) {
 		return state.themeDetails;
 	},
-	getActiveTheme( state ) {
+	getActiveTheme() {
 		return DEFAULT_STATE.activeTheme;
 	},
-	getCustomizeUrl( state ) {
+	getCustomizeUrl() {
 		return DEFAULT_STATE.customizeUrl;
-	}
+	},
 };
 
 const controls = {
