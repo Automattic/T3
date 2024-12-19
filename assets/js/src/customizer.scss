@@ -7,6 +7,18 @@
 	display: none;
 }
 
+#accordion-section-feature_sniffer {
+	display: block !important;
+	padding: 10px 30px 11px 14px;
+	background: #fff;
+	margin: -20px 0 20px;
+
+	ul {
+		list-style: disc;
+		list-style-position: inside;
+	}
+}
+
 .wp-full-overlay-sidebar {
 	max-width: 100%;
 }
@@ -78,8 +90,6 @@
 		border-right: 1px solid #ddd;
 		color: #444;
 		cursor: pointer;
-		-webkit-transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
-		transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
 	}
 
 	#customize-footer-actions,

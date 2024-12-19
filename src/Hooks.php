@@ -50,6 +50,8 @@ class Hooks {
 		// Flush permalink rules when switching to the Tumblr theme.
 		add_action( 'switch_theme', array( $this, 'switch_theme' ), 10, 3 );
 
+		add_action( 'after_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10 );
+
 		// Only run these if the TumblrThemeGarden theme is active.
 		if ( $this->is_ttgarden_active ) {
 			add_filter( 'validate_current_theme', '__return_false' );
@@ -157,6 +159,34 @@ class Hooks {
 		if ( 'tumblr-theme-garden' === $old_theme->stylesheet ) {
 			update_option( 'ttgarden_original_theme', '' );
 			update_option( 'ttgarden_use_theme', '' );
+			update_option( 'ttgarden_theme_html', '' );
 		}
+	}
+
+	/**
+	 * Fires after plugin row meta.
+	 *
+	 * @since 6.5.0
+	 *
+	 * @param string $plugin_file Refer to {@see 'plugin_row_meta'} filter.
+	 */
+	public function plugin_row_meta( $plugin_file ): void {
+		// Only show the message on the TumblrThemeGarden plugin.
+		if ( 'tumblr-theme-garden/tumblr-theme-garden.php' !== $plugin_file ) {
+			return;
+		}
+
+		$features = new FeatureSniffer();
+
+		// If there are no unsupported features, return early.
+		if ( empty( $features->get_unsupported_features( 'plugins' ) ) ) {
+			return;
+		}
+
+		printf(
+			'<div class="requires"><p><strong>%s:</strong></p>%s</div>',
+			esc_html__( 'The active Tumblr Theme recommends the following additional plugins', 'tumblr-theme-garden' ),
+			wp_kses_post( $features->get_unsupported_features_html( true ) )
+		);
 	}
 }

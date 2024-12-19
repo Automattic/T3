@@ -79,6 +79,9 @@ class Customizer {
 	 * @return void
 	 */
 	public function tumblr_html_options( $wp_customize ): void {
+		// Register the feature-sniffer panel type.
+		$wp_customize->register_panel_type( 'CupcakeLabs\TumblrThemeGarden\FeatureSnifferPanel' );
+
 		// Add Theme HTML section.
 		$wp_customize->add_section(
 			'ttgarden_html',
@@ -173,6 +176,24 @@ class Customizer {
 	 * @return void
 	 */
 	public function global_options( $wp_customize ): void {
+		// Create a feature sniffer to detect unsupported features.
+		$features = new FeatureSniffer();
+
+		if ( ! empty( $features->get_unsupported_features() ) ) {
+			// Add our feature sniff panel.
+			$wp_customize->add_panel(
+				new FeatureSnifferPanel(
+					$this,
+					'feature_sniffer',
+					array(
+						'title'      => __( 'The active Tumblr Theme includes features that require your attention.', 'tumblr-theme-garden' ),
+						'capability' => 'switch_themes',
+						'priority'   => 1,
+					)
+				)
+			);
+		}
+
 		// Add an accent_color setting.
 		$wp_customize->add_setting(
 			'accent_color',
@@ -529,7 +550,7 @@ class Customizer {
 				);
 
 				// If it doesn't exist, load the default value into the theme mod.
-				if ( ! get_theme_mod( $name ) ) {
+				if ( null === get_theme_mod( $name, null ) ) {
 					set_theme_mod( $name, '1' === $condition ? '1' : '' );
 				}
 
