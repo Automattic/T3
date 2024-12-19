@@ -85,6 +85,8 @@ class ThemeGarden {
 
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
+			$is_using_tumblr_theme = get_option( 'ttgarden_use_theme' );
+			$active_theme          =  $is_using_tumblr_theme ? get_option( 'ttgarden_external_theme' ) : null;
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
@@ -99,6 +101,7 @@ class ThemeGarden {
 				'const themeGardenData = ' . wp_json_encode(
 					array(
 						'logoUrl'          => TTGARDEN_URL . 'assets/images/tumblr_logo_icon.png',
+						'customizeUrl'     => wp_customize_url(),
 						'themes'           => $themes_and_categories['themes'],
 						'categories'       => $themes_and_categories['categories'],
 						'selectedCategory' => $this->selected_category,
@@ -106,6 +109,7 @@ class ThemeGarden {
 						'baseUrl'          => admin_url( 'admin.php?page=' . self::ADMIN_MENU_SLUG ),
 						'selectedThemeId'  => $this->selected_theme_id,
 						'themeDetails'     => $theme_details,
+						'activeTheme'      => $active_theme,
 					)
 				),
 				'before'
