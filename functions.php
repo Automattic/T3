@@ -144,6 +144,15 @@ function ttgarden_normalize_option_name( $name ): string {
 	);
 }
 
+/**
+ * Gets the Tumblr Theme Garden regex.
+ *
+ * @return string The Tumblr Theme Garden regex.
+ */
+function ttgarden_get_tumblr_regex(): string {
+	return '/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i';
+}
+
 // Include tag and block hydration functions for each Tumblr Theme tag|block.
 require TTGARDEN_PATH . 'includes/block-functions.php';
 require TTGARDEN_PATH . 'includes/tag-functions.php';

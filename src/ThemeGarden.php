@@ -86,7 +86,7 @@ class ThemeGarden {
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
 			$is_using_tumblr_theme = get_option( 'ttgarden_use_theme' );
-			$active_theme          =  $is_using_tumblr_theme ? get_option( 'ttgarden_external_theme' ) : null;
+			$active_theme          = $is_using_tumblr_theme ? get_option( 'ttgarden_external_theme' ) : null;
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',

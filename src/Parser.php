@@ -169,7 +169,7 @@ class Parser {
 		 * The shortcode system allows for dynamic content inside a post loop, and other areas.
 		 */
 		$content = preg_replace_callback(
-			'/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i',
+			ttgarden_get_tumblr_regex(),
 			function ( $matches ) use ( $tags, $blocks, $options, $modifiers ) {
 				++$this->position;
 
@@ -373,16 +373,16 @@ class Parser {
 		$out    = '';
 		foreach ( str_split( $wchars, 2 ) as $wchar ) {
 			list($o1, $o2) = array( ord( $wchar[0] ), ord( $wchar[1] ) );
-			if ( $o1 === 0 && (
-				$o2 <= 0x1F ||
-				$wchar[1] === '<' || $wchar[1] === '>' || $wchar[1] === '"' || $wchar[1] === '&'
+			if ( 0 === $o1 && (
+				0x1F >= $o2 ||
+				'<' === $wchar[1] || '>' === $wchar[1] || '"' === $wchar[1] || '&' === $wchar[1]
 			) ) {
 				$out .= '\x' . sprintf( '%02x', $o2 );
-			} elseif ( $o1 === 0 && $wchar[1] === '\\' ) {
+			} elseif ( 0 === $o1 && '\\' === $wchar[1] ) {
 				$out .= '\\\\';
-			} elseif ( $o1 === 0 && $wchar[1] === "'" ) {
+			} elseif ( 0 === $o1 && "'" === $wchar[1] ) {
 				$out .= "\'";
-			} elseif ( $o1 === 0 && $o2 <= 0x7F ) {
+			} elseif ( 0 === $o1 && 0x7F >= $o2 ) {
 				$out .= $wchar[1];
 			} else {
 				$out .= '\u' . sprintf( '%02x%02x', $o1, $o2 );
