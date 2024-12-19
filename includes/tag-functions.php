@@ -665,7 +665,7 @@ add_shortcode( 'tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_previouspost(): string {
-	return esc_url( get_permalink( get_adjacent_post( false, '', true ) ) );
+	return untrailingslashit( esc_url( get_permalink( get_adjacent_post( false, '', true ) ) ) );
 }
 add_shortcode( 'tag_previouspost', 'ttgarden_tag_previouspost' );
 
@@ -677,7 +677,7 @@ add_shortcode( 'tag_previouspost', 'ttgarden_tag_previouspost' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_nextpost(): string {
-	return esc_url( get_permalink( get_adjacent_post( false, '', false ) ) );
+	return untrailingslashit( esc_url( get_permalink( get_adjacent_post( false, '', false ) ) ) );
 }
 add_shortcode( 'tag_nextpost', 'ttgarden_tag_nextpost' );
 
@@ -689,7 +689,7 @@ add_shortcode( 'tag_nextpost', 'ttgarden_tag_nextpost' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_previouspage(): string|null {
-	return esc_url( get_next_posts_page_link() );
+	return untrailingslashit( esc_url( get_next_posts_page_link() ) );
 }
 add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
 
@@ -701,7 +701,7 @@ add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_nextpage(): string|null {
-	return esc_url( get_previous_posts_page_link() );
+	return untrailingslashit( esc_url( get_previous_posts_page_link() ) );
 }
 add_shortcode( 'tag_nextpage', 'ttgarden_tag_nextpage' );
 
