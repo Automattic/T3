@@ -125,6 +125,9 @@ const selectors = {
 		return state.isFetchingTheme;
 	},
 	getThemes( state ) {
+		/*
+			We filter out the active theme because <ThemeGardenList /> will insert it at the top of the list.
+		 */
 		return state.themes.filter(
 			theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id )
 		);

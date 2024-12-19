@@ -16,6 +16,7 @@ import { ThemeGardenListItem } from './theme-garden-list-item';
  * @param {Function} props.fetchThemeById
  * @param {Object}   props.activeTheme
  * @param {string}   props.customizeUrl
+ * @param {string}   props.search
  */
 const _ThemeGardenList = ( {
 	themes,
@@ -23,6 +24,7 @@ const _ThemeGardenList = ( {
 	fetchThemeById,
 	activeTheme,
 	customizeUrl,
+	search
 } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
@@ -58,7 +60,7 @@ const _ThemeGardenList = ( {
 
 	return (
 		<div className="tumblr-themes">
-			{ activeTheme && (
+			{ activeTheme && !search && (
 				<ThemeGardenListItem
 					theme={ activeTheme }
 					handleDetailsClick={ handleDetailsClick }
@@ -82,6 +84,7 @@ export const ThemeGardenList = compose(
 		isFetchingThemes: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingThemes(),
 		activeTheme: select( 'tumblr-theme-garden/theme-garden-store' ).getActiveTheme(),
 		customizeUrl: select( 'tumblr-theme-garden/theme-garden-store' ).getCustomizeUrl(),
+		search: select( 'tumblr-theme-garden/theme-garden-store' ).getSearch(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {
