@@ -100,6 +100,7 @@ class ThemeGarden {
 				'const themeGardenData = ' . wp_json_encode(
 					array(
 						'logoUrl'          => TTGARDEN_URL . 'assets/images/tumblr_logo_icon.png',
+						'customizeUrl'     => wp_customize_url(),
 						'themes'           => $themes_and_categories['themes'],
 						'categories'       => $themes_and_categories['categories'],
 						'selectedCategory' => $this->selected_category,

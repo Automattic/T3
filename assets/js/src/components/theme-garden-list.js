@@ -16,7 +16,7 @@ import {ThemeGardenListItem} from "./theme-garden-list-item";
  * @param {Function} props.fetchThemeById
  * @param {Object}   props.activeTheme
  */
-const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeTheme } ) => {
+const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeTheme, customizeUrl } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
 	useEffect( () => {
@@ -24,6 +24,11 @@ const _ThemeGardenList = ( { themes, isFetchingThemes, fetchThemeById, activeThe
 	}, [ themes ] );
 
 	const handleDetailsClick = async ( { currentTarget: { value: themeId } } ) => {
+		if (themeId === activeTheme.id ) {
+			window.location.href = customizeUrl;
+			return;
+		}
+
 		const currentUrl = new URL( window.location.href );
 		const params = new URLSearchParams( currentUrl.search );
 		params.append( 'theme', themeId );
@@ -59,6 +64,7 @@ export const ThemeGardenList = compose(
 		themes: select( 'tumblr-theme-garden/theme-garden-store' ).getThemes(),
 		isFetchingThemes: select( 'tumblr-theme-garden/theme-garden-store' ).getIsFetchingThemes(),
 		activeTheme: select( 'tumblr-theme-garden/theme-garden-store' ).getActiveTheme(),
+		customizeUrl: select( 'tumblr-theme-garden/theme-garden-store' ).getCustomizeUrl(),
 	} ) ),
 	withDispatch( dispatch => ( {
 		closeOverlay: () => {

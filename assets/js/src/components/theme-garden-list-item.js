@@ -1,4 +1,5 @@
 import { _x } from '@wordpress/i18n';
+import classNames from 'classnames';
 
 /**
  * Displays a tumblr theme in context of <ThemeGardenList />.
@@ -17,6 +18,30 @@ import { _x } from '@wordpress/i18n';
 export const ThemeGardenListItem = ({theme: {activate_url, id, thumbnail, title}, handleDetailsClick, isActive}) => {
 	const label = `tumblr-theme-garden-theme-details-${ id }`;
 
+	const renderPreviewButton = () => {
+		const buttonText = isActive ? _x(
+			'Customize',
+			'Text on a button that go to customizer for current theme.',
+			'tumblr-theme-garden'
+		) : _x(
+			'Theme details',
+			'Text on a button that will show more information about a Tumblr theme',
+			'tumblr-theme-garden'
+		)
+		return (
+			<button
+				className="tumblr-theme-details"
+				onClick={handleDetailsClick}
+				value={id}
+				id={label}
+			>
+				<label htmlFor={label}>
+					<span className="tumblr-theme-detail-button">{buttonText}</span>
+				</label>
+				<img src={thumbnail} alt=""/>
+			</button>
+		);
+	}
 	const renderActivationButton = () => {
 		return isActive ? (
 			<span>Active!</span>
@@ -28,30 +53,14 @@ export const ThemeGardenListItem = ({theme: {activate_url, id, thumbnail, title}
 	}
 
 	return (
-		<article className="tumblr-theme">
+		<article className={classNames('tumblr-theme', {'is-active': isActive})}>
 			<header className="tumblr-theme-header">
 				<div className="tumblr-theme-title-wrapper">
 					<span className="tumblr-theme-title">{title}</span>
 				</div>
 			</header>
 			<div className="tumblr-theme-content">
-				<button
-					className="tumblr-theme-details"
-					onClick={handleDetailsClick}
-					value={id}
-					id={label}
-				>
-					<label htmlFor={label}>
-									<span className="tumblr-theme-detail-button">
-										{_x(
-											'Theme details',
-											'Text on a button that will show more information about a Tumblr theme',
-											'tumblr-theme-garden'
-										)}
-									</span>
-					</label>
-					<img src={thumbnail} alt=""/>
-				</button>
+				{renderPreviewButton()}
 				<div className="tumblr-theme-footer">
 					{renderActivationButton()}
 				</div>

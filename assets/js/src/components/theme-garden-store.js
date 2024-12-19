@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
 	categories: themeGardenData.categories,
 	baseUrl: themeGardenData.baseUrl,
 	activeTheme: themeGardenData.activeTheme,
+	customizeUrl: themeGardenData.customizeUrl,
 
 	// The following properties will change while someone browses through themes.
 	themes: themeGardenData.themes,
@@ -124,7 +125,7 @@ const selectors = {
 		return state.isFetchingTheme;
 	},
 	getThemes( state ) {
-		return state.themes.filter( theme => parseInt( theme.id ) !== parseInt( state.activeTheme.id ) );
+		return state.themes.filter( theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id ) );
 	},
 	getIsOverlayOpen( state ) {
 		return state.isOverlayOpen;
@@ -133,7 +134,10 @@ const selectors = {
 		return state.themeDetails;
 	},
 	getActiveTheme( state ) {
-		return state.activeTheme;
+		return DEFAULT_STATE.activeTheme;
+	},
+	getCustomizeUrl( state ) {
+		return DEFAULT_STATE.customizeUrl;
 	}
 };
 
