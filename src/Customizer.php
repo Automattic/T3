@@ -186,7 +186,7 @@ class Customizer {
 					$this,
 					'feature_sniffer',
 					array(
-						'title'      => __( 'The active Tumblr Theme includes currently unsupported features.', 'tumblr-theme-garden' ),
+						'title'      => __( 'The active Tumblr Theme includes features that require your attention.', 'tumblr-theme-garden' ),
 						'capability' => 'switch_themes',
 						'priority'   => 1,
 					)

@@ -36,22 +36,7 @@ array(
 	 *
 	 * @var array
 	 */
-	public array $unsupported_features = array(
-		'{npf}'        => array(
-			'name'       => 'Neue Post Format',
-			'dependency' => null,
-			'alt_tags'   => array(
-				'{jsnpf}',
-			),
-		),
-		'{likebutton}' => array(
-			'name'       => 'Like Button',
-			'dependency' => array(
-				'name' => 'Jetpack',
-				'url'  => 'https://wordpress.org/plugins/jetpack/',
-			),
-		),
-	);
+	public array $unsupported_features = array();
 
 	/**
 	 * Undocumented variable
@@ -73,6 +58,25 @@ array(
 	 * @param string $html The HTML to be sniffed.
 	 */
 	public function __construct( $html = '' ) {
+		$this->unsupported_features = array(
+			'{npf}'        => array(
+				'name'       => 'Neue Post Format',
+				'dependency' => null,
+				'alt_tags'   => array(
+					'{jsnpf}',
+				),
+			),
+			'{likebutton}' => array(
+				'name'       => 'Like Button',
+				'dependency' => array(
+					'name'  => 'Jetpack',
+					'slug'  => 'jetpack/jetpack.php',
+					'url'   => admin_url( 'plugin-install.php?tab=plugin-information&plugin=jetpack&TB_iframe=true' ),
+					'wporg' => true,
+				),
+			),
+		);
+
 		$this->find_unsupported_features();
 
 		if ( ! empty( $html ) ) {
@@ -105,6 +109,13 @@ array(
 				}
 			}
 		}
+
+		// Remove any features with dependencies that are installed.
+		foreach ( $this->unsupported_found as $feature => $data ) {
+			if ( null !== $data['dependency'] && is_plugin_active( $data['dependency']['slug'] ) ) {
+				unset( $this->unsupported_found[ $feature ] );
+			}
+		}
 	}
 
 	/**
@@ -112,19 +123,64 @@ array(
 	 *
 	 * @return string
 	 */
-	public function get_unsupported_features_html(): string {
-		$feature_list = array_map(
-			function ( $feature ) {
-				return $feature['name'];
-			},
-			$this->unsupported_found
-		);
+	public function get_unsupported_features_html( $list_only = false ): string {
+		// Returns full list and descriptions for customizer and Tumblr theme details.
+		if ( ! $list_only ) {
+			return sprintf(
+				'<ul><li>%s</li></ul><p>%s</p><a href="%s" class="button primary">%s</a>',
+				implode(
+					'</li><li>',
+					array_map(
+						function ( $feature ) {
+							return sprintf(
+								'%s %s',
+								$feature['name'],
+								null === $feature['dependency'] ? '<span class="dashicons dashicons-no"></span>' : '<span class="dashicons dashicons-yes"></span>'
+							);
+						},
+						$this->unsupported_found
+					)
+				),
+				sprintf(
+					'%s %s %s %s',
+					esc_html__( 'These may require an additional plugin to be installed', 'tumblr-theme-garden' ),
+					'<span class="dashicons dashicons-yes"></span>',
+					esc_html__( 'or may be currently unsupported and behave unexpectedly', 'tumblr-theme-garden' ),
+					'<span class="dashicons dashicons-no"></span>'
+				),
+				esc_url( admin_url( 'plugins.php' ) ),
+				esc_html__( 'Install Feature Plugins', 'tumblr-theme-garden' )
+			);
+		}
 
+		/**
+		 * Returns a list of features only for the plugin row meta.
+		 *
+		 * Creates a HTML list of unsupported features with links to the required plugins.
+		 */
 		return sprintf(
-			'<ul><li>%s</li></ul><p>%s</p><a href="#" class="button primary">%s</a>',
-			implode( '</li><li>', $feature_list ),
-			__( 'These features may require an additional supporting plugin to be installed.', 'tumblr-theme-garden' ),
-			__( 'Learn More', 'tumblr-theme-garden' )
+			'<ul><li>%s</li></ul>',
+			implode(
+				'</li><li>',
+				array_filter(
+					array_map(
+						function ( $feature ) {
+							if ( null === $feature['dependency'] ) {
+								return null;
+							}
+
+							return sprintf(
+								'%s: <a href="%s" %s>%s</a>',
+								$feature['name'],
+								$feature['dependency']['url'],
+								$feature['dependency']['wporg'] ? 'class="thickbox open-plugin-details-modal"' : 'target="_blank"',
+								$feature['dependency']['name']
+							);
+						},
+						$this->unsupported_found
+					)
+				)
+			)
 		);
 	}
 
@@ -133,7 +189,21 @@ array(
 	 *
 	 * @return array
 	 */
-	public function get_unsupported_features(): array {
-		return $this->unsupported_found;
+	public function get_unsupported_features( $context = 'customizer' ): array {
+		if ( 'customizer' === $context ) {
+			return $this->unsupported_found;
+		}
+
+		// If we're not in the customizer context, filter out features with null dependencies or dependencies that are installed.
+		$unsupported = array();
+		foreach ( $this->unsupported_found as $feature => $data ) {
+			if ( null === $data['dependency'] || is_plugin_active( $data['dependency']['slug'] ) ) {
+				continue;
+			}
+
+			$unsupported[ $feature ] = $data;
+		}
+
+		return $unsupported;
 	}
 }
