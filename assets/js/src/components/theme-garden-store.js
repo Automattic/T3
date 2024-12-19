@@ -128,9 +128,11 @@ const selectors = {
 		/*
 			We filter out the active theme because <ThemeGardenList /> will insert it at the top of the list.
 		 */
-		return state.themes.filter(
-			theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id )
-		);
+		return DEFAULT_STATE.activeTheme ?
+			state.themes.filter(
+				theme => parseInt( theme.id ) !== parseInt( DEFAULT_STATE.activeTheme.id )
+			) :
+			state.themes;
 	},
 	getIsOverlayOpen( state ) {
 		return state.isOverlayOpen;
