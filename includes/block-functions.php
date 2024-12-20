@@ -1686,7 +1686,7 @@ add_shortcode( 'block_daypage', 'ttgarden_block_daypage' );
  * @return string
  */
 function ttgarden_block_previouspage( $atts, $content = '' ): string {
-	return ( get_next_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_previous_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
 
@@ -1699,7 +1699,7 @@ add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
  * @return string
  */
 function ttgarden_block_nextpage( $atts, $content = '' ): string {
-	return ( get_previous_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_next_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_nextpage', 'ttgarden_block_nextpage' );
 
