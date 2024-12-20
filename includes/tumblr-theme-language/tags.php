@@ -204,6 +204,7 @@ return array(
 	'PostNotes-64',
 	'NoteCount',
 	'NoteCountWithLabel',
+	'FormattedNoteCount',
 	'Tag',
 	'URLSafeTag',
 	'TagURL',

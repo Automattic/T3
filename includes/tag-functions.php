@@ -874,6 +874,7 @@ function ttgarden_tag_notecountwithlabel(): string {
 	return get_comments_number_text();
 }
 add_shortcode( 'tag_notecountwithlabel', 'ttgarden_tag_notecountwithlabel' );
+add_shortcode( 'tag_formattednotecount', 'ttgarden_tag_notecountwithlabel' );
 
 /**
  * The post comments.
