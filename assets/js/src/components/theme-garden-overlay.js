@@ -1,7 +1,7 @@
 import { useCallback } from '@wordpress/element';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { _x } from '@wordpress/i18n';
+import { _x, sprintf } from '@wordpress/i18n';
 import classNames from 'classnames';
 
 /**
@@ -34,7 +34,20 @@ const _ThemeGardenOverlay = ( {
 		closeOverlay();
 	}, [ closeOverlay ] );
 
-	const renderThemeDetails = useCallback( () => {
+	console.log(themeDetails);
+
+	const renderByLine = () => {
+		if (!themeDetails.author) {
+			return null;
+		}
+		const authorLink = `<a href="${themeDetails.author.url}">${themeDetails.author.name}</a>`;
+		const authorHtml = _x(sprintf('By %s', authorLink), 'By-line for a theme', 'tumblr-theme-garden');
+		return <p className='theme-author' dangerouslySetInnerHTML={{__html: authorHtml}}></p>;
+	}
+
+	const renderThemeDetails = useCallback(() => {
+		const authorLink = `<a href="${ themeDetails.author.url}">${themeDetails.author.name}</a>`;
+		const authorHtml =  _x(sprintf('By %s', authorLink), 'By-line for a theme', 'tumblr-theme-garden' );
 		if ( isFetchingTheme || ! themeDetails ) {
 			return (
 				<div className="loading-content wp-clearfix">
@@ -52,7 +65,8 @@ const _ThemeGardenOverlay = ( {
 				</div>
 				<div className="theme-info">
 					<h2 className="theme-name">{ themeDetails.title }</h2>
-					<div dangerouslySetInnerHTML={ { __html: themeDetails.description } }></div>
+					{renderByLine()}
+					<p className="theme-tags"><span></span></p>
 				</div>
 			</div>
 		);
