@@ -198,7 +198,7 @@ class ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -210,7 +210,7 @@ class ThemeGarden {
 		);
 
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/theme',
 			array(
 				'methods'             => 'GET',

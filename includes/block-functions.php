@@ -698,7 +698,7 @@ function ttgarden_block_post_notes( $atts, $content = '' ): string {
 add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
 
 /**
- * Rendered if the post has at least one comment.
+ * Always rendered, but only outputs content if the post has comments or comments open.
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
@@ -706,7 +706,7 @@ add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
  * @return string
  */
 function ttgarden_block_notecount( $atts, $content = '' ): string {
-	return ( get_comments_number() > 0 ) ? ttgarden_do_shortcode( $content ) : '';
+	return ttgarden_do_shortcode( $content );
 }
 add_shortcode( 'block_notecount', 'ttgarden_block_notecount' );
 

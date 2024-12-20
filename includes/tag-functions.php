@@ -1928,11 +1928,14 @@ function ttgarden_tag_likebutton(): string {
 add_shortcode( 'tag_likebutton', 'ttgarden_tag_likebutton' );
 
 /**
- * Returns a URL to the post comments.
+ * Returns a URL to the post comments HTML partial.
  *
  * @return string
  */
 function ttgarden_tag_postnotesurl(): string {
-	return get_comments_link();
+	return sprintf(
+		'/?p=%d&ttgarden_html_comments=true',
+		get_the_ID()
+	);
 }
 add_shortcode( 'tag_postnotesurl', 'ttgarden_tag_postnotesurl' );

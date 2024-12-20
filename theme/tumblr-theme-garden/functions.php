@@ -96,7 +96,7 @@ add_action( 'wp_enqueue_scripts', 'ttgarden_enqueue_scripts' );
  *
  * @return void
  */
-function ttgarden_random_endpoint_rewrite(): void {
+function ttgarden_rewrite_rules(): void {
 	// Handle the Tumblr random endpoint.
 	add_rewrite_rule(
 		'^random/?$',
@@ -111,7 +111,7 @@ function ttgarden_random_endpoint_rewrite(): void {
 		'top'
 	);
 }
-add_action( 'init', 'ttgarden_random_endpoint_rewrite' );
+add_action( 'init', 'ttgarden_rewrite_rules' );
 
 /**
  * Add a new query variable for Tumblr search.
@@ -123,16 +123,56 @@ add_action( 'init', 'ttgarden_random_endpoint_rewrite' );
 function ttgarden_add_tumblr_search_var( $vars ): array {
 	$vars[] = 'q';
 	$vars[] = 'random';
+	$vars[] = 'ttgarden_html_comments';
 	return $vars;
 }
 add_filter( 'query_vars', 'ttgarden_add_tumblr_search_var' );
 
 /**
- * Redirect Tumblr search to core search.
+ * Handles template redirects for Tumblr theme.
+ *
+ * - If 'random' is set, redirect to a random post.
+ * - If 'q' is set, redirect to the core search page.
+ * - If 'ttgarden_html_comments' is set, redirect to a HTML only comments page.
  *
  * @return void
  */
-function ttgarden_redirect_tumblr_search(): void {
+function ttgarden_template_redirects(): void {
+	// If 'ttgarden_html_comments' is set, redirect to a HTML only comments page. /?p=85&ttgarden_html_comments=true
+	if ( get_query_var( 'ttgarden_html_comments' ) ) {
+		$post_id = get_query_var( 'p' );
+
+		// Ensure this is a valid post, it's published, not private.
+		if ( ! 'post' === get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+			exit;
+		}
+
+		// Get the comments.
+		$comments = get_comments(
+			array(
+				'post_id' => $post_id,
+				'status'  => 'approve',
+			)
+		);
+
+		// Build the HTML output.
+		$html_output = sprintf(
+			'<ol class="notes">%s</ol>',
+			wp_list_comments(
+				array(
+					'style'    => 'ol',
+					'callback' => 'ttgarden_comment_markup',
+					'echo'     => false,
+					'per_page' => 100,
+				),
+				$comments
+			)
+		);
+
+		echo wp_kses_post( $html_output );
+		exit;
+	}
+
 	// If random is set, redirect to a random post.
 	if ( get_query_var( 'random' ) ) {
 		// @see https://docs.wpvip.com/databases/optimize-queries/using-post__not_in/
@@ -158,7 +198,7 @@ function ttgarden_redirect_tumblr_search(): void {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'ttgarden_redirect_tumblr_search' );
+add_action( 'template_redirect', 'ttgarden_template_redirects', 1 );
 
 /**
  * Custom comment markup.
