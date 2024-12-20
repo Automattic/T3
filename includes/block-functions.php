@@ -698,7 +698,7 @@ function ttgarden_block_post_notes( $atts, $content = '' ): string {
 add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
 
 /**
- * Rendered if the post has at least one comment.
+ * Always rendered, but only outputs content if the post has comments or comments open.
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
@@ -706,7 +706,7 @@ add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
  * @return string
  */
 function ttgarden_block_notecount( $atts, $content = '' ): string {
-	return ( get_comments_number() > 0 ) ? ttgarden_do_shortcode( $content ) : '';
+	return ttgarden_do_shortcode( $content );
 }
 add_shortcode( 'block_notecount', 'ttgarden_block_notecount' );
 
@@ -1686,7 +1686,7 @@ add_shortcode( 'block_daypage', 'ttgarden_block_daypage' );
  * @return string
  */
 function ttgarden_block_previouspage( $atts, $content = '' ): string {
-	return ( get_next_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_previous_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
 
@@ -1699,7 +1699,7 @@ add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
  * @return string
  */
 function ttgarden_block_nextpage( $atts, $content = '' ): string {
-	return ( get_previous_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_next_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
 add_shortcode( 'block_nextpage', 'ttgarden_block_nextpage' );
 

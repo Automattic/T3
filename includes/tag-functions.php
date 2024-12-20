@@ -689,7 +689,7 @@ add_shortcode( 'tag_nextpost', 'ttgarden_tag_nextpost' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_previouspage(): string|null {
-	return untrailingslashit( esc_url( get_next_posts_page_link() ) );
+	return untrailingslashit( esc_url( get_previous_posts_page_link() ) );
 }
 add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
 
@@ -701,7 +701,7 @@ add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_nextpage(): string|null {
-	return untrailingslashit( esc_url( get_previous_posts_page_link() ) );
+	return untrailingslashit( esc_url( get_next_posts_page_link() ) );
 }
 add_shortcode( 'tag_nextpage', 'ttgarden_tag_nextpage' );
 
@@ -874,6 +874,7 @@ function ttgarden_tag_notecountwithlabel(): string {
 	return get_comments_number_text();
 }
 add_shortcode( 'tag_notecountwithlabel', 'ttgarden_tag_notecountwithlabel' );
+add_shortcode( 'tag_formattednotecount', 'ttgarden_tag_notecountwithlabel' );
 
 /**
  * The post comments.
@@ -1928,11 +1929,14 @@ function ttgarden_tag_likebutton(): string {
 add_shortcode( 'tag_likebutton', 'ttgarden_tag_likebutton' );
 
 /**
- * Returns a URL to the post comments.
+ * Returns a URL to the post comments HTML partial.
  *
  * @return string
  */
 function ttgarden_tag_postnotesurl(): string {
-	return get_comments_link();
+	return sprintf(
+		'/?p=%d&ttgarden_html_comments=true',
+		get_the_ID()
+	);
 }
 add_shortcode( 'tag_postnotesurl', 'ttgarden_tag_postnotesurl' );

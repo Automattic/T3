@@ -198,7 +198,7 @@ class ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -210,7 +210,7 @@ class ThemeGarden {
 		);
 
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/theme',
 			array(
 				'methods'             => 'GET',
@@ -331,14 +331,18 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function option_defaults_helper( $default_params ): void {
-		$ttgarden_mods = get_option( 'theme_mods_ttgarden', array() );
+		$ttgarden_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
+
+		if ( ! is_array( $ttgarden_mods ) ) {
+			$ttgarden_mods = array();
+		}
 
 		foreach ( $default_params as $key => $value ) {
 			$normal                   = ttgarden_normalize_option_name( $key );
-			$ttgarden_mods[ $normal ] = $value;
+			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
 
-		update_option( 'theme_mods_ttgarden', $ttgarden_mods );
+		update_option( 'theme_mods_tumblr-theme-garden', $ttgarden_mods );
 	}
 
 	/**
