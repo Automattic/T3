@@ -14,7 +14,7 @@ namespace CupcakeLabs\TumblrThemeGarden;
  *
  * @see WP_Customize_Panel
  */
-class FeatureSniffer {
+class CLTTG_FeatureSniffer {
 	/**
 	 * Array of (currently) unsupported features, noted by a null dependency.
 	 * Also an array of supported features that need an extra plugin to function, noted by a dependency array.

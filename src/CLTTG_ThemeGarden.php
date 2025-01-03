@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package CupcakeLabs\TumblrThemeGarden
  */
-class ThemeGarden {
+class CLTTG_ThemeGarden {
 	const THEME_GARDEN_ENDPOINT = 'https://www.tumblr.com/api/v2/theme_garden';
 	const ADMIN_MENU_SLUG       = 'tumblr-themes';
 
@@ -154,7 +154,7 @@ class ThemeGarden {
 	/**
 	 * Enqueues admin CSS.
 	 *
-	 * @param string $version Plugin version.
+	 * @param string $version CLTTG_Plugin version.
 	 *
 	 * @return void
 	 */

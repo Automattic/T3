@@ -14,7 +14,7 @@ namespace CupcakeLabs\TumblrThemeGarden;
  *
  * @see WP_Customize_Panel
  */
-class FeatureSnifferPanel extends \WP_Customize_Panel {
+class CLTTG_FeatureSnifferPanel extends \WP_Customize_Panel {
 	/**
 	 * Panel type.
 	 *
@@ -34,7 +34,7 @@ class FeatureSnifferPanel extends \WP_Customize_Panel {
 	 * @since 4.9.0
 	 */
 	protected function render_template() {
-		$features = new FeatureSniffer();
+		$features = new CLTTG_FeatureSniffer();
 		?>
 		<li id="accordion-section-{{ data.id }}" class="accordion-section control-section control-section-{{ data.type }} cannot-expand">
 			<h3>{{ data.title }}</h3>

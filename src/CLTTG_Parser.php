@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * The Tumblr theme parser.
  */
-class Parser {
+class CLTTG_Parser {
 
 	/**
 	 * Supported keywords in lang: tags that trigger text replacements.
@@ -67,7 +67,7 @@ class Parser {
 	public int $position = 0;
 
 	/**
-	 * Initializes the Theme Parser.
+	 * Initializes the Theme CLTTG_Parser.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0

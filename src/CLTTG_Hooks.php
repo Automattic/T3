@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   1.0.0
  * @version 1.0.0
  */
-class Hooks {
+class CLTTG_Hooks {
 	/**
 	 * The TumblrThemeGarden active status.
 	 *
@@ -27,7 +27,7 @@ class Hooks {
 	private $is_ttgarden_active;
 
 	/**
-	 * Initializes the Hooks.
+	 * Initializes the CLTTG_Hooks.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -176,7 +176,7 @@ class Hooks {
 			return;
 		}
 
-		$features = new FeatureSniffer();
+		$features = new CLTTG_FeatureSniffer();
 
 		// If there are no unsupported features, return early.
 		if ( empty( $features->get_unsupported_features( 'plugins' ) ) ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * BlockExtensions class.
+ * CLTTG_BlockExtensions class.
  *
  * @package TumblrThemeGarden
  */
@@ -10,9 +10,9 @@ namespace CupcakeLabs\TumblrThemeGarden;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * BlockExtensions class
+ * CLTTG_BlockExtensions class
  */
-class BlockExtensions {
+class CLTTG_BlockExtensions {
 	/**
 	 * The TumblrThemeGarden active status.
 	 *

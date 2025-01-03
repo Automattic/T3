@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * This is a custom processor that extends the default WP_HTML_Tag_Processor.
  */
-class Processor extends \WP_HTML_Tag_Processor {
+class CLTTG_Processor extends \WP_HTML_Tag_Processor {
 	/**
 	 * A function to pull bookmark start and end points in a string.
 	 *

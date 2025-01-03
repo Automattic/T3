@@ -26,6 +26,8 @@
  * Domain Path:             /languages
  **/
 
+// The prefix CLTTG stands for Cupcake Labs Tumblr Theme Garden
+
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants.

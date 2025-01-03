@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin main class.
+ * CLTTG_Plugin main class.
  *
  * @package TumblrThemeGarden
  */
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @since   1.0.0
  * @version 1.0.0
  */
-class Plugin {
+class CLTTG_Plugin {
 
 	/**
 	 * The TumblrThemeGarden active status.
@@ -33,9 +33,9 @@ class Plugin {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     Hooks|null
+	 * @var     CLTTG_Hooks|null
 	 */
-	public ?Hooks $hooks = null;
+	public ?CLTTG_Hooks $hooks = null;
 
 	/**
 	 * The customizer component.
@@ -43,9 +43,9 @@ class Plugin {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     Customizer|null
+	 * @var     CLTTG_Customizer|null
 	 */
-	public ?Customizer $customizer = null;
+	public ?CLTTG_Customizer $customizer = null;
 
 	/**
 	 * The theme browser component.
@@ -53,9 +53,9 @@ class Plugin {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     ThemeGarden|null
+	 * @var     CLTTG_ThemeGarden|null
 	 */
-	public ?ThemeGarden $theme_garden = null;
+	public ?CLTTG_ThemeGarden $theme_garden = null;
 
 	/**
 	 * The parser component.
@@ -63,9 +63,9 @@ class Plugin {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     Parser|null
+	 * @var     CLTTG_Parser|null
 	 */
-	public ?Parser $parser = null;
+	public ?CLTTG_Parser $parser = null;
 
 	/**
 	 * The block extensions component.
@@ -73,12 +73,12 @@ class Plugin {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     BlockExtensions|null
+	 * @var     CLTTG_BlockExtensions|null
 	 */
-	public ?BlockExtensions $block_extensions = null;
+	public ?CLTTG_BlockExtensions $block_extensions = null;
 
 	/**
-	 * Plugin constructor.
+	 * CLTTG_Plugin constructor.
 	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -114,10 +114,10 @@ class Plugin {
 	/**
 	 * Returns the singleton instance of the plugin.
 	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @return  CLTTG_Plugin
+	 *@version 1.0.0
 	 *
-	 * @return  Plugin
+	 * @since   1.0.0
 	 */
 	public static function get_instance(): self {
 		static $instance = null;
@@ -141,22 +141,22 @@ class Plugin {
 		$this->ttgarden_active = 'tumblr-theme-garden' === get_option( 'template' );
 
 		// Setup all plugin hooks.
-		$this->hooks = new Hooks();
+		$this->hooks = new CLTTG_Hooks();
 		$this->hooks->initialize( $this->ttgarden_active );
 
 		// Setup the customizer with default and custom theme options.
-		$this->customizer = new Customizer();
+		$this->customizer = new CLTTG_Customizer();
 		$this->customizer->initialize( $this->ttgarden_active );
 
-		$this->theme_garden = new ThemeGarden();
+		$this->theme_garden = new CLTTG_ThemeGarden();
 		$this->theme_garden->initialize();
 
-		$this->block_extensions = new BlockExtensions();
+		$this->block_extensions = new CLTTG_BlockExtensions();
 		$this->block_extensions->initialize( $this->ttgarden_active );
 
 		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {
-			$this->parser = new Parser();
+			$this->parser = new CLTTG_Parser();
 			$this->parser->initialize();
 		}
 	}

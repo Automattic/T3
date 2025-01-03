@@ -7,18 +7,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use CupcakeLabs\TumblrThemeGarden\Plugin;
+use CupcakeLabs\TumblrThemeGarden\CLTTG_Plugin;
 
 /**
  * Returns the plugin's main class instance.
  *
- * @since   1.0.0
- * @version 1.0.0
+ * @return  CLTTG_Plugin
+ *@version 1.0.0
  *
- * @return  Plugin
+ * @since   1.0.0
  */
-function ttgarden_get_plugin_instance(): Plugin {
-	return Plugin::get_instance();
+function ttgarden_get_plugin_instance(): CLTTG_Plugin
+{
+	return CLTTG_Plugin::get_instance();
 }
 
 /**

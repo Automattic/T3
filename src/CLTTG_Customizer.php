@@ -1,6 +1,6 @@
 <?php
 /**
- * Customizer class.
+ * CLTTG_Customizer class.
  *
  * @package TumblrThemeGarden
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * This class is responsible for handling customizer settings.
  */
-class Customizer {
+class CLTTG_Customizer {
 	/**
 	 * Initializes the class.
 	 *
@@ -24,7 +24,7 @@ class Customizer {
 	 * @return  void
 	 */
 	public function initialize( $is_ttgarden_active ): void {
-		// Customizer actions to run when this plugin is active.
+		// CLTTG_Customizer actions to run when this plugin is active.
 		add_action( 'customize_register', array( $this, 'tumblr_html_options' ) );
 
 		// Only run the rest of the actions if the TumblrThemeGarden theme is active.
@@ -64,7 +64,7 @@ class Customizer {
 			'tumblr-theme-garden-customizer',
 			'const themeGardenCustomizerData = ' . wp_json_encode(
 				array(
-					'baseUrl' => admin_url( 'admin.php?page=' . ThemeGarden::ADMIN_MENU_SLUG ),
+					'baseUrl' => admin_url( 'admin.php?page=' . CLTTG_ThemeGarden::ADMIN_MENU_SLUG ),
 				)
 			),
 			'before'
@@ -80,7 +80,7 @@ class Customizer {
 	 */
 	public function tumblr_html_options( $wp_customize ): void {
 		// Register the feature-sniffer panel type.
-		$wp_customize->register_panel_type( 'CupcakeLabs\TumblrThemeGarden\FeatureSnifferPanel' );
+		$wp_customize->register_panel_type('CupcakeLabs\TumblrThemeGarden\CLTTG_FeatureSnifferPanel');
 
 		// Add Theme HTML section.
 		$wp_customize->add_section(
@@ -138,7 +138,7 @@ class Customizer {
 	/**
 	 * Filters response of WP_Customize_Panel::active().
 	 *
-	 * @param boolean            $active Whether the Customizer panel is active.
+	 * @param boolean            $active Whether the CLTTG_Customizer panel is active.
 	 * @param WP_Customize_Panel $panel  WP_Customize_Panel instance.
 	 *
 	 * @return boolean
@@ -177,12 +177,12 @@ class Customizer {
 	 */
 	public function global_options( $wp_customize ): void {
 		// Create a feature sniffer to detect unsupported features.
-		$features = new FeatureSniffer();
+		$features = new CLTTG_FeatureSniffer();
 
 		if ( ! empty( $features->get_unsupported_features() ) ) {
 			// Add our feature sniff panel.
 			$wp_customize->add_panel(
-				new FeatureSnifferPanel(
+				new CLTTG_FeatureSnifferPanel(
 					$this,
 					'feature_sniffer',
 					array(

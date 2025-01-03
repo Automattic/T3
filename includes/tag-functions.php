@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Handles inline replacement of lang: tags.
  *
- * @see \CupcakeLabs\TumblrThemeGarden\Parser
+ * @see \CupcakeLabs\TumblrThemeGarden\CLTTG_Parser
  *
  * @param array $atts Array of shortcode attributes.
  *
@@ -1118,7 +1118,7 @@ function ttgarden_tag_externalaudiourl(): string {
 
 	// Test if the current context is an audio post and has a player.
 	if ( isset( $context['audio'], $context['audio']['player'] ) ) {
-		$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $context['audio']['player'] );
+		$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $context['audio']['player'] );
 
 		while ( $processor->next_tag( 'AUDIO' ) ) {
 			$src = $processor->get_attribute( 'SRC' );
@@ -1895,7 +1895,7 @@ function ttgarden_tag_likebutton(): string {
 		$block
 	);
 
-	$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $block_output );
+	$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block_output );
 
 	// The standard block output won't work, we need to extract details from the block.
 	while ( $processor->next_tag(

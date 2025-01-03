@@ -751,7 +751,7 @@ function ttgarden_block_quote( $atts, $content = '' ): string {
 
 		// Stop on the first quote block.
 		if ( 'core/quote' === $block['blockName'] ) {
-			$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $block['innerHTML'] );
+			$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
 			while ( $processor->next_tag(
@@ -1017,7 +1017,7 @@ function ttgarden_block_audio( $atts, $content = '' ): string {
 			$provider   = isset( $block['attrs']['providerName'] ) ? $block['attrs']['providerName'] : '';
 			$embed_html = isset( $block['attrs']['embedHtml'] ) ? $block['attrs']['embedHtml'] : '';
 			$embed_url  = isset( $block['attrs']['src'] ) ? $block['attrs']['src'] : '';
-			$processor  = new CupcakeLabs\TumblrThemeGarden\Processor( $block['innerHTML'] );
+			$processor  = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
 			while ( $processor->next_tag(
@@ -1218,7 +1218,7 @@ function ttgarden_block_video( $atts, $content = '' ): string {
 			$can_autoplay_on_cellular = isset( $block['attrs']['canAutoplayOnCellular'] ) ? $block['attrs']['canAutoplayOnCellular'] : false;
 			$duration                 = isset( $block['attrs']['mediaDuration'] ) ? $block['attrs']['mediaDuration'] : 0;
 
-			$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $block['innerHTML'] );
+			$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block['innerHTML'] );
 
 			// Set bookmarks to extract HTML positions.
 			while ( $processor->next_tag(
@@ -1337,7 +1337,7 @@ function ttgarden_block_photo( $atts, $content = '' ): string {
 				$image_src = $image_src[0];
 			} else {
 				// If the image source is not found, use the block's innerHTML.
-				$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $block['innerHTML'] );
+				$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block['innerHTML'] );
 
 				while ( $processor->next_tag( array( 'tag_name' => 'IMG' ) ) ) {
 					$image_src = $processor->get_attribute( 'src' );
@@ -1408,7 +1408,7 @@ function ttgarden_block_photos( $atts, $content = '' ): string {
 			$image_src = $image_src[0];
 		} else {
 			// If the image source is not found, use the block's innerHTML.
-			$processor = new CupcakeLabs\TumblrThemeGarden\Processor( $block['innerHTML'] );
+			$processor = new CupcakeLabs\TumblrThemeGarden\CLTTG_Processor( $block['innerHTML'] );
 
 			while ( $processor->next_tag( array( 'tag_name' => 'IMG' ) ) ) {
 				$image_src = $processor->get_attribute( 'src' );
