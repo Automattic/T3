@@ -288,12 +288,12 @@ class ThemeGarden {
 	 * @return array
 	 */
 	public function get_themes_and_categories(): array {
-		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
+		$cached_response = get_transient( 'ttgarden_tumblr_themes_response_' . $this->get_api_query_string() );
 
 		if ( false === $cached_response ) {
 			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
 			$cached_response = wp_remote_retrieve_body( $response );
-			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
+			set_transient( 'ttgarden_tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
 		}
 
 		$body = json_decode( $cached_response, true );
