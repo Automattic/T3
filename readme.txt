@@ -34,6 +34,15 @@ Enables WordPress to use [Tumblr themes](https://www.tumblr.com/themes/). Browse
 - Click Activate to use that theme
 - You will then be redirected to the Customizer to access theme settings.
 
+== External services ==
+
+This plugin connects to the official Tumblr API to obtain data and associated files for Tumblr Themes, it is required to browse and use [Tumblr Themes](https://www.tumblr.com/themes/)
+
+For theme searches, it sends your entered search term and category inputs.
+For activating a theme, it will send your selected theme_id and a timestamp used for cache busting.
+
+This service is provided by "Tumblr": [API Agreement](https://www.tumblr.com/docs/en/api_agreement), [Tumblr privacy policy](https://www.tumblr.com/privacy/en)
+
 == Source Code and Development ==
 
 The source code for the Tumblr Theme Garden plugin is publicly available and maintained on GitHub. [Tumblr Theme Garden Repository](https://github.com/Automattic/tumblr-theme-garden).
