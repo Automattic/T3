@@ -31,7 +31,7 @@ function ttgarden_get_plugin_instance(): CLTTG_Plugin
  * @return  string
  */
 function ttgarden_get_plugin_slug(): string {
-	return sanitize_key( TTGARDEN_METADATA['TextDomain'] );
+	return sanitize_key( CLTTG_METADATA['TextDomain'] );
 }
 
 /**
@@ -48,7 +48,7 @@ function ttgarden_get_plugin_slug(): string {
  * @return  array|null
  */
 function ttgarden_get_asset_meta( string $asset_path, ?array $extra_dependencies = null ): ?array {
-	if ( ! file_exists( $asset_path ) || ! str_starts_with( $asset_path, TTGARDEN_PATH ) ) {
+	if ( ! file_exists( $asset_path ) || ! str_starts_with( $asset_path, CLTTG_PATH ) ) {
 		return null;
 	}
 
@@ -62,7 +62,7 @@ function ttgarden_get_asset_meta( string $asset_path, ?array $extra_dependencies
 			'version'      => filemtime( $asset_path ),
 		);
 		if ( false === $asset_meta['version'] ) { // Safeguard against filemtime() returning false.
-			$asset_meta['version'] = TTGARDEN_METADATA['Version'];
+			$asset_meta['version'] = CLTTG_METADATA['Version'];
 		}
 	}
 
@@ -137,7 +137,7 @@ function ttgarden_normalize_option_name( $name ): string {
 		str_replace(
 			array_merge(
 				array( ' ' ),
-				TTGARDEN_OPTIONS
+				CLTTG_OPTIONS
 			),
 			'',
 			$name
@@ -155,5 +155,5 @@ function ttgarden_get_tumblr_regex(): string {
 }
 
 // Include tag and block hydration functions for each Tumblr Theme tag|block.
-require TTGARDEN_PATH . 'includes/block-functions.php';
-require TTGARDEN_PATH . 'includes/tag-functions.php';
+require CLTTG_PATH . 'includes/block-functions.php';
+require CLTTG_PATH . 'includes/tag-functions.php';

@@ -145,10 +145,10 @@ class CLTTG_Parser {
 	 * @return string Parsed content.
 	 */
 	public function parse_theme( $content ): string {
-		$tags      = array_map( 'strtolower', TTGARDEN_TAGS );
-		$blocks    = array_map( 'strtolower', TTGARDEN_BLOCKS );
-		$options   = array_map( 'strtolower', TTGARDEN_OPTIONS );
-		$modifiers = array_map( 'strtolower', TTGARDEN_MODIFIERS );
+		$tags      = array_map( 'strtolower', CLTTG_TAGS );
+		$blocks    = array_map( 'strtolower', CLTTG_BLOCKS );
+		$options   = array_map( 'strtolower', CLTTG_OPTIONS );
+		$modifiers = array_map( 'strtolower', CLTTG_MODIFIERS );
 
 		/**
 		 * Before parsing, clean out comments that could contain tags and cause issues, e.g unbalanced blocks.
@@ -178,7 +178,7 @@ class CLTTG_Parser {
 				 *
 				 * @return string
 				 */
-				if ( array_key_exists( strtolower( $matches[1] ), TTGARDEN_LANG ) ) {
+				if ( array_key_exists( strtolower( $matches[1] ), CLTTG_LANG ) ) {
 					return $this->language_helper( strtolower( $matches[1] ) );
 				}
 
@@ -267,7 +267,7 @@ class CLTTG_Parser {
 		 * Second: Use the new regex to find and replace the unsupported tags and blocks with an empty string.
 		 * Third: Run the content through the shortcode parser to kick-off page creation.
 		 */
-		$pattern = get_shortcode_regex( array_merge( TTGARDEN_MISSING_BLOCKS, TTGARDEN_MISSING_TAGS ) );
+		$pattern = get_shortcode_regex( array_merge( CLTTG_MISSING_BLOCKS, CLTTG_MISSING_TAGS ) );
 		$content = ttgarden_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
 		$content = preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
 
@@ -289,7 +289,7 @@ class CLTTG_Parser {
 				error_log(
 					$block . ' is a duplicate block opener. Found at position ' . $this->position . PHP_EOL,
 					3,
-					TTGARDEN_PATH . 'parser.log'
+					CLTTG_PATH . 'parser.log'
 				);
 
 				$block = '/' . $block;
@@ -323,7 +323,7 @@ class CLTTG_Parser {
 		}
 
 		// If no keywords are found, return the shortcode with a set value.
-		return '[tag_lang value="' . TTGARDEN_LANG[ $key ] . '"]';
+		return '[tag_lang value="' . CLTTG_LANG[ $key ] . '"]';
 	}
 
 	/**

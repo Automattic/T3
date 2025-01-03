@@ -43,11 +43,11 @@ class CLTTG_Customizer {
 	 * @return void
 	 */
 	public function enqueue_customizer_scripts(): void {
-		$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/customizer.asset.php' );
+		$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/customizer.asset.php' );
 
 		wp_enqueue_script(
 			'tumblr-theme-garden-customizer',
-			TTGARDEN_URL . 'assets/js/build/customizer.js',
+			CLTTG_URL . 'assets/js/build/customizer.js',
 			$deps['dependencies'],
 			$deps['version'],
 			true
@@ -55,7 +55,7 @@ class CLTTG_Customizer {
 
 		wp_enqueue_style(
 			'tumblr-theme-garden-customizer',
-			TTGARDEN_URL . 'assets/js/build/customizer.css',
+			CLTTG_URL . 'assets/js/build/customizer.css',
 			array(),
 			$deps['version']
 		);

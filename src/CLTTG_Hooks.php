@@ -116,10 +116,10 @@ class CLTTG_Hooks {
 		if ( $this->is_ttgarden_active ) {
 			// Register the theme directory if it hasn't been registered yet.
 			if ( null === $registered || false === $registered ) {
-				$registered = register_theme_directory( TTGARDEN_PATH . 'theme' );
+				$registered = register_theme_directory( CLTTG_PATH . 'theme' );
 			}
 
-			return TTGARDEN_PATH . 'theme';
+			return CLTTG_PATH . 'theme';
 		}
 
 		return $root;

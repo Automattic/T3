@@ -79,7 +79,7 @@ class CLTTG_ThemeGarden {
 	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
-			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-garden.asset.php' );
+			$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-garden.asset.php' );
 
 			$this->enqueue_admin_styles( $deps['version'] );
 
@@ -90,7 +90,7 @@ class CLTTG_ThemeGarden {
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
-				TTGARDEN_URL . 'assets/js/build/theme-garden.js',
+				CLTTG_URL . 'assets/js/build/theme-garden.js',
 				$deps['dependencies'],
 				$deps['version'],
 				true
@@ -100,7 +100,7 @@ class CLTTG_ThemeGarden {
 				'tumblr-theme-garden',
 				'const themeGardenData = ' . wp_json_encode(
 					array(
-						'logoUrl'          => TTGARDEN_URL . 'assets/images/tumblr_logo_icon.png',
+						'logoUrl'          => CLTTG_URL . 'assets/images/tumblr_logo_icon.png',
 						'customizeUrl'     => wp_customize_url(),
 						'themes'           => $themes_and_categories['themes'],
 						'categories'       => $themes_and_categories['categories'],
@@ -117,13 +117,13 @@ class CLTTG_ThemeGarden {
 		}
 
 		if ( 'theme-install.php' === $hook ) {
-			$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/theme-install.asset.php' );
+			$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-install.asset.php' );
 
 			$this->enqueue_admin_styles( $deps['version'] );
 
 			wp_enqueue_script(
 				'tumblr-theme-install',
-				TTGARDEN_URL . 'assets/js/build/theme-install.js',
+				CLTTG_URL . 'assets/js/build/theme-install.js',
 				$deps['dependencies'],
 				$deps['version'],
 				true
@@ -144,7 +144,7 @@ class CLTTG_ThemeGarden {
 		if ( 'themes.php' === $hook ) {
 			wp_enqueue_style(
 				'tumblr-theme-garden-admin',
-				TTGARDEN_URL . 'assets/css/build/themes.css',
+				CLTTG_URL . 'assets/css/build/themes.css',
 				array(),
 				time()
 			);
@@ -161,7 +161,7 @@ class CLTTG_ThemeGarden {
 	public function enqueue_admin_styles( $version ): void {
 		wp_enqueue_style(
 			'tumblr-theme-garden',
-			TTGARDEN_URL . 'assets/css/build/admin.css',
+			CLTTG_URL . 'assets/css/build/admin.css',
 			array(),
 			$version
 		);
@@ -198,7 +198,7 @@ class CLTTG_ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			TTGARDEN_REST_NAMESPACE,
+			CLTTG_REST_NAMESPACE,
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -210,7 +210,7 @@ class CLTTG_ThemeGarden {
 		);
 
 		register_rest_route(
-			TTGARDEN_REST_NAMESPACE,
+			CLTTG_REST_NAMESPACE,
 			'/theme',
 			array(
 				'methods'             => 'GET',

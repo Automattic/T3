@@ -32,40 +32,40 @@ defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants.
 function_exists( 'get_plugin_data' ) || require_once ABSPATH . 'wp-admin/includes/plugin.php';
-define( 'TTGARDEN_METADATA', get_plugin_data( __FILE__, false, false ) );
+define( 'CLTTG_METADATA', get_plugin_data( __FILE__, false, false ) );
 
-define( 'TTGARDEN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'TTGARDEN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'TTGARDEN_URL', plugin_dir_url( __FILE__ ) );
+define( 'CLTTG_BASENAME', plugin_basename( __FILE__ ) );
+define( 'CLTTG_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CLTTG_URL', plugin_dir_url( __FILE__ ) );
 
 // Define REST API namespace.
-define( 'TTGARDEN_REST_NAMESPACE', 'tumblr-theme-garden/v1' );
+define( 'CLTTG_REST_NAMESPACE', 'tumblr-theme-garden/v1' );
 
 // Define tag and block names from Tumblr Theme language.
-define( 'TTGARDEN_TAGS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/tags.php' );
-define( 'TTGARDEN_BLOCKS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/blocks.php' );
-define( 'TTGARDEN_OPTIONS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/options.php' );
-define( 'TTGARDEN_MODIFIERS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/modifiers.php' );
-define( 'TTGARDEN_MISSING_BLOCKS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/missing-blocks.php' );
-define( 'TTGARDEN_MISSING_TAGS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/missing-tags.php' );
+define( 'CLTTG_TAGS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/tags.php' );
+define( 'CLTTG_BLOCKS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/blocks.php' );
+define( 'CLTTG_OPTIONS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/options.php' );
+define( 'CLTTG_MODIFIERS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/modifiers.php' );
+define( 'CLTTG_MISSING_BLOCKS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/missing-blocks.php' );
+define( 'CLTTG_MISSING_TAGS', require_once CLTTG_PATH . 'includes/tumblr-theme-language/missing-tags.php' );
 
-$lang = require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/lang.php';
-define( 'TTGARDEN_LANG', array_change_key_case( $lang, CASE_LOWER ) );
+$lang = require_once CLTTG_PATH . 'includes/tumblr-theme-language/lang.php';
+define( 'CLTTG_LANG', array_change_key_case( $lang, CASE_LOWER ) );
 
 // Load plugin translations so they are available even for the error admin notices.
 add_action(
 	'init',
 	static function () {
 		load_plugin_textdomain(
-			TTGARDEN_METADATA['TextDomain'],
+			CLTTG_METADATA['TextDomain'],
 			false,
-			dirname( TTGARDEN_BASENAME ) . TTGARDEN_METADATA['DomainPath']
+			dirname( CLTTG_BASENAME ) . CLTTG_METADATA['DomainPath']
 		);
 	}
 );
 
 // Load the autoloader.
-if ( ! is_file( TTGARDEN_PATH . '/vendor/autoload.php' ) ) {
+if ( ! is_file( CLTTG_PATH . '/vendor/autoload.php' ) ) {
 	add_action(
 		'admin_notices',
 		static function () {
@@ -76,7 +76,7 @@ if ( ! is_file( TTGARDEN_PATH . '/vendor/autoload.php' ) ) {
 	);
 	return;
 }
-require_once TTGARDEN_PATH . '/vendor/autoload.php';
+require_once CLTTG_PATH . '/vendor/autoload.php';
 
 /**
  * On activation, setup the plugin options.
@@ -111,5 +111,5 @@ register_deactivation_hook(
 	}
 );
 
-require_once TTGARDEN_PATH . 'functions.php';
+require_once CLTTG_PATH . 'functions.php';
 add_action( 'plugins_loaded', array( ttgarden_get_plugin_instance(), 'initialize' ) );

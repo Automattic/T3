@@ -63,7 +63,7 @@ function ttgarden_tag_lang( $atts ): string {
 
 	// If keywords are found, return the language string with keyword replacements.
 	return vsprintf(
-		( is_array( TTGARDEN_LANG[ $atts['key'] ] ) ) ? TTGARDEN_LANG[ $atts['key'] ][1] : TTGARDEN_LANG[ $atts['key'] ],
+		( is_array( CLTTG_LANG[ $atts['key'] ] ) ) ? CLTTG_LANG[ $atts['key'] ][1] : CLTTG_LANG[ $atts['key'] ],
 		array_map(
 			function ( $callback ) {
 				return call_user_func( $callback );
@@ -653,7 +653,7 @@ add_shortcode( 'tag_tagsasclasses', 'ttgarden_tagsasclasses' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_pinnedpostlabel(): string {
-	return esc_html( TTGARDEN_LANG['lang:pinned post'] );
+	return esc_html( CLTTG_LANG['lang:pinned post'] );
 }
 add_shortcode( 'tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
 

@@ -16,11 +16,11 @@ defined( 'ABSPATH' ) || exit;
  * @return  void
  */
 function ttgarden_enqueue_block_editor_assets(): void {
-	$deps = ttgarden_get_asset_meta( TTGARDEN_PATH . 'assets/js/build/editor.asset.php' );
+	$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/editor.asset.php' );
 
 	wp_enqueue_script(
 		'cupcakelabs-tumblr-theme-garden',
-		TTGARDEN_URL . 'assets/js/build/editor.js',
+		CLTTG_URL . 'assets/js/build/editor.js',
 		$deps['dependencies'],
 		$deps['version'],
 		true
@@ -28,7 +28,7 @@ function ttgarden_enqueue_block_editor_assets(): void {
 
 	wp_enqueue_style(
 		'cupcakelabs-tumblr-theme-garden',
-		TTGARDEN_URL . 'assets/js/build/editor.css',
+		CLTTG_URL . 'assets/js/build/editor.css',
 		array(),
 		$deps['version']
 	);
@@ -84,9 +84,9 @@ add_action( 'after_setup_theme', 'ttgarden_theme_support' );
 function ttgarden_enqueue_scripts(): void {
 	wp_enqueue_style(
 		'tumblr-theme-garden-style',
-		TTGARDEN_URL . 'assets/css/build/index.css',
+		CLTTG_URL . 'assets/css/build/index.css',
 		array(),
-		TTGARDEN_METADATA['Version']
+		CLTTG_METADATA['Version']
 	);
 }
 add_action( 'wp_enqueue_scripts', 'ttgarden_enqueue_scripts' );
