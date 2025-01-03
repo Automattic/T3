@@ -17,7 +17,7 @@ use CupcakeLabs\TumblrThemeGarden\CLTTG_Plugin;
  *
  * @since   1.0.0
  */
-function ttgarden_get_plugin_instance(): CLTTG_Plugin
+function clttg_get_plugin_instance(): CLTTG_Plugin
 {
 	return CLTTG_Plugin::get_instance();
 }
@@ -30,7 +30,7 @@ function ttgarden_get_plugin_instance(): CLTTG_Plugin
  *
  * @return  string
  */
-function ttgarden_get_plugin_slug(): string {
+function clttg_get_plugin_slug(): string {
 	return sanitize_key( CLTTG_METADATA['TextDomain'] );
 }
 
@@ -47,7 +47,7 @@ function ttgarden_get_plugin_slug(): string {
  *
  * @return  array|null
  */
-function ttgarden_get_asset_meta( string $asset_path, ?array $extra_dependencies = null ): ?array {
+function clttg_get_asset_meta( string $asset_path, ?array $extra_dependencies = null ): ?array {
 	if ( ! file_exists( $asset_path ) || ! str_starts_with( $asset_path, CLTTG_PATH ) ) {
 		return null;
 	}
@@ -83,7 +83,7 @@ function ttgarden_get_asset_meta( string $asset_path, ?array $extra_dependencies
  *
  * @return string The parsed content.
  */
-function ttgarden_do_shortcode( $content ): string {
+function clttg_do_shortcode( $content ): string {
 	global $shortcode_tags;
 	static $pattern = null;
 
@@ -107,9 +107,9 @@ function ttgarden_do_shortcode( $content ): string {
  *
  * @return array|null|string The current parse context.
  */
-function ttgarden_get_parse_context() {
-	global $ttgarden_parse_context;
-	return $ttgarden_parse_context;
+function clttg_get_parse_context() {
+	global $clttg_parse_context;
+	return $clttg_parse_context;
 }
 
 /**
@@ -120,9 +120,9 @@ function ttgarden_get_parse_context() {
  *
  * @return void
  */
-function ttgarden_set_parse_context( $key, $value ): void {
-	global $ttgarden_parse_context;
-	$ttgarden_parse_context = array( $key => $value );
+function clttg_set_parse_context( $key, $value ): void {
+	global $clttg_parse_context;
+	$clttg_parse_context = array( $key => $value );
 }
 
 /**
@@ -132,7 +132,7 @@ function ttgarden_set_parse_context( $key, $value ): void {
  *
  * @return string The normalized name.
  */
-function ttgarden_normalize_option_name( $name ): string {
+function clttg_normalize_option_name( $name ): string {
 	return strtolower(
 		str_replace(
 			array_merge(
@@ -150,7 +150,7 @@ function ttgarden_normalize_option_name( $name ): string {
  *
  * @return string The Tumblr Theme Garden regex.
  */
-function ttgarden_get_tumblr_regex(): string {
+function clttg_get_tumblr_regex(): string {
 	return '/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i';
 }
 

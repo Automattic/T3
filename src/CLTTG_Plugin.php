@@ -25,7 +25,7 @@ class CLTTG_Plugin {
 	 *
 	 * @var     bool
 	 */
-	public bool $ttgarden_active = false;
+	public bool $clttg_active = false;
 
 	/**
 	 * The hooks component.
@@ -138,21 +138,21 @@ class CLTTG_Plugin {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		$this->ttgarden_active = 'tumblr-theme-garden' === get_option( 'template' );
+		$this->clttg_active = 'tumblr-theme-garden' === get_option( 'template' );
 
 		// Setup all plugin hooks.
 		$this->hooks = new CLTTG_Hooks();
-		$this->hooks->initialize( $this->ttgarden_active );
+		$this->hooks->initialize( $this->clttg_active );
 
 		// Setup the customizer with default and custom theme options.
 		$this->customizer = new CLTTG_Customizer();
-		$this->customizer->initialize( $this->ttgarden_active );
+		$this->customizer->initialize( $this->clttg_active );
 
 		$this->theme_garden = new CLTTG_ThemeGarden();
 		$this->theme_garden->initialize();
 
 		$this->block_extensions = new CLTTG_BlockExtensions();
-		$this->block_extensions->initialize( $this->ttgarden_active );
+		$this->block_extensions->initialize( $this->clttg_active );
 
 		// In the frontend, setup the parser.
 		if ( ! is_admin() ) {

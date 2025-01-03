@@ -60,7 +60,7 @@ array(
 	public function __construct( $html = '' ) {
 		// Define the unsupported features, done in constructor due to dynamic data.
 		$this->unsupported_features = apply_filters(
-			'ttgarden_unsupported_features',
+			'clttg_unsupported_features',
 			array(
 				'{npf}'        => array(
 					'name'       => 'Neue Post Format',
@@ -95,7 +95,7 @@ array(
 	 */
 	public function find_unsupported_features(): void {
 		// Load in either the HTML passed to the class constructor or the option value.
-		$html = ( '' === $this->html ) ? strtolower( get_option( 'ttgarden_theme_html' ) ) : strtolower( $this->html );
+		$html = ( '' === $this->html ) ? strtolower( get_option( 'clttg_theme_html' ) ) : strtolower( $this->html );
 
 		// Check each unsupported feature.
 		foreach ( $this->unsupported_features as $feature => $data ) {

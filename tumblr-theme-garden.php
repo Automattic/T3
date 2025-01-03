@@ -70,7 +70,7 @@ if ( ! is_file( CLTTG_PATH . '/vendor/autoload.php' ) ) {
 		'admin_notices',
 		static function () {
 			$message      = __( 'It seems like <strong>Tumblr Theme Garden</strong> failed to autoload. Run composer i.', 'tumblr-theme-garden' );
-			$html_message = wp_sprintf( '<div class="error notice ttgarden-error">%s</div>', wpautop( $message ) );
+			$html_message = wp_sprintf( '<div class="error notice clttg-error">%s</div>', wpautop( $message ) );
 			echo wp_kses_post( $html_message );
 		}
 	);
@@ -84,10 +84,10 @@ require_once CLTTG_PATH . '/vendor/autoload.php';
 register_activation_hook(
 	__FILE__,
 	static function () {
-		update_option( 'ttgarden_original_theme', '' );
-		update_option( 'ttgarden_theme_html', '' );
-		update_option( 'ttgarden_use_theme', '0' );
-		update_option( 'ttgarden_external_theme', array() );
+		update_option( 'clttg_original_theme', '' );
+		update_option( 'clttg_theme_html', '' );
+		update_option( 'clttg_use_theme', '0' );
+		update_option( 'clttg_external_theme', array() );
 	}
 );
 
@@ -98,18 +98,18 @@ register_deactivation_hook(
 	__FILE__,
 	static function () {
 		// Switch back to the original theme if one was saved.
-		$theme = get_option( 'ttgarden_original_theme' );
+		$theme = get_option( 'clttg_original_theme' );
 		if ( $theme ) {
 			switch_theme( $theme );
 		}
 
 		// Cleanup options.
-		delete_option( 'ttgarden_original_theme' );
-		delete_option( 'ttgarden_theme_html' );
-		delete_option( 'ttgarden_use_theme' );
-		delete_option( 'ttgarden_external_theme' );
+		delete_option( 'clttg_original_theme' );
+		delete_option( 'clttg_theme_html' );
+		delete_option( 'clttg_use_theme' );
+		delete_option( 'clttg_external_theme' );
 	}
 );
 
 require_once CLTTG_PATH . 'functions.php';
-add_action( 'plugins_loaded', array( ttgarden_get_plugin_instance(), 'initialize' ) );
+add_action( 'plugins_loaded', array( clttg_get_plugin_instance(), 'initialize' ) );

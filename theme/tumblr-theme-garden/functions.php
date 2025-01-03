@@ -15,8 +15,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return  void
  */
-function ttgarden_enqueue_block_editor_assets(): void {
-	$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/editor.asset.php' );
+function clttg_enqueue_block_editor_assets(): void {
+	$deps = clttg_get_asset_meta( CLTTG_PATH . 'assets/js/build/editor.asset.php' );
 
 	wp_enqueue_script(
 		'cupcakelabs-tumblr-theme-garden',
@@ -33,7 +33,7 @@ function ttgarden_enqueue_block_editor_assets(): void {
 		$deps['version']
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'ttgarden_enqueue_block_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'clttg_enqueue_block_editor_assets' );
 
 /**
  * Filters the block editor settings.
@@ -46,18 +46,18 @@ add_action( 'enqueue_block_editor_assets', 'ttgarden_enqueue_block_editor_assets
  *
  * @return  array
  */
-function ttgarden_disable_post_format_ui( array $settings ): array {
+function clttg_disable_post_format_ui( array $settings ): array {
 	$settings['disablePostFormats'] = true;
 	return $settings;
 }
-add_filter( 'block_editor_settings_all', 'ttgarden_disable_post_format_ui' );
+add_filter( 'block_editor_settings_all', 'clttg_disable_post_format_ui' );
 
 /**
  * Setup theme support.
  *
  * @return void
  */
-function ttgarden_theme_support(): void {
+function clttg_theme_support(): void {
 	add_theme_support( 'post-formats', array( 'image', 'gallery', 'link', 'audio', 'video', 'quote', 'chat' ) );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'wp-block-styles' );
@@ -74,14 +74,14 @@ function ttgarden_theme_support(): void {
 		)
 	);
 }
-add_action( 'after_setup_theme', 'ttgarden_theme_support' );
+add_action( 'after_setup_theme', 'clttg_theme_support' );
 
 /**
  * Enqueue theme styles and scripts.
  *
  * @return void
  */
-function ttgarden_enqueue_scripts(): void {
+function clttg_enqueue_scripts(): void {
 	wp_enqueue_style(
 		'tumblr-theme-garden-style',
 		CLTTG_URL . 'assets/css/build/index.css',
@@ -89,14 +89,14 @@ function ttgarden_enqueue_scripts(): void {
 		CLTTG_METADATA['Version']
 	);
 }
-add_action( 'wp_enqueue_scripts', 'ttgarden_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'clttg_enqueue_scripts' );
 
 /**
  * Adds a random endpoint to match Tumblr's behavior.
  *
  * @return void
  */
-function ttgarden_rewrite_rules(): void {
+function clttg_rewrite_rules(): void {
 	// Handle the Tumblr random endpoint.
 	add_rewrite_rule(
 		'^random/?$',
@@ -111,7 +111,7 @@ function ttgarden_rewrite_rules(): void {
 		'top'
 	);
 }
-add_action( 'init', 'ttgarden_rewrite_rules' );
+add_action( 'init', 'clttg_rewrite_rules' );
 
 /**
  * Add a new query variable for Tumblr search.
@@ -120,26 +120,26 @@ add_action( 'init', 'ttgarden_rewrite_rules' );
  *
  * @return array
  */
-function ttgarden_add_tumblr_search_var( $vars ): array {
+function clttg_add_tumblr_search_var( $vars ): array {
 	$vars[] = 'q';
 	$vars[] = 'random';
-	$vars[] = 'ttgarden_html_comments';
+	$vars[] = 'clttg_html_comments';
 	return $vars;
 }
-add_filter( 'query_vars', 'ttgarden_add_tumblr_search_var' );
+add_filter( 'query_vars', 'clttg_add_tumblr_search_var' );
 
 /**
  * Handles template redirects for Tumblr theme.
  *
  * - If 'random' is set, redirect to a random post.
  * - If 'q' is set, redirect to the core search page.
- * - If 'ttgarden_html_comments' is set, redirect to a HTML only comments page.
+ * - If 'clttg_html_comments' is set, redirect to a HTML only comments page.
  *
  * @return void
  */
-function ttgarden_template_redirects(): void {
-	// If 'ttgarden_html_comments' is set, redirect to a HTML only comments page. /?p=85&ttgarden_html_comments=true
-	if ( get_query_var( 'ttgarden_html_comments' ) ) {
+function clttg_template_redirects(): void {
+	// If 'clttg_html_comments' is set, redirect to a HTML only comments page. /?p=85&clttg_html_comments=true
+	if ( get_query_var( 'clttg_html_comments' ) ) {
 		$post_id = get_query_var( 'p' );
 
 		// Ensure this is a valid post, it's published, not private.
@@ -161,7 +161,7 @@ function ttgarden_template_redirects(): void {
 			wp_list_comments(
 				array(
 					'style'    => 'ol',
-					'callback' => 'ttgarden_comment_markup',
+					'callback' => 'clttg_comment_markup',
 					'echo'     => false,
 					'per_page' => 100,
 				),
@@ -198,7 +198,7 @@ function ttgarden_template_redirects(): void {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'ttgarden_template_redirects', 1 );
+add_action( 'template_redirect', 'clttg_template_redirects', 1 );
 
 /**
  * Custom comment markup.
@@ -208,7 +208,7 @@ add_action( 'template_redirect', 'ttgarden_template_redirects', 1 );
  *
  * @return void
  */
-function ttgarden_comment_markup( $comment, $args ): void {
+function clttg_comment_markup( $comment, $args ): void {
 	?>
 	<li class="note">
 
@@ -244,7 +244,7 @@ function ttgarden_comment_markup( $comment, $args ): void {
  *
  * @return void
  */
-function ttgarden_disable_emojis(): void {
+function clttg_disable_emojis(): void {
 	// Remove the emoji script from the front end and admin
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -253,4 +253,4 @@ function ttgarden_disable_emojis(): void {
 	remove_action( 'wp_print_styles', 'print_emoji_styles' );
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );
 }
-add_action( 'init', 'ttgarden_disable_emojis' );
+add_action( 'init', 'clttg_disable_emojis' );

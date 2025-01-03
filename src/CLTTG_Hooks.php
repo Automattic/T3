@@ -24,7 +24,7 @@ class CLTTG_Hooks {
 	 *
 	 * @var     bool
 	 */
-	private $is_ttgarden_active;
+	private $is_clttg_active;
 
 	/**
 	 * Initializes the CLTTG_Hooks.
@@ -32,15 +32,15 @@ class CLTTG_Hooks {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param boolean $is_ttgarden_active The TumblrThemeGarden active status.
+	 * @param boolean $is_clttg_active The TumblrThemeGarden active status.
 	 *
 	 * @return  void
 	 */
-	public function initialize( $is_ttgarden_active ): void {
-		$this->is_ttgarden_active = $is_ttgarden_active;
+	public function initialize( $is_clttg_active ): void {
+		$this->is_clttg_active = $is_clttg_active;
 
 		// Add actions to the checkbox option that turns on the Tumblr theme.
-		add_action( 'update_option_ttgarden_use_theme', array( $this, 'update_option_ttgarden_use_theme' ), 10, 2 );
+		add_action( 'update_option_clttg_use_theme', array( $this, 'update_option_clttg_use_theme' ), 10, 2 );
 
 		// Filter the theme root to use the Tumblr theme directory, if the option is set.
 		add_filter( 'theme_root', array( $this, 'theme_root' ), 10, 2 );
@@ -53,7 +53,7 @@ class CLTTG_Hooks {
 		add_action( 'after_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10 );
 
 		// Only run these if the TumblrThemeGarden theme is active.
-		if ( $this->is_ttgarden_active ) {
+		if ( $this->is_clttg_active ) {
 			add_filter( 'validate_current_theme', '__return_false' );
 			add_filter( 'wp_prepare_themes_for_js', array( $this, 'prepare_themes_for_js' ) );
 		}
@@ -68,7 +68,7 @@ class CLTTG_Hooks {
 	 */
 	public function prepare_themes_for_js( $themes ): array {
 		if ( isset( $themes['tumblr-theme-garden'] ) ) {
-			$theme_details = get_option( 'ttgarden_external_theme' );
+			$theme_details = get_option( 'clttg_external_theme' );
 
 			// Prepare the Tumblr theme screenshot.
 			if ( isset( $theme_details['thumbnail'] ) && ! empty( $theme_details['thumbnail'] ) ) {
@@ -113,7 +113,7 @@ class CLTTG_Hooks {
 		}
 
 		// If TumblrThemeGarden is the active theme, return the Tumblr theme directory.
-		if ( $this->is_ttgarden_active ) {
+		if ( $this->is_clttg_active ) {
 			// Register the theme directory if it hasn't been registered yet.
 			if ( null === $registered || false === $registered ) {
 				$registered = register_theme_directory( CLTTG_PATH . 'theme' );
@@ -133,12 +133,12 @@ class CLTTG_Hooks {
 	 *
 	 * @return void
 	 */
-	public function update_option_ttgarden_use_theme( $old_value, $value ): void {
+	public function update_option_clttg_use_theme( $old_value, $value ): void {
 		if ( '1' === $value ) {
-			update_option( 'ttgarden_original_theme', get_option( 'template' ) );
+			update_option( 'clttg_original_theme', get_option( 'template' ) );
 			switch_theme( 'tumblr-theme-garden' );
 		} else {
-			switch_theme( get_option( 'ttgarden_original_theme' ) );
+			switch_theme( get_option( 'clttg_original_theme' ) );
 		}
 	}
 
@@ -157,9 +157,9 @@ class CLTTG_Hooks {
 		}
 
 		if ( 'tumblr-theme-garden' === $old_theme->stylesheet ) {
-			update_option( 'ttgarden_original_theme', '' );
-			update_option( 'ttgarden_use_theme', '' );
-			update_option( 'ttgarden_theme_html', '' );
+			update_option( 'clttg_original_theme', '' );
+			update_option( 'clttg_use_theme', '' );
+			update_option( 'clttg_theme_html', '' );
 		}
 	}
 

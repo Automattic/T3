@@ -79,14 +79,14 @@ class CLTTG_ThemeGarden {
 	 */
 	public function enqueue_assets( string $hook ): void {
 		if ( 'appearance_page_' . self::ADMIN_MENU_SLUG === $hook ) {
-			$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-garden.asset.php' );
+			$deps = clttg_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-garden.asset.php' );
 
 			$this->enqueue_admin_styles( $deps['version'] );
 
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
-			$is_using_tumblr_theme = get_option( 'ttgarden_use_theme' );
-			$active_theme          = $is_using_tumblr_theme ? get_option( 'ttgarden_external_theme' ) : null;
+			$is_using_tumblr_theme = get_option( 'clttg_use_theme' );
+			$active_theme          = $is_using_tumblr_theme ? get_option( 'clttg_external_theme' ) : null;
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
@@ -117,7 +117,7 @@ class CLTTG_ThemeGarden {
 		}
 
 		if ( 'theme-install.php' === $hook ) {
-			$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-install.asset.php' );
+			$deps = clttg_get_asset_meta( CLTTG_PATH . 'assets/js/build/theme-install.asset.php' );
 
 			$this->enqueue_admin_styles( $deps['version'] );
 
@@ -259,7 +259,7 @@ class CLTTG_ThemeGarden {
 			return;
 		}
 		// Save theme details to options.
-		update_option( 'ttgarden_theme_html', $theme->theme );
+		update_option( 'clttg_theme_html', $theme->theme );
 
 		// Save all external theme details to an option.
 		$external_theme_details = array(
@@ -270,8 +270,8 @@ class CLTTG_ThemeGarden {
 			'author_url'  => isset( $theme->author->url ) ? $theme->author->url : '',
 		);
 
-		update_option( 'ttgarden_external_theme', $external_theme_details );
-		update_option( 'ttgarden_use_theme', '1' );
+		update_option( 'clttg_external_theme', $external_theme_details );
+		update_option( 'clttg_use_theme', '1' );
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( maybe_unserialize( $theme->default_params ) );
@@ -331,18 +331,18 @@ class CLTTG_ThemeGarden {
 	 * @return void
 	 */
 	public function option_defaults_helper( $default_params ): void {
-		$ttgarden_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
+		$clttg_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
 
-		if ( ! is_array( $ttgarden_mods ) ) {
-			$ttgarden_mods = array();
+		if ( ! is_array( $clttg_mods ) ) {
+			$clttg_mods = array();
 		}
 
 		foreach ( $default_params as $key => $value ) {
-			$normal                   = ttgarden_normalize_option_name( $key );
-			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
+			$normal                   = clttg_normalize_option_name( $key );
+			$clttg_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
 
-		update_option( 'theme_mods_tumblr-theme-garden', $ttgarden_mods );
+		update_option( 'theme_mods_tumblr-theme-garden', $clttg_mods );
 	}
 
 	/**

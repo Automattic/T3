@@ -89,7 +89,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="ttgarden_"/>
+				<element value="clttg_"/>
 				<element value="CupcakeLabs\TumblrThemeGarden"/>
 			</property>
 		</properties>

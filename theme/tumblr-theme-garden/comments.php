@@ -25,7 +25,7 @@ if ( post_password_required() ) {
 			'style'       => 'ol',
 			'short_ping'  => true,
 			'avatar_size' => 24,
-			'callback'    => 'ttgarden_comment_markup',
+			'callback'    => 'clttg_comment_markup',
 			'max_depth'   => 0,
 		)
 	);

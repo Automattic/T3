@@ -21,19 +21,19 @@ class CLTTG_BlockExtensions {
 	 *
 	 * @var     bool
 	 */
-	private $is_ttgarden_active;
+	private $is_clttg_active;
 
 	/**
 	 * Initialize block extensions
 	 *
-	 * @param bool $is_ttgarden_active Whether flag is active.
+	 * @param bool $is_clttg_active Whether flag is active.
 	 * @return void
 	 */
-	public function initialize( $is_ttgarden_active ): void {
-		$this->is_ttgarden_active = $is_ttgarden_active;
+	public function initialize( $is_clttg_active ): void {
+		$this->is_clttg_active = $is_clttg_active;
 
 		// Only run if the TumblrThemeGarden theme is active.
-		if ( $this->is_ttgarden_active ) {
+		if ( $this->is_clttg_active ) {
 			add_filter( 'render_block', array( $this, 'tumblr_audio_block_output' ), 10, 2 );
 		}
 	}
@@ -53,7 +53,7 @@ class CLTTG_BlockExtensions {
 		$attrs = $block['attrs'];
 
 		// Only modify if we have the Tumblr custom attributes
-		if ( $this->is_ttgarden_active && empty( $attrs['mediaURL'] ) && empty( $attrs['mediaTitle'] ) ) {
+		if ( $this->is_clttg_active && empty( $attrs['mediaURL'] ) && empty( $attrs['mediaTitle'] ) ) {
 			return $block_content;
 		}
 

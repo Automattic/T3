@@ -20,20 +20,20 @@ class CLTTG_Parser {
 	 * @var array
 	 */
 	public array $supported_keywords = array(
-		'currentpage'          => 'ttgarden_tag_currentpage',
-		'totalpages'           => 'ttgarden_tag_totalpages',
-		'searchresultcount'    => 'ttgarden_tag_searchresultcount',
-		'searchquery'          => 'ttgarden_tag_searchquery',
-		'timeago'              => 'ttgarden_tag_timeago',
-		'dayofweek'            => 'ttgarden_tag_dayofweek',
-		'dayofmonth'           => 'ttgarden_tag_dayofmonth',
-		'dayofmonthwithsuffix' => 'ttgarden_tag_dayofmonthwithsuffix',
-		'month'                => 'ttgarden_tag_month',
-		'year'                 => 'ttgarden_tag_year',
-		'formattedtime'        => 'ttgarden_tag_formattedtime',
-		'notecount'            => 'ttgarden_tag_notecount',
-		'postauthorname'       => 'ttgarden_tag_postauthorname',
-		'posttypenoun'         => 'ttgarden_tag_posttypenoun',
+		'currentpage'          => 'clttg_tag_currentpage',
+		'totalpages'           => 'clttg_tag_totalpages',
+		'searchresultcount'    => 'clttg_tag_searchresultcount',
+		'searchquery'          => 'clttg_tag_searchquery',
+		'timeago'              => 'clttg_tag_timeago',
+		'dayofweek'            => 'clttg_tag_dayofweek',
+		'dayofmonth'           => 'clttg_tag_dayofmonth',
+		'dayofmonthwithsuffix' => 'clttg_tag_dayofmonthwithsuffix',
+		'month'                => 'clttg_tag_month',
+		'year'                 => 'clttg_tag_year',
+		'formattedtime'        => 'clttg_tag_formattedtime',
+		'notecount'            => 'clttg_tag_notecount',
+		'postauthorname'       => 'clttg_tag_postauthorname',
+		'posttypenoun'         => 'clttg_tag_posttypenoun',
 		'tag'                  => '__return_empty_string',
 		'tagresultcount'       => '__return_empty_string',
 	);
@@ -79,7 +79,7 @@ class CLTTG_Parser {
 		add_filter( 'do_shortcode_tag', array( $this, 'modifiers' ), 10, 3 );
 
 		// Parse the Tumblr theme.
-		add_filter( 'ttgarden_theme_output', array( $this, 'parse_theme' ), 10 );
+		add_filter( 'clttg_theme_output', array( $this, 'parse_theme' ), 10 );
 	}
 
 	/**
@@ -169,7 +169,7 @@ class CLTTG_Parser {
 		 * The shortcode system allows for dynamic content inside a post loop, and other areas.
 		 */
 		$content = preg_replace_callback(
-			ttgarden_get_tumblr_regex(),
+			clttg_get_tumblr_regex(),
 			function ( $matches ) use ( $tags, $blocks, $options, $modifiers ) {
 				++$this->position;
 
@@ -230,7 +230,7 @@ class CLTTG_Parser {
 				foreach ( $options as $option ) {
 					if ( str_starts_with( $raw_tag, $option ) ) {
 						// Normalize the option name.
-						$theme_mod = get_theme_mod( ttgarden_normalize_option_name( $raw_tag ) );
+						$theme_mod = get_theme_mod( clttg_normalize_option_name( $raw_tag ) );
 
 						// Apply the modifier if it exists.
 						if ( '' !== $applied_modifier && $theme_mod ) {
@@ -268,7 +268,7 @@ class CLTTG_Parser {
 		 * Third: Run the content through the shortcode parser to kick-off page creation.
 		 */
 		$pattern = get_shortcode_regex( array_merge( CLTTG_MISSING_BLOCKS, CLTTG_MISSING_TAGS ) );
-		$content = ttgarden_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
+		$content = clttg_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
 		$content = preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
 
 		return $content;
@@ -350,7 +350,7 @@ class CLTTG_Parser {
 		$shortcode = 'block_' . $condition . '_' . $normalized_attr;
 
 		// Register the new shortcode on the fly.
-		add_shortcode( $shortcode, 'ttgarden_block_' . $condition . '_theme_option' );
+		add_shortcode( $shortcode, 'clttg_block_' . $condition . '_theme_option' );
 
 		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
 	}

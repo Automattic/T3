@@ -19,16 +19,16 @@ class CLTTG_Customizer {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param boolean $is_ttgarden_active Whether the TumblrThemeGarden theme is active.
+	 * @param boolean $is_clttg_active Whether the TumblrThemeGarden theme is active.
 	 *
 	 * @return  void
 	 */
-	public function initialize( $is_ttgarden_active ): void {
+	public function initialize( $is_clttg_active ): void {
 		// CLTTG_Customizer actions to run when this plugin is active.
 		add_action( 'customize_register', array( $this, 'tumblr_html_options' ) );
 
 		// Only run the rest of the actions if the TumblrThemeGarden theme is active.
-		if ( $is_ttgarden_active ) {
+		if ( $is_clttg_active ) {
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_scripts' ) );
 			add_action( 'customize_register', array( $this, 'global_options' ) );
 			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
@@ -43,7 +43,7 @@ class CLTTG_Customizer {
 	 * @return void
 	 */
 	public function enqueue_customizer_scripts(): void {
-		$deps = ttgarden_get_asset_meta( CLTTG_PATH . 'assets/js/build/customizer.asset.php' );
+		$deps = clttg_get_asset_meta( CLTTG_PATH . 'assets/js/build/customizer.asset.php' );
 
 		wp_enqueue_script(
 			'tumblr-theme-garden-customizer',
@@ -84,7 +84,7 @@ class CLTTG_Customizer {
 
 		// Add Theme HTML section.
 		$wp_customize->add_section(
-			'ttgarden_html',
+			'clttg_html',
 			array(
 				'title'              => __( 'Tumblr Theme HTML', 'tumblr-theme-garden' ),
 				'priority'           => 30,
@@ -103,7 +103,7 @@ class CLTTG_Customizer {
 		 * @todo lack of sanitization is a security risk.
 		 */
 		$wp_customize->add_setting(
-			'ttgarden_theme_html',
+			'clttg_theme_html',
 			array(
 				'type'              => 'option',
 				'capability'        => 'edit_theme_options',
@@ -115,10 +115,10 @@ class CLTTG_Customizer {
 		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
 		$editor = new \WP_Customize_Code_Editor_Control(
 			$wp_customize,
-			'ttgarden_theme_html',
+			'clttg_theme_html',
 			array(
 				'label'    => '',
-				'section'  => 'ttgarden_html',
+				'section'  => 'clttg_html',
 				'priority' => 10,
 			)
 		);
@@ -163,7 +163,7 @@ class CLTTG_Customizer {
 		$panel = $wp_customize->get_panel( 'themes' );
 
 		if ( $panel ) {
-			$external_theme = get_option( 'ttgarden_external_theme' );
+			$external_theme = get_option( 'clttg_external_theme' );
 			$panel->title   = $external_theme['title'] ?? 'TumblrThemeGarden';
 		}
 	}
@@ -229,7 +229,7 @@ class CLTTG_Customizer {
 			'title_font',
 			array(
 				'label'    => __( 'Title Font', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_font',
+				'section'  => 'clttg_font',
 				'type'     => 'text',
 				'priority' => 10,
 			)
@@ -248,7 +248,7 @@ class CLTTG_Customizer {
 			'title_font_weight',
 			array(
 				'label'    => __( 'Title Font Weight', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_font',
+				'section'  => 'clttg_font',
 				'type'     => 'select',
 				'choices'  => array(
 					'normal' => 'Normal',
@@ -271,7 +271,7 @@ class CLTTG_Customizer {
 			'avatar_shape',
 			array(
 				'label'    => __( 'Avatar Shape', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_select',
+				'section'  => 'clttg_select',
 				'type'     => 'select',
 				'choices'  => array(
 					'circle' => 'Circle',
@@ -294,7 +294,7 @@ class CLTTG_Customizer {
 			'show_header_image',
 			array(
 				'label'    => __( 'Show Header Image', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_boolean',
+				'section'  => 'clttg_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -313,7 +313,7 @@ class CLTTG_Customizer {
 			'stretch_header_image',
 			array(
 				'label'    => __( 'Stretch Header Image', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_boolean',
+				'section'  => 'clttg_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -332,7 +332,7 @@ class CLTTG_Customizer {
 			'show_avatar',
 			array(
 				'label'    => __( 'Show Avatar', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_boolean',
+				'section'  => 'clttg_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -351,7 +351,7 @@ class CLTTG_Customizer {
 			'target_blank',
 			array(
 				'label'    => __( 'Open Links in New Tab', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_boolean',
+				'section'  => 'clttg_boolean',
 				'type'     => 'checkbox',
 				'priority' => 10,
 			)
@@ -370,7 +370,7 @@ class CLTTG_Customizer {
 			'twitter_username',
 			array(
 				'label'    => __( 'Twitter Username', 'tumblr-theme-garden' ),
-				'section'  => 'ttgarden_text',
+				'section'  => 'clttg_text',
 				'type'     => 'text',
 				'priority' => 10,
 			)
@@ -389,7 +389,7 @@ class CLTTG_Customizer {
 	public function theme_specific_options( $wp_customize ): void {
 		// Add select options section.
 		$wp_customize->add_section(
-			'ttgarden_select',
+			'clttg_select',
 			array(
 				'title'    => __( 'Tumblr Theme Select Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
@@ -398,7 +398,7 @@ class CLTTG_Customizer {
 
 		// Add text options section.
 		$wp_customize->add_section(
-			'ttgarden_text',
+			'clttg_text',
 			array(
 				'title'    => __( 'Tumblr Theme Text Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
@@ -407,7 +407,7 @@ class CLTTG_Customizer {
 
 		// Add font options section.
 		$wp_customize->add_section(
-			'ttgarden_font',
+			'clttg_font',
 			array(
 				'title'    => __( 'Tumblr Theme Font Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
@@ -416,7 +416,7 @@ class CLTTG_Customizer {
 
 		// Add boolean options section.
 		$wp_customize->add_section(
-			'ttgarden_boolean',
+			'clttg_boolean',
 			array(
 				'title'    => __( 'Tumblr Theme Checkbox Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
@@ -425,7 +425,7 @@ class CLTTG_Customizer {
 
 		// Add image options section.
 		$wp_customize->add_section(
-			'ttgarden_image',
+			'clttg_image',
 			array(
 				'title'    => __( 'Tumblr Theme Image Options', 'tumblr-theme-garden' ),
 				'priority' => 30,
@@ -433,7 +433,7 @@ class CLTTG_Customizer {
 		);
 
 		// Parse the theme HTML.
-		$processor      = new \WP_HTML_Tag_Processor( get_option( 'ttgarden_theme_html', '' ) );
+		$processor      = new \WP_HTML_Tag_Processor( get_option( 'clttg_theme_html', '' ) );
 		$select_options = array();
 
 		// Stop on META tags.
@@ -452,7 +452,7 @@ class CLTTG_Customizer {
 				$label = substr( $name, strlen( 'color:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = ttgarden_normalize_option_name( $name );
+				$name = clttg_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -490,7 +490,7 @@ class CLTTG_Customizer {
 				$label = substr( $name, strlen( 'font:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = ttgarden_normalize_option_name( $name );
+				$name = clttg_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -505,7 +505,7 @@ class CLTTG_Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'ttgarden_font',
+						'section'  => 'clttg_font',
 						'type'     => 'text',
 						'priority' => 10,
 					)
@@ -527,7 +527,7 @@ class CLTTG_Customizer {
 				$label     = substr( $name, strlen( 'if:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = ttgarden_normalize_option_name( $name );
+				$name = clttg_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -542,7 +542,7 @@ class CLTTG_Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'ttgarden_boolean',
+						'section'  => 'clttg_boolean',
 						'type'     => 'checkbox',
 						'priority' => 10,
 					)
@@ -564,7 +564,7 @@ class CLTTG_Customizer {
 				$label = substr( $name, strlen( 'text:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = ttgarden_normalize_option_name( $name );
+				$name = clttg_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -579,7 +579,7 @@ class CLTTG_Customizer {
 					$name,
 					array(
 						'label'    => $label,
-						'section'  => 'ttgarden_text',
+						'section'  => 'clttg_text',
 						'type'     => 'text',
 						'priority' => 10,
 					)
@@ -601,7 +601,7 @@ class CLTTG_Customizer {
 				$label = substr( $name, strlen( 'image:' ) );
 
 				// Option names need to be lowercase and without spaces.
-				$name = ttgarden_normalize_option_name( $name );
+				$name = clttg_normalize_option_name( $name );
 
 				$wp_customize->add_setting(
 					$name,
@@ -618,7 +618,7 @@ class CLTTG_Customizer {
 						$name,
 						array(
 							'label'    => $label,
-							'section'  => 'ttgarden_image',
+							'section'  => 'clttg_image',
 							'settings' => $name,
 							'priority' => 10,
 						)
@@ -651,7 +651,7 @@ class CLTTG_Customizer {
 			$default = ( isset( $options[0], $options[0]['content'] ) ) ? $options[0]['content'] : '';
 
 			// Option names need to be lowercase and without spaces.
-			$name = ttgarden_normalize_option_name( $label );
+			$name = clttg_normalize_option_name( $label );
 
 			$wp_customize->add_setting(
 				$name,
@@ -666,7 +666,7 @@ class CLTTG_Customizer {
 				$name,
 				array(
 					'label'    => $label,
-					'section'  => 'ttgarden_select',
+					'section'  => 'clttg_select',
 					'type'     => 'select',
 					'choices'  => array_column( $options, 'title', 'content' ),
 					'priority' => 10,
