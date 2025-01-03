@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return string Nothing, this is intentionally blank on the front-end.
  */
-add_shortcode( 'block_options', '__return_empty_string' );
-add_shortcode( 'block_hidden', '__return_empty_string' );
+add_shortcode( 'ttgarden_block_options', '__return_empty_string' );
+add_shortcode( 'ttgarden_block_hidden', '__return_empty_string' );
 
 /**
  * Returns parsed content if the blog has more than one post author.
@@ -43,7 +43,7 @@ function ttgarden_block_groupmembers( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_groupmembers', 'ttgarden_block_groupmembers' );
+add_shortcode( 'ttgarden_block_groupmembers', 'ttgarden_block_groupmembers' );
 
 /**
  * Loops over all group members and parses shortcodes within the block.
@@ -71,7 +71,7 @@ function ttgarden_block_groupmember( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_groupmember', 'ttgarden_block_groupmember' );
+add_shortcode( 'ttgarden_block_groupmember', 'ttgarden_block_groupmember' );
 
 /**
  * Outputs content if the twitter username theme set is not empty.
@@ -84,7 +84,7 @@ add_shortcode( 'block_groupmember', 'ttgarden_block_groupmember' );
 function ttgarden_block_twitter( $atts, $content = '' ): string {
 	return ( '' !== get_theme_mod( 'twitter_username', '' ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_twitter', 'ttgarden_block_twitter' );
+add_shortcode( 'ttgarden_block_twitter', 'ttgarden_block_twitter' );
 
 /**
  * Boolean check for theme options.
@@ -101,7 +101,7 @@ function ttgarden_block_if_theme_option( $atts, $content = '' ): string {
 			'name' => '',
 		),
 		$atts,
-		'block_if_theme_option'
+		'ttgarden_block_if_theme_option'
 	);
 
 	// Don't render if the name attribute is empty.
@@ -111,7 +111,7 @@ function ttgarden_block_if_theme_option( $atts, $content = '' ): string {
 
 	return ( get_theme_mod( $atts['name'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_if_theme_option', 'ttgarden_block_if_theme_option' );
+add_shortcode( 'ttgarden_block_if_theme_option', 'ttgarden_block_if_theme_option' );
 
 /**
  * Boolean check for theme options.
@@ -138,7 +138,7 @@ function ttgarden_block_ifnot_theme_option( $atts, $content = '' ): string {
 
 	return ( ! get_theme_mod( $atts['name'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_ifnot_theme_option', 'ttgarden_block_ifnot_theme_option' );
+add_shortcode( 'ttgarden_block_ifnot_theme_option', 'ttgarden_block_ifnot_theme_option' );
 
 /**
  * Conditional check for if we're in the loop.
@@ -152,12 +152,12 @@ add_shortcode( 'block_ifnot_theme_option', 'ttgarden_block_ifnot_theme_option' )
 function ttgarden_block_body( $atts, $content = '' ): string {
 	return ( in_the_loop() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_body', 'ttgarden_block_body' );
-add_shortcode( 'block_date', 'ttgarden_block_body' );
-add_shortcode( 'block_postsummary', 'ttgarden_block_body' );
-add_shortcode( 'block_excerpt', 'ttgarden_block_body' );
-add_shortcode( 'block_host', 'ttgarden_block_body' );
-add_shortcode( 'block_author', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_body', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_date', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_postsummary', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_excerpt', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_host', 'ttgarden_block_body' );
+add_shortcode( 'ttgarden_block_author', 'ttgarden_block_body' );
 
 /**
  * Outputs content if we should stretch the header image.
@@ -170,7 +170,7 @@ add_shortcode( 'block_author', 'ttgarden_block_body' );
 function ttgarden_block_stretchheaderimage( $atts, $content = '' ): string {
 	return ( get_theme_mod( 'stretch_header_image', true ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_stretchheaderimage', 'ttgarden_block_stretchheaderimage' );
+add_shortcode( 'ttgarden_block_stretchheaderimage', 'ttgarden_block_stretchheaderimage' );
 
 /**
  * Outputs content if we should not stretch the header image.
@@ -183,7 +183,7 @@ add_shortcode( 'block_stretchheaderimage', 'ttgarden_block_stretchheaderimage' )
 function ttgarden_block_nostretchheaderimage( $atts, $content = '' ): string {
 	return ( get_theme_mod( 'stretch_header_image', true ) ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_nostretchheaderimage', 'ttgarden_block_nostretchheaderimage' );
+add_shortcode( 'ttgarden_block_nostretchheaderimage', 'ttgarden_block_nostretchheaderimage' );
 
 /**
  * Output content if we've chosen to show the site avatar.
@@ -196,7 +196,7 @@ add_shortcode( 'block_nostretchheaderimage', 'ttgarden_block_nostretchheaderimag
 function ttgarden_block_showavatar( $atts, $content = '' ): string {
 	return ( get_theme_mod( 'show_avatar', true ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_showavatar', 'ttgarden_block_showavatar' );
+add_shortcode( 'ttgarden_block_showavatar', 'ttgarden_block_showavatar' );
 
 /**
  * Output content if we've chosen to hide the site avatar.
@@ -209,7 +209,7 @@ add_shortcode( 'block_showavatar', 'ttgarden_block_showavatar' );
 function ttgarden_block_hideavatar( $atts, $content = '' ): string {
 	return ( get_theme_mod( 'show_avatar', true ) ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_hideavatar', 'ttgarden_block_hideavatar' );
+add_shortcode( 'ttgarden_block_hideavatar', 'ttgarden_block_hideavatar' );
 
 /**
  * Output content if we've chosen to show the site title and description.
@@ -222,7 +222,7 @@ add_shortcode( 'block_hideavatar', 'ttgarden_block_hideavatar' );
 function ttgarden_block_showtitle( $atts, $content = '' ): string {
 	return display_header_text() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_showtitle', 'ttgarden_block_showtitle' );
+add_shortcode( 'ttgarden_block_showtitle', 'ttgarden_block_showtitle' );
 
 /**
  * Output content if we've chosen to hide the site title and description.
@@ -235,7 +235,7 @@ add_shortcode( 'block_showtitle', 'ttgarden_block_showtitle' );
 function ttgarden_block_hidetitle( $atts, $content = '' ): string {
 	return display_header_text() ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_hidetitle', 'ttgarden_block_hidetitle' );
+add_shortcode( 'ttgarden_block_hidetitle', 'ttgarden_block_hidetitle' );
 
 /**
  * Output content if we've chosen to show the site description.
@@ -248,7 +248,7 @@ add_shortcode( 'block_hidetitle', 'ttgarden_block_hidetitle' );
 function ttgarden_block_showdescription( $atts, $content = '' ): string {
 	return display_header_text() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_showdescription', 'ttgarden_block_showdescription' );
+add_shortcode( 'ttgarden_block_showdescription', 'ttgarden_block_showdescription' );
 
 /**
  * Output content if we've chosen to hide the site description.
@@ -261,7 +261,7 @@ add_shortcode( 'block_showdescription', 'ttgarden_block_showdescription' );
 function ttgarden_block_hidedescription( $atts, $content = '' ): string {
 	return display_header_text() ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_hidedescription', 'ttgarden_block_hidedescription' );
+add_shortcode( 'ttgarden_block_hidedescription', 'ttgarden_block_hidedescription' );
 
 /**
  * Rendered on index pages for posts with Read More breaks.
@@ -276,7 +276,7 @@ add_shortcode( 'block_hidedescription', 'ttgarden_block_hidedescription' );
 function ttgarden_block_more( $atts, $content = '' ): string {
 	return in_the_loop() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_more', 'ttgarden_block_more' );
+add_shortcode( 'ttgarden_block_more', 'ttgarden_block_more' );
 
 /**
  * Rendered if the post has an excerpt.
@@ -289,7 +289,7 @@ add_shortcode( 'block_more', 'ttgarden_block_more' );
 function ttgarden_block_description( $atts, $content = '' ): string {
 	return has_excerpt() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_description', 'ttgarden_block_description' );
+add_shortcode( 'ttgarden_block_description', 'ttgarden_block_description' );
 
 /**
  * The main posts loop.
@@ -316,7 +316,7 @@ function ttgarden_block_posts( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_posts', 'ttgarden_block_posts' );
+add_shortcode( 'ttgarden_block_posts', 'ttgarden_block_posts' );
 
 /**
  * Conditional if there are no posts.
@@ -329,7 +329,7 @@ add_shortcode( 'block_posts', 'ttgarden_block_posts' );
 function ttgarden_block_noposts( $atts, $content = '' ): string {
 	return have_posts() ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_noposts', 'ttgarden_block_noposts' );
+add_shortcode( 'ttgarden_block_noposts', 'ttgarden_block_noposts' );
 
 /**
  * Post tags loop.
@@ -352,7 +352,7 @@ function ttgarden_block_tags( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_tags', 'ttgarden_block_tags' );
+add_shortcode( 'ttgarden_block_tags', 'ttgarden_block_tags' );
 
 /**
  * Rendered for each custom page.
@@ -385,7 +385,7 @@ function ttgarden_block_pages( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_pages', 'ttgarden_block_pages' );
+add_shortcode( 'ttgarden_block_pages', 'ttgarden_block_pages' );
 
 /**
  * Boolean check for if we're on a search page.
@@ -398,7 +398,7 @@ add_shortcode( 'block_pages', 'ttgarden_block_pages' );
 function ttgarden_block_searchpage( $atts, $content = '' ): string {
 	return is_search() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_searchpage', 'ttgarden_block_searchpage' );
+add_shortcode( 'ttgarden_block_searchpage', 'ttgarden_block_searchpage' );
 
 /**
  * Render content if there are no search results.
@@ -413,7 +413,7 @@ function ttgarden_block_nosearchresults( $atts, $content = '' ): string {
 
 	return ( is_search() && 0 === $wp_query->found_posts ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_nosearchresults', 'ttgarden_block_nosearchresults' );
+add_shortcode( 'ttgarden_block_nosearchresults', 'ttgarden_block_nosearchresults' );
 
 /**
  * Render content if there are search results.
@@ -428,7 +428,7 @@ function ttgarden_block_searchresults( $atts, $content = '' ): string {
 
 	return ( is_search() && $wp_query->found_posts > 0 ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_searchresults', 'ttgarden_block_searchresults' );
+add_shortcode( 'ttgarden_block_searchresults', 'ttgarden_block_searchresults' );
 
 /**
  * Render content if this site is not currently public.
@@ -441,7 +441,7 @@ add_shortcode( 'block_searchresults', 'ttgarden_block_searchresults' );
 function ttgarden_block_hidefromsearchenabled( $atts, $content = '' ): string {
 	return ( '1' !== get_option( 'blog_public' ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_hidefromsearchenabled', 'ttgarden_block_hidefromsearchenabled' );
+add_shortcode( 'ttgarden_block_hidefromsearchenabled', 'ttgarden_block_hidefromsearchenabled' );
 
 /**
  * Boolean check for if we're on a taxonomy page.
@@ -454,7 +454,7 @@ add_shortcode( 'block_hidefromsearchenabled', 'ttgarden_block_hidefromsearchenab
 function ttgarden_block_tagpage( $atts, $content = '' ): string {
 	return ( is_tag() || is_category() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_tagpage', 'ttgarden_block_tagpage' );
+add_shortcode( 'ttgarden_block_tagpage', 'ttgarden_block_tagpage' );
 
 /**
  * Boolean check for if we're on a single post or page.
@@ -467,8 +467,8 @@ add_shortcode( 'block_tagpage', 'ttgarden_block_tagpage' );
 function ttgarden_block_permalinkpage( $atts, $content = '' ): string {
 	return ( is_page() || is_single() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_permalinkpage', 'ttgarden_block_permalinkpage' );
-add_shortcode( 'block_permalink', 'ttgarden_block_permalinkpage' );
+add_shortcode( 'ttgarden_block_permalinkpage', 'ttgarden_block_permalinkpage' );
+add_shortcode( 'ttgarden_block_permalink', 'ttgarden_block_permalinkpage' );
 
 /**
  * Boolean check for if we're on the home page.
@@ -481,7 +481,7 @@ add_shortcode( 'block_permalink', 'ttgarden_block_permalinkpage' );
 function ttgarden_block_indexpage( $atts, $content = '' ): string {
 	return is_home() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_indexpage', 'ttgarden_block_indexpage' );
+add_shortcode( 'ttgarden_block_indexpage', 'ttgarden_block_indexpage' );
 
 /**
  * Boolean check for if we're on the "front page".
@@ -495,7 +495,7 @@ add_shortcode( 'block_indexpage', 'ttgarden_block_indexpage' );
 function ttgarden_block_homepage( $atts, $content = '' ): string {
 	return is_front_page() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_homepage', 'ttgarden_block_homepage' );
+add_shortcode( 'ttgarden_block_homepage', 'ttgarden_block_homepage' );
 
 /**
  * Sets the global parse context so we know we're outputting a post title.
@@ -508,7 +508,7 @@ add_shortcode( 'block_homepage', 'ttgarden_block_homepage' );
 function ttgarden_block_title( $atts, $content = '' ): string {
 	return ! empty( get_the_title() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_title', 'ttgarden_block_title' );
+add_shortcode( 'ttgarden_block_title', 'ttgarden_block_title' );
 
 /**
  * If the current page is able to pagination, render the content.
@@ -521,7 +521,7 @@ add_shortcode( 'block_title', 'ttgarden_block_title' );
 function ttgarden_block_pagination( $atts, $content = '' ): string {
 	return ( get_next_posts_page_link() || get_previous_posts_page_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_pagination', 'ttgarden_block_pagination' );
+add_shortcode( 'ttgarden_block_pagination', 'ttgarden_block_pagination' );
 
 /**
  * The Jump pagination block.
@@ -538,7 +538,7 @@ function ttgarden_block_jumppagination( $atts, $content = '' ): string {
 			'length' => '5',
 		),
 		$atts,
-		'block_jumppagination'
+		'ttgarden_block_jumppagination'
 	);
 
 	$output = '';
@@ -554,7 +554,7 @@ function ttgarden_block_jumppagination( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_jumppagination', 'ttgarden_block_jumppagination' );
+add_shortcode( 'ttgarden_block_jumppagination', 'ttgarden_block_jumppagination' );
 
 /**
  * The currentpage block inside jumppagination.
@@ -572,7 +572,7 @@ function ttgarden_block_currentpage( $atts, $content = '' ): string {
 
 	return ( isset( $context['jumppagination'] ) && $paged === $context['jumppagination'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_currentpage', 'ttgarden_block_currentpage' );
+add_shortcode( 'ttgarden_block_currentpage', 'ttgarden_block_currentpage' );
 
 /**
  * The jumppage block inside jumppagination.
@@ -590,7 +590,7 @@ function ttgarden_block_jumppage( $atts, $content = '' ): string {
 
 	return ( isset( $context['jumppagination'] ) && $paged !== $context['jumppagination'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_jumppage', 'ttgarden_block_jumppage' );
+add_shortcode( 'ttgarden_block_jumppage', 'ttgarden_block_jumppage' );
 
 /**
  * Boolean check for if we're on a single post or page.
@@ -603,7 +603,7 @@ add_shortcode( 'block_jumppage', 'ttgarden_block_jumppage' );
 function ttgarden_block_posttitle( $atts, $content = '' ): string {
 	return is_single() ? ttgarden_block_title( $content ) : '';
 }
-add_shortcode( 'block_posttitle', 'ttgarden_block_posttitle' );
+add_shortcode( 'ttgarden_block_posttitle', 'ttgarden_block_posttitle' );
 
 /**
  * Rendered if you have defined any custom pages.
@@ -624,7 +624,7 @@ function ttgarden_block_haspages( $atts, $content = '' ): string {
 
 	return ( ! empty( $pages_query ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_haspages', 'ttgarden_block_haspages' );
+add_shortcode( 'ttgarden_block_haspages', 'ttgarden_block_haspages' );
 
 /**
  * Rendered if you have "Show header image" enabled.
@@ -639,7 +639,7 @@ function ttgarden_block_showheaderimage( $atts, $content = '' ): string {
 		'remove-header' !== get_theme_mod( 'header_image', 'remove-header' ) )
 		? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_showheaderimage', 'ttgarden_block_showheaderimage' );
+add_shortcode( 'ttgarden_block_showheaderimage', 'ttgarden_block_showheaderimage' );
 
 /**
  * Rendered if you have     "Show header image" disabled.
@@ -654,7 +654,7 @@ function ttgarden_block_hideheaderimage( $atts, $content = '' ): string {
 		'remove-header' === get_theme_mod( 'header_image', 'remove-header' ) )
 		? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_hideheaderimage', 'ttgarden_block_hideheaderimage' );
+add_shortcode( 'ttgarden_block_hideheaderimage', 'ttgarden_block_hideheaderimage' );
 
 /**
  * If a post is not a reblog, render the content.
@@ -669,7 +669,7 @@ add_shortcode( 'block_hideheaderimage', 'ttgarden_block_hideheaderimage' );
 function ttgarden_block_notreblog( $atts, $content = '' ): string {
 	return ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_notreblog', 'ttgarden_block_notreblog' );
+add_shortcode( 'ttgarden_block_notreblog', 'ttgarden_block_notreblog' );
 
 /**
  * Rendered if the post has tags.
@@ -682,7 +682,7 @@ add_shortcode( 'block_notreblog', 'ttgarden_block_notreblog' );
 function ttgarden_block_hastags( $atts, $content = '' ): string {
 	return ( has_tag() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_hastags', 'ttgarden_block_hastags' );
+add_shortcode( 'ttgarden_block_hastags', 'ttgarden_block_hastags' );
 
 /**
  * Rendered if the post has comments or comments open.
@@ -695,7 +695,7 @@ add_shortcode( 'block_hastags', 'ttgarden_block_hastags' );
 function ttgarden_block_post_notes( $atts, $content = '' ): string {
 	return ( is_single() || is_page() ) && ( get_comments_number() || comments_open() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
+add_shortcode( 'ttgarden_block_postnotes', 'ttgarden_block_post_notes' );
 
 /**
  * Always rendered, but only outputs content if the post has comments or comments open.
@@ -708,7 +708,7 @@ add_shortcode( 'block_postnotes', 'ttgarden_block_post_notes' );
 function ttgarden_block_notecount( $atts, $content = '' ): string {
 	return ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_notecount', 'ttgarden_block_notecount' );
+add_shortcode( 'ttgarden_block_notecount', 'ttgarden_block_notecount' );
 
 /**
  * Rendered for legacy Text posts and NPF posts.
@@ -721,8 +721,8 @@ add_shortcode( 'block_notecount', 'ttgarden_block_notecount' );
 function ttgarden_block_text( $atts, $content = '' ): string {
 	return ( false === get_post_format() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_text', 'ttgarden_block_text' );
-add_shortcode( 'block_regular', 'ttgarden_block_text' );
+add_shortcode( 'ttgarden_block_text', 'ttgarden_block_text' );
+add_shortcode( 'ttgarden_block_regular', 'ttgarden_block_text' );
 
 /**
  * Rendered for legacy quote posts, or the WordPress quote post format.
@@ -807,7 +807,7 @@ function ttgarden_block_quote( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_quote', 'ttgarden_block_quote' );
+add_shortcode( 'ttgarden_block_quote', 'ttgarden_block_quote' );
 
 /**
  * Tests for a source in the quote post format.
@@ -828,7 +828,7 @@ function ttgarden_block_source( $atts, $content = '' ): string {
 	// Return nothing if no source is found.
 	return '';
 }
-add_shortcode( 'block_source', 'ttgarden_block_source' );
+add_shortcode( 'ttgarden_block_source', 'ttgarden_block_source' );
 
 /**
  * Rendered for chat posts.
@@ -870,8 +870,8 @@ function ttgarden_block_chat( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_chat', 'ttgarden_block_chat' );
-add_shortcode( 'block_conversation', 'ttgarden_block_chat' );
+add_shortcode( 'ttgarden_block_chat', 'ttgarden_block_chat' );
+add_shortcode( 'ttgarden_block_conversation', 'ttgarden_block_chat' );
 
 /**
  * Legacy Chat Post rendered for each line of the post
@@ -914,7 +914,7 @@ function ttgarden_block_lines( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_lines', 'ttgarden_block_lines' );
+add_shortcode( 'ttgarden_block_lines', 'ttgarden_block_lines' );
 
 /**
  * Legacy Chat Post block:label
@@ -933,7 +933,7 @@ function ttgarden_block_label( $atts, $content = '' ): string {
 
 	return ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_label', 'ttgarden_block_label' );
+add_shortcode( 'ttgarden_block_label', 'ttgarden_block_label' );
 
 /**
  * Rendered for link posts.
@@ -977,7 +977,7 @@ function ttgarden_block_link( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_link', 'ttgarden_block_link' );
+add_shortcode( 'ttgarden_block_link', 'ttgarden_block_link' );
 
 /**
  * Rendered for audio posts.
@@ -1079,7 +1079,7 @@ function ttgarden_block_audio( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_audio', 'ttgarden_block_audio' );
+add_shortcode( 'ttgarden_block_audio', 'ttgarden_block_audio' );
 
 /**
  * Rendered for audio posts with an audioplayer block.
@@ -1094,8 +1094,8 @@ function ttgarden_block_audioplayer( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['player'] ) && ! empty( $context['audio']['player'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_audioplayer', 'ttgarden_block_audioplayer' );
-add_shortcode( 'block_audioembed', 'ttgarden_block_audioplayer' );
+add_shortcode( 'ttgarden_block_audioplayer', 'ttgarden_block_audioplayer' );
+add_shortcode( 'ttgarden_block_audioembed', 'ttgarden_block_audioplayer' );
 
 /**
  * Rendered for audio posts with an external audio block.
@@ -1111,7 +1111,7 @@ function ttgarden_block_externalaudio( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['media_id'] ) && 0 === $context['audio']['media_id'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_externalaudio', 'ttgarden_block_externalaudio' );
+add_shortcode( 'ttgarden_block_externalaudio', 'ttgarden_block_externalaudio' );
 
 /**
  * Rendered for audio posts with a featured image set.
@@ -1126,7 +1126,7 @@ function ttgarden_block_albumart( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['player'] ) && ! empty( $context['audio']['player'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_albumart', 'ttgarden_block_albumart' );
+add_shortcode( 'ttgarden_block_albumart', 'ttgarden_block_albumart' );
 
 /**
  * Rendered for audio posts with a track name set.
@@ -1141,7 +1141,7 @@ function ttgarden_block_trackname( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['trackname'] ) && '' !== $context['audio']['trackname'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_trackname', 'ttgarden_block_trackname' );
+add_shortcode( 'ttgarden_block_trackname', 'ttgarden_block_trackname' );
 
 /**
  * Rendered for audio posts with an artist name set.
@@ -1156,7 +1156,7 @@ function ttgarden_block_artist( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['artist'] ) && '' !== $context['audio']['artist'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_artist', 'ttgarden_block_artist' );
+add_shortcode( 'ttgarden_block_artist', 'ttgarden_block_artist' );
 
 /**
  * Rendered for audio posts with an album name set.
@@ -1171,7 +1171,7 @@ function ttgarden_block_album( $atts, $content = '' ): string {
 
 	return ( isset( $context['audio']['album'] ) && '' !== $context['audio']['album'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_album', 'ttgarden_block_album' );
+add_shortcode( 'ttgarden_block_album', 'ttgarden_block_album' );
 
 /**
  * Rendered for video posts.
@@ -1282,7 +1282,7 @@ function ttgarden_block_video( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_video', 'ttgarden_block_video' );
+add_shortcode( 'ttgarden_block_video', 'ttgarden_block_video' );
 
 /**
  * Rendered for video posts with a video player and video thumbnail.
@@ -1297,8 +1297,8 @@ function ttgarden_block_videothumbnail( $atts, $content = '' ): string {
 
 	return ( isset( $context['video']['thumbnail'] ) && ! empty( $context['video']['thumbnail'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_videothumbnail', 'ttgarden_block_videothumbnail' );
-add_shortcode( 'block_videothumbnails', 'ttgarden_block_videothumbnail' );
+add_shortcode( 'ttgarden_block_videothumbnail', 'ttgarden_block_videothumbnail' );
+add_shortcode( 'ttgarden_block_videothumbnails', 'ttgarden_block_videothumbnail' );
 
 /**
  * Rendered for photo and panorama posts.
@@ -1377,7 +1377,7 @@ function ttgarden_block_photo( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_photo', 'ttgarden_block_photo' );
+add_shortcode( 'ttgarden_block_photo', 'ttgarden_block_photo' );
 
 /**
  * Render each photo in a photoset (gallery) post.
@@ -1434,7 +1434,7 @@ function ttgarden_block_photos( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_photos', 'ttgarden_block_photos' );
+add_shortcode( 'ttgarden_block_photos', 'ttgarden_block_photos' );
 
 /**
  * Rendered for photo and panorama posts which have a link set on the image.
@@ -1453,7 +1453,7 @@ function ttgarden_block_linkurl( $atts, $content = '' ): string {
 
 	return ( true === $context['image']['lightbox'] || 'none' !== $context['image']['link'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_linkurl', 'ttgarden_block_linkurl' );
+add_shortcode( 'ttgarden_block_linkurl', 'ttgarden_block_linkurl' );
 
 /**
  * Rendered for photo and panorama posts which have the image size set as "large" or "fullsize".
@@ -1468,7 +1468,7 @@ function ttgarden_block_highres( $atts, $content = '' ): string {
 
 	return ( isset( $context['image']['highres'] ) && true === $context['image']['highres'] ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_highres', 'ttgarden_block_highres' );
+add_shortcode( 'ttgarden_block_highres', 'ttgarden_block_highres' );
 
 /**
  * Rendered render content if the image has exif data.
@@ -1483,7 +1483,7 @@ function ttgarden_block_exif( $atts, $content = '' ): string {
 
 	return ( isset( $context['image']['data'] ) && ! empty( $context['image']['data']['image_meta'] ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_exif', 'ttgarden_block_exif' );
+add_shortcode( 'ttgarden_block_exif', 'ttgarden_block_exif' );
 
 /**
  * Conditionally load content based on if the image has camera exif data.
@@ -1504,7 +1504,7 @@ function ttgarden_block_camera( $atts, $content = '' ): string {
 
 	return ( empty( $camera ) || '0' === $camera ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_camera', 'ttgarden_block_camera' );
+add_shortcode( 'ttgarden_block_camera', 'ttgarden_block_camera' );
 
 /**
  * Conditionally load content based on if the image has lens exif data.
@@ -1525,7 +1525,7 @@ function ttgarden_block_aperture( $atts, $content = '' ): string {
 
 	return ( empty( $aperture ) || '0' === $aperture ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_aperture', 'ttgarden_block_aperture' );
+add_shortcode( 'ttgarden_block_aperture', 'ttgarden_block_aperture' );
 
 /**
  * Conditionally load content based on if the image has focal length exif data.
@@ -1546,7 +1546,7 @@ function ttgarden_block_exposure( $atts, $content = '' ): string {
 
 	return ( empty( $exposure ) || '0' === $exposure ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_exposure', 'ttgarden_block_exposure' );
+add_shortcode( 'ttgarden_block_exposure', 'ttgarden_block_exposure' );
 
 /**
  * Conditionally load content based on if the image has focal length exif data.
@@ -1567,7 +1567,7 @@ function ttgarden_block_focallength( $atts, $content = '' ): string {
 
 	return ( empty( $focal_length ) || '0' === $focal_length ) ? '' : ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_focallength', 'ttgarden_block_focallength' );
+add_shortcode( 'ttgarden_block_focallength', 'ttgarden_block_focallength' );
 
 /**
  * Rendered for photoset (gallery) posts.
@@ -1629,7 +1629,7 @@ function ttgarden_block_photoset( $atts, $content = '' ): string {
 
 	return $content;
 }
-add_shortcode( 'block_photoset', 'ttgarden_block_photoset' );
+add_shortcode( 'ttgarden_block_photoset', 'ttgarden_block_photoset' );
 
 /**
  * Rendered for link posts with a thumbnail image set.
@@ -1642,7 +1642,7 @@ add_shortcode( 'block_photoset', 'ttgarden_block_photoset' );
 function ttgarden_block_thumbnail( $atts, $content = '' ): string {
 	return has_post_thumbnail() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_thumbnail', 'ttgarden_block_thumbnail' );
+add_shortcode( 'ttgarden_block_thumbnail', 'ttgarden_block_thumbnail' );
 
 /**
  * Rendered for photoset (gallery) posts with caption content.
@@ -1662,7 +1662,7 @@ function ttgarden_block_caption( $atts, $content = '' ): string {
 
 	return ttgarden_do_shortcode( $content );
 }
-add_shortcode( 'block_caption', 'ttgarden_block_caption' );
+add_shortcode( 'ttgarden_block_caption', 'ttgarden_block_caption' );
 
 /**
  * Rendered for legacy Text posts and NPF posts.
@@ -1675,7 +1675,7 @@ add_shortcode( 'block_caption', 'ttgarden_block_caption' );
 function ttgarden_block_daypage( $atts, $content = '' ): string {
 	return ( is_day() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_daypage', 'ttgarden_block_daypage' );
+add_shortcode( 'ttgarden_block_daypage', 'ttgarden_block_daypage' );
 
 /**
  * Rendered if older posts are available.
@@ -1688,7 +1688,7 @@ add_shortcode( 'block_daypage', 'ttgarden_block_daypage' );
 function ttgarden_block_previouspage( $atts, $content = '' ): string {
 	return ( get_previous_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
+add_shortcode( 'ttgarden_block_previouspage', 'ttgarden_block_previouspage' );
 
 /**
  * Rendered if newer posts are available.
@@ -1701,7 +1701,7 @@ add_shortcode( 'block_previouspage', 'ttgarden_block_previouspage' );
 function ttgarden_block_nextpage( $atts, $content = '' ): string {
 	return ( get_next_posts_link() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_nextpage', 'ttgarden_block_nextpage' );
+add_shortcode( 'ttgarden_block_nextpage', 'ttgarden_block_nextpage' );
 
 /**
  * Boolean check for if we're on a single post or page.
@@ -1714,7 +1714,7 @@ add_shortcode( 'block_nextpage', 'ttgarden_block_nextpage' );
 function ttgarden_block_permalinkpagination( $atts, $content = '' ): string {
 	return is_single() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_permalinkpagination', 'ttgarden_block_permalinkpagination' );
+add_shortcode( 'ttgarden_block_permalinkpagination', 'ttgarden_block_permalinkpagination' );
 
 /**
  * Check if there's a previous adjacent post.
@@ -1727,7 +1727,7 @@ add_shortcode( 'block_permalinkpagination', 'ttgarden_block_permalinkpagination'
 function ttgarden_block_previouspost( $atts, $content = '' ): string {
 	return ( get_previous_post() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_previouspost', 'ttgarden_block_previouspost' );
+add_shortcode( 'ttgarden_block_previouspost', 'ttgarden_block_previouspost' );
 
 /**
  * Check if there's a next adjacent post.
@@ -1740,7 +1740,7 @@ add_shortcode( 'block_previouspost', 'ttgarden_block_previouspost' );
 function ttgarden_block_nextpost( $atts, $content = '' ): string {
 	return ( get_next_post() ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_nextpost', 'ttgarden_block_nextpost' );
+add_shortcode( 'ttgarden_block_nextpost', 'ttgarden_block_nextpost' );
 
 /**
  * Rendered if the post has been marked as sticky.
@@ -1753,7 +1753,7 @@ add_shortcode( 'block_nextpost', 'ttgarden_block_nextpost' );
 function ttgarden_block_pinnedpostlabel( $atts, $content = '' ): string {
 	return is_sticky() ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_pinnedpostlabel', 'ttgarden_block_pinnedpostlabel' );
+add_shortcode( 'ttgarden_block_pinnedpostlabel', 'ttgarden_block_pinnedpostlabel' );
 
 /**
  * Render content if the current language is equal to the specified language.
@@ -1767,42 +1767,42 @@ add_shortcode( 'block_pinnedpostlabel', 'ttgarden_block_pinnedpostlabel' );
 function ttgarden_block_language( $atts, $content, $shortcode_name ): string {
 	// Map shortcodes to their respective locales
 	$language_map = array(
-		'block_english'               => 'en_US',
-		'block_german'                => 'de_DE',
-		'block_french'                => 'fr_FR',
-		'block_italian'               => 'it_IT',
-		'block_turkish'               => 'tr_TR',
-		'block_spanish'               => 'es_ES',
-		'block_russian'               => 'ru_RU',
-		'block_japanese'              => 'ja_JP',
-		'block_polish'                => 'pl_PL',
-		'block_portuguesept'          => 'pt_PT',
-		'block_portuguesebr'          => 'pt_BR',
-		'block_dutch'                 => 'nl_NL',
-		'block_korean'                => 'ko_KR',
-		'block_chinesesimplified'     => 'zh_CN',
-		'block_chinesetraditional'    => 'zh_TW',
-		'block_chinesehk'             => 'zh_HK',
-		'block_indonesian'            => 'id_ID',
-		'block_hindi'                 => 'hi_IN',
-		'block_notenglish'            => 'en_US',
-		'block_notgerman'             => 'de_DE',
-		'block_notfrench'             => 'fr_FR',
-		'block_notitalian'            => 'it_IT',
-		'block_notturkish'            => 'tr_TR',
-		'block_notspanish'            => 'es_ES',
-		'block_notrussian'            => 'ru_RU',
-		'block_notjapanese'           => 'ja_JP',
-		'block_notpolish'             => 'pl_PL',
-		'block_notportuguesept'       => 'pt_PT',
-		'block_notportuguesebr'       => 'pt_BR',
-		'block_notdutch'              => 'nl_NL',
-		'block_notkorean'             => 'ko_KR',
-		'block_notchinesesimplified'  => 'zh_CN',
-		'block_notchinesetraditional' => 'zh_TW',
-		'block_notchinesehk'          => 'zh_HK',
-		'block_notindonesian'         => 'id_ID',
-		'block_nothindi'              => 'hi_IN',
+		'ttgarden_block_english'               => 'en_US',
+		'ttgarden_block_german'                => 'de_DE',
+		'ttgarden_block_french'                => 'fr_FR',
+		'ttgarden_block_italian'               => 'it_IT',
+		'ttgarden_block_turkish'               => 'tr_TR',
+		'ttgarden_block_spanish'               => 'es_ES',
+		'ttgarden_block_russian'               => 'ru_RU',
+		'ttgarden_block_japanese'              => 'ja_JP',
+		'ttgarden_block_polish'                => 'pl_PL',
+		'ttgarden_block_portuguesept'          => 'pt_PT',
+		'ttgarden_block_portuguesebr'          => 'pt_BR',
+		'ttgarden_block_dutch'                 => 'nl_NL',
+		'ttgarden_block_korean'                => 'ko_KR',
+		'ttgarden_block_chinesesimplified'     => 'zh_CN',
+		'ttgarden_block_chinesetraditional'    => 'zh_TW',
+		'ttgarden_block_chinesehk'             => 'zh_HK',
+		'ttgarden_block_indonesian'            => 'id_ID',
+		'ttgarden_block_hindi'                 => 'hi_IN',
+		'ttgarden_block_notenglish'            => 'en_US',
+		'ttgarden_block_notgerman'             => 'de_DE',
+		'ttgarden_block_notfrench'             => 'fr_FR',
+		'ttgarden_block_notitalian'            => 'it_IT',
+		'ttgarden_block_notturkish'            => 'tr_TR',
+		'ttgarden_block_notspanish'            => 'es_ES',
+		'ttgarden_block_notrussian'            => 'ru_RU',
+		'ttgarden_block_notjapanese'           => 'ja_JP',
+		'ttgarden_block_notpolish'             => 'pl_PL',
+		'ttgarden_block_notportuguesept'       => 'pt_PT',
+		'ttgarden_block_notportuguesebr'       => 'pt_BR',
+		'ttgarden_block_notdutch'              => 'nl_NL',
+		'ttgarden_block_notkorean'             => 'ko_KR',
+		'ttgarden_block_notchinesesimplified'  => 'zh_CN',
+		'ttgarden_block_notchinesetraditional' => 'zh_TW',
+		'ttgarden_block_notchinesehk'          => 'zh_HK',
+		'ttgarden_block_notindonesian'         => 'id_ID',
+		'ttgarden_block_nothindi'              => 'hi_IN',
 	);
 
 	// Get the current locale
@@ -1819,42 +1819,42 @@ function ttgarden_block_language( $atts, $content, $shortcode_name ): string {
 
 	return '';
 }
-add_shortcode( 'block_english', 'ttgarden_block_language' );
-add_shortcode( 'block_german', 'ttgarden_block_language' );
-add_shortcode( 'block_french', 'ttgarden_block_language' );
-add_shortcode( 'block_italian', 'ttgarden_block_language' );
-add_shortcode( 'block_turkish', 'ttgarden_block_language' );
-add_shortcode( 'block_spanish', 'ttgarden_block_language' );
-add_shortcode( 'block_russian', 'ttgarden_block_language' );
-add_shortcode( 'block_japanese', 'ttgarden_block_language' );
-add_shortcode( 'block_polish', 'ttgarden_block_language' );
-add_shortcode( 'block_portuguesept', 'ttgarden_block_language' );
-add_shortcode( 'block_portuguesebr', 'ttgarden_block_language' );
-add_shortcode( 'block_dutch', 'ttgarden_block_language' );
-add_shortcode( 'block_korean', 'ttgarden_block_language' );
-add_shortcode( 'block_chinesesimplified', 'ttgarden_block_language' );
-add_shortcode( 'block_chinesetraditional', 'ttgarden_block_language' );
-add_shortcode( 'block_chinesehk', 'ttgarden_block_language' );
-add_shortcode( 'block_indonesian', 'ttgarden_block_language' );
-add_shortcode( 'block_hindi', 'ttgarden_block_language' );
-add_shortcode( 'block_notenglish', 'ttgarden_block_language' );
-add_shortcode( 'block_notgerman', 'ttgarden_block_language' );
-add_shortcode( 'block_notfrench', 'ttgarden_block_language' );
-add_shortcode( 'block_notitalian', 'ttgarden_block_language' );
-add_shortcode( 'block_notturkish', 'ttgarden_block_language' );
-add_shortcode( 'block_notspanish', 'ttgarden_block_language' );
-add_shortcode( 'block_notrussian', 'ttgarden_block_language' );
-add_shortcode( 'block_notjapanese', 'ttgarden_block_language' );
-add_shortcode( 'block_notpolish', 'ttgarden_block_language' );
-add_shortcode( 'block_notportuguesept', 'ttgarden_block_language' );
-add_shortcode( 'block_notportuguesebr', 'ttgarden_block_language' );
-add_shortcode( 'block_notdutch', 'ttgarden_block_language' );
-add_shortcode( 'block_notkorean', 'ttgarden_block_language' );
-add_shortcode( 'block_notchinesesimplified', 'ttgarden_block_language' );
-add_shortcode( 'block_notchinesetraditional', 'ttgarden_block_language' );
-add_shortcode( 'block_notchinesehk', 'ttgarden_block_language' );
-add_shortcode( 'block_notindonesian', 'ttgarden_block_language' );
-add_shortcode( 'block_nothindi', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_english', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_german', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_french', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_italian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_turkish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_spanish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_russian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_japanese', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_polish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_portuguesept', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_portuguesebr', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_dutch', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_korean', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_chinesesimplified', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_chinesetraditional', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_chinesehk', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_indonesian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_hindi', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notenglish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notgerman', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notfrench', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notitalian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notturkish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notspanish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notrussian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notjapanese', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notpolish', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notportuguesept', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notportuguesebr', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notdutch', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notkorean', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notchinesesimplified', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notchinesetraditional', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notchinesehk', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_notindonesian', 'ttgarden_block_language' );
+add_shortcode( 'ttgarden_block_nothindi', 'ttgarden_block_language' );
 
 /**
  * Rendered if this is post number N (0 - 15) in the loop.
@@ -1869,7 +1869,7 @@ function ttgarden_block_post_n( $atts, $content, $shortcode_name ): string {
 	global $wp_query;
 
 	// Extract the post number from the shortcode name (assuming 'block_postN' where N is a number)
-	if ( preg_match( '/block_post(\d+)/', $shortcode_name, $matches ) ) {
+	if ( preg_match( '/ttgarden_block_post(\d+)/', $shortcode_name, $matches ) ) {
 
 		// Check if in the loop and if the current post is the post number N
 		if ( in_the_loop() && absint( $matches[1] - 1 ) === $wp_query->current_post ) {
@@ -1879,21 +1879,21 @@ function ttgarden_block_post_n( $atts, $content, $shortcode_name ): string {
 
 	return '';
 }
-add_shortcode( 'block_post1', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post2', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post3', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post4', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post5', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post6', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post7', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post8', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post9', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post10', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post11', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post12', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post13', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post14', 'ttgarden_block_post_n' );
-add_shortcode( 'block_post15', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post1', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post2', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post3', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post4', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post5', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post6', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post7', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post8', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post9', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post10', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post11', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post12', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post13', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post14', 'ttgarden_block_post_n' );
+add_shortcode( 'ttgarden_block_post15', 'ttgarden_block_post_n' );
 
 /**
  * Render content if the current post is an odd post in the loop.
@@ -1909,7 +1909,7 @@ function ttgarden_block_odd( $atts, $content = '' ): string {
 	// Check if in the loop and if the current post index is odd
 	return ( in_the_loop() && ( $wp_query->current_post % 2 ) !== 0 ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_odd', 'ttgarden_block_odd' );
+add_shortcode( 'ttgarden_block_odd', 'ttgarden_block_odd' );
 
 /**
  * Render content if the current post is an even post in the loop.
@@ -1925,7 +1925,7 @@ function ttgarden_block_even( $atts, $content = '' ): string {
 	// Check if in the loop and if the current post index is even
 	return ( in_the_loop() && ( $wp_query->current_post % 2 ) === 0 ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'block_even', 'ttgarden_block_even' );
+add_shortcode( 'ttgarden_block_even', 'ttgarden_block_even' );
 
 /**
  * Test if the blog has featured tags available.
@@ -1955,7 +1955,7 @@ function ttgarden_block_hasfeaturedtags( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_hasfeaturedtags', 'ttgarden_block_hasfeaturedtags' );
+add_shortcode( 'ttgarden_block_hasfeaturedtags', 'ttgarden_block_hasfeaturedtags' );
 
 /**
  * If the blog has featured tags, render each of them.
@@ -1984,4 +1984,4 @@ function ttgarden_block_featuredtags( $atts, $content = '' ): string {
 
 	return $output;
 }
-add_shortcode( 'block_featuredtags', 'ttgarden_block_featuredtags' );
+add_shortcode( 'ttgarden_block_featuredtags', 'ttgarden_block_featuredtags' );
