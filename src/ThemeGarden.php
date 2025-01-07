@@ -331,7 +331,7 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function option_defaults_helper( $default_params ): void {
-		$ttgarden_mods = get_option( 'ttgarden_theme_mods', array() );
+		$ttgarden_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
 
 		if ( ! is_array( $ttgarden_mods ) ) {
 			$ttgarden_mods = array();
@@ -342,7 +342,7 @@ class ThemeGarden {
 			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
 
-		update_option( 'ttgarden_theme_mods', $ttgarden_mods );
+		update_option( 'theme_mods_tumblr-theme-garden', $ttgarden_mods );
 	}
 
 	/**
