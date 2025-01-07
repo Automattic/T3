@@ -204,7 +204,7 @@ class Parser {
 					$block_parts = explode( ' ', trim( $raw_tag ) );
 
 					if ( in_array( ltrim( $block_parts[0], '/' ), $blocks, true ) ) {
-						return '[' . str_replace( 'block:', 'block_', $raw_tag ) . ']';
+						return '[' . str_replace( 'block:', 'ttgarden_block_', $raw_tag ) . ']';
 					}
 
 					// False positive.
@@ -249,7 +249,7 @@ class Parser {
 
 				// Verify the tag against our array of known tags.
 				if ( in_array( ltrim( $trim_tag, '/' ), $tags, true ) ) {
-					$shortcode  = 'tag_' . $trim_tag;
+					$shortcode  = 'ttgarden_tag_' . $trim_tag;
 					$attributes = $applied_modifier ? "modifier=\"$applied_modifier\"" : '';
 
 					return ( ! empty( $attributes ) ) ? "[{$shortcode} {$attributes}]" : "[{$shortcode}]";
@@ -318,12 +318,12 @@ class Parser {
 		// Check if the key contains a supported keyword, if so, return the shortcode to process the keyword.
 		foreach ( $this->supported_keywords as $keyword => $callback ) {
 			if ( false !== strpos( $key, $keyword ) ) {
-				return '[tag_lang key="' . $key . '"]';
+				return '[ttgarden_tag_lang key="' . $key . '"]';
 			}
 		}
 
 		// If no keywords are found, return the shortcode with a set value.
-		return '[tag_lang value="' . TTGARDEN_LANG[ $key ] . '"]';
+		return '[ttgarden_tag_lang value="' . TTGARDEN_LANG[ $key ] . '"]';
 	}
 
 	/**
@@ -347,7 +347,7 @@ class Parser {
 		);
 
 		// Create the shortcode name.
-		$shortcode = 'block_' . $condition . '_' . $normalized_attr;
+		$shortcode = 'ttgarden_block_' . $condition . '_' . $normalized_attr;
 
 		// Register the new shortcode on the fly.
 		add_shortcode( $shortcode, 'ttgarden_block_' . $condition . '_theme_option' );
