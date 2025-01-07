@@ -22,7 +22,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-garden&release=v0.1.15&asset=tumblr-theme-garden.zip"
+        "url": "https://github-proxy.com/proxy/?repo=Automattic/tumblr-theme-garden&release=v0.1.18&asset=tumblr-theme-garden.zip"
       },
       "options": {
         "activate": true
