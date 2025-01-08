@@ -36,7 +36,7 @@ const _ThemeGardenOverlay = ( {
 
 	console.log(themeDetails);
 
-	const renderByLine = () => {
+	const renderThemeAuthor = () => {
 		if (!themeDetails.author) {
 			return null;
 		}
@@ -65,7 +65,7 @@ const _ThemeGardenOverlay = ( {
 				</div>
 				<div className="theme-info">
 					<h2 className="theme-name">{ themeDetails.title }</h2>
-					{renderByLine()}
+					{renderThemeAuthor()}
 					<p className="theme-tags"><span></span></p>
 				</div>
 			</div>
