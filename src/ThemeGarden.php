@@ -288,7 +288,7 @@ class ThemeGarden {
 	 * @return array
 	 */
 	public function get_themes_and_categories(): array {
-		$cached_response = get_transient( 'ttgarden_tumblr_themes_response' . $this->get_api_query_string() );
+		$cached_response = get_transient( 'ttgarden_tumblr_themes_response_' . $this->get_api_query_string() );
 
 		if ( false === $cached_response ) {
 			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
