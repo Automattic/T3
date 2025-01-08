@@ -14,7 +14,7 @@
  * Plugin Name:             Tumblr Theme Garden
  * Plugin URI:              https://github.com/Automattic/tumblr-theme-garden/
  * Description:             Allows WordPress to run on Tumblr themes.
- * Version:                 0.1.15
+ * Version:                 0.1.16
  * Requires at least:       6.5
  * Tested up to:            6.7
  * Requires PHP:            8.2
@@ -75,39 +75,6 @@ if ( ! is_file( TTGARDEN_PATH . '/vendor/autoload.php' ) ) {
 	return;
 }
 require_once TTGARDEN_PATH . '/vendor/autoload.php';
-
-/**
- * On activation, setup the plugin options.
- */
-register_activation_hook(
-	__FILE__,
-	static function () {
-		update_option( 'ttgarden_original_theme', '' );
-		update_option( 'ttgarden_theme_html', '' );
-		update_option( 'ttgarden_use_theme', '0' );
-		update_option( 'ttgarden_external_theme', array() );
-	}
-);
-
-/**
- * On deactivation, switch back to the orignial saved theme and delete the option.
- */
-register_deactivation_hook(
-	__FILE__,
-	static function () {
-		// Switch back to the original theme if one was saved.
-		$theme = get_option( 'ttgarden_original_theme' );
-		if ( $theme ) {
-			switch_theme( $theme );
-		}
-
-		// Cleanup options.
-		delete_option( 'ttgarden_original_theme' );
-		delete_option( 'ttgarden_theme_html' );
-		delete_option( 'ttgarden_use_theme' );
-		delete_option( 'ttgarden_external_theme' );
-	}
-);
 
 require_once TTGARDEN_PATH . 'functions.php';
 add_action( 'plugins_loaded', array( ttgarden_get_plugin_instance(), 'initialize' ) );

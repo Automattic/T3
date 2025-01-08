@@ -33,7 +33,6 @@ class Customizer {
 			add_action( 'customize_register', array( $this, 'global_options' ) );
 			add_action( 'customize_register', array( $this, 'theme_specific_options' ) );
 			add_filter( 'customize_panel_active', array( $this, 'customize_panel_active' ), 10, 2 );
-			add_action( 'customize_register', array( $this, 'rename_panels' ) );
 		}
 	}
 
@@ -96,43 +95,6 @@ class Customizer {
 				'description_hidden' => true,
 			)
 		);
-
-		/**
-		 * Theme HTML setting.
-		 *
-		 * @todo lack of sanitization is a security risk.
-		 */
-		$wp_customize->add_setting(
-			'ttgarden_theme_html',
-			array(
-				'type'              => 'option',
-				'capability'        => 'edit_theme_options',
-				'default'           => '',
-				'sanitize_callback' => '',
-			)
-		);
-
-		// see: https://github.com/WordPress/WordPress/blob/master/wp-includes/customize/class-wp-customize-code-editor-control.php
-		$editor = new \WP_Customize_Code_Editor_Control(
-			$wp_customize,
-			'ttgarden_theme_html',
-			array(
-				'label'    => '',
-				'section'  => 'ttgarden_html',
-				'priority' => 10,
-			)
-		);
-
-		$editor->code_type       = 'text/html';
-		$editor->editor_settings = array(
-			'codemirror' => array(
-				'indentUnit' => 2,
-				'tabSize'    => 2,
-				'lint'       => false,
-			),
-		);
-
-		$wp_customize->add_control( $editor );
 	}
 
 	/**
@@ -149,23 +111,6 @@ class Customizer {
 		}
 
 		return $active;
-	}
-
-	/**
-	 * Remove WordPress default settings and sections.
-	 *
-	 * @param WP_Customize_Manager $wp_customize The customizer manager.
-	 *
-	 * @return void
-	 */
-	public function rename_panels( $wp_customize ): void {
-		// Rename the active theme in the customizer.
-		$panel = $wp_customize->get_panel( 'themes' );
-
-		if ( $panel ) {
-			$external_theme = get_option( 'ttgarden_external_theme' );
-			$panel->title   = $external_theme['title'] ?? 'TumblrThemeGarden';
-		}
 	}
 
 	/**
@@ -433,7 +378,17 @@ class Customizer {
 		);
 
 		// Parse the theme HTML.
-		$processor      = new \WP_HTML_Tag_Processor( get_option( 'ttgarden_theme_html', '' ) );
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		if ( ! WP_Filesystem() ) {
+			wp_die( 'Failed to access the filesystem.' );
+		}
+
+		// Get the HTML content from our templates/index.html file.
+		$theme_html = $wp_filesystem->get_contents( get_template_directory() . '/templates/index.html' );
+
+		$processor      = new \WP_HTML_Tag_Processor( $theme_html );
 		$select_options = array();
 
 		// Stop on META tags.

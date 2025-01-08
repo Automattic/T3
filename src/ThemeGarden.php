@@ -85,8 +85,9 @@ class ThemeGarden {
 
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
-			$is_using_tumblr_theme = get_option( 'ttgarden_use_theme' );
-			$active_theme          = $is_using_tumblr_theme ? get_option( 'ttgarden_external_theme' ) : null;
+
+			// @todo Hook this up to the new theme system.
+			$active_theme = null;
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
@@ -258,26 +259,80 @@ class ThemeGarden {
 		if ( is_wp_error( $theme ) ) {
 			return;
 		}
-		// Save theme details to options.
-		update_option( 'ttgarden_theme_html', $theme->theme );
 
-		// Save all external theme details to an option.
-		$external_theme_details = array(
-			'id'          => $theme_id_to_activate,
-			'title'       => isset( $theme->title ) ? $theme->title : '',
-			'thumbnail'   => isset( $theme->thumbnail ) ? $theme->thumbnail : '',
-			'author_name' => isset( $theme->author->name ) ? $theme->author->name : '',
-			'author_url'  => isset( $theme->author->url ) ? $theme->author->url : '',
-		);
+		// Access the global filesystem object
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
 
-		update_option( 'ttgarden_external_theme', $external_theme_details );
-		update_option( 'ttgarden_use_theme', '1' );
+		// Check if the filesystem is available.
+		if ( ! WP_Filesystem() ) {
+			wp_die( 'Failed to access the filesystem.' );
+		}
+
+		// Define the theme name and path
+		$theme_slug = sanitize_title( $theme->title );
+		$theme_dir  = $wp_filesystem->wp_themes_dir() . $theme_slug . '/';
+
+		// Check if the theme directory exists; if not, create it
+		if ( ! $wp_filesystem->is_dir( $theme_dir ) ) {
+			if ( ! $wp_filesystem->mkdir( $theme_dir ) ) {
+				wp_die( 'Failed to create the theme directory.' );
+			}
+		}
+
+		// Check if the theme templates directory exists; if not, create it
+		if ( ! $wp_filesystem->is_dir( $theme_dir . 'templates' ) ) {
+			if ( ! $wp_filesystem->mkdir( $theme_dir . 'templates' ) ) {
+				wp_die( 'Failed to create the theme templates directory.' );
+			}
+		}
+
+		// Define the HTML template path.
+		$file_path = $theme_dir . 'templates/index.html';
+
+		// Write the HTML content to the index.html file
+		if ( ! $wp_filesystem->put_contents( $file_path, $theme->theme, FS_CHMOD_FILE ) ) {
+			wp_die( 'Failed to write the index.html file.' );
+		}
+
+		// Create a style.css file with the theme metadata.
+		$style_css_path    = $theme_dir . 'style.css';
+		$style_css_content = '/*
+Theme Name: ' . $theme->title . '
+Description: A theme created programmatically with an HTML string.
+Author: ' . $theme->author->name . '
+Author URI: ' . $theme->author->url . '
+Version: ' . $theme_id_to_activate . '
+Tags: tumblr-theme
+*/';
+
+		if ( ! $wp_filesystem->put_contents( $style_css_path, $style_css_content, FS_CHMOD_FILE ) ) {
+			wp_die( 'Failed to write the style.css file.' );
+		}
+
+		// Write the thumbnail image to the theme directory.
+		$thumbnail_url  = $theme->thumbnail;
+		$thumbnail      = $wp_filesystem->get_contents( $thumbnail_url );
+		$thumbnail_path = $theme_dir . 'screenshot.png';
+
+		if ( ! $wp_filesystem->put_contents( $thumbnail_path, $thumbnail, FS_CHMOD_FILE ) ) {
+			wp_die( 'Failed to write the thumbnail image.' );
+		}
+
+		// Create an index.php file with the theme output.
+		$index_php_path    = $theme_dir . 'index.php';
+		$index_php_content = '<?php ttgarden_page_output();';
+
+		if ( ! $wp_filesystem->put_contents( $index_php_path, $index_php_content, FS_CHMOD_FILE ) ) {
+			wp_die( 'Failed to write the index.php file.' );
+		}
 
 		// Setup theme option defaults.
-		$this->option_defaults_helper( maybe_unserialize( $theme->default_params ) );
+		$this->option_defaults_helper( $theme_slug, maybe_unserialize( $theme->default_params ) );
 
 		// Finally, redirect to the customizer with the new theme active.
-		wp_safe_redirect( wp_customize_url() );
+		switch_theme( $theme_slug );
+		wp_safe_redirect( admin_url( 'customize.php' ) );
 		exit;
 	}
 
@@ -326,12 +381,13 @@ class ThemeGarden {
 	/**
 	 * On Tumblr theme activation, sets up the default options provided by the theme.
 	 *
-	 * @param array $default_params Default option values from the theme.
+	 * @param string $theme_slug    The theme slug.
+	 * @param array  $default_params Default option values from the theme.
 	 *
 	 * @return void
 	 */
-	public function option_defaults_helper( $default_params ): void {
-		$ttgarden_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
+	public function option_defaults_helper( $theme_slug, $default_params ): void {
+		$ttgarden_mods = get_option( 'theme_mods_' . $theme_slug, array() );
 
 		if ( ! is_array( $ttgarden_mods ) ) {
 			$ttgarden_mods = array();
@@ -342,7 +398,7 @@ class ThemeGarden {
 			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
 
-		update_option( 'theme_mods_tumblr-theme-garden', $ttgarden_mods );
+		update_option( 'theme_mods_' . $theme_slug, $ttgarden_mods );
 	}
 
 	/**
@@ -351,6 +407,10 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function register_submenu(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		add_submenu_page(
 			'themes.php',
 			__( 'Tumblr Themes', 'tumblr-theme-garden' ),
