@@ -24,7 +24,7 @@ const _ThemeGardenList = ( {
 	fetchThemeById,
 	activeTheme,
 	customizeUrl,
-	search
+	search,
 } ) => {
 	const [ localThemes, setLocalThemes ] = useState( themes );
 
@@ -60,7 +60,7 @@ const _ThemeGardenList = ( {
 
 	return (
 		<div className="tumblr-themes">
-			{ activeTheme && !search && (
+			{ activeTheme && ! search && (
 				<ThemeGardenListItem
 					theme={ activeTheme }
 					handleDetailsClick={ handleDetailsClick }
