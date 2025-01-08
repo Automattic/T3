@@ -188,8 +188,6 @@ class ThemeGarden {
 			set_transient( 'ttgarden_tumblr_theme_response_' . $theme_id, $cached_response, DAY_IN_SECONDS );
 		}
 
-		
-
 		$body = json_decode( wp_remote_retrieve_body( $cached_response ) );
 
 		if ( ! isset( $body->response->theme ) ) {
@@ -296,7 +294,7 @@ class ThemeGarden {
 	 * @return array
 	 */
 	public function get_themes_and_categories(): array {
-		$query_string = $this->get_api_query_string();
+		$query_string    = $this->get_api_query_string();
 		$cached_response = get_transient( 'ttgarden_tumblr_themes_response_' . $query_string );
 
 		if ( false === $cached_response ) {
