@@ -36,6 +36,9 @@ define( 'TTGARDEN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'TTGARDEN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'TTGARDEN_URL', plugin_dir_url( __FILE__ ) );
 
+// Define REST API namespace.
+define( 'TTGARDEN_REST_NAMESPACE', 'tumblr-theme-garden/v1' );
+
 // Define tag and block names from Tumblr Theme language.
 define( 'TTGARDEN_TAGS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/tags.php' );
 define( 'TTGARDEN_BLOCKS', require_once TTGARDEN_PATH . 'includes/tumblr-theme-language/blocks.php' );

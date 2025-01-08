@@ -198,7 +198,7 @@ class ThemeGarden {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/themes',
 			array(
 				'methods'             => 'GET',
@@ -210,7 +210,7 @@ class ThemeGarden {
 		);
 
 		register_rest_route(
-			'tumblr-theme-garden/v1',
+			TTGARDEN_REST_NAMESPACE,
 			'/theme',
 			array(
 				'methods'             => 'GET',
@@ -288,12 +288,12 @@ class ThemeGarden {
 	 * @return array
 	 */
 	public function get_themes_and_categories(): array {
-		$cached_response = get_transient( 'tumblr_themes_response_' . $this->get_api_query_string() );
+		$cached_response = get_transient( 'ttgarden_tumblr_themes_response_' . $this->get_api_query_string() );
 
 		if ( false === $cached_response ) {
 			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
 			$cached_response = wp_remote_retrieve_body( $response );
-			set_transient( 'tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
+			set_transient( 'ttgarden_tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
 		}
 
 		$body = json_decode( $cached_response, true );
@@ -331,14 +331,18 @@ class ThemeGarden {
 	 * @return void
 	 */
 	public function option_defaults_helper( $default_params ): void {
-		$ttgarden_mods = get_option( 'theme_mods_ttgarden', array() );
+		$ttgarden_mods = get_option( 'theme_mods_tumblr-theme-garden', array() );
+
+		if ( ! is_array( $ttgarden_mods ) ) {
+			$ttgarden_mods = array();
+		}
 
 		foreach ( $default_params as $key => $value ) {
 			$normal                   = ttgarden_normalize_option_name( $key );
-			$ttgarden_mods[ $normal ] = $value;
+			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
 
-		update_option( 'theme_mods_ttgarden', $ttgarden_mods );
+		update_option( 'theme_mods_tumblr-theme-garden', $ttgarden_mods );
 	}
 
 	/**

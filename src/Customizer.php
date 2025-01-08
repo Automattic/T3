@@ -468,16 +468,15 @@ class Customizer {
 						$wp_customize,
 						$name,
 						array(
-							'label'    => $label,
-							'section'  => 'colors',
-							'settings' => $name,
+							'label'   => $label,
+							'section' => 'colors',
 						)
 					)
 				);
 
 				// If it doesn't exist, load the default value into the theme mod.
 				if ( ! get_theme_mod( $name ) ) {
-					set_theme_mod( $name, $color );
+					set_theme_mod( $name, sanitize_hex_color( $color ) );
 				}
 
 				continue;
@@ -514,7 +513,7 @@ class Customizer {
 
 				// If it doesn't exist, load the default value into the theme mod.
 				if ( ! get_theme_mod( $name ) ) {
-					set_theme_mod( $name, $font );
+					set_theme_mod( $name, sanitize_text_field( $font ) );
 				}
 
 				continue;
@@ -551,7 +550,7 @@ class Customizer {
 
 				// If it doesn't exist, load the default value into the theme mod.
 				if ( null === get_theme_mod( $name, null ) ) {
-					set_theme_mod( $name, '1' === $condition ? '1' : '' );
+					set_theme_mod( $name, sanitize_text_field( '1' === $condition ? '1' : '' ) );
 				}
 
 				continue;
@@ -588,7 +587,7 @@ class Customizer {
 
 				// If it doesn't exist, load the default value into the theme mod.
 				if ( ! get_theme_mod( $name ) ) {
-					set_theme_mod( $name, $text );
+					set_theme_mod( $name, sanitize_text_field( $text ) );
 				}
 
 				continue;
@@ -628,7 +627,7 @@ class Customizer {
 
 				// If it doesn't exist, load the default value into the theme mod.
 				if ( ! get_theme_mod( $name ) ) {
-					set_theme_mod( $name, $image );
+					set_theme_mod( $name, esc_url_raw( $image ) );
 				}
 
 				continue;
@@ -676,7 +675,7 @@ class Customizer {
 
 			// If it doesn't exist, load the default value into the theme mod.
 			if ( ! get_theme_mod( $name ) ) {
-				set_theme_mod( $name, $default );
+				set_theme_mod( $name, sanitize_text_field( $default ) );
 			}
 		}
 	}

@@ -24,7 +24,7 @@ function ttgarden_tag_lang( $atts ): string {
 			'value' => '',
 		),
 		$atts,
-		'tag_lang'
+		'ttgarden_tag_lang'
 	);
 
 	$plugin   = ttgarden_get_plugin_instance();
@@ -72,7 +72,7 @@ function ttgarden_tag_lang( $atts ): string {
 		)
 	);
 }
-add_shortcode( 'tag_lang', 'ttgarden_tag_lang' );
+add_shortcode( 'ttgarden_tag_lang', 'ttgarden_tag_lang' );
 
 /**
  * Outputs target attribute for links.
@@ -82,7 +82,7 @@ add_shortcode( 'tag_lang', 'ttgarden_tag_lang' );
 function ttgarden_tag_target(): string {
 	return get_theme_mod( 'target_blank' ) ? 'target="_blank"' : '';
 }
-add_shortcode( 'tag_target', 'ttgarden_tag_target' );
+add_shortcode( 'ttgarden_tag_target', 'ttgarden_tag_target' );
 
 /**
  * Returns the NPF JSON string of the current post.
@@ -99,7 +99,7 @@ function ttgarden_tag_npf(): string {
 	// Convert the content to NPF format
 	return $converter->convert( $post_content );
 }
-add_shortcode( 'tag_npf', 'ttgarden_tag_npf' );
+add_shortcode( 'ttgarden_tag_npf', 'ttgarden_tag_npf' );
 
 /**
  * The author name of the current post.
@@ -109,8 +109,8 @@ add_shortcode( 'tag_npf', 'ttgarden_tag_npf' );
 function ttgarden_tag_postauthorname(): string {
 	return get_the_author();
 }
-add_shortcode( 'tag_postauthorname', 'ttgarden_tag_postauthorname' );
-add_shortcode( 'tag_author', 'ttgarden_tag_postauthorname' );
+add_shortcode( 'ttgarden_tag_postauthorname', 'ttgarden_tag_postauthorname' );
+add_shortcode( 'ttgarden_tag_postauthorname', 'ttgarden_tag_postauthorname' );
 
 /**
  * Returns the group member display name.
@@ -126,7 +126,7 @@ function ttgarden_tag_groupmembername(): string {
 
 	return '';
 }
-add_shortcode( 'tag_groupmembername', 'ttgarden_tag_groupmembername' );
+add_shortcode( 'ttgarden_tag_groupmembername', 'ttgarden_tag_groupmembername' );
 
 /**
  * The URL of the group members posts page.
@@ -142,7 +142,7 @@ function ttgarden_tag_groupmemberurl(): string {
 
 	return '';
 }
-add_shortcode( 'tag_groupmemberurl', 'ttgarden_tag_groupmemberurl' );
+add_shortcode( 'ttgarden_tag_groupmemberurl', 'ttgarden_tag_groupmemberurl' );
 
 /**
  * Gets the group member portrait URL.
@@ -154,7 +154,7 @@ add_shortcode( 'tag_groupmemberurl', 'ttgarden_tag_groupmemberurl' );
  * @return string The URL of the group member avatar.
  */
 function ttgarden_tag_groupmemberportraiturl( $atts, $content, $shortcode_name ): string {
-	$size = str_replace( 'tag_groupmemberportraiturl-', '', $shortcode_name );
+	$size = str_replace( 'ttgarden_tag_groupmemberportraiturl-', '', $shortcode_name );
 
 	$context = ttgarden_get_parse_context();
 
@@ -175,14 +175,14 @@ function ttgarden_tag_groupmemberportraiturl( $atts, $content, $shortcode_name )
 
 	return '';
 }
-add_shortcode( 'tag_groupmemberportraiturl-16', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-24', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-30', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-40', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-48', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-64', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-96', 'ttgarden_tag_groupmemberportraiturl' );
-add_shortcode( 'tag_groupmemberportraiturl-128', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-16', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-24', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-30', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-40', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-48', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-64', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-96', 'ttgarden_tag_groupmemberportraiturl' );
+add_shortcode( 'ttgarden_tag_groupmemberportraiturl-128', 'ttgarden_tag_groupmemberportraiturl' );
 
 /**
  * The blog title of the post author.
@@ -192,9 +192,9 @@ add_shortcode( 'tag_groupmemberportraiturl-128', 'ttgarden_tag_groupmemberportra
 function ttgarden_tag_postauthortitle(): string {
 	return esc_attr( get_bloginfo( 'name' ) );
 }
-add_shortcode( 'tag_postauthortitle', 'ttgarden_tag_postauthortitle' );
-add_shortcode( 'tag_groupmembertitle', 'ttgarden_tag_postauthortitle' );
-add_shortcode( 'tag_postblogname', 'ttgarden_tag_postauthortitle' );
+add_shortcode( 'ttgarden_tag_postauthortitle', 'ttgarden_tag_postauthortitle' );
+add_shortcode( 'ttgarden_tag_groupmembertitle', 'ttgarden_tag_postauthortitle' );
+add_shortcode( 'ttgarden_tag_postblogname', 'ttgarden_tag_postauthortitle' );
 
 /**
  * The URL of the post author.
@@ -204,7 +204,7 @@ add_shortcode( 'tag_postblogname', 'ttgarden_tag_postauthortitle' );
 function ttgarden_tag_postauthorurl(): string {
 	return esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) );
 }
-add_shortcode( 'tag_postauthorurl', 'ttgarden_tag_postauthorurl' );
+add_shortcode( 'ttgarden_tag_postauthorurl', 'ttgarden_tag_postauthorurl' );
 
 /**
  * The portrait URL of the post author.
@@ -216,7 +216,7 @@ add_shortcode( 'tag_postauthorurl', 'ttgarden_tag_postauthorurl' );
  * @return string The URL of the author portrait.
  */
 function ttgarden_tag_postauthorportraiturl( $atts, $content, $shortcode_name ): string {
-	$size      = str_replace( 'tag_postauthorportraiturl-', '', $shortcode_name );
+	$size      = str_replace( 'ttgarden_tag_postauthorportraiturl-', '', $shortcode_name );
 	$author_id = get_the_author_meta( 'ID' );
 	$author    = get_user_by( 'ID', $author_id );
 
@@ -237,14 +237,14 @@ function ttgarden_tag_postauthorportraiturl( $atts, $content, $shortcode_name ):
 
 	return esc_url( $author_avatar );
 }
-add_shortcode( 'tag_postauthorportraiturl-16', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-24', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-30', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-40', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-48', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-64', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-96', 'ttgarden_tag_postauthorportraiturl' );
-add_shortcode( 'tag_postauthorportraiturl-128', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-16', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-24', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-30', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-40', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-48', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-64', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-96', 'ttgarden_tag_postauthorportraiturl' );
+add_shortcode( 'ttgarden_tag_postauthorportraiturl-128', 'ttgarden_tag_postauthorportraiturl' );
 
 /**
  * Outputs the twitter username theme option.
@@ -254,7 +254,7 @@ add_shortcode( 'tag_postauthorportraiturl-128', 'ttgarden_tag_postauthorportrait
 function ttgarden_tag_twitterusername(): string {
 	return esc_attr( get_theme_mod( 'twitter_username' ) );
 }
-add_shortcode( 'tag_twitterusername', 'ttgarden_tag_twitterusername' );
+add_shortcode( 'ttgarden_tag_twitterusername', 'ttgarden_tag_twitterusername' );
 
 /**
  * The current state of a page in nav.
@@ -265,8 +265,8 @@ add_shortcode( 'tag_twitterusername', 'ttgarden_tag_twitterusername' );
 function ttgarden_tag_currentstate(): string {
 	return get_the_permalink() === home_url( add_query_arg( null, null ) ) ? 'current-page' : '';
 }
-add_shortcode( 'tag_currentstate', 'ttgarden_tag_currentstate' );
-add_shortcode( 'tag_externalstate', 'ttgarden_tag_currentstate' );
+add_shortcode( 'ttgarden_tag_currentstate', 'ttgarden_tag_currentstate' );
+add_shortcode( 'ttgarden_tag_externalstate', 'ttgarden_tag_currentstate' );
 
 /**
  * The display shape of your avatar ("circle" or "square").
@@ -278,7 +278,7 @@ add_shortcode( 'tag_externalstate', 'ttgarden_tag_currentstate' );
 function ttgarden_tag_avatarshape(): string {
 	return esc_html( get_theme_mod( 'avatar_shape', 'circle' ) );
 }
-add_shortcode( 'tag_avatarshape', 'ttgarden_tag_avatarshape' );
+add_shortcode( 'ttgarden_tag_avatarshape', 'ttgarden_tag_avatarshape' );
 
 /**
  * The background color of your blog.
@@ -290,7 +290,7 @@ add_shortcode( 'tag_avatarshape', 'ttgarden_tag_avatarshape' );
 function ttgarden_tag_backgroundcolor(): string {
 	return '#' . sanitize_hex_color_no_hash( get_theme_mod( 'background_color', '#fff' ) );
 }
-add_shortcode( 'tag_backgroundcolor', 'ttgarden_tag_backgroundcolor' );
+add_shortcode( 'ttgarden_tag_backgroundcolor', 'ttgarden_tag_backgroundcolor' );
 
 /**
  * The accent color of your blog.
@@ -302,7 +302,7 @@ add_shortcode( 'tag_backgroundcolor', 'ttgarden_tag_backgroundcolor' );
 function ttgarden_tag_accentcolor(): string {
 	return '#' . sanitize_hex_color_no_hash( get_theme_mod( 'accent_color', '#0073aa' ) );
 }
-add_shortcode( 'tag_accentcolor', 'ttgarden_tag_accentcolor' );
+add_shortcode( 'ttgarden_tag_accentcolor', 'ttgarden_tag_accentcolor' );
 
 /**
  * The title color of your blog.
@@ -314,7 +314,7 @@ add_shortcode( 'tag_accentcolor', 'ttgarden_tag_accentcolor' );
 function ttgarden_tag_titlecolor(): string {
 	return '#' . sanitize_hex_color_no_hash( get_theme_mod( 'header_textcolor', '#000' ) );
 }
-add_shortcode( 'tag_titlecolor', 'ttgarden_tag_titlecolor' );
+add_shortcode( 'ttgarden_tag_titlecolor', 'ttgarden_tag_titlecolor' );
 
 /**
  * Get the title font theme option.
@@ -326,7 +326,7 @@ add_shortcode( 'tag_titlecolor', 'ttgarden_tag_titlecolor' );
 function ttgarden_tag_titlefont(): string {
 	return esc_html( get_theme_mod( 'title_font', 'Arial' ) );
 }
-add_shortcode( 'tag_titlefont', 'ttgarden_tag_titlefont' );
+add_shortcode( 'ttgarden_tag_titlefont', 'ttgarden_tag_titlefont' );
 
 /**
  * The weight of your title font ("normal" or "bold").
@@ -338,7 +338,7 @@ add_shortcode( 'tag_titlefont', 'ttgarden_tag_titlefont' );
 function ttgarden_tag_titlefontweight(): string {
 	return esc_html( get_theme_mod( 'title_font_weight', 'bold' ) );
 }
-add_shortcode( 'tag_titlefontweight', 'ttgarden_tag_titlefontweight' );
+add_shortcode( 'ttgarden_tag_titlefontweight', 'ttgarden_tag_titlefontweight' );
 
 /**
  * Get the header image theme option.
@@ -350,7 +350,7 @@ add_shortcode( 'tag_titlefontweight', 'ttgarden_tag_titlefontweight' );
 function ttgarden_tag_headerimage(): string {
 	return get_theme_mod( 'header_image', 'remove-header' );
 }
-add_shortcode( 'tag_headerimage', 'ttgarden_tag_headerimage' );
+add_shortcode( 'ttgarden_tag_headerimage', 'ttgarden_tag_headerimage' );
 
 /**
  * Get either a post title, or the blog title.
@@ -365,8 +365,8 @@ function ttgarden_tag_title(): string {
 	// Consume global context and return the appropriate title.
 	return ( isset( $context['theme'] ) ) ? get_bloginfo( 'name' ) : get_the_title();
 }
-add_shortcode( 'tag_title', 'ttgarden_tag_title' );
-add_shortcode( 'tag_posttitle', 'ttgarden_tag_title' );
+add_shortcode( 'ttgarden_tag_title', 'ttgarden_tag_title' );
+add_shortcode( 'ttgarden_tag_posttitle', 'ttgarden_tag_title' );
 
 /**
  * The post content.
@@ -379,7 +379,7 @@ function ttgarden_tag_body(): string {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WP core function.
 	return apply_filters( 'the_content', get_the_content() );
 }
-add_shortcode( 'tag_body', 'ttgarden_tag_body' );
+add_shortcode( 'ttgarden_tag_body', 'ttgarden_tag_body' );
 
 /**
  * The post content.
@@ -392,8 +392,8 @@ function ttgarden_tag_excerpt(): string {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WP core function.
 	return wp_strip_all_tags( apply_filters( 'the_content', get_the_content() ) );
 }
-add_shortcode( 'tag_excerpt', 'ttgarden_tag_excerpt' );
-add_shortcode( 'tag_sharestring', 'ttgarden_tag_excerpt' );
+add_shortcode( 'ttgarden_tag_excerpt', 'ttgarden_tag_excerpt' );
+add_shortcode( 'ttgarden_tag_sharestring', 'ttgarden_tag_excerpt' );
 
 /**
  * The blog description, or subtitle.
@@ -425,7 +425,7 @@ function ttgarden_tag_description(): string {
 	// We decode the HTML entities to allow for some allowed HTML tags to be rendered
 	return wp_kses_post( wp_specialchars_decode( get_bloginfo( 'description' ) ) );
 }
-add_shortcode( 'tag_description', 'ttgarden_tag_description' );
+add_shortcode( 'ttgarden_tag_description', 'ttgarden_tag_description' );
 
 /**
  * Attribute safe blog description.
@@ -437,7 +437,7 @@ add_shortcode( 'tag_description', 'ttgarden_tag_description' );
 function ttgarden_tag_metadescription(): string {
 	return esc_attr( get_bloginfo( 'description' ) );
 }
-add_shortcode( 'tag_metadescription', 'ttgarden_tag_metadescription' );
+add_shortcode( 'ttgarden_tag_metadescription', 'ttgarden_tag_metadescription' );
 
 /**
  * The homepage URL of the blog.
@@ -449,7 +449,7 @@ add_shortcode( 'tag_metadescription', 'ttgarden_tag_metadescription' );
 function ttgarden_tag_blogurl(): string {
 	return esc_url( home_url( '/' ) );
 }
-add_shortcode( 'tag_blogurl', 'ttgarden_tag_blogurl' );
+add_shortcode( 'ttgarden_tag_blogurl', 'ttgarden_tag_blogurl' );
 
 /**
  * The RSS feed URL of the blog.
@@ -461,7 +461,7 @@ add_shortcode( 'tag_blogurl', 'ttgarden_tag_blogurl' );
 function ttgarden_tag_rss(): string {
 	return esc_url( get_feed_link() );
 }
-add_shortcode( 'tag_rss', 'ttgarden_tag_rss' );
+add_shortcode( 'ttgarden_tag_rss', 'ttgarden_tag_rss' );
 
 /**
  * The site favicon image URL.
@@ -473,7 +473,7 @@ add_shortcode( 'tag_rss', 'ttgarden_tag_rss' );
 function ttgarden_tag_favicon(): string {
 	return esc_url( get_site_icon_url() );
 }
-add_shortcode( 'tag_favicon', 'ttgarden_tag_favicon' );
+add_shortcode( 'ttgarden_tag_favicon', 'ttgarden_tag_favicon' );
 
 /**
  * The portrait URL of the blog, uses the custom logo if set.
@@ -507,14 +507,14 @@ function ttgarden_tag_portraiturl( $atts, $content, $shortcode_name ): string {
 
 	return esc_url( $custom_logo_src[0] );
 }
-add_shortcode( 'tag_portraiturl-16', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-24', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-30', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-40', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-48', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-64', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-96', 'ttgarden_tag_portraiturl' );
-add_shortcode( 'tag_portraiturl-128', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-16', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-24', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-30', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-40', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-48', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-64', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-96', 'ttgarden_tag_portraiturl' );
+add_shortcode( 'ttgarden_tag_portraiturl-128', 'ttgarden_tag_portraiturl' );
 
 /**
  * Returns the custom CSS option of the theme.
@@ -526,7 +526,7 @@ add_shortcode( 'tag_portraiturl-128', 'ttgarden_tag_portraiturl' );
 function ttgarden_tag_customcss(): string {
 	return esc_html( wp_get_custom_css() );
 }
-add_shortcode( 'tag_customcss', 'ttgarden_tag_customcss' );
+add_shortcode( 'ttgarden_tag_customcss', 'ttgarden_tag_customcss' );
 
 /**
  * Identical to {PostTitle}, but will automatically generate a summary if a title doesn't exist.
@@ -539,7 +539,7 @@ function ttgarden_tag_postsummary(): string {
 	$title = get_the_title();
 	return ( '' === $title ) ? $title : get_the_excerpt();
 }
-add_shortcode( 'tag_postsummary', 'ttgarden_tag_postsummary' );
+add_shortcode( 'ttgarden_tag_postsummary', 'ttgarden_tag_postsummary' );
 
 /**
  * Character limited version of {PostSummary} that is suitable for Twitter.
@@ -551,8 +551,8 @@ add_shortcode( 'tag_postsummary', 'ttgarden_tag_postsummary' );
 function ttgarden_tag_tweetsummary(): string {
 	return esc_html( substr( ttgarden_tag_postsummary(), 0, 280 ) );
 }
-add_shortcode( 'tag_tweetsummary', 'ttgarden_tag_tweetsummary' );
-add_shortcode( 'tag_mailsummary', 'ttgarden_tag_tweetsummary' );
+add_shortcode( 'ttgarden_tag_tweetsummary', 'ttgarden_tag_tweetsummary' );
+add_shortcode( 'ttgarden_tag_mailsummary', 'ttgarden_tag_tweetsummary' );
 
 /**
  * Various contextual uses, typically outputs a post permalink.
@@ -576,11 +576,11 @@ function ttgarden_tag_url(): string {
 
 	return get_permalink();
 }
-add_shortcode( 'tag_url', 'ttgarden_tag_url' );
-add_shortcode( 'tag_permalink', 'ttgarden_tag_url' );
-add_shortcode( 'tag_relativepermalink', 'ttgarden_tag_url' );
-add_shortcode( 'tag_shorturl', 'ttgarden_tag_url' );
-add_shortcode( 'tag_embedurl', 'ttgarden_tag_url' );
+add_shortcode( 'ttgarden_tag_url', 'ttgarden_tag_url' );
+add_shortcode( 'ttgarden_tag_permalink', 'ttgarden_tag_url' );
+add_shortcode( 'ttgarden_tag_relativepermalink', 'ttgarden_tag_url' );
+add_shortcode( 'ttgarden_tag_shorturl', 'ttgarden_tag_url' );
+add_shortcode( 'ttgarden_tag_embedurl', 'ttgarden_tag_url' );
 
 /**
  * Typically a page title, used in a page loop e.g navigation.
@@ -601,7 +601,7 @@ function ttgarden_tag_label(): string {
 
 	return $context['chat']['label'];
 }
-add_shortcode( 'tag_label', 'ttgarden_tag_label' );
+add_shortcode( 'ttgarden_tag_label', 'ttgarden_tag_label' );
 
 /**
  * Current line of a legacy chat post.
@@ -620,7 +620,7 @@ function ttgarden_tag_line(): string {
 
 	return $context['chat']['line'];
 }
-add_shortcode( 'tag_line', 'ttgarden_tag_line' );
+add_shortcode( 'ttgarden_tag_line', 'ttgarden_tag_line' );
 
 /**
  * Tagsasclasses outputs the tags of a post as HTML-safe classes.
@@ -643,7 +643,7 @@ function ttgarden_tagsasclasses(): string {
 
 	return implode( ' ', $classes );
 }
-add_shortcode( 'tag_tagsasclasses', 'ttgarden_tagsasclasses' );
+add_shortcode( 'ttgarden_tag_tagsasclasses', 'ttgarden_tagsasclasses' );
 
 /**
  * Label in post footer indicating this is a pinned post.
@@ -655,7 +655,7 @@ add_shortcode( 'tag_tagsasclasses', 'ttgarden_tagsasclasses' );
 function ttgarden_tag_pinnedpostlabel(): string {
 	return esc_html( TTGARDEN_LANG['lang:pinned post'] );
 }
-add_shortcode( 'tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
+add_shortcode( 'ttgarden_tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
 
 /**
  * Gets the previous post URL (single post pagination)
@@ -667,7 +667,7 @@ add_shortcode( 'tag_pinnedpostlabel', 'ttgarden_tag_pinnedpostlabel' );
 function ttgarden_tag_previouspost(): string {
 	return untrailingslashit( esc_url( get_permalink( get_adjacent_post( false, '', true ) ) ) );
 }
-add_shortcode( 'tag_previouspost', 'ttgarden_tag_previouspost' );
+add_shortcode( 'ttgarden_tag_previouspost', 'ttgarden_tag_previouspost' );
 
 /**
  * Gets the next post URL (single post pagination)
@@ -679,7 +679,7 @@ add_shortcode( 'tag_previouspost', 'ttgarden_tag_previouspost' );
 function ttgarden_tag_nextpost(): string {
 	return untrailingslashit( esc_url( get_permalink( get_adjacent_post( false, '', false ) ) ) );
 }
-add_shortcode( 'tag_nextpost', 'ttgarden_tag_nextpost' );
+add_shortcode( 'ttgarden_tag_nextpost', 'ttgarden_tag_nextpost' );
 
 /**
  * Gets the previous posts page URL (pagination)
@@ -689,9 +689,9 @@ add_shortcode( 'tag_nextpost', 'ttgarden_tag_nextpost' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_previouspage(): string|null {
-	return untrailingslashit( esc_url( get_next_posts_page_link() ) );
+	return untrailingslashit( esc_url( get_previous_posts_page_link() ) );
 }
-add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
+add_shortcode( 'ttgarden_tag_previouspage', 'ttgarden_tag_previouspage' );
 
 /**
  * Gets the next posts page URL (pagination)
@@ -701,9 +701,9 @@ add_shortcode( 'tag_previouspage', 'ttgarden_tag_previouspage' );
  * @see https://www.tumblr.com/docs/en/custom_themes#basic_variables
  */
 function ttgarden_tag_nextpage(): string|null {
-	return untrailingslashit( esc_url( get_previous_posts_page_link() ) );
+	return untrailingslashit( esc_url( get_next_posts_page_link() ) );
 }
-add_shortcode( 'tag_nextpage', 'ttgarden_tag_nextpage' );
+add_shortcode( 'ttgarden_tag_nextpage', 'ttgarden_tag_nextpage' );
 
 /**
  * Gets the current page value (pagination)
@@ -716,7 +716,7 @@ function ttgarden_tag_currentpage(): string {
 	$page = get_query_var( 'paged' );
 	return ( $page > 0 ) ? (string) $page : '1';
 }
-add_shortcode( 'tag_currentpage', 'ttgarden_tag_currentpage' );
+add_shortcode( 'ttgarden_tag_currentpage', 'ttgarden_tag_currentpage' );
 
 /**
  * The pagenumber tag inside jump pagination.
@@ -727,7 +727,7 @@ function ttgarden_tag_pagenumber(): string {
 	$context = ttgarden_get_parse_context();
 	return isset( $context['jumppagination'] ) ? (string) $context['jumppagination'] : '';
 }
-add_shortcode( 'tag_pagenumber', 'ttgarden_tag_pagenumber' );
+add_shortcode( 'ttgarden_tag_pagenumber', 'ttgarden_tag_pagenumber' );
 
 /**
  * Gets the query total pages (pagination)
@@ -740,7 +740,7 @@ function ttgarden_tag_totalpages(): string {
 	global $wp_query;
 	return ( $wp_query->max_num_pages > 0 ) ? (string) $wp_query->max_num_pages : '1';
 }
-add_shortcode( 'tag_totalpages', 'ttgarden_tag_totalpages' );
+add_shortcode( 'ttgarden_tag_totalpages', 'ttgarden_tag_totalpages' );
 
 /**
  * Displays the span of years your blog has existed.
@@ -766,7 +766,7 @@ function ttgarden_tag_copyrightyears(): string {
 
 	return get_the_date( 'Y', $oldest_post[0] ) . '-' . gmdate( 'Y' );
 }
-add_shortcode( 'tag_copyrightyears', 'ttgarden_tag_copyrightyears' );
+add_shortcode( 'ttgarden_tag_copyrightyears', 'ttgarden_tag_copyrightyears' );
 
 /**
  * The numeric ID for a post.
@@ -778,7 +778,7 @@ add_shortcode( 'tag_copyrightyears', 'ttgarden_tag_copyrightyears' );
 function ttgarden_tag_postid(): string {
 	return esc_attr( get_the_ID() );
 }
-add_shortcode( 'tag_postid', 'ttgarden_tag_postid' );
+add_shortcode( 'ttgarden_tag_postid', 'ttgarden_tag_postid' );
 
 /**
  * The name of the current legacy post type.
@@ -791,7 +791,7 @@ function ttgarden_tag_posttype(): string {
 	$format = get_post_format();
 	return ( $format ) ? $format : 'text';
 }
-add_shortcode( 'tag_posttype', 'ttgarden_tag_posttype' );
+add_shortcode( 'ttgarden_tag_posttype', 'ttgarden_tag_posttype' );
 
 /**
  * Current tag name in a loop.
@@ -810,7 +810,7 @@ function ttgarden_tag_tag(): string {
 
 	return $context['term']->name;
 }
-add_shortcode( 'tag_tag', 'ttgarden_tag_tag' );
+add_shortcode( 'ttgarden_tag_tag', 'ttgarden_tag_tag' );
 
 /**
  * Current tag name in a loop.
@@ -829,7 +829,7 @@ function ttgarden_tag_urlsafetag(): string {
 
 	return rawurlencode( $context['term']->name );
 }
-add_shortcode( 'tag_urlsafetag', 'ttgarden_tag_urlsafetag' );
+add_shortcode( 'ttgarden_tag_urlsafetag', 'ttgarden_tag_urlsafetag' );
 
 /**
  * Current tag url in a loop.
@@ -848,8 +848,8 @@ function ttgarden_tag_tagurl(): string {
 
 	return get_term_link( $context['term'] );
 }
-add_shortcode( 'tag_tagurl', 'ttgarden_tag_tagurl' );
-add_shortcode( 'tag_tagurlchrono', 'ttgarden_tag_tagurl' );
+add_shortcode( 'ttgarden_tag_tagurl', 'ttgarden_tag_tagurl' );
+add_shortcode( 'ttgarden_tag_tagurlchrono', 'ttgarden_tag_tagurl' );
 
 /**
  * The total number of comments on a post.
@@ -861,7 +861,7 @@ add_shortcode( 'tag_tagurlchrono', 'ttgarden_tag_tagurl' );
 function ttgarden_tag_notecount(): int {
 	return (int) get_comments_number();
 }
-add_shortcode( 'tag_notecount', 'ttgarden_tag_notecount' );
+add_shortcode( 'ttgarden_tag_notecount', 'ttgarden_tag_notecount' );
 
 /**
  * The total number of comments on a post in text form.
@@ -873,7 +873,8 @@ add_shortcode( 'tag_notecount', 'ttgarden_tag_notecount' );
 function ttgarden_tag_notecountwithlabel(): string {
 	return get_comments_number_text();
 }
-add_shortcode( 'tag_notecountwithlabel', 'ttgarden_tag_notecountwithlabel' );
+add_shortcode( 'ttgarden_tag_notecountwithlabel', 'ttgarden_tag_notecountwithlabel' );
+add_shortcode( 'ttgarden_tag_formattednotecount', 'ttgarden_tag_notecountwithlabel' );
 
 /**
  * The post comments.
@@ -903,9 +904,9 @@ function ttgarden_tag_postnotes( $atts ): string {
 
 	return $comments;
 }
-add_shortcode( 'tag_postnotes', 'ttgarden_tag_postnotes' );
-add_shortcode( 'tag_postnotes-16', 'ttgarden_tag_postnotes' );
-add_shortcode( 'tag_postnotes-64', 'ttgarden_tag_postnotes' );
+add_shortcode( 'ttgarden_tag_postnotes', 'ttgarden_tag_postnotes' );
+add_shortcode( 'ttgarden_tag_postnotes-16', 'ttgarden_tag_postnotes' );
+add_shortcode( 'ttgarden_tag_postnotes-64', 'ttgarden_tag_postnotes' );
 
 /**
  * The current search query.
@@ -917,7 +918,7 @@ add_shortcode( 'tag_postnotes-64', 'ttgarden_tag_postnotes' );
 function ttgarden_tag_searchquery(): string {
 	return esc_html( get_search_query() );
 }
-add_shortcode( 'tag_searchquery', 'ttgarden_tag_searchquery' );
+add_shortcode( 'ttgarden_tag_searchquery', 'ttgarden_tag_searchquery' );
 
 /**
  * The current search query URL encoded.
@@ -929,7 +930,7 @@ add_shortcode( 'tag_searchquery', 'ttgarden_tag_searchquery' );
 function ttgarden_tag_urlsafesearchquery(): string {
 	return rawurlencode( get_search_query() );
 }
-add_shortcode( 'tag_urlsafesearchquery', 'ttgarden_tag_urlsafesearchquery' );
+add_shortcode( 'ttgarden_tag_urlsafesearchquery', 'ttgarden_tag_urlsafesearchquery' );
 
 /**
  * The found posts count of the search result.
@@ -942,7 +943,7 @@ function ttgarden_tag_searchresultcount(): string {
 	global $wp_query;
 	return $wp_query->found_posts;
 }
-add_shortcode( 'tag_searchresultcount', 'ttgarden_tag_searchresultcount' );
+add_shortcode( 'ttgarden_tag_searchresultcount', 'ttgarden_tag_searchresultcount' );
 
 /**
  * Quote post content.
@@ -962,7 +963,7 @@ function ttgarden_tag_quote(): string {
 	// Empty string if no quote block is found.
 	return '';
 }
-add_shortcode( 'tag_quote', 'ttgarden_tag_quote' );
+add_shortcode( 'ttgarden_tag_quote', 'ttgarden_tag_quote' );
 
 /**
  * Quote post source.
@@ -981,7 +982,7 @@ function ttgarden_tag_source(): string {
 
 	return '';
 }
-add_shortcode( 'tag_source', 'ttgarden_tag_source' );
+add_shortcode( 'ttgarden_tag_source', 'ttgarden_tag_source' );
 
 /**
  * Quote content length.
@@ -1008,7 +1009,7 @@ function ttgarden_tag_length(): string {
 	// Default to long.
 	return 'long';
 }
-add_shortcode( 'tag_length', 'ttgarden_tag_length' );
+add_shortcode( 'ttgarden_tag_length', 'ttgarden_tag_length' );
 
 /**
  * Audioplayer HTML.
@@ -1027,15 +1028,15 @@ function ttgarden_tag_audioplayer(): string {
 
 	return '';
 }
-add_shortcode( 'tag_audioplayer', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioembed', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioembed-640', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioembed-500', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioembed-400', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioembed-250', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioplayerblack', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioplayerwhite', 'ttgarden_tag_audioplayer' );
-add_shortcode( 'tag_audioplayergrey', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioplayer', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioembed', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioembed-640', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioembed-500', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioembed-400', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioembed-250', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioplayerblack', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioplayerwhite', 'ttgarden_tag_audioplayer' );
+add_shortcode( 'ttgarden_tag_audioplayergrey', 'ttgarden_tag_audioplayer' );
 
 /**
  * Album art URL, uses the featured image if available.
@@ -1054,7 +1055,7 @@ function ttgarden_tag_albumarturl(): string {
 
 	return '';
 }
-add_shortcode( 'tag_albumarturl', 'ttgarden_tag_albumarturl' );
+add_shortcode( 'ttgarden_tag_albumarturl', 'ttgarden_tag_albumarturl' );
 
 /**
  * Renders the audio player track name.
@@ -1071,7 +1072,7 @@ function ttgarden_tag_trackname(): string {
 
 	return '';
 }
-add_shortcode( 'tag_trackname', 'ttgarden_tag_trackname' );
+add_shortcode( 'ttgarden_tag_trackname', 'ttgarden_tag_trackname' );
 
 /**
  * Renders the audio player artist name.
@@ -1088,7 +1089,7 @@ function ttgarden_tag_artist(): string {
 
 	return '';
 }
-add_shortcode( 'tag_artist', 'ttgarden_tag_artist' );
+add_shortcode( 'ttgarden_tag_artist', 'ttgarden_tag_artist' );
 
 /**
  * Renders the audio player album name.
@@ -1105,7 +1106,7 @@ function ttgarden_tag_album(): string {
 
 	return '';
 }
-add_shortcode( 'tag_album', 'ttgarden_tag_album' );
+add_shortcode( 'ttgarden_tag_album', 'ttgarden_tag_album' );
 
 /**
  * Renders the audio player media URL if it's external.
@@ -1130,8 +1131,8 @@ function ttgarden_tag_externalaudiourl(): string {
 
 	return '';
 }
-add_shortcode( 'tag_externalaudiourl', 'ttgarden_tag_externalaudiourl' );
-add_shortcode( 'tag_rawaudiourl', 'ttgarden_tag_externalaudiourl' );
+add_shortcode( 'ttgarden_tag_externalaudiourl', 'ttgarden_tag_externalaudiourl' );
+add_shortcode( 'ttgarden_tag_rawaudiourl', 'ttgarden_tag_externalaudiourl' );
 
 /**
  * Renders the post gallery if one was found.
@@ -1149,13 +1150,13 @@ function ttgarden_tag_photoset(): string {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WP core function.
 	return apply_filters( 'the_content', $context['gallery']['gallery'] );
 }
-add_shortcode( 'tag_photoset', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-700', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-540', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-500', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-400', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-250', 'ttgarden_tag_photoset' );
-add_shortcode( 'tag_photoset-100', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-700', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-540', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-500', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-400', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-250', 'ttgarden_tag_photoset' );
+add_shortcode( 'ttgarden_tag_photoset-100', 'ttgarden_tag_photoset' );
 
 /**
  * Renders the post gallery layout if one was found.
@@ -1165,7 +1166,7 @@ add_shortcode( 'tag_photoset-100', 'ttgarden_tag_photoset' );
 function ttgarden_tag_photosetlayout(): string {
 	return ttgarden_tag_photocount();
 }
-add_shortcode( 'tag_photosetlayout', 'ttgarden_tag_photosetlayout' );
+add_shortcode( 'ttgarden_tag_photosetlayout', 'ttgarden_tag_photosetlayout' );
 
 /**
  * Renders the post gallery photo count if one was found.
@@ -1182,8 +1183,8 @@ function ttgarden_tag_photocount(): string {
 
 	return esc_html( $context['gallery']['photocount'] );
 }
-add_shortcode( 'tag_photocount', 'ttgarden_tag_photocount' );
-add_shortcode( 'tag_photosetlayout', 'ttgarden_tag_photocount' );
+add_shortcode( 'ttgarden_tag_photocount', 'ttgarden_tag_photocount' );
+add_shortcode( 'ttgarden_tag_photosetlayout', 'ttgarden_tag_photocount' );
 
 /**
  * Renders the post gallery caption if one was found.
@@ -1201,7 +1202,7 @@ function ttgarden_tag_caption(): string {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WP core function.
 	return apply_filters( 'the_content', $context[ $format ]['caption'] );
 }
-add_shortcode( 'tag_caption', 'ttgarden_tag_caption' );
+add_shortcode( 'ttgarden_tag_caption', 'ttgarden_tag_caption' );
 
 /**
  * Renders the post image URL if one was found.
@@ -1231,12 +1232,12 @@ function ttgarden_tag_photourl( $atts, $content, $shortcode_name ): string {
 
 	return esc_url( $context['image']['image'] );
 }
-add_shortcode( 'tag_photourl-500', 'ttgarden_tag_photourl' );
-add_shortcode( 'tag_photourl-400', 'ttgarden_tag_photourl' );
-add_shortcode( 'tag_photourl-250', 'ttgarden_tag_photourl' );
-add_shortcode( 'tag_photourl-100', 'ttgarden_tag_photourl' );
-add_shortcode( 'tag_photourl-highres', 'ttgarden_tag_photourl' );
-add_shortcode( 'tag_photourl-75sq', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-500', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-400', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-250', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-100', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-highres', 'ttgarden_tag_photourl' );
+add_shortcode( 'ttgarden_tag_photourl-75sq', 'ttgarden_tag_photourl' );
 
 /**
  * Renders the post image thumbnail URL if one was found.
@@ -1249,14 +1250,14 @@ add_shortcode( 'tag_photourl-75sq', 'ttgarden_tag_photourl' );
  */
 function ttgarden_tag_thumbnail( $atts, $content, $shortcode_name ): string {
 	$sizes = array(
-		'tag_thumbnail'         => 'thumbnail',
-		'tag_thumbnail-highres' => 'full',
+		'ttgarden_tag_thumbnail'         => 'thumbnail',
+		'ttgarden_tag_thumbnail-highres' => 'full',
 	);
 
 	return get_the_post_thumbnail_url( get_the_id(), $sizes[ $shortcode_name ] );
 }
-add_shortcode( 'tag_thumbnail', 'ttgarden_tag_thumbnail' );
-add_shortcode( 'tag_thumbnail-highres', 'ttgarden_tag_thumbnail' );
+add_shortcode( 'ttgarden_tag_thumbnail', 'ttgarden_tag_thumbnail' );
+add_shortcode( 'ttgarden_tag_thumbnail-highres', 'ttgarden_tag_thumbnail' );
 
 /**
  * Renders the post image link URL if one was found.
@@ -1289,7 +1290,7 @@ function ttgarden_tag_linkurl(): string {
 
 	return '';
 }
-add_shortcode( 'tag_linkurl', 'ttgarden_tag_linkurl' );
+add_shortcode( 'ttgarden_tag_linkurl', 'ttgarden_tag_linkurl' );
 
 /**
  * Renders the post image link open tag conditionally.
@@ -1302,7 +1303,7 @@ function ttgarden_tag_linkopentag(): string {
 
 	return ( isset( $context['image']['link'] ) && 'none' !== $context['image']['link'] ) ? '<a href="' . ttgarden_tag_linkurl() . '">' : '';
 }
-add_shortcode( 'tag_linkopentag', 'ttgarden_tag_linkopentag' );
+add_shortcode( 'ttgarden_tag_linkopentag', 'ttgarden_tag_linkopentag' );
 
 /**
  * Renders the post image link close tag conditionally.
@@ -1314,7 +1315,7 @@ function ttgarden_tag_linkclosetag(): string {
 
 	return ( isset( $context['image']['link'] ) && 'none' !== $context['image']['link'] ) ? '</a>' : '';
 }
-add_shortcode( 'tag_linkclosetag', 'ttgarden_tag_linkclosetag' );
+add_shortcode( 'ttgarden_tag_linkclosetag', 'ttgarden_tag_linkclosetag' );
 
 /**
  * Renders the post image camera exif data if found.
@@ -1326,7 +1327,7 @@ function ttgarden_tag_camera(): string {
 
 	return isset( $context['image']['data']['image_meta']['camera'] ) ? esc_html( $context['image']['data']['image_meta']['camera'] ) : '';
 }
-add_shortcode( 'tag_camera', 'ttgarden_tag_camera' );
+add_shortcode( 'ttgarden_tag_camera', 'ttgarden_tag_camera' );
 
 /**
  * Renders the post image lens exif data if found.
@@ -1338,7 +1339,7 @@ function ttgarden_tag_aperture(): string {
 
 	return isset( $context['image']['data']['image_meta']['aperture'] ) ? esc_html( $context['image']['data']['image_meta']['aperture'] ) : '';
 }
-add_shortcode( 'tag_aperture', 'ttgarden_tag_aperture' );
+add_shortcode( 'ttgarden_tag_aperture', 'ttgarden_tag_aperture' );
 
 /**
  * Renders the post image focal length exif data if found.
@@ -1350,7 +1351,7 @@ function ttgarden_tag_focallength(): string {
 
 	return isset( $context['image']['data']['image_meta']['focal_length'] ) ? esc_html( $context['image']['data']['image_meta']['focal_length'] ) : '';
 }
-add_shortcode( 'tag_focallength', 'ttgarden_tag_focallength' );
+add_shortcode( 'ttgarden_tag_focallength', 'ttgarden_tag_focallength' );
 
 /**
  * Renders the post image shutter speed exif data if found.
@@ -1362,7 +1363,7 @@ function ttgarden_tag_exposure(): string {
 
 	return isset( $context['image']['data']['image_meta']['shutter_speed'] ) ? esc_html( $context['image']['data']['image_meta']['shutter_speed'] ) : '';
 }
-add_shortcode( 'tag_exposure', 'ttgarden_tag_exposure' );
+add_shortcode( 'ttgarden_tag_exposure', 'ttgarden_tag_exposure' );
 
 /**
  * Renders the post image alt text if one was found.
@@ -1378,7 +1379,7 @@ function ttgarden_tag_photoalt(): string {
 
 	return esc_attr( get_post_meta( $context['image']['image'], '_wp_attachment_image_alt', true ) );
 }
-add_shortcode( 'tag_photoalt', 'ttgarden_tag_photoalt' );
+add_shortcode( 'ttgarden_tag_photoalt', 'ttgarden_tag_photoalt' );
 
 /**
  * Renders the post image width if one was found.
@@ -1394,11 +1395,11 @@ function ttgarden_tag_photowidth(): string {
 
 	return (string) $context['image']['data']['width'];
 }
-add_shortcode( 'tag_photowidth-500', 'ttgarden_tag_photowidth' );
-add_shortcode( 'tag_photowidth-400', 'ttgarden_tag_photowidth' );
-add_shortcode( 'tag_photowidth-250', 'ttgarden_tag_photowidth' );
-add_shortcode( 'tag_photowidth-100', 'ttgarden_tag_photowidth' );
-add_shortcode( 'tag_photowidth-highres', 'ttgarden_tag_photowidth' );
+add_shortcode( 'ttgarden_tag_photowidth-500', 'ttgarden_tag_photowidth' );
+add_shortcode( 'ttgarden_tag_photowidth-400', 'ttgarden_tag_photowidth' );
+add_shortcode( 'ttgarden_tag_photowidth-250', 'ttgarden_tag_photowidth' );
+add_shortcode( 'ttgarden_tag_photowidth-100', 'ttgarden_tag_photowidth' );
+add_shortcode( 'ttgarden_tag_photowidth-highres', 'ttgarden_tag_photowidth' );
 
 /**
  * Renders the post image height if one was found.
@@ -1414,11 +1415,11 @@ function ttgarden_tag_photoheight(): string {
 
 	return (string) $context['image']['data']['height'];
 }
-add_shortcode( 'tag_photoheight-500', 'ttgarden_tag_photoheight' );
-add_shortcode( 'tag_photoheight-400', 'ttgarden_tag_photoheight' );
-add_shortcode( 'tag_photoheight-250', 'ttgarden_tag_photoheight' );
-add_shortcode( 'tag_photoheight-100', 'ttgarden_tag_photoheight' );
-add_shortcode( 'tag_photoheight-highres', 'ttgarden_tag_photoheight' );
+add_shortcode( 'ttgarden_tag_photoheight-500', 'ttgarden_tag_photoheight' );
+add_shortcode( 'ttgarden_tag_photoheight-400', 'ttgarden_tag_photoheight' );
+add_shortcode( 'ttgarden_tag_photoheight-250', 'ttgarden_tag_photoheight' );
+add_shortcode( 'ttgarden_tag_photoheight-100', 'ttgarden_tag_photoheight' );
+add_shortcode( 'ttgarden_tag_photoheight-highres', 'ttgarden_tag_photoheight' );
 
 /**
  * Renders the post video player.
@@ -1435,15 +1436,15 @@ function ttgarden_tag_video(): string {
 
 	return '';
 }
-add_shortcode( 'tag_video-700', 'ttgarden_tag_video' );
-add_shortcode( 'tag_video-540', 'ttgarden_tag_video' );
-add_shortcode( 'tag_video-500', 'ttgarden_tag_video' );
-add_shortcode( 'tag_video-400', 'ttgarden_tag_video' );
-add_shortcode( 'tag_video-250', 'ttgarden_tag_video' );
-add_shortcode( 'tag_videoembed-700', 'ttgarden_tag_video' );
-add_shortcode( 'tag_videoembed-500', 'ttgarden_tag_video' );
-add_shortcode( 'tag_videoembed-400', 'ttgarden_tag_video' );
-add_shortcode( 'tag_videoembed-250', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_video-700', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_video-540', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_video-500', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_video-400', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_video-250', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_videoembed-700', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_videoembed-500', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_videoembed-400', 'ttgarden_tag_video' );
+add_shortcode( 'ttgarden_tag_videoembed-250', 'ttgarden_tag_video' );
 
 /**
  * Renders the post video thumbnail URL.
@@ -1460,7 +1461,7 @@ function ttgarden_tag_videothumbnailurl(): string {
 
 	return '';
 }
-add_shortcode( 'tag_videothumbnailurl', 'ttgarden_tag_videothumbnailurl' );
+add_shortcode( 'ttgarden_tag_videothumbnailurl', 'ttgarden_tag_videothumbnailurl' );
 
 /**
  * The link post type title (This is also the link URL).
@@ -1474,7 +1475,7 @@ function ttgarden_tag_name(): string {
 
 	return get_the_author();
 }
-add_shortcode( 'tag_name', 'ttgarden_tag_name' );
+add_shortcode( 'ttgarden_tag_name', 'ttgarden_tag_name' );
 
 /**
  * Renders the link post host url.
@@ -1500,7 +1501,7 @@ function ttgarden_tag_host(): string {
 	// Return the host of the URL.
 	return esc_url( $parsed_url['host'] );
 }
-add_shortcode( 'tag_host', 'ttgarden_tag_host' );
+add_shortcode( 'ttgarden_tag_host', 'ttgarden_tag_host' );
 
 /**
  * Returns the day of the month without leading zeros.
@@ -1512,7 +1513,7 @@ add_shortcode( 'tag_host', 'ttgarden_tag_host' );
 function ttgarden_tag_dayofmonth(): string {
 	return get_the_date( 'j' );
 }
-add_shortcode( 'tag_dayofmonth', 'ttgarden_tag_dayofmonth' );
+add_shortcode( 'ttgarden_tag_dayofmonth', 'ttgarden_tag_dayofmonth' );
 
 /**
  * Returns the day of the month with leading zeros.
@@ -1524,7 +1525,7 @@ add_shortcode( 'tag_dayofmonth', 'ttgarden_tag_dayofmonth' );
 function ttgarden_tag_dayofmonthwithzero(): string {
 	return get_the_date( 'd' );
 }
-add_shortcode( 'tag_dayofmonthwithzero', 'ttgarden_tag_dayofmonthwithzero' );
+add_shortcode( 'ttgarden_tag_dayofmonthwithzero', 'ttgarden_tag_dayofmonthwithzero' );
 
 /**
  * Returns the full name of the day of the week.
@@ -1536,7 +1537,7 @@ add_shortcode( 'tag_dayofmonthwithzero', 'ttgarden_tag_dayofmonthwithzero' );
 function ttgarden_tag_dayofweek(): string {
 	return get_the_date( 'l' );
 }
-add_shortcode( 'tag_dayofweek', 'ttgarden_tag_dayofweek' );
+add_shortcode( 'ttgarden_tag_dayofweek', 'ttgarden_tag_dayofweek' );
 
 /**
  * Returns the abbreviated name of the day of the week.
@@ -1548,7 +1549,7 @@ add_shortcode( 'tag_dayofweek', 'ttgarden_tag_dayofweek' );
 function ttgarden_tag_shortdayofweek(): string {
 	return get_the_date( 'D' );
 }
-add_shortcode( 'tag_shortdayofweek', 'ttgarden_tag_shortdayofweek' );
+add_shortcode( 'ttgarden_tag_shortdayofweek', 'ttgarden_tag_shortdayofweek' );
 
 /**
  * Returns the day of the week as a number (1 for Monday, 7 for Sunday).
@@ -1560,7 +1561,7 @@ add_shortcode( 'tag_shortdayofweek', 'ttgarden_tag_shortdayofweek' );
 function ttgarden_tag_dayofweeknumber(): string {
 	return get_the_date( 'N' );
 }
-add_shortcode( 'tag_dayofweeknumber', 'ttgarden_tag_dayofweeknumber' );
+add_shortcode( 'ttgarden_tag_dayofweeknumber', 'ttgarden_tag_dayofweeknumber' );
 
 /**
  * Returns the English ordinal suffix for the day of the month.
@@ -1572,7 +1573,7 @@ add_shortcode( 'tag_dayofweeknumber', 'ttgarden_tag_dayofweeknumber' );
 function ttgarden_tag_dayofmonthsuffix(): string {
 	return get_the_date( 'S' );
 }
-add_shortcode( 'tag_dayofmonthsuffix', 'ttgarden_tag_dayofmonthsuffix' );
+add_shortcode( 'ttgarden_tag_dayofmonthsuffix', 'ttgarden_tag_dayofmonthsuffix' );
 
 /**
  * Returns the day of the month with the English ordinal suffix.
@@ -1606,7 +1607,7 @@ function ttgarden_tag_formattedtime(): string {
 function ttgarden_tag_dayofyear(): string {
 	return get_the_date( 'z' ) + 1; // Adding 1 because PHP date 'z' is zero-indexed
 }
-add_shortcode( 'tag_dayofyear', 'ttgarden_tag_dayofyear' );
+add_shortcode( 'ttgarden_tag_dayofyear', 'ttgarden_tag_dayofyear' );
 
 /**
  * Returns the week of the year (1 to 53).
@@ -1618,7 +1619,7 @@ add_shortcode( 'tag_dayofyear', 'ttgarden_tag_dayofyear' );
 function ttgarden_tag_weekofyear(): string {
 	return get_the_date( 'W' );
 }
-add_shortcode( 'tag_weekofyear', 'ttgarden_tag_weekofyear' );
+add_shortcode( 'ttgarden_tag_weekofyear', 'ttgarden_tag_weekofyear' );
 
 /**
  * Returns the full name of the current month.
@@ -1630,7 +1631,7 @@ add_shortcode( 'tag_weekofyear', 'ttgarden_tag_weekofyear' );
 function ttgarden_tag_month(): string {
 	return get_the_date( 'F' );
 }
-add_shortcode( 'tag_month', 'ttgarden_tag_month' );
+add_shortcode( 'ttgarden_tag_month', 'ttgarden_tag_month' );
 
 /**
  * Returns the abbreviated name of the current month.
@@ -1642,7 +1643,7 @@ add_shortcode( 'tag_month', 'ttgarden_tag_month' );
 function ttgarden_tag_shortmonth(): string {
 	return get_the_date( 'M' );
 }
-add_shortcode( 'tag_shortmonth', 'ttgarden_tag_shortmonth' );
+add_shortcode( 'ttgarden_tag_shortmonth', 'ttgarden_tag_shortmonth' );
 
 /**
  * Returns the numeric representation of the month without leading zeros.
@@ -1654,7 +1655,7 @@ add_shortcode( 'tag_shortmonth', 'ttgarden_tag_shortmonth' );
 function ttgarden_tag_monthnumber(): string {
 	return get_the_date( 'n' );
 }
-add_shortcode( 'tag_monthnumber', 'ttgarden_tag_monthnumber' );
+add_shortcode( 'ttgarden_tag_monthnumber', 'ttgarden_tag_monthnumber' );
 
 /**
  * Returns the numeric representation of the month with leading zeros.
@@ -1666,7 +1667,7 @@ add_shortcode( 'tag_monthnumber', 'ttgarden_tag_monthnumber' );
 function ttgarden_tag_monthnumberwithzero(): string {
 	return get_the_date( 'm' );
 }
-add_shortcode( 'tag_monthnumberwithzero', 'ttgarden_tag_monthnumberwithzero' );
+add_shortcode( 'ttgarden_tag_monthnumberwithzero', 'ttgarden_tag_monthnumberwithzero' );
 
 /**
  * Returns the full numeric representation of the year (e.g., 2024).
@@ -1678,7 +1679,7 @@ add_shortcode( 'tag_monthnumberwithzero', 'ttgarden_tag_monthnumberwithzero' );
 function ttgarden_tag_year(): string {
 	return get_the_date( 'Y' );
 }
-add_shortcode( 'tag_year', 'ttgarden_tag_year' );
+add_shortcode( 'ttgarden_tag_year', 'ttgarden_tag_year' );
 
 /**
  * Returns the last two digits of the year (e.g., 24 for 2024).
@@ -1690,7 +1691,7 @@ add_shortcode( 'tag_year', 'ttgarden_tag_year' );
 function ttgarden_tag_shortyear(): string {
 	return get_the_date( 'y' );
 }
-add_shortcode( 'tag_shortyear', 'ttgarden_tag_shortyear' );
+add_shortcode( 'ttgarden_tag_shortyear', 'ttgarden_tag_shortyear' );
 
 /**
  * Returns lowercase 'am' or 'pm' based on the time.
@@ -1702,7 +1703,7 @@ add_shortcode( 'tag_shortyear', 'ttgarden_tag_shortyear' );
 function ttgarden_tag_ampm(): string {
 	return get_the_date( 'a' );
 }
-add_shortcode( 'tag_ampm', 'ttgarden_tag_ampm' );
+add_shortcode( 'ttgarden_tag_ampm', 'ttgarden_tag_ampm' );
 
 /**
  * Returns uppercase 'AM' or 'PM' based on the time.
@@ -1714,7 +1715,7 @@ add_shortcode( 'tag_ampm', 'ttgarden_tag_ampm' );
 function ttgarden_tag_capitalampm(): string {
 	return get_the_date( 'A' );
 }
-add_shortcode( 'tag_capitalampm', 'ttgarden_tag_capitalampm' );
+add_shortcode( 'ttgarden_tag_capitalampm', 'ttgarden_tag_capitalampm' );
 
 /**
  * Returns the hour in 12-hour format without leading zeros.
@@ -1726,7 +1727,7 @@ add_shortcode( 'tag_capitalampm', 'ttgarden_tag_capitalampm' );
 function ttgarden_tag_12hour(): string {
 	return get_the_date( 'g' );
 }
-add_shortcode( 'tag_12hour', 'ttgarden_tag_12hour' );
+add_shortcode( 'ttgarden_tag_12hour', 'ttgarden_tag_12hour' );
 
 /**
  * Returns the hour in 24-hour format without leading zeros.
@@ -1738,7 +1739,7 @@ add_shortcode( 'tag_12hour', 'ttgarden_tag_12hour' );
 function ttgarden_tag_24hour(): string {
 	return get_the_date( 'G' );
 }
-add_shortcode( 'tag_24hour', 'ttgarden_tag_24hour' );
+add_shortcode( 'ttgarden_tag_24hour', 'ttgarden_tag_24hour' );
 
 /**
  * Returns the hour in 12-hour format with leading zeros.
@@ -1750,7 +1751,7 @@ add_shortcode( 'tag_24hour', 'ttgarden_tag_24hour' );
 function ttgarden_tag_12hourwithzero(): string {
 	return get_the_date( 'h' );
 }
-add_shortcode( 'tag_12hourwithzero', 'ttgarden_tag_12hourwithzero' );
+add_shortcode( 'ttgarden_tag_12hourwithzero', 'ttgarden_tag_12hourwithzero' );
 
 /**
  * Returns the hour in 24-hour format with leading zeros.
@@ -1762,7 +1763,7 @@ add_shortcode( 'tag_12hourwithzero', 'ttgarden_tag_12hourwithzero' );
 function ttgarden_tag_24hourwithzero(): string {
 	return get_the_date( 'H' );
 }
-add_shortcode( 'tag_24hourwithzero', 'ttgarden_tag_24hourwithzero' );
+add_shortcode( 'ttgarden_tag_24hourwithzero', 'ttgarden_tag_24hourwithzero' );
 
 /**
  * Returns the minutes with leading zeros.
@@ -1774,7 +1775,7 @@ add_shortcode( 'tag_24hourwithzero', 'ttgarden_tag_24hourwithzero' );
 function ttgarden_tag_minutes(): string {
 	return get_the_date( 'i' );
 }
-add_shortcode( 'tag_minutes', 'ttgarden_tag_minutes' );
+add_shortcode( 'ttgarden_tag_minutes', 'ttgarden_tag_minutes' );
 
 /**
  * Returns the seconds with leading zeros.
@@ -1786,7 +1787,7 @@ add_shortcode( 'tag_minutes', 'ttgarden_tag_minutes' );
 function ttgarden_tag_seconds(): string {
 	return get_the_date( 's' );
 }
-add_shortcode( 'tag_seconds', 'ttgarden_tag_seconds' );
+add_shortcode( 'ttgarden_tag_seconds', 'ttgarden_tag_seconds' );
 
 /**
  * Returns the Swatch Internet Time (.beats).
@@ -1798,7 +1799,7 @@ add_shortcode( 'tag_seconds', 'ttgarden_tag_seconds' );
 function ttgarden_tag_beats(): string {
 	return get_the_date( 'B' );
 }
-add_shortcode( 'tag_beats', 'ttgarden_tag_beats' );
+add_shortcode( 'ttgarden_tag_beats', 'ttgarden_tag_beats' );
 
 /**
  * Returns the Unix timestamp of the post.
@@ -1810,7 +1811,7 @@ add_shortcode( 'tag_beats', 'ttgarden_tag_beats' );
 function ttgarden_tag_timestamp(): string {
 	return get_the_date( 'U' );
 }
-add_shortcode( 'tag_timestamp', 'ttgarden_tag_timestamp' );
+add_shortcode( 'ttgarden_tag_timestamp', 'ttgarden_tag_timestamp' );
 
 /**
  * Returns the time difference between the post date and now, in human-readable format.
@@ -1825,7 +1826,7 @@ function ttgarden_tag_timeago(): string {
 	$time_diff    = human_time_diff( $post_time, $current_time );
 	return sprintf( '%s ago', $time_diff );
 }
-add_shortcode( 'tag_timeago', 'ttgarden_tag_timeago' );
+add_shortcode( 'ttgarden_tag_timeago', 'ttgarden_tag_timeago' );
 
 /**
  * Returns the noun of the current post type.
@@ -1836,7 +1837,7 @@ function ttgarden_tag_posttypenoun(): string {
 	$format = get_post_format();
 	return ucfirst( ( $format ) ? $format : 'post' );
 }
-add_shortcode( 'tag_posttypenoun', 'ttgarden_tag_posttypenoun' );
+add_shortcode( 'ttgarden_tag_posttypenoun', 'ttgarden_tag_posttypenoun' );
 
 /**
  * Creates a WordPress.com reblog URL for the current post.
@@ -1851,7 +1852,7 @@ function ttgarden_tag_reblogurl(): string {
 		)
 	);
 }
-add_shortcode( 'tag_reblogurl', 'ttgarden_tag_reblogurl' );
+add_shortcode( 'ttgarden_tag_reblogurl', 'ttgarden_tag_reblogurl' );
 
 /**
  * Creates a like iFrame for the current post. Relies on Jetpack's like button.
@@ -1925,14 +1926,17 @@ function ttgarden_tag_likebutton(): string {
 		$data_title
 	);
 }
-add_shortcode( 'tag_likebutton', 'ttgarden_tag_likebutton' );
+add_shortcode( 'ttgarden_tag_likebutton', 'ttgarden_tag_likebutton' );
 
 /**
- * Returns a URL to the post comments.
+ * Returns a URL to the post comments HTML partial.
  *
  * @return string
  */
 function ttgarden_tag_postnotesurl(): string {
-	return get_comments_link();
+	return sprintf(
+		'/?p=%d&ttgarden_html_comments=true',
+		get_the_ID()
+	);
 }
-add_shortcode( 'tag_postnotesurl', 'ttgarden_tag_postnotesurl' );
+add_shortcode( 'ttgarden_tag_postnotesurl', 'ttgarden_tag_postnotesurl' );

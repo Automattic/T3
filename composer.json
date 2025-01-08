@@ -59,6 +59,9 @@
     "allow-plugins": {
       "composer/*": true,
       "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "preferred-install": {
+      "cupcacke-labs/redvelvet-lib": "dist"
     }
   }
 }
