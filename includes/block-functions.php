@@ -91,54 +91,40 @@ add_shortcode( 'ttgarden_block_twitter', 'ttgarden_block_twitter' );
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
+ * @param string $shortcode_name The name of the shortcode.
  *
  * @return string
  */
-function ttgarden_block_if_theme_option( $atts, $content = '' ): string {
-	// Parse shortcode attributes.
-	$atts = shortcode_atts(
-		array(
-			'name' => '',
-		),
-		$atts,
-		'ttgarden_block_if_theme_option'
-	);
+function ttgarden_block_if_theme_option( $atts, $content, $shortcode_name ): string {
+	$shortcode_name = str_replace( 'ttgarden_block_if_', '', $shortcode_name );
 
 	// Don't render if the name attribute is empty.
-	if ( '' === $atts['name'] ) {
+	if ( '' === $shortcode_name ) {
 		return '';
 	}
 
-	return ( get_theme_mod( $atts['name'] ) ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_theme_mod( $shortcode_name ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'ttgarden_block_if_theme_option', 'ttgarden_block_if_theme_option' );
 
 /**
  * Boolean check for theme options.
  *
  * @param array  $atts    The attributes of the shortcode.
  * @param string $content The content of the shortcode.
+ * @param string $shortcode_name The name of the shortcode.
  *
  * @return string
  */
-function ttgarden_block_ifnot_theme_option( $atts, $content = '' ): string {
-	// Parse shortcode attributes.
-	$atts = shortcode_atts(
-		array(
-			'name' => '',
-		),
-		$atts,
-		'block_ifnot_theme_option'
-	);
+function ttgarden_block_ifnot_theme_option( $atts, $content, $shortcode_name ): string {
+	$shortcode_name = str_replace( 'ttgarden_block_ifnot_', '', $shortcode_name );
 
 	// Don't render if the name attribute is empty.
-	if ( '' === $atts['name'] ) {
+	if ( '' === $shortcode_name ) {
 		return '';
 	}
 
-	return ( ! get_theme_mod( $atts['name'] ) ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_theme_mod( $shortcode_name ) ) ? ttgarden_do_shortcode( $content ) : '';
 }
-add_shortcode( 'ttgarden_block_ifnot_theme_option', 'ttgarden_block_ifnot_theme_option' );
 
 /**
  * Conditional check for if we're in the loop.
