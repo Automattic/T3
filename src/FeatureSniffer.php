@@ -95,7 +95,19 @@ array(
 	 */
 	public function find_unsupported_features(): void {
 		// Load in either the HTML passed to the class constructor or the option value.
-		$html = ( '' === $this->html ) ? strtolower( get_option( 'ttgarden_theme_html' ) ) : strtolower( $this->html );
+		if ( '' !== $this->html ) {
+			$html = strtolower( $this->html );
+		} else {
+			global $wp_filesystem;
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+
+			if ( ! WP_Filesystem() ) {
+				wp_die( 'Failed to access the filesystem.' );
+			}
+
+			// Get the HTML content from our templates/index.html file.
+			$html = strtolower( $wp_filesystem->get_contents( get_template_directory() . '/templates/index.html' ) );
+		}
 
 		// Check each unsupported feature.
 		foreach ( $this->unsupported_features as $feature => $data ) {
