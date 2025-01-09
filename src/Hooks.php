@@ -44,6 +44,8 @@ class Hooks {
 
 		add_action( 'after_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10 );
 
+		add_filter( 'wp_prepare_themes_for_js', array( $this, 'prepare_themes_for_js' ) );
+
 		// Only run these if the TumblrThemeGarden theme is active.
 		if ( $this->is_ttgarden_active ) {
 			add_filter( 'template_include', array( $this, 'template_include' ) );
@@ -66,6 +68,24 @@ class Hooks {
 
 			add_action( 'init', array( $this, 'ttgarden_disable_emojis' ) );
 		}
+	}
+
+	/**
+	 * Filters the prepared themes list for display in wp-admin/themes.php
+	 * Updates customize and live preview buttons for Tumblr themes to use the customizer.
+	 *
+	 * @param array $prepared_themes Array of JS prepared themes.
+	 *
+	 * @return array
+	 */
+	public function prepare_themes_for_js( $prepared_themes ): array {
+		foreach ( $prepared_themes as $key => $theme ) {
+			if ( false !== strpos( $theme['tags'], 'tumblr-theme' ) ) {
+				$prepared_themes[ $key ]['actions']['customize'] = admin_url( 'customize.php?theme=' . $theme['id'] . '&return=%2Fwp-admin%2Fthemes.php' );
+			}
+		}
+
+		return $prepared_themes;
 	}
 
 	/**
