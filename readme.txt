@@ -3,7 +3,7 @@ Contributors: automattic, tommusrhodus, aaronjbaptiste, rtio, roccotripaldi
 Tags: tumblr, theme
 Requires at least: 6.5
 Tested up to: 6.7
-Stable tag: 0.1.15
+Stable tag: 0.1.19
 Requires PHP: 8.2
 License: GPLv2 or later
 Text Domain: tumblr-theme-garden
@@ -50,6 +50,17 @@ The source code for the Tumblr Theme Garden plugin is publicly available and mai
 This repository includes all of the necessary build tools and documentation on how to use them. We encourage developers to explore and contribute to the project!
 
 == Changelog ==
+
+= 0.1.19 =
+
+* Removes Pseudo-theme, Tumblr themes are now WP Themes
+
+= 0.1.16 =
+
+* Fixes theme html option in customizer
+* Display more links to Tumblr theme browser
+* fix: undefined pinned post key in lang array
+* Always show active theme in theme browser
 
 = 0.1.15 =
 * Initial release for browsing and activating Tumblr themes
