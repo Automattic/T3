@@ -176,14 +176,20 @@ class ThemeGarden {
 	 * @return \WP_Error | object
 	 */
 	public function get_theme( string $theme_id ) {
-		$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
-		$status   = wp_remote_retrieve_response_code( $response );
+		$cached_response = get_transient( 'ttgarden_tumblr_theme_response_' . $theme_id );
 
-		if ( 200 !== $status ) {
-			return new \WP_Error();
+		if ( false === $cached_response ) {
+			$response = wp_remote_get( self::THEME_GARDEN_ENDPOINT . '/theme/' . esc_attr( $theme_id ) . '?time=' . time() );
+			$status   = wp_remote_retrieve_response_code( $response );
+			if ( 200 !== $status ) {
+				return new \WP_Error();
+			}
+
+			$cached_response = wp_remote_retrieve_body( $response );
+			set_transient( 'ttgarden_tumblr_theme_response_' . $theme_id, $cached_response, DAY_IN_SECONDS );
 		}
 
-		$body = json_decode( wp_remote_retrieve_body( $response ) );
+		$body = json_decode( wp_remote_retrieve_body( $cached_response ) );
 
 		if ( ! isset( $body->response->theme ) ) {
 			return new \WP_Error();
@@ -343,12 +349,13 @@ Tags: tumblr-theme
 	 * @return array
 	 */
 	public function get_themes_and_categories(): array {
-		$cached_response = get_transient( 'ttgarden_tumblr_themes_response' . $this->get_api_query_string() );
+		$query_string    = $this->get_api_query_string();
+		$cached_response = get_transient( 'ttgarden_tumblr_themes_response_' . $query_string );
 
 		if ( false === $cached_response ) {
 			$response        = wp_remote_get( self::THEME_GARDEN_ENDPOINT . $this->get_api_query_string() );
 			$cached_response = wp_remote_retrieve_body( $response );
-			set_transient( 'ttgarden_tumblr_themes_response', $cached_response, WEEK_IN_SECONDS );
+			set_transient( 'ttgarden_tumblr_themes_response_' . $query_string, $cached_response, DAY_IN_SECONDS );
 		}
 
 		$body = json_decode( $cached_response, true );
