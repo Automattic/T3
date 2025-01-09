@@ -138,7 +138,10 @@ class Plugin {
 	 * @return  void
 	 */
 	public function initialize(): void {
-		$this->ttgarden_active = 'tumblr-theme-garden' === get_option( 'template' );
+		$theme      = wp_get_theme();
+		$theme_tags = $theme->get( 'Tags' );
+
+		$this->ttgarden_active = ( is_array( $theme_tags ) ) ? in_array( 'tumblr-theme', $theme_tags, true ) : false;
 
 		// Setup all plugin hooks.
 		$this->hooks = new Hooks();
@@ -149,15 +152,13 @@ class Plugin {
 		$this->customizer->initialize( $this->ttgarden_active );
 
 		$this->theme_garden = new ThemeGarden();
-		$this->theme_garden->initialize();
+		$this->theme_garden->initialize( $this->ttgarden_active );
 
 		$this->block_extensions = new BlockExtensions();
 		$this->block_extensions->initialize( $this->ttgarden_active );
 
 		// In the frontend, setup the parser.
-		if ( ! is_admin() ) {
-			$this->parser = new Parser();
-			$this->parser->initialize();
-		}
+		$this->parser = new Parser();
+		$this->parser->initialize();
 	}
 }

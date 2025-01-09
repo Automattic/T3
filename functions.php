@@ -153,6 +153,89 @@ function ttgarden_get_tumblr_regex(): string {
 	return '/\{([a-zA-Z0-9][a-zA-Z0-9\\-\/=" ]*|font\:[a-zA-Z0-9 ]+|text\:[a-zA-Z0-9 ]+|select\:[a-zA-Z0-9 ]+|image\:[a-zA-Z0-9 ]+|color\:[a-zA-Z0-9 ]+|RGBcolor\:[a-zA-Z0-9 ]+|lang\:[a-zA-Z0-9- ]+|[\/]?block\:[a-zA-Z0-9]+( [a-zA-Z0-9=" ]+)*)\}/i';
 }
 
+/**
+ * Custom comment markup.
+ *
+ * @param WP_Comment $comment The comment object.
+ * @param array      $args    An array of arguments.
+ *
+ * @return void
+ */
+function ttgarden_comment_markup( $comment, $args ): void {
+	?>
+<li class="note">
+
+	<a href="#" class="avatar_frame">
+		<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
+	</a>
+
+	<span class="action">
+		<?php
+			echo wp_kses_post(
+				sprintf(
+					// Translators: 1 is the author name.
+					__( '%s <span class="says">says:</span>', 'tumblr-theme-garden' ),
+					sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) )
+				)
+			);
+			comment_text();
+		?>
+
+			<?php if ( '0' === $comment->comment_approved ) : ?>
+			<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'tumblr-theme-garden' ); ?></p>
+		<?php endif; ?>
+
+	</span>
+
+	<div class="clear"></div>
+
+	<?php
+}
+
+/**
+ * This is the main output function for the plugin.
+ * This function pulls in the Tumblr theme content and then processes it.
+ *
+ * @return void
+ */
+function ttgarden_page_output(): void {
+	// Get the HTML content from the themes template part.
+	$content = file_get_contents( get_template_directory() . '/templates/index.html' );
+
+	// Shortcodes don't currently have a doing_shortcode() or similar.
+	// So we need a global to track the context.
+	ttgarden_set_parse_context( 'theme', true );
+
+	/**
+	 * Capture wp_head output.
+	 *
+	 * @todo Can this be done in a more elegant way?
+	 */
+	ob_start();
+	wp_head();
+	$ttgarden_head = ob_get_contents();
+	ob_end_clean();
+
+	// Build page content and then remove any closing shortcodes.
+	$content = apply_filters( 'ttgarden_theme_output', $content );
+
+	/**
+	 * Capture wp_footer output.
+	 *
+	 * @todo Can this be done in a more elegant way?
+	 */
+	ob_start();
+	wp_footer();
+	$ttgarden_footer = ob_get_contents();
+	ob_end_clean();
+
+	// Add the head and footer to the theme.
+	$content = str_replace( '</head>', $ttgarden_head . '</head>', $content );
+	$content = str_replace( '</body>', $ttgarden_footer . '</body>', $content );
+
+	echo $content;
+}
+
 // Include tag and block hydration functions for each Tumblr Theme tag|block.
 require TTGARDEN_PATH . 'includes/block-functions.php';
 require TTGARDEN_PATH . 'includes/tag-functions.php';

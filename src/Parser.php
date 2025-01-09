@@ -265,13 +265,11 @@ class Parser {
 		 * At this point, we can clean out anything that's unsupported.
 		 * First: Create a new shortcode regex for the unsupported tags and blocks.
 		 * Second: Use the new regex to find and replace the unsupported tags and blocks with an empty string.
-		 * Third: Run the content through the shortcode parser to kick-off page creation.
 		 */
 		$pattern = get_shortcode_regex( array_merge( TTGARDEN_MISSING_BLOCKS, TTGARDEN_MISSING_TAGS ) );
-		$content = ttgarden_do_shortcode( preg_replace_callback( "/$pattern/", '__return_empty_string', $content ) );
-		$content = preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
-
-		return $content;
+		$content = preg_replace_callback( "/$pattern/", '__return_empty_string', $content );
+		$content = ttgarden_do_shortcode( $content );
+		return preg_replace( '/(\[\/[a-zA-z\d]*?\])/', '', $content );
 	}
 
 	/**
@@ -352,7 +350,7 @@ class Parser {
 		// Register the new shortcode on the fly.
 		add_shortcode( $shortcode, 'ttgarden_block_' . $condition . '_theme_option' );
 
-		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . " name=\"$normalized_attr\"]";
+		return ( str_starts_with( $boolean, '/' ) ) ? '[/' . $shortcode . ']' : '[' . $shortcode . ']';
 	}
 
 	/**
