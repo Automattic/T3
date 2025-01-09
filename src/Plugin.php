@@ -140,8 +140,10 @@ class Plugin {
 	public function initialize(): void {
 		$theme      = wp_get_theme();
 		$theme_tags = $theme->get( 'Tags' );
+		$is_tumblr_theme_active = is_array($theme_tags) && in_array('tumblr-theme', $theme_tags, true);
+		$is_tumblr_theme_live_preview = isset($_GET['theme']) && str_contains($_GET['theme'], 'tumblr');
 
-		$this->ttgarden_active = ( is_array( $theme_tags ) ) ? in_array( 'tumblr-theme', $theme_tags, true ) : false;
+		$this->ttgarden_active = $is_tumblr_theme_active || $is_tumblr_theme_live_preview;
 
 		// Setup all plugin hooks.
 		$this->hooks = new Hooks();
