@@ -301,7 +301,7 @@ class ThemeGarden {
 		}
 
 		// Define the theme name and path
-		$theme_slug = sanitize_title( $theme->title );
+		$theme_slug = sanitize_title( $theme->title ) . '-tumblr';
 		$theme_dir  = $wp_filesystem->wp_themes_dir() . $theme_slug . '/';
 
 		// Check if the theme directory exists; if not, create it
@@ -330,7 +330,7 @@ class ThemeGarden {
 		$style_css_path    = $theme_dir . 'style.css';
 		$style_css_content = '/*
 Theme Name: ' . $theme->title . '
-Description: A theme created programmatically with an HTML string.
+Description: '. $theme->description .'
 Author: ' . $theme->author->name . '
 Author URI: ' . $theme->author->url . '
 Version: ' . $theme_id_to_activate . '
