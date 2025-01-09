@@ -56,6 +56,8 @@ class ThemeGarden {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @param bool $is_ttgarden_active The TumblrThemeGarden active status.
+	 *
 	 * @return  void
 	 */
 	public function initialize( $is_ttgarden_active ): void {
@@ -97,9 +99,20 @@ class ThemeGarden {
 
 			$themes_and_categories = $this->get_themes_and_categories();
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
+			$active_theme          = null;
 
-			// @todo Hook this up to the new theme system.
-			$active_theme = $this->is_ttgarden_active ? null : null;
+			// If a Tumblr theme is active, we'll include the theme details in the JS.
+			if ( $this->is_ttgarden_active ) {
+				$theme = wp_get_theme();
+
+				$active_theme = array(
+					'id'          => $theme->get( 'Name' ),
+					'title'       => $theme->get( 'Name' ),
+					'thumbnail'   => $theme->get_screenshot(),
+					'author_name' => $theme->get( 'Author' ),
+					'author_url'  => $theme->get( 'AuthorURI' ),
+				);
+			}
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
