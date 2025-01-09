@@ -41,6 +41,16 @@ class ThemeGarden {
 	public string $search = '';
 
 	/**
+	 * The TumblrThemeGarden active status.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     bool
+	 */
+	private $is_ttgarden_active;
+
+	/**
 	 * Initializes the class.
 	 *
 	 * @since   1.0.0
@@ -48,7 +58,9 @@ class ThemeGarden {
 	 *
 	 * @return  void
 	 */
-	public function initialize(): void {
+	public function initialize( $is_ttgarden_active ): void {
+		$this->is_ttgarden_active = $is_ttgarden_active;
+
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 		add_action( 'admin_bar_menu', array( $this, 'admin_bar_render' ) );
 
@@ -87,7 +99,7 @@ class ThemeGarden {
 			$theme_details         = $this->selected_theme_id ? $this->get_theme( $this->selected_theme_id ) : null;
 
 			// @todo Hook this up to the new theme system.
-			$active_theme = null;
+			$active_theme = $this->is_ttgarden_active ? null : null;
 
 			wp_enqueue_script(
 				'tumblr-theme-garden',
@@ -189,7 +201,7 @@ class ThemeGarden {
 			set_transient( 'ttgarden_tumblr_theme_response_' . $theme_id, $cached_response, DAY_IN_SECONDS );
 		}
 
-		$body = json_decode( wp_remote_retrieve_body( $cached_response ) );
+		$body = json_decode( $cached_response );
 
 		if ( ! isset( $body->response->theme ) ) {
 			return new \WP_Error();

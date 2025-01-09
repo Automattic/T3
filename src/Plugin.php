@@ -152,7 +152,7 @@ class Plugin {
 		$this->customizer->initialize( $this->ttgarden_active );
 
 		$this->theme_garden = new ThemeGarden();
-		$this->theme_garden->initialize();
+		$this->theme_garden->initialize( $this->ttgarden_active );
 
 		$this->block_extensions = new BlockExtensions();
 		$this->block_extensions->initialize( $this->ttgarden_active );
