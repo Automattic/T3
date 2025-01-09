@@ -330,7 +330,7 @@ class ThemeGarden {
 		$style_css_path    = $theme_dir . 'style.css';
 		$style_css_content = '/*
 Theme Name: ' . $theme->title . '
-Description: '. $theme->description .'
+Description: ' . $theme->description . '
 Author: ' . $theme->author->name . '
 Author URI: ' . $theme->author->url . '
 Version: ' . $theme_id_to_activate . '
