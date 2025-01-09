@@ -34,8 +34,6 @@ const _ThemeGardenOverlay = ( {
 		closeOverlay();
 	}, [ closeOverlay ] );
 
-	console.log(themeDetails);
-
 	const renderThemeAuthor = () => {
 		if (!themeDetails.author) {
 			return null;
