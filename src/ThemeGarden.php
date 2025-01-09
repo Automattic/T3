@@ -106,7 +106,7 @@ class ThemeGarden {
 				$theme = wp_get_theme();
 
 				$active_theme = array(
-					'id'          => $theme->get( 'Name' ),
+					'id'          => get_option('tumblr_theme_id'),
 					'title'       => $theme->get( 'Name' ),
 					'thumbnail'   => $theme->get_screenshot(),
 					'author_name' => $theme->get( 'Author' ),
@@ -360,6 +360,7 @@ Tags: tumblr-theme
 
 		// Setup theme option defaults.
 		$this->option_defaults_helper( $theme_slug, maybe_unserialize( $theme->default_params ) );
+		add_option('tumblr_theme_id', $theme->id);
 
 		// Finally, redirect to the customizer with the new theme active.
 		switch_theme( $theme_slug );
