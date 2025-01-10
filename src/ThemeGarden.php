@@ -352,7 +352,7 @@ Tags: tumblr-theme
 
 		// Create an index.php file with the theme output.
 		$index_php_path    = $theme_dir . 'index.php';
-		$index_php_content = '<?php ttgarden_page_output();';
+		$index_php_content = '<?php if( function_exists( "ttgarden_page_output" ) ) { ttgarden_page_output(); }';
 
 		if ( ! $wp_filesystem->put_contents( $index_php_path, $index_php_content, FS_CHMOD_FILE ) ) {
 			wp_die( 'Failed to write the index.php file.' );
