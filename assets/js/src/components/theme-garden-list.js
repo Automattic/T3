@@ -33,7 +33,7 @@ const _ThemeGardenList = ( {
 	}, [ themes ] );
 
 	const handleDetailsClick = async ( { currentTarget: { value: themeId } } ) => {
-		if ( activeTheme && themeId === activeTheme.id ) {
+		if ( themeId === activeTheme.id ) {
 			window.location.href = customizeUrl;
 			return;
 		}

@@ -106,7 +106,7 @@ class ThemeGarden {
 				$theme = wp_get_theme();
 
 				$active_theme = array(
-					'id'          => get_theme_mod( 'id'),
+					'id'          => $theme->get( 'Name' ),
 					'title'       => $theme->get( 'Name' ),
 					'thumbnail'   => $theme->get_screenshot(),
 					'author_name' => $theme->get( 'Author' ),
@@ -359,7 +359,7 @@ Tags: tumblr-theme
 		}
 
 		// Setup theme option defaults.
-		$this->option_defaults_helper( $theme_slug, maybe_unserialize( $theme->default_params ), $theme->id );
+		$this->option_defaults_helper( $theme_slug, maybe_unserialize( $theme->default_params ) );
 
 		// Finally, redirect to the customizer with the new theme active.
 		switch_theme( $theme_slug );
@@ -415,11 +415,10 @@ Tags: tumblr-theme
 	 *
 	 * @param string $theme_slug    The theme slug.
 	 * @param array  $default_params Default option values from the theme.
-	 * @param string $theme_id      The external id of the Tumblr theme.
 	 *
 	 * @return void
 	 */
-	public function option_defaults_helper(string $theme_slug, array $default_params, string $theme_id): void {
+	public function option_defaults_helper( $theme_slug, $default_params ): void {
 		$ttgarden_mods = get_option( 'theme_mods_' . $theme_slug, array() );
 
 		if ( ! is_array( $ttgarden_mods ) ) {
@@ -430,8 +429,6 @@ Tags: tumblr-theme
 			$normal                   = ttgarden_normalize_option_name( $key );
 			$ttgarden_mods[ $normal ] = ( str_starts_with( $key, 'color:' ) ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
 		}
-
-		$ttgarden_mods['id'] = $theme_id;
 
 		update_option( 'theme_mods_' . $theme_slug, $ttgarden_mods );
 	}
