@@ -337,10 +337,10 @@ Author URI: %s
 Version: %s
 Tags: tumblr-theme
 */',
-			isset( $theme->title ) ? $theme->title : '',
-			isset( $theme->description ) ? $theme->description : '',
-			isset( $theme->author->name ) ? $theme->author->name : '',
-			isset( $theme->author->url ) ? $theme->author->url : '',
+			isset( $theme->title ) ? sanitize_text_field( $theme->title ) : '',
+			isset( $theme->description ) ? sanitize_text_field( str_replace( array( "\r\n", "\n", "\r" ), ' ', $theme->description ) ) : '',
+			isset( $theme->author->name ) ? sanitize_text_field( $theme->author->name ) : '',
+			isset( $theme->author->url ) ? esc_url( $theme->author->url ) : '',
 			$theme_id_to_activate // Tumblr themes do not have a version number, so we'll use the theme id.
 		);
 
