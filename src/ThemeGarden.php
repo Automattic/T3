@@ -328,14 +328,21 @@ class ThemeGarden {
 
 		// Create a style.css file with the theme metadata.
 		$style_css_path    = $theme_dir . 'style.css';
-		$style_css_content = '/*
-Theme Name: ' . $theme->title . '
-Description: ' . $theme->description . '
-Author: ' . $theme->author->name . '
-Author URI: ' . $theme->author->url . '
-Version: ' . $theme_id_to_activate . '
+		$style_css_content = sprintf(
+			'/*
+Theme Name: %s
+Description: %s
+Author: %s
+Author URI: %s
+Version: %s
 Tags: tumblr-theme
-*/';
+*/',
+			isset( $theme->title ) ? sanitize_text_field( $theme->title ) : '',
+			isset( $theme->description ) ? sanitize_text_field( str_replace( array( "\r\n", "\n", "\r" ), ' ', $theme->description ) ) : '',
+			isset( $theme->author->name ) ? sanitize_text_field( $theme->author->name ) : '',
+			isset( $theme->author->url ) ? esc_url( $theme->author->url ) : '',
+			$theme_id_to_activate // Tumblr themes do not have a version number, so we'll use the theme id.
+		);
 
 		if ( ! $wp_filesystem->put_contents( $style_css_path, $style_css_content, FS_CHMOD_FILE ) ) {
 			wp_die( 'Failed to write the style.css file.' );

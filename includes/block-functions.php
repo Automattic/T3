@@ -123,7 +123,7 @@ function ttgarden_block_ifnot_theme_option( $atts, $content, $shortcode_name ): 
 		return '';
 	}
 
-	return ( get_theme_mod( $shortcode_name ) ) ? ttgarden_do_shortcode( $content ) : '';
+	return ( get_theme_mod( $shortcode_name ) ) ? '' : ttgarden_do_shortcode( $content );
 }
 
 /**
