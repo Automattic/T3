@@ -139,6 +139,12 @@ class Customizer {
 			);
 		}
 
+		// Check if the 'background_color' setting exists
+		if ( $wp_customize->get_setting( 'background_color' ) ) {
+			// Change transport to 'refresh'
+			$wp_customize->get_setting( 'background_color' )->transport = 'refresh';
+		}
+
 		// Add an accent_color setting.
 		$wp_customize->add_setting(
 			'accent_color',
